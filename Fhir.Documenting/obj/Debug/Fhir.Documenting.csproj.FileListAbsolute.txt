@@ -1,0 +1,5 @@
+E:\Code\FHIR\Fhir.Documenting\Fhir.Documenting\bin\Debug\Fhir.Documenting.dll
+E:\Code\FHIR\Fhir.Documenting\Fhir.Documenting\bin\Debug\Fhir.Documenting.pdb
+E:\Code\FHIR\Fhir.Documenting\Fhir.Documenting\obj\Debug\Fhir.Documenting.csprojResolveAssemblyReference.cache
+E:\Code\FHIR\Fhir.Documenting\Fhir.Documenting\obj\Debug\Fhir.Documenting.dll
+E:\Code\FHIR\Fhir.Documenting\Fhir.Documenting\obj\Debug\Fhir.Documenting.pdb
