@@ -1,7 +1,0 @@
-E:\Code\FHIR\Fhir.Documenting\Documenter\bin\Debug\Fhir.Documenting.exe.config
-E:\Code\FHIR\Fhir.Documenting\Documenter\obj\Debug\Fhir.Documenting.exe
-E:\Code\FHIR\Fhir.Documenting\Documenter\obj\Debug\Fhir.Documenting.pdb
-E:\Code\FHIR\Fhir.Documenting\Documenter\obj\Debug\Documenter.csprojResolveAssemblyReference.cache
-E:\Code\FHIR\Fhir.Documenting\Documenter\bin\Debug\Fhir.Documenting.exe
-E:\Code\FHIR\Fhir.Documenting\Documenter\bin\Debug\Fhir.Documenting.pdb
-E:\Code\FHIR\Fhir.Documenting\Documenter\bin\Debug\Fhir.Documenting.dll
