@@ -52,16 +52,17 @@ namespace Fhir.Documenting
             return target;
         }
 
+        
         public void GenerateItem(SourceItem item)
         {
             RenderMapping mapping = mappings.GetMapping(item.Extension);
             if (mapping == null) throw new Exception("Mapping not found for " + item.FileName);
 
-            string output = mapping.Render(item.GetContent());
             string location = TargetLocation(item);
             EnsurePath(location);
-            string filename = TargetFile(item, mapping);
-            File.WriteAllText(filename, output);
+            string outputfile = TargetFile(item, mapping);
+            
+            mapping.Render(item.FullPath, outputfile);
         }
 
         public void Generate(IEnumerable<SourceItem> items)

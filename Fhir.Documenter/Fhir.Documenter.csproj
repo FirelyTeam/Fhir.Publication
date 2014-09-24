@@ -7,8 +7,8 @@
     <ProjectGuid>{3E26A77A-FFFF-4B70-B6DC-FEF06B8FE246}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Fhir.Documenting</RootNamespace>
-    <AssemblyName>Fhir.Documenting</AssemblyName>
+    <RootNamespace>Fhir.DocumenterTool</RootNamespace>
+    <AssemblyName>fhirdoc</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

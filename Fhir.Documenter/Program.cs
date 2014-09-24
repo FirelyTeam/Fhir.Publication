@@ -18,11 +18,12 @@ namespace Fhir.DocumenterTool
         static void Main(string[] args)
         {
             string dir = (args.Count() == 1) ? args[0] : Directory.GetCurrentDirectory();
+
             string sourcedir = dir + "\\Source";
             string targetdir = dir + "\\Generated";
             
             MappingList mappings = new MappingList();
-            mappings.Map(".md", ".html", RenderMarkDown);
+            mappings.Map(".md", ".html", new TestRenderer());
 
             Generator generator = new Generator(sourcedir, targetdir, mappings);
             generator.Generate();

@@ -20,7 +20,7 @@ namespace Fhir.Documenting
             return null;
         }
 
-        public void Map(string fromextension, string toExtension, RenderFunction function)
+        public void Map(string fromextension, string toExtension, IRenderer function)
         {
             RenderMapping mapping = new RenderMapping(fromextension, function, toExtension);
             this.Mappings.Add(mapping);
