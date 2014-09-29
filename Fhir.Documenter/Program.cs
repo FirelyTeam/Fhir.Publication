@@ -23,7 +23,7 @@ namespace Fhir.DocumenterTool
             string targetdir = dir + "\\Generated";
             
             MappingList mappings = new MappingList();
-            mappings.Map(".md", ".html", new TestRenderer());
+            mappings.Map(".md", ".html", new MarkdownRenderer());
 
             Generator generator = new Generator(sourcedir, targetdir, mappings);
             generator.Generate();
