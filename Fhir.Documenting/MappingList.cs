@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Fhir.Documenting
+namespace Hl7.Documenting
 {
     public class MappingList
     {
@@ -20,6 +20,11 @@ namespace Fhir.Documenting
             return null;
         }
 
+        /// <summary>
+        /// Add a mapping for rendering one file type into to another 
+        /// </summary>
+        /// <param name="fromextension">Source file type extension. Must start with a dot. For example: .md or .txt</param>
+        /// <param name="toExtension">Target file type extension. Must start with a dot. For example: .html or .xml</param>
         public void Map(string fromextension, string toExtension, IRenderer function)
         {
             RenderMapping mapping = new RenderMapping(fromextension, function, toExtension);

@@ -7,7 +7,7 @@
     <ProjectGuid>{D5B4F03D-79EB-4A8E-B3B8-4A3B1210033C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Fhir.Documenting</RootNamespace>
+    <RootNamespace>Hl7.Documenting</RootNamespace>
     <AssemblyName>Fhir.Documenting</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Fhir.Documenting
+namespace Hl7.Documenting
 {
 
     public interface IRenderer
