@@ -14,21 +14,12 @@ namespace Hl7.Fhir.Documenting
         public string ToExtension;
         public IRenderer Renderer;
 
-        public void Render(Stream input, Stream output)
-        {
-            using(var reader = new StreamReader(input))
-            using (var writer = new StreamWriter(output))
-            {
-                Renderer.Render(reader, writer);
-            }
-        }
-
         public void Render(string inputfile, string outputfile)
         {
             using (Stream input = File.OpenRead(inputfile))
             using (Stream output = File.OpenWrite(outputfile))
             {
-                Render(input, output);
+                Renderer.Render(input, output);
             }
         }
 

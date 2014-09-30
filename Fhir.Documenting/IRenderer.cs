@@ -10,7 +10,7 @@ namespace Hl7.Fhir.Documenting
 
     public interface IRenderer
     {
-        void Render(StreamReader reader, StreamWriter writer);
+        void Render(Stream input, Stream output);
     }
 
 }

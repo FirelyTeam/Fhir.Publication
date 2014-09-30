@@ -13,7 +13,12 @@ namespace Hl7.Fhir.DocumenterTool
         {
             MappingList mappings = new MappingList();
             //mappings.Map(".md", ".html", new TestRenderer());
-            mappings.Map(".md", ".html", new MarkdownRenderer());
+            IRenderer test = new TestRenderer();
+            IRenderer md = new MarkdownRenderer();
+
+            IRenderer pipe = new PipeLine(test, md);
+
+            mappings.Map(".md", ".html", pipe);
 
             Generator generator = new Generator(sourcedir, targetdir, mappings);
             generator.Generate();

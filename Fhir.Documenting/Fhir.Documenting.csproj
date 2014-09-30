@@ -48,6 +48,7 @@
     <Compile Include="IRenderer.cs" />
     <Compile Include="MappingList.cs" />
     <Compile Include="MarkdownRenderer.cs" />
+    <Compile Include="PipeLine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RenderMapping.cs" />
     <Compile Include="SourceItem.cs" />
