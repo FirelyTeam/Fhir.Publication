@@ -17,11 +17,6 @@ namespace Hl7.Fhir.DocumenterTool
             string sourcedir = dir + "\\Source";
             string targetdir = dir + "\\Generated";
 
-            
-            MappingList mappings = new MappingList();
-            mappings.Map(".md", ".html", new MarkdownRenderer());
-
-
             FhirDocumentation.Generate(sourcedir, targetdir);
             
         }

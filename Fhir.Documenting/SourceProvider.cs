@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hl7.Documenting
+namespace Hl7.Fhir.Documenting
 {
 
     class SourceProvider
