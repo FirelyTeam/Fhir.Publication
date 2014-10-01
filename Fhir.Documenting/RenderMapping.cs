@@ -12,18 +12,18 @@ namespace Hl7.Fhir.Documenting
     {
         public string FromExtension;
         public string ToExtension;
-        public IRenderer Renderer;
+        public IStreamRenderer Renderer;
 
-        public void Render(string inputfile, string outputfile)
+        public void Render(SourceFile item, string outputfile)
         {
-            using (Stream input = File.OpenRead(inputfile))
+            using (Stream input = File.OpenRead(item.FullPath))
             using (Stream output = File.OpenWrite(outputfile))
             {
-                Renderer.Render(input, output);
+                Renderer.Render(item, input, output);
             }
         }
 
-        public RenderMapping(string fromExtension, IRenderer renderer, string toExtension)
+        public RenderMapping(string fromExtension, IStreamRenderer renderer, string toExtension)
         {
             this.FromExtension = fromExtension;
             this.ToExtension = toExtension;

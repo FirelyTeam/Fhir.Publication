@@ -8,9 +8,10 @@ using System.Threading.Tasks;
 
 namespace Hl7.Fhir.Documenting
 {
-    public class MarkdownRenderer : IRenderer    
+
+    public class MarkdownRenderer : TextRenderer    
     {
-        private void Render(StreamReader reader, StreamWriter writer)
+        public override void Render(SourceFile item, StreamReader reader, StreamWriter writer)
         {
             var mark = new Markdown();
 
@@ -24,12 +25,6 @@ namespace Hl7.Fhir.Documenting
             writer.Write(htmlmd);            
         }
 
-        public void Render(Stream input, Stream output)
-        {
-            var reader = new StreamReader(input);
-            var writer = new StreamWriter(output);
-            Render(reader, writer);
-            writer.Flush();
-        }
+        
     }
 }

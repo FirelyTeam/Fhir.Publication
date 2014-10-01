@@ -7,18 +7,17 @@ using System.Threading.Tasks;
 
 namespace Hl7.Fhir.Documenting
 {
-    public class TestRenderer : IRenderer
+    public class TestRenderer : TextRenderer
     {
-
-        public void Render(Stream input, Stream output)
+        public override void Render(SourceFile item, StreamReader reader, StreamWriter writer)
         {
-            var reader = new StreamReader(input);
-            var writer = new StreamWriter(output);
-            
             string content = reader.ReadToEnd();
-            content = "TestRendering - Hello World!!!\n" + content;
+            StringBuilder builder = new StringBuilder();
+            builder.Append(item.FileName);
+            builder.Append("==");
+            builder.Append(content);
+
             writer.Write(content);
-            writer.Flush();
         }
     }
 }

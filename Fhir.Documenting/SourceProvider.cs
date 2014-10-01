@@ -30,9 +30,9 @@ namespace Hl7.Fhir.Documenting
             return extensions.SelectMany(m => FileNamesWithExtension(m));
         }
 
-        public SourceItem CreateItem(string filename)
+        public SourceFile CreateItem(string filename)
         {
-            SourceItem item = new SourceItem();
+            SourceFile item = new SourceFile();
             item.FullPath = filename;
             item.Location = Path.GetDirectoryName(filename);
             item.RelativePath = FileUtils.RelativePath(directory, item.Location);
@@ -40,7 +40,7 @@ namespace Hl7.Fhir.Documenting
             return item;
         }
 
-        public IEnumerable<SourceItem> GetItems()
+        public IEnumerable<SourceFile> GetItems()
         {
             foreach(string filename in FileNames())
             {

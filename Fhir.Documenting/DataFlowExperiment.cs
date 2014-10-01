@@ -4,13 +4,18 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading.Tasks.Dataflow;
+using System.Xml;
 
 namespace Hl7.Fhir.Documenting
 {
-
-    public interface IRenderer
+    public class Test
     {
-        void Render(Stream input, Stream output);
+        public void TestDataflow()
+        {
+            TransformBlock<string, string> block;
+        }
     }
+
 
 }

@@ -35,6 +35,10 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Threading.Tasks.Dataflow, Version=4.5.23.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Tpl.Dataflow.4.5.23\lib\portable-net45+win8+wpa81\System.Threading.Tasks.Dataflow.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,10 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataFlowExperiment.cs" />
     <Compile Include="FileUtils.cs" />
     <Compile Include="Generator.cs" />
     <Compile Include="GeneratorExtensions.cs" />
-    <Compile Include="IRenderer.cs" />
+    <Compile Include="IStreamRenderer.cs" />
     <Compile Include="MappingList.cs" />
     <Compile Include="MarkdownRenderer.cs" />
     <Compile Include="PipeLine.cs" />
@@ -54,9 +59,8 @@
     <Compile Include="SourceItem.cs" />
     <Compile Include="SourceProvider.cs" />
     <Compile Include="TestRenderer.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
+    <Compile Include="TextRenderer.cs" />
+    <Compile Include="XmlLoader.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

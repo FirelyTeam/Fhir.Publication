@@ -25,7 +25,7 @@ namespace Hl7.Fhir.Documenting
         /// </summary>
         /// <param name="fromextension">Source file type extension. Must start with a dot. For example: .md or .txt</param>
         /// <param name="toExtension">Target file type extension. Must start with a dot. For example: .html or .xml</param>
-        public void Map(string fromextension, string toExtension, IRenderer function)
+        public void Map(string fromextension, string toExtension, IStreamRenderer function)
         {
             RenderMapping mapping = new RenderMapping(fromextension, function, toExtension);
             this.Mappings.Add(mapping);

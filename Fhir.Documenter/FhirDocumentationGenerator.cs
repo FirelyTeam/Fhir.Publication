@@ -12,16 +12,19 @@ namespace Hl7.Fhir.DocumenterTool
         public static void Generate(string sourcedir, string targetdir)
         {
             MappingList mappings = new MappingList();
-            //mappings.Map(".md", ".html", new TestRenderer());
-            IRenderer test = new TestRenderer();
-            IRenderer md = new MarkdownRenderer();
-
-            IRenderer pipe = new PipeLine(test, md);
+            
+            IStreamRenderer test = new TestRenderer();
+            IStreamRenderer md = new MarkdownRenderer();
+            IStreamRenderer pipe = new PipeLine(test, md);
 
             mappings.Map(".md", ".html", pipe);
 
             Generator generator = new Generator(sourcedir, targetdir, mappings);
             generator.Generate();
+
         }
+        
     }
+
+    
 }

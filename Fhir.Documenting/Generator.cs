@@ -37,23 +37,22 @@ namespace Hl7.Fhir.Documenting
             }
         }
 
-        public string TargetLocation(SourceItem item)
+        public string TargetLocation(SourceFile item)
         {
             //string path = Path.GetDirectoryName(relativePath);
             string location = Path.Combine(this.targetdir, item.RelativePath);
             return location;
         }
 
-        public string TargetFile(SourceItem item, RenderMapping mapping)
+        public string TargetFile(SourceFile item, RenderMapping mapping)
         {
             string location = TargetLocation(item);
             string corename = Path.GetFileNameWithoutExtension(item.FileName);
             string target = location + "\\" + corename + mapping.ToExtension;
             return target;
         }
-
         
-        public void GenerateItem(SourceItem item)
+        public void GenerateItem(SourceFile item)
         {
             RenderMapping mapping = mappings.GetMapping(item.Extension);
             if (mapping == null) throw new Exception("Mapping not found for " + item.FileName);
@@ -62,12 +61,12 @@ namespace Hl7.Fhir.Documenting
             EnsurePath(location);
             string outputfile = TargetFile(item, mapping);
             
-            mapping.Render(item.FullPath, outputfile);
+            mapping.Render(item, outputfile);
         }
 
-        public void Generate(IEnumerable<SourceItem> items)
+        public void Generate(IEnumerable<SourceFile> items)
         {
-            foreach(SourceItem item in items)
+            foreach(SourceFile item in items)
             {
                 GenerateItem(item);
             }
@@ -75,7 +74,7 @@ namespace Hl7.Fhir.Documenting
 
         public void Generate()
         {
-            List<SourceItem> items = provider.GetItems().ToList();
+            List<SourceFile> items = provider.GetItems().ToList();
             Generate(items);
         }
     }

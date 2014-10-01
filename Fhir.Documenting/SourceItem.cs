@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Hl7.Fhir.Documenting
 {
-    public class SourceItem
+    public class SourceFile
     {
         public string FullPath { get; set; }
         public string Location { get; set; }
@@ -20,10 +20,7 @@ namespace Hl7.Fhir.Documenting
                 return Path.GetExtension(FullPath);
             }
         }
-        public string GetContent()
-        {
-            return File.ReadAllText(FullPath);
-        }
+        
         public override string ToString()
         {
             return string.Join("|", RelativePath, FileName);

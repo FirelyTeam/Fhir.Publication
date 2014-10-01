@@ -7,24 +7,24 @@ using System.Threading.Tasks;
 
 namespace Hl7.Fhir.Documenting
 {
-    public class PipeLine : IRenderer
+    public class PipeLine : IStreamRenderer
     {
-        List<IRenderer> Renderers = new List<IRenderer>();
+        List<IStreamRenderer> Renderers = new List<IStreamRenderer>();
 
-        public PipeLine(params IRenderer[] renderers)
+        public PipeLine(params IStreamRenderer[] renderers)
         {
             this.Renderers.AddRange(renderers);
         }
 
-        public void Render(Stream input, Stream output)
+        public void Render(SourceFile item, Stream input, Stream output)
         {
             Stream source = input;
             Stream target = null;
-            foreach(IRenderer renderer in Renderers)
+            foreach(IStreamRenderer renderer in Renderers)
             {
                 source.Seek(0, SeekOrigin.Begin);
                 target = new MemoryStream();
-                renderer.Render(source, target);
+                renderer.Render(item, source, target);
                 source = target;
             }
             target.Seek(0, SeekOrigin.Begin);
