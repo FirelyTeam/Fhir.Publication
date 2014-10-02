@@ -9,19 +9,19 @@ namespace Hl7.Fhir.Documenting
 {
     public class Source
     {
-        public Context context;
+        public Context Context;
         public string FileName;
 
         public Source(Context context, string filename)
         {
-            this.context = context;
+            this.Context = context;
             this.FileName = filename;
         }
 
         public string FullPath { 
             get 
             {
-                return Path.Combine(context.CurrentDir, FileName);
+                return Path.Combine(Context.CurrentDir, FileName);
             } 
         }
 
@@ -29,7 +29,7 @@ namespace Hl7.Fhir.Documenting
         { 
             get 
             {
-                return context.CurrentDir;
+                return Context.CurrentDir;
             }
         }
 
@@ -37,7 +37,7 @@ namespace Hl7.Fhir.Documenting
         { 
             get 
             {
-                return context.RelativeDir;
+                return Context.RelativeDir;
             }
         }
 
@@ -51,7 +51,7 @@ namespace Hl7.Fhir.Documenting
 
         public override string ToString()
         {
-            return string.Join("|", context.RelativeDir, FileName);
+            return string.Join("|", Context.RelativeDir, FileName);
         }
     }
     

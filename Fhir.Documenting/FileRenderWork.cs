@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace Hl7.Fhir.Documenting
 {
-    public class FileRenderWork : IWork
+    public class FileRendering : IWork
     {
         Source source;
         string targetfile;
         IRenderer renderer;
 
-        public FileRenderWork(Source source, string targetfile, IRenderer renderer)
+        public FileRendering(Source source, string targetfile, IRenderer renderer)
         {
             this.source = source;
             this.targetfile = targetfile;
@@ -22,6 +22,7 @@ namespace Hl7.Fhir.Documenting
 
         public void Execute()
         {
+            source.Context.EnsureTarget();
             using (Stream input = File.OpenRead(source.FullPath))
             using (Stream output = File.OpenWrite(targetfile))
             {

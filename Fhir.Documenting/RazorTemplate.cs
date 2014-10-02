@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Hl7.Fhir.Documenting
 {
-    public abstract class RazorTemplate
+    public abstract class RazorTemplate<T>
     {
         public StringBuilder Buffer { get; set; }
         public StringWriter Writer { get; set; }
@@ -18,17 +18,15 @@ namespace Hl7.Fhir.Documenting
             Writer = new StringWriter(Buffer);
         }
 
+        public T Model { get; set; }
+
         public abstract void Execute();
 
-        // Writes the results of expressions like: "@foo.Bar"
         public virtual void Write(object value)
         {
-            // Don't need to do anything special
-            // Razor for ASP.Net does HTML encoding here.
             WriteLiteral(value);
         }
 
-        // Writes literals like markup: "<p>Foo</p>"
         public virtual void WriteLiteral(object value)
         {
             Buffer.Append(value);

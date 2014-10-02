@@ -14,23 +14,17 @@ namespace Hl7.Fhir.Documenting
 {
     public static class Razor
     {
-        public static void RenderFile(string source, string target)
-        {
-            Stream input = new FileStream(source, FileMode.Open);
-            Stream output = File.OpenWrite(target);
-            Render(input, output);
-        }
 
-        public static void Render(Stream input, Stream output)
+        public static void Render(Source source, Stream input, Stream output)
         {
-            using (var reader = new StreamReader(input))
-            using (var writer = new StreamWriter(output))
-            {
-                Assembly assembly = Assemble(reader);
-                RazorTemplate template = CreateTemplateInstance(assembly);
-                writer.Write(template.Render());
-                writer.Flush();
-            }
+            var reader = new StreamReader(input);
+            var writer = new StreamWriter(output);
+            
+            Assembly assembly = Assemble(reader);
+            RazorTemplate<Source> template = CreateTemplateInstance(assembly, source);
+            writer.Write(template.Render());
+            writer.Flush();
+            
         }
        
         public static Assembly Assemble(StreamReader reader)
@@ -48,7 +42,7 @@ namespace Hl7.Fhir.Documenting
   
             var codeProvider = new CSharpCodeProvider();
 
-            string core = typeof(Razor).Assembly.CodeBase.Replace("file:///", "").Replace("/", "\\");
+            string core = typeof(Razor).Assembly.Location;
             var parameters = new CompilerParameters(new string[] { core }, name);
 
             CompilerResults results = codeProvider.CompileAssemblyFromDom(parameters, code);
@@ -69,7 +63,7 @@ namespace Hl7.Fhir.Documenting
         {
             var language = new CSharpRazorCodeLanguage();
             var host = new RazorEngineHost(language);
-            host.DefaultBaseClass = typeof(RazorTemplate).FullName;
+            host.DefaultBaseClass = typeof(RazorTemplate<Source>).FullName;
             host.DefaultNamespace = "RazorOutput";
             host.DefaultClassName = "Template";
             host.NamespaceImports.Add("System");
@@ -78,10 +72,15 @@ namespace Hl7.Fhir.Documenting
             return engine;
         }
         
-        public static RazorTemplate CreateTemplateInstance(Assembly assembly)
+        public static RazorTemplate<Source> CreateTemplateInstance(Assembly assembly, Source source)
         {
-            Type type = assembly.GetType("RazorOutput.Template");
-            RazorTemplate template = Activator.CreateInstance(type) as RazorTemplate;
+            //Type type = assembly.GetType("RazorOutput.Template");
+            Type type = assembly.GetExportedTypes().Single(); // there is only one
+            RazorTemplate<Source> template = Activator.CreateInstance(type) as RazorTemplate<Source>;
+
+            var property = type.GetProperty("Model");
+            property.SetValue(template, source, null);
+
             return template;
         }
 

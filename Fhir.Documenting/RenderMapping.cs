@@ -8,25 +8,25 @@ using System.Threading.Tasks;
 namespace Hl7.Fhir.Documenting
 {
 
-    public class RenderMapping : IWorkFilter
+    public class RenderFilter : IWorkFilter
     {
         string mask;
         Context context;
         string toExt;
         IRenderer renderer;
 
-        public RenderMapping(Context context, string fromExt, string toExt, IRenderer renderer)
+        public RenderFilter(Context context, string mask, string toExt, IRenderer renderer)
         {
-            this.mask = "*" + fromExt;
+            this.mask = mask;
             this.context = context;
             this.toExt = toExt;
             this.renderer = renderer;
         }
 
-        public static string TargetFile(Source item, string toExtension)
+        public static string TargetFile(Source source, string toExtension)
         {
-            string location = item.context.TargetDir;
-            string corename = Path.GetFileNameWithoutExtension(item.FileName);
+            string location = source.Context.TargetDir;
+            string corename = Path.GetFileNameWithoutExtension(source.FileName);
             string target = location + "\\" + corename + toExtension;
             return target;
         }
@@ -38,7 +38,7 @@ namespace Hl7.Fhir.Documenting
             {
                 Source source = new Source(context, file);
                 string targetfile = TargetFile(source, toExt);
-                yield return new FileRenderWork(source, targetfile, renderer);
+                yield return new FileRendering(source, targetfile, renderer);
             }
         }
 

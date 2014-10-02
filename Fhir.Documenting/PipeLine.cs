@@ -7,11 +7,16 @@ using System.Threading.Tasks;
 
 namespace Hl7.Fhir.Documenting
 {
-    public class RenderPipeline : IRenderer
+    public class Pipeline : IRenderer
     {
         List<IRenderer> Renderers = new List<IRenderer>();
 
-        public RenderPipeline(params IRenderer[] renderers)
+        public Pipeline(params IRenderer[] renderers)
+        {
+            this.Renderers.AddRange(renderers);
+        }
+
+        public void Add(params IRenderer[] renderers)
         {
             this.Renderers.AddRange(renderers);
         }

@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace Hl7.Fhir.Documenting
 {
-    
     public class Bulk : IWork
     {
         public List<IWork> Worklist = new List<IWork>();
