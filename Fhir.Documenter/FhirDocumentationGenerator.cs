@@ -15,9 +15,13 @@ namespace Hl7.Fhir.DocumenterTool
             
             IStreamRenderer test = new TestRenderer();
             IStreamRenderer md = new MarkdownRenderer();
+            IStreamRenderer razor = new RazorRenderer();
+
             IStreamRenderer pipe = new PipeLine(test, md);
+            
 
             mappings.Map(".md", ".html", pipe);
+            mappings.Map(".cshtml", ".html", razor);
 
             Generator generator = new Generator(sourcedir, targetdir, mappings);
             generator.Generate();

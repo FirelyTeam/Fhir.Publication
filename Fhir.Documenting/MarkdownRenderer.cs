@@ -27,4 +27,13 @@ namespace Hl7.Fhir.Documenting
 
         
     }
+
+    public class RazorRenderer : IStreamRenderer
+    {
+
+        public void Render(SourceFile item, Stream input, Stream output)
+        {
+            Razor.Render(input, output); 
+        }
+    }
 }

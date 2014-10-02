@@ -39,6 +39,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.Tpl.Dataflow.4.5.23\lib\portable-net45+win8+wpa81\System.Threading.Tasks.Dataflow.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,7 +47,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContextRenderer.cs" />
     <Compile Include="DataFlowExperiment.cs" />
+    <Compile Include="FileContext.cs" />
     <Compile Include="FileUtils.cs" />
     <Compile Include="Generator.cs" />
     <Compile Include="GeneratorExtensions.cs" />
@@ -55,6 +58,8 @@
     <Compile Include="MarkdownRenderer.cs" />
     <Compile Include="PipeLine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RazorService.cs" />
+    <Compile Include="RazorTemplate.cs" />
     <Compile Include="RenderMapping.cs" />
     <Compile Include="SourceItem.cs" />
     <Compile Include="SourceProvider.cs" />

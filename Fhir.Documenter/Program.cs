@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Hl7.Fhir.Documenting;
 
 
 namespace Hl7.Fhir.DocumenterTool
@@ -18,7 +19,6 @@ namespace Hl7.Fhir.DocumenterTool
             string targetdir = dir + "\\Generated";
 
             FhirDocumentation.Generate(sourcedir, targetdir);
-            
         }
     }
 }
