@@ -8,9 +8,14 @@ using System.Threading.Tasks.Dataflow;
 
 namespace Hl7.Fhir.Documenting
 {
-    public class XmlLoader : IBlock<SourceFile, XmlDocument>
+    public interface IBlock<INPUT, OUTPUT>
     {
-        public XmlDocument Process(SourceFile input)
+        OUTPUT Process(INPUT input);
+    }
+
+    public class XmlLoader : IBlock<Source, XmlDocument>
+    {
+        public XmlDocument Process(Source input)
         {
             XmlDocument doc = new XmlDocument();
             doc.Load(input.FullPath);

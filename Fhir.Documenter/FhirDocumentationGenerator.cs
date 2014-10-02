@@ -11,20 +11,15 @@ namespace Hl7.Fhir.DocumenterTool
     {
         public static void Generate(string sourcedir, string targetdir)
         {
-            MappingList mappings = new MappingList();
-            
-            IStreamRenderer test = new TestRenderer();
-            IStreamRenderer md = new MarkdownRenderer();
-            IStreamRenderer razor = new RazorRenderer();
+            Context context = Context.Root(sourcedir, targetdir);
+            Bulk generator = new Bulk();
 
-            IStreamRenderer pipe = new PipeLine(test, md);
-            
+            RenderMapping markdown = new RenderMapping(context, ".md", ".html", new MarkdownRenderer());
+            RenderMapping razor = new RenderMapping(context, ".cshtml", ".html", new RazorRenderer());
+            generator.Add(markdown);
+            generator.Add(razor);
 
-            mappings.Map(".md", ".html", pipe);
-            mappings.Map(".cshtml", ".html", razor);
-
-            Generator generator = new Generator(sourcedir, targetdir, mappings);
-            generator.Generate();
+            generator.Execute();
 
         }
         

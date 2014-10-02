@@ -9,7 +9,7 @@ namespace Hl7.Fhir.Documenting
 {
     public class TestRenderer : TextRenderer
     {
-        public override void Render(SourceFile item, StreamReader reader, StreamWriter writer)
+        public override void Render(Source item, StreamReader reader, StreamWriter writer)
         {
             string content = reader.ReadToEnd();
             StringBuilder builder = new StringBuilder();

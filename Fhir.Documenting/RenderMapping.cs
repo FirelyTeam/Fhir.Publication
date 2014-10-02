@@ -8,30 +8,49 @@ using System.Threading.Tasks;
 namespace Hl7.Fhir.Documenting
 {
 
-    public class RenderMapping
+    public class RenderMapping : IWorkFilter
     {
-        public string FromExtension;
-        public string ToExtension;
-        public IStreamRenderer Renderer;
+        string mask;
+        Context context;
+        string toExt;
+        IRenderer renderer;
 
-        public void Render(SourceFile item, string outputfile)
+        public RenderMapping(Context context, string fromExt, string toExt, IRenderer renderer)
         {
-            using (Stream input = File.OpenRead(item.FullPath))
-            using (Stream output = File.OpenWrite(outputfile))
+            this.mask = "*" + fromExt;
+            this.context = context;
+            this.toExt = toExt;
+            this.renderer = renderer;
+        }
+
+        public static string TargetFile(Source item, string toExtension)
+        {
+            string location = item.context.TargetDir;
+            string corename = Path.GetFileNameWithoutExtension(item.FileName);
+            string target = location + "\\" + corename + toExtension;
+            return target;
+        }
+
+        public IEnumerable<IWork> Select()
+        {
+            string[] files = Directory.GetFiles(context.CurrentDir, mask, SearchOption.AllDirectories);
+            foreach(string file in files)
             {
-                Renderer.Render(item, input, output);
+                Source source = new Source(context, file);
+                string targetfile = TargetFile(source, toExt);
+                yield return new FileRenderWork(source, targetfile, renderer);
             }
         }
 
-        public RenderMapping(string fromExtension, IStreamRenderer renderer, string toExtension)
+        public void Execute()
         {
-            this.FromExtension = fromExtension;
-            this.ToExtension = toExtension;
-            this.Renderer = renderer;
-        }
-        public bool IsMappingFor(string extension)
-        {
-            return FromExtension == extension;
+            foreach(IWork work in Select())
+            {
+                work.Execute();
+            }
         }
     }
+
+        
 }
+

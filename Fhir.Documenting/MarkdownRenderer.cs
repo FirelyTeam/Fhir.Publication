@@ -11,7 +11,7 @@ namespace Hl7.Fhir.Documenting
 
     public class MarkdownRenderer : TextRenderer    
     {
-        public override void Render(SourceFile item, StreamReader reader, StreamWriter writer)
+        public override void Render(Source item, StreamReader reader, StreamWriter writer)
         {
             var mark = new Markdown();
 
@@ -28,10 +28,10 @@ namespace Hl7.Fhir.Documenting
         
     }
 
-    public class RazorRenderer : IStreamRenderer
+    public class RazorRenderer : IRenderer
     {
 
-        public void Render(SourceFile item, Stream input, Stream output)
+        public void Render(Source item, Stream input, Stream output)
         {
             Razor.Render(input, output); 
         }

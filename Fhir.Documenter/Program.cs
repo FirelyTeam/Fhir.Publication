@@ -17,7 +17,7 @@ namespace Hl7.Fhir.DocumenterTool
 
             string sourcedir = dir + "\\Source";
             string targetdir = dir + "\\Generated";
-
+            
             FhirDocumentation.Generate(sourcedir, targetdir);
         }
     }

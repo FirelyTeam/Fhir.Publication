@@ -9,7 +9,15 @@ namespace Hl7.Fhir.Documenting
 {
     public static class FileUtils
     {
-        
+        public static void EnsurePath(string path)
+        {
+
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+        }
+
         public static String RelativePath(string basepath, string path)
         {
             
