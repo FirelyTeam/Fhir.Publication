@@ -9,12 +9,10 @@ namespace Hl7.Fhir.Publication
 {
     public static class Make
     {
-
         public static IEnumerable<IWork> Filter(Context context, string mask, bool recurse = false)
         {
             return Work.Filter(context, mask, null, recurse, c => Make.Interpret(c));
         }
-
 
         public static IWork Interpret(Context context)
         {
@@ -45,11 +43,11 @@ namespace Hl7.Fhir.Publication
             else if (command == "copy")
             {
                 string target = words.Skip(2).FirstOrDefault();
-                return Copy.Filter(context, mask, recurse);
+                return Work.Filter<Copy>(context, mask);
             }
             else if (command == "profiletable")
             {
-                return ProfileTableWork.Select(context, mask, recurse);
+                return Work.Filter<ProfileTableWork>(context, mask);
             }
             else
             {

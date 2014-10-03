@@ -45,6 +45,11 @@ namespace Hl7.Fhir.Publication
             );
         }
 
+        public static IEnumerable<IWork> Filter<T>(Context context, string mask) where T : IWork, new()
+        {
+            return Filter<T>(context, mask, null, false);
+        }
+
         public static IEnumerable<IWork> Filter(IEnumerable<Context> contexts, WorkAction action)
         {
             foreach(Context c in contexts)

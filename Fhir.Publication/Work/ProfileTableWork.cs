@@ -22,12 +22,6 @@ namespace Hl7.Fhir.Publication
             var xmldoc = generator.generate(profile, false);
             File.WriteAllText(Context.TargetFullPath, xmldoc.ToString(SaveOptions.DisableFormatting));
         }
-
-        public static IEnumerable<IWork> Select(Context context, string mask, bool recurse)
-        {
-            //return Filter.Select(context, mask, ".html", recurse, c => new ProfileTableWork(c));
-            return Work.Filter<ProfileTableWork>(context, mask, ".html", recurse);
-        }
     }
 
 }
