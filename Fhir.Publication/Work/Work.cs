@@ -23,17 +23,26 @@ namespace Hl7.Fhir.Publication
             }
         }
 
-        public static IEnumerable<IWork> Filter<T>(Context context, string mask, string toExt, bool recurse) where T: IWork, new()
+        public static IEnumerable<IWork> Filter(Context context, string mask, bool recurse, WorkAction action)
+        {
+            return Work.Filter(context, mask, null, recurse, action);
+        }
+
+        public static IEnumerable<IWork> Filter(Context context, string mask, WorkAction action)
+        {
+            return Work.Filter(context, mask, null, false, action);
+        }
+
+        public static IEnumerable<IWork> Filter<T>(Context context, string mask, string toExt, bool recurse = false) where T: IWork, new()
         {
             return Filter(context, mask, toExt, recurse, 
                 delegate(Context c) 
                 { 
                     T work = new T(); 
                     work.Context = c;
-                    return (IWork) work;
+                    return work;
                 }
             );
-
         }
 
         public static IEnumerable<IWork> Filter(IEnumerable<Context> contexts, WorkAction action)

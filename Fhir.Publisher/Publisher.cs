@@ -13,11 +13,7 @@ namespace Hl7.Fhir.Publication
             Context context = Context.Root(sourcedir, targetdir);
             Bulk generator = new Bulk();
 
-            //RenderMapping markdown = new RenderMapping(context, ".md", ".html", new MarkdownRenderer());
-            //RenderFilter razor = new RenderFilter(context, "*.cshtml", ".html", new RazorRenderer());
-            //generator.Add(markdown);
-
-            var work = Make.Filter(context, "make.mk");
+            IEnumerable<IWork> work = Make.Filter(context, "make.mk");
             generator.Add(work);
             generator.Execute();
         }
