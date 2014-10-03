@@ -40,6 +40,11 @@ namespace Hl7.Fhir.Publication
                 string target = words.Skip(2).FirstOrDefault();
                 work = new Copy(context, mask, recurse);
             }
+            else if (command == "profiletable")
+            {
+                var file = context.Clone(mask, ".html");
+                work =  new ProfileTableWork(file);
+            }
             else
             {
                 Pipeline pipeline = new Pipeline();

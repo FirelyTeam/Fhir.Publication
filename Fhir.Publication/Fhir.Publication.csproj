@@ -39,13 +39,6 @@
     <Reference Include="MarkdownDeep">
       <HintPath>..\packages\MarkdownDeep.NET.1.5\lib\.NetFramework 3.5\MarkdownDeep.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\libraries\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpCompress">
-      <HintPath>..\libraries\SharpCompress.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -83,7 +76,7 @@
     <Compile Include="RazorService.cs" />
     <Compile Include="RazorTemplate.cs" />
     <Compile Include="SourceFile.cs" />
-    <Compile Include="RenderMapping.cs" />
+    <Compile Include="Filter.cs" />
     <Compile Include="StructureGenerator.cs" />
     <Compile Include="TestRenderer.cs" />
     <Compile Include="TextRenderer.cs" />

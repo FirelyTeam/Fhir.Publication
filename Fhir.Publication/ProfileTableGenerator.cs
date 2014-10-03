@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 using Hl7.Fhir.Model;
+using System.IO;
+using Hl7.Fhir.Serialization;
 
 namespace Hl7.Fhir.Publication
 {
@@ -12,16 +14,15 @@ namespace Hl7.Fhir.Publication
     { //extends TableGenerator {
 
         protected bool InlineGraphics { get; set; }
-        protected string OutputPath { get; set; }
+        protected string OutputDir { get; set; }
 
-
-        public ProfileTableGenerator(String outputPath, String pageName, bool inlineGraphics)
+        
+        public ProfileTableGenerator(String outputDir, String pageName, bool inlineGraphics)
         {
-            OutputPath = outputPath;
+            OutputDir = outputDir;
             InlineGraphics = inlineGraphics;
             // super(dest, page, pageName, inlineGraphics);
         }
-
 
         protected bool dictLinks()
         {
@@ -31,7 +32,7 @@ namespace Hl7.Fhir.Publication
 
         public XElement generate(Profile p, bool extensionsOnly)
         {
-            var gen = new HierarchicalTableGenerator(OutputPath, InlineGraphics);
+            var gen = new HierarchicalTableGenerator(OutputDir, InlineGraphics);
             TableModel model = gen.initNormalTable();
 
             genProfile(model.getRows(), p, extensionsOnly);
@@ -65,7 +66,7 @@ namespace Hl7.Fhir.Publication
                 }
             }
 
-            if (profile.ExtensionDefn.Any() || extensionsOnly)
+            if (profile.ExtensionDefn != null && (profile.ExtensionDefn.Any() || extensionsOnly))
             {
                 var re = new  Row();
                 rows.Add(re);
@@ -139,7 +140,30 @@ namespace Hl7.Fhir.Publication
 
             return null;
         }
+
+    
     }
+
+    public class ProfileTableWork : IWork
+    {
+        Context context;
+
+        public ProfileTableWork(Context context)
+        {
+            this.context = context;   
+        }
+
+        public void Execute()
+        {
+            var generator = new ProfileTableGenerator(context.TargetDir, "hoepsakee", false);
+            string s = File.ReadAllText(context.FullPath);
+            var profile = (Profile)FhirParser.ParseResourceFromXml(s);
+            var xmldoc = generator.generate(profile, false);
+            File.WriteAllText(context.TargetFullPath, xmldoc.ToString(SaveOptions.DisableFormatting));
+        }
+    }
+
+
 }
 
 
