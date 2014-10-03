@@ -3,14 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Hl7.Fhir.Documenting;
 
-namespace Hl7.Fhir.DocumenterTool
+namespace Hl7.Fhir.Publication
 {
-    public static class Generator
+    public static class Publisher
     {
-        
-
         public static void Generate(string sourcedir, string targetdir)
         {
             Context context = Context.Root(sourcedir, targetdir);
@@ -21,14 +18,9 @@ namespace Hl7.Fhir.DocumenterTool
             //generator.Add(markdown);
 
             IWork work = new MakeFilter(context, "make.gen");
-           
             generator.Add(work);
-
             generator.Execute();
-
         }
-        
     }
-
     
 }

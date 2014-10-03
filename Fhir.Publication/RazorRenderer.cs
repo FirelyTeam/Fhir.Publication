@@ -5,13 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hl7.Fhir.Documenting
+namespace Hl7.Fhir.Publication
 {
     public class RazorRenderer : IRenderer
     {
-        public void Render(Source source, Stream input, Stream output)
+        public void Render(Context context, Stream input, Stream output)
         {
-            Razor.Render(source, input, output);
+            Razor.Render(context, input, output);
         }
     }
 }

@@ -5,36 +5,40 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hl7.Fhir.Documenting
+namespace Hl7.Fhir.Publication
 {
     public static class Make
     {
-        public static IWork Interpret(Source source)
+        public static IWork Interpret(Context context)
         {
             Bulk bulk = new Bulk();
-            string[] lines = File.ReadAllLines(source.FullPath);
+            string[] lines = File.ReadAllLines(context.FullPath);
             foreach (string statement in lines)
             {
-                IWork work = Make.Interpret(source, statement);
+                IWork work = Make.Interpret(context, statement);
                 bulk.Add(work);
             }
             return bulk;
         }
-
-        public static IWork Interpret(Source source, string statement)
+        
+        public static IWork Interpret(Context context, string statement)
         {
             IWork work;
 
             string[] words = statement.Split(' ');
             string mask = words.Skip(1).First();
             string command = words.First();
-
+            bool recurse = words.Contains("-recurse");
 
             if (command == "make")
             {
                 string target = words.Skip(2).FirstOrDefault();
-                bool recurse = (target == "recurse");
-                work = new MakeFilter(source.Context, mask, recurse);
+                work = new MakeFilter(context, mask, recurse);
+            }
+            else if (command == "copy")
+            {
+                string target = words.Skip(2).FirstOrDefault();
+                work = new Copy(context, mask, recurse);
             }
             else
             {
@@ -47,7 +51,7 @@ namespace Hl7.Fhir.Documenting
 
                 string target = words.Skip(2).First();
 
-                work = new RenderFilter(source.Context, mask, target, pipeline);
+                work = new Filter(context, mask, target, recurse, pipeline);
             }
 
             return work;

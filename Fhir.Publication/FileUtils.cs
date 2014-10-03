@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hl7.Fhir.Documenting
+namespace Hl7.Fhir.Publication
 {
     public static class FileUtils
     {

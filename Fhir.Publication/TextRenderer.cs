@@ -5,17 +5,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hl7.Fhir.Documenting
+namespace Hl7.Fhir.Publication
 {
     public abstract class TextRenderer : IRenderer
     {
-        public abstract void Render(Source item, StreamReader reader, StreamWriter writer);
+        public abstract void Render(Context context, StreamReader reader, StreamWriter writer);
 
-        public void Render(Source item, Stream input, Stream output)
+        public void Render(Context context, Stream input, Stream output)
         {
             var reader = new StreamReader(input);
             var writer = new StreamWriter(output);
-            Render(item, reader, writer);
+            Render(context, reader, writer);
             writer.Flush();
         }
     }

@@ -5,15 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hl7.Fhir.Documenting
+namespace Hl7.Fhir.Publication
 {
 
     public interface IRenderer
     {
-        void Render(Source item, Stream input, Stream output);
+        void Render(Context context, Stream input, Stream output);
     }
 
-    
-    
 
 }

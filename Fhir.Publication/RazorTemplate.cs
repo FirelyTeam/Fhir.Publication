@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hl7.Fhir.Documenting
+namespace Hl7.Fhir.Publication
 {
     public abstract class RazorTemplate<T>
     {
@@ -25,6 +25,11 @@ namespace Hl7.Fhir.Documenting
         public virtual void Write(object value)
         {
             WriteLiteral(value);
+        }
+
+        public void Include(string filename)
+        {
+            WriteLiteral(File.ReadAllText(filename));
         }
 
         public virtual void WriteLiteral(object value)

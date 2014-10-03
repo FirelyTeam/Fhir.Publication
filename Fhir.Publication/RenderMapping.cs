@@ -5,40 +5,46 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hl7.Fhir.Documenting
+namespace Hl7.Fhir.Publication
 {
 
-    public class MakeFilter : IWorkFilter
+    public class Filter : IWork
     {
         string mask;
         Context context;
+        string toExt;
         bool recurse;
-        
-        public MakeFilter(Context context, string mask, bool recurse = false)
+        IRenderer renderer;
+
+        public Filter(Context context, string mask, string toExt, bool recurse, IRenderer renderer)
         {
             this.mask = mask;
             this.context = context;
+            this.toExt = toExt;
             this.recurse = recurse;
+            this.renderer = renderer;
         }
 
         public IEnumerable<IWork> Select()
         {
             SearchOption option = recurse ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
-            string[] files = Directory.GetFiles(context.CurrentDir, mask, option);
-            foreach (string file in files)
+            string[] filenames = Directory.GetFiles(context.CurrentDir, mask, option);
+            foreach(string filename in filenames)
             {
-                Source source = new Source(context, file);
-                yield return Make.Interpret(source);
+                Context file = context.Clone(filename, toExt);
+                yield return new FileRendering(file, renderer);
             }
         }
 
         public void Execute()
         {
-            foreach (IWork work in Select())
+            foreach(IWork work in Select())
             {
                 work.Execute();
             }
         }
-        
     }
+
+        
 }
+

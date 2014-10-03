@@ -10,18 +10,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Razor;
 
-namespace Hl7.Fhir.Documenting
+namespace Hl7.Fhir.Publication
 {
     public static class Razor
     {
 
-        public static void Render(Source source, Stream input, Stream output)
+        public static void Render(Context context, Stream input, Stream output)
         {
             var reader = new StreamReader(input);
             var writer = new StreamWriter(output);
             
             Assembly assembly = Assemble(reader);
-            RazorTemplate<Source> template = CreateTemplateInstance(assembly, source);
+            RazorTemplate<Context> template = CreateTemplateInstance(assembly, context);
             writer.Write(template.Render());
             writer.Flush();
             
@@ -31,19 +31,19 @@ namespace Hl7.Fhir.Documenting
         {
             RazorTemplateEngine engine = CreateEngine();
             CodeCompileUnit code = engine.GenerateCode(reader).GeneratedCode;
-            string name = CreateAssemblyName();
-            Compile(code, name);
-            Assembly assembly = Assembly.LoadFrom(name);
+            //string name = CreateAssemblyName();
+            Assembly assembly = Compile(code);
+            //Assembly assembly = Assembly.LoadFrom(name);
             return assembly;
         }
 
-        public static void Compile(CodeCompileUnit code, string name)
+        public static Assembly Compile(CodeCompileUnit code)
         {
   
             var codeProvider = new CSharpCodeProvider();
-
-            string core = typeof(Razor).Assembly.Location;
-            var parameters = new CompilerParameters(new string[] { core }, name);
+            var parameters = new CompilerParameters(); 
+            parameters.GenerateInMemory = true;
+            parameters.ReferencedAssemblies.Add(typeof(Razor).Assembly.Location);
 
             CompilerResults results = codeProvider.CompileAssemblyFromDom(parameters, code);
             if (results.Errors.HasErrors)
@@ -55,31 +55,33 @@ namespace Hl7.Fhir.Documenting
                 
                 string s = string.Format("Error Compiling Template: ({0}, {1}) {2}",
                                               error.Line, error.Column, error.ErrorText);
-                Console.WriteLine(s);
+                throw new Exception(s);
             }
+            return results.CompiledAssembly;
         }
 
         public static RazorTemplateEngine CreateEngine()
         {
             var language = new CSharpRazorCodeLanguage();
             var host = new RazorEngineHost(language);
-            host.DefaultBaseClass = typeof(RazorTemplate<Source>).FullName;
+            host.DefaultBaseClass = typeof(RazorTemplate<Context>).FullName;
             host.DefaultNamespace = "RazorOutput";
             host.DefaultClassName = "Template";
             host.NamespaceImports.Add("System");
+            host.NamespaceImports.Add("System.IO");
 
             var engine = new RazorTemplateEngine(host);
             return engine;
         }
         
-        public static RazorTemplate<Source> CreateTemplateInstance(Assembly assembly, Source source)
+        public static RazorTemplate<Context> CreateTemplateInstance(Assembly assembly, Context context)
         {
             //Type type = assembly.GetType("RazorOutput.Template");
             Type type = assembly.GetExportedTypes().Single(); // there is only one
-            RazorTemplate<Source> template = Activator.CreateInstance(type) as RazorTemplate<Source>;
+            RazorTemplate<Context> template = Activator.CreateInstance(type) as RazorTemplate<Context>;
 
             var property = type.GetProperty("Model");
-            property.SetValue(template, source, null);
+            property.SetValue(template, context, null);
 
             return template;
         }

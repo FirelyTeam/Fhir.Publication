@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hl7.Fhir.Documenting
+namespace Hl7.Fhir.Publication
 {
     public class Pipeline : IRenderer
     {
@@ -21,7 +21,7 @@ namespace Hl7.Fhir.Documenting
             this.Renderers.AddRange(renderers);
         }
 
-        public void Render(Source item, Stream input, Stream output)
+        public void Render(Context context, Stream input, Stream output)
         {
             Stream source = input;
             Stream target = null;
@@ -29,7 +29,7 @@ namespace Hl7.Fhir.Documenting
             {
                 source.Seek(0, SeekOrigin.Begin);
                 target = new MemoryStream();
-                renderer.Render(item, source, target);
+                renderer.Render(context, source, target);
                 source = target;
             }
             target.Seek(0, SeekOrigin.Begin);
