@@ -17,7 +17,7 @@ namespace Hl7.Fhir.Publication
             //RenderFilter razor = new RenderFilter(context, "*.cshtml", ".html", new RazorRenderer());
             //generator.Add(markdown);
 
-            IWork work = new MakeFilter(context, "make.gen");
+            IWork work = new MakeFilter(context, "make.mk");
             generator.Add(work);
             generator.Execute();
         }
