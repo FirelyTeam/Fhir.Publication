@@ -121,6 +121,7 @@ namespace Hl7.Fhir.Publication
             context.FullPath = filename;
             return context;
         }
+
         public Context Clone(string filename, string targetext)
         {
             Context context = this.Clone();

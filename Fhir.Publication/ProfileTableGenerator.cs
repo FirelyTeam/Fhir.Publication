@@ -144,26 +144,6 @@ namespace Hl7.Fhir.Publication
     
     }
 
-    public class ProfileTableWork : IWork
-    {
-        Context context;
-
-        public ProfileTableWork(Context context)
-        {
-            this.context = context;   
-        }
-
-        public void Execute()
-        {
-            var generator = new ProfileTableGenerator(context.TargetDir, "hoepsakee", false);
-            string s = File.ReadAllText(context.FullPath);
-            var profile = (Profile)FhirParser.ParseResourceFromXml(s);
-            var xmldoc = generator.generate(profile, false);
-            File.WriteAllText(context.TargetFullPath, xmldoc.ToString(SaveOptions.DisableFormatting));
-        }
-    }
-
-
 }
 
 

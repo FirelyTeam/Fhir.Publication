@@ -56,31 +56,28 @@
   <ItemGroup>
     <Compile Include="Context.cs" />
     <Compile Include="ElementDefnRenderingExtensions.cs" />
-    <Compile Include="FileCopy.cs" />
-    <Compile Include="FileRenderWork.cs" />
+    <Compile Include="Copy.cs" />
+    <Compile Include="ProfileTableWork.cs" />
+    <Compile Include="Render.cs" />
     <Compile Include="FileUtils.cs" />
-    <Compile Include="Generator.cs" />
     <Compile Include="Bulk.cs" />
     <Compile Include="HierarchicalTableGenerator.cs" />
     <Compile Include="IRenderer.cs" />
     <Compile Include="IWork.cs" />
     <Compile Include="Log.cs" />
-    <Compile Include="MakeInterpreter.cs" />
-    <Compile Include="MakeRenderer.cs" />
+    <Compile Include="Make.cs" />
     <Compile Include="MarkdownRenderer.cs" />
     <Compile Include="PipeLine.cs" />
     <Compile Include="ProfileKnowledgeProvider.cs" />
     <Compile Include="ProfileTableGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RazorRenderer.cs" />
-    <Compile Include="RazorService.cs" />
+    <Compile Include="Razor.cs" />
     <Compile Include="RazorTemplate.cs" />
-    <Compile Include="SourceFile.cs" />
-    <Compile Include="Filter.cs" />
+    <Compile Include="Work.cs" />
     <Compile Include="StructureGenerator.cs" />
     <Compile Include="TestRenderer.cs" />
     <Compile Include="TextRenderer.cs" />
-    <Compile Include="XmlLoader.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

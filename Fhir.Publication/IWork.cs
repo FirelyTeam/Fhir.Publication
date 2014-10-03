@@ -8,6 +8,8 @@ namespace Hl7.Fhir.Publication
 {
     public interface IWork
     {
+        Context Context { get; set; }
         void Execute();
     }
+
 }

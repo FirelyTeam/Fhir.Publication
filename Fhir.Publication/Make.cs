@@ -9,21 +9,28 @@ namespace Hl7.Fhir.Publication
 {
     public static class Make
     {
+
+        public static IEnumerable<IWork> Filter(Context context, string mask, bool recurse = false)
+        {
+            return Work.Filter(context, mask, null, recurse, c => Make.Interpret(c));
+        }
+
+
         public static IWork Interpret(Context context)
         {
             Bulk bulk = new Bulk();
             string[] lines = File.ReadAllLines(context.FullPath);
             foreach (string statement in lines)
             {
-                IWork work = Make.Interpret(context, statement);
-                bulk.Add(work);
+                var filter = Make.Interpret(context, statement);
+                bulk.Add(filter);
             }
             return bulk;
         }
         
-        public static IWork Interpret(Context context, string statement)
+        public static IEnumerable<IWork> Interpret(Context context, string statement)
         {
-            IWork work;
+            
 
             string[] words = statement.Split(' ');
             string mask = words.Skip(1).First();
@@ -33,17 +40,16 @@ namespace Hl7.Fhir.Publication
             if (command == "make")
             {
                 string target = words.Skip(2).FirstOrDefault();
-                work = new MakeFilter(context, mask, recurse);
+                return Make.Filter(context, mask, recurse);
             }
             else if (command == "copy")
             {
                 string target = words.Skip(2).FirstOrDefault();
-                work = new Copy(context, mask, recurse);
+                return Copy.Filter(context, mask, recurse);
             }
             else if (command == "profiletable")
             {
-                var file = context.Clone(mask, ".html");
-                work =  new ProfileTableWork(file);
+                return ProfileTableWork.Select(context, mask, recurse);
             }
             else
             {
@@ -55,11 +61,9 @@ namespace Hl7.Fhir.Publication
                 }
 
                 string target = words.Skip(2).First();
-
-                work = new Filter(context, mask, target, recurse, pipeline);
+                return Work.Filter(context, mask, target, recurse, c => new Render(c, pipeline));
             }
-
-            return work;
+           
         }
     }
 

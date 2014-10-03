@@ -8,6 +8,8 @@ namespace Hl7.Fhir.Publication
 {
     public class Bulk : IWork
     {
+        public Context Context { get; set; }
+
         public List<IWork> Worklist = new List<IWork>();
 
         public void Add(IEnumerable<IWork> worklist)
@@ -28,5 +30,7 @@ namespace Hl7.Fhir.Publication
             }
         }
     }
+
+    
 
 }
