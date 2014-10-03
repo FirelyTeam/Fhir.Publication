@@ -54,17 +54,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Work\Context.cs" />
+    <Compile Include="Framework\Context.cs" />
     <Compile Include="Profile\ElementDefnRenderingExtensions.cs" />
     <Compile Include="Work\Copy.cs" />
     <Compile Include="Work\ProfileTableWork.cs" />
     <Compile Include="Work\Render.cs" />
-    <Compile Include="FileUtils.cs" />
+    <Compile Include="Framework\FileUtils.cs" />
     <Compile Include="Work\Bulk.cs" />
     <Compile Include="Profile\HierarchicalTableGenerator.cs" />
-    <Compile Include="Renderers\IRenderer.cs" />
-    <Compile Include="Work\IWork.cs" />
-    <Compile Include="Utils\Log.cs" />
+    <Compile Include="Framework\IRenderer.cs" />
+    <Compile Include="Framework\IWork.cs" />
+    <Compile Include="Framework\Log.cs" />
     <Compile Include="Work\Make.cs" />
     <Compile Include="Renderers\MarkdownRenderer.cs" />
     <Compile Include="Renderers\PipeLine.cs" />
@@ -74,7 +74,7 @@
     <Compile Include="Renderers\RazorRenderer.cs" />
     <Compile Include="Razor\Razor.cs" />
     <Compile Include="Razor\RazorTemplate.cs" />
-    <Compile Include="Work\Work.cs" />
+    <Compile Include="Framework\Work.cs" />
     <Compile Include="Profile\StructureGenerator.cs" />
     <Compile Include="Renderers\TestRenderer.cs" />
     <Compile Include="Renderers\TextRenderer.cs" />

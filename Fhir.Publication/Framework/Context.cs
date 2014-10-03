@@ -98,6 +98,11 @@ namespace Hl7.Fhir.Publication
             }
         }
 
+        public void Activate()
+        {
+            this.EnsureTargetDir();
+            Directory.SetCurrentDirectory(this.CurrentDir);
+        }
         public static Context Root(string source, string target)
         {
             Context context = new Context();
