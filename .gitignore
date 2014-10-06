@@ -182,3 +182,6 @@ UpgradeLog*.htm
 
 # Microsoft Fakes
 FakesAssemblies/
+Fhir.Publication.Tests/validation.zip
+Fhir.Publication/validation.zip
+Fhir.Publisher/validation.zip

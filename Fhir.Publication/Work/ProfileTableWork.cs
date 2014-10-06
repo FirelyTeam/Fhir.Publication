@@ -16,7 +16,7 @@ namespace Hl7.Fhir.Publication
 
         public void Execute()
         {
-            var generator = new ProfileTableGenerator(Context.TargetDir, "hoepsakee", false);
+            var generator = new ProfileTableGenerator(Context.TargetDir, Context.Name, false, new ProfileKnowledgeProvider("http://hl7.org/fhir"));
             string s = File.ReadAllText(Context.FullPath);
             var profile = (Profile)FhirParser.ParseResourceFromXml(s);
             var xmldoc = generator.generate(profile, false);

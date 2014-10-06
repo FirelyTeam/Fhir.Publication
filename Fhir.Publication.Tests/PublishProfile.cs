@@ -17,16 +17,17 @@ namespace Fhir.Profiling.Tests
         [TestMethod]
         public void PublishLipidProfile()
         {
-            var source = new FileArtifactSource(true);
-            var profile = (Profile)source.ReadResourceArtifact(new Uri("http://from.file/TestData/lipid.profile.xml"));
+            var profile =  (Profile)FhirParser.ParseResourceFromXml(File.ReadAllText(@"TestData\lipid.profile.xml"));
 
-            var publisher = new ProfileTableGenerator(@"c:\temp\publisher", "test page", false);
+            var pagename = "lipid";
+
+            var publisher = new ProfileTableGenerator(@"c:\temp\publisher", "lipid", false, new ProfileKnowledgeProvider("http://hl7.org/fhir"));
 
             var result = File.ReadAllText(@"TestData\publish-header.xml");
             result += publisher.generate(profile, false).ToString(System.Xml.Linq.SaveOptions.DisableFormatting);
             result += File.ReadAllText(@"TestData\publish-footer.xml");
 
-            File.WriteAllText(@"c:\temp\publisher\publisher.html",result);
+            File.WriteAllText(@"c:\temp\publisher\" + pagename + ".html",result);
         }
 
         [TestMethod]

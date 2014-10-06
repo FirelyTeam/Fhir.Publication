@@ -14,6 +14,9 @@ namespace Hl7.Fhir.Publication
         public string FullPath;
         public string TargetExt;
 
+        /// <summary>
+        /// Input filename without path, including extension
+        /// </summary>
         public string FileName
         {
             get
@@ -62,6 +65,9 @@ namespace Hl7.Fhir.Publication
             }
         }
 
+        /// <summary>
+        /// Input filename, without path and extension
+        /// </summary>
         public string Name
         {
             get

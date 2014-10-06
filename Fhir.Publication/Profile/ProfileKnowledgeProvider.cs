@@ -11,10 +11,10 @@ namespace Hl7.Fhir.Publication
     {
         private StructureLoader _loader;
 
-        internal ProfileKnowledgeProvider(string baseUrl)
+        internal ProfileKnowledgeProvider(string specUrl)
         {
             _loader = new StructureLoader(ArtifactResolver.CreateCachedDefault());
-            _baseUrl = baseUrl;
+            _specUrl = specUrl;
         }
 
         internal Model.Profile.ProfileExtensionDefnComponent getExtensionDefinition(Model.Profile profile, string url)
@@ -28,18 +28,18 @@ namespace Hl7.Fhir.Publication
                 return _loader.LocateExtension(new Uri(url));
         }
 
-        string _baseUrl;
+        string _specUrl;
 
         internal string getLinkFor(string typename)
         {
             //TODO: Make this dependent on the DSTU1/2 etc website
             //TODO: There are more flavours (like narrative, extension, etc.)
             if (isDataType(typename) || isPrimitive(typename))
-                return _baseUrl + "datatypes.html#" + typename.ToLower();
+                return _specUrl + "datatypes.html#" + typename.ToLower();
             else if(ModelInfo.IsKnownResource(typename))
-                return _baseUrl + typename.ToLower() + ".html";
+                return _specUrl + typename.ToLower() + ".html";
             else if(typename == "Extension")
-                return _baseUrl + "extensibility.html#Extension";
+                return _specUrl + "extensibility.html#Extension";
             else
                 return "todo.html";
         }
@@ -61,6 +61,19 @@ namespace Hl7.Fhir.Publication
         {
             return new[] { "boolean", "integer", "decimal", "base64Binary", "instant", "string", "date", "dateTime", "code", "oid", "uuid", "id" }.Contains(value);
         }
+
+
+        internal string getLinkForExtension(string pageName, string extensionAnchor)       
+        {
+            return pageName + "-definition" + "#extension." + extensionAnchor;
+        }
+
+
+        internal string getLinkForStructure(string pageName, string structureName)
+        {
+            return pageName + "." + structureName.ToLower().Replace(" ", "") + ".html";
+        }
+
 
         internal string getLinkForExtension(Model.Profile profile, string url)
         {
@@ -140,6 +153,7 @@ namespace Hl7.Fhir.Publication
         {
             return isDataType(typeRefCode) || isPrimitive(typeRefCode) || typeRefCode == "Extension" || ModelInfo.IsKnownResource(typeRefCode);
         }
+
     }
 
 }
