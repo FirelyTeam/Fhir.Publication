@@ -39,7 +39,14 @@ namespace Hl7.Fhir.Publication
             {
                 if (FullPath != null)
                 {
-                    return Path.GetDirectoryName(FullPath);
+                    if (Directory.Exists(FullPath))
+                    {
+                        return FullPath;
+                    }
+                    else
+                    {
+                        return Path.GetDirectoryName(FullPath);
+                    }
                 }
                 else
                 {

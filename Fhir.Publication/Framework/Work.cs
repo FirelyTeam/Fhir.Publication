@@ -7,33 +7,60 @@ using System.Threading.Tasks;
 
 namespace Hl7.Fhir.Publication
 {
+    public delegate IWork WorkAction(Context context);
+
+    public class Worklist : IFilter
+    {
+        public WorkAction Action { get; set; }
+        public Context context { get; set; }
+        public string Mask { get; set; }
+        public bool Recurse { get; set; }
+        public string ToExt { get; set; }
+        private IEnumerable<string> FileNames()
+        {
+            SearchOption option = Recurse ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
+            string[] filenames = Directory.GetFiles(context.CurrentDir, Mask, option);
+            return filenames;
+        }
+        public IEnumerable<IWork> Items 
+        { 
+            get
+            {
+                foreach (string filename in FileNames())
+                {
+                    Context c = context.Clone(filename, ToExt);
+                    yield return Action(c);
+                }
+            }
+        }
+    }
 
     public class Work 
     {
-        public delegate IWork WorkAction(Context context);
 
-        public static IEnumerable<IWork> Filter(Context context, string mask, string toExt, bool recurse, WorkAction action)
+        public static IFilter Filter(Context context, string mask, string toExt, bool recurse, WorkAction action)
         {
-            SearchOption option = recurse ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
-            string[] filenames = Directory.GetFiles(context.CurrentDir, mask, option);
-            foreach (string filename in filenames)
-            {
-                Context c = context.Clone(filename, toExt);
-                yield return action(c);
-            }
+            Worklist work = new Worklist();
+            
+            work.Mask = mask;
+            work.context = context;
+            work.ToExt = toExt;
+            work.Action = action;
+
+            return work;
         }
 
-        public static IEnumerable<IWork> Filter(Context context, string mask, bool recurse, WorkAction action)
+        public static IFilter Filter(Context context, string mask, bool recurse, WorkAction action)
         {
             return Work.Filter(context, mask, null, recurse, action);
         }
 
-        public static IEnumerable<IWork> Filter(Context context, string mask, WorkAction action)
+        public static IFilter Filter(Context context, string mask, WorkAction action)
         {
             return Work.Filter(context, mask, null, false, action);
         }
 
-        public static IEnumerable<IWork> Filter<T>(Context context, string mask, string toExt, bool recurse = false) where T: IWork, new()
+        public static IFilter Filter<T>(Context context, string mask, string toExt, bool recurse = false) where T: IWork, new()
         {
             return Filter(context, mask, toExt, recurse, 
                 delegate(Context c) 
@@ -45,19 +72,20 @@ namespace Hl7.Fhir.Publication
             );
         }
 
-        public static IEnumerable<IWork> Filter<T>(Context context, string mask) where T : IWork, new()
+        public static IFilter Filter<T>(Context context, string mask) where T : IWork, new()
         {
             return Filter<T>(context, mask, null, false);
         }
 
-        public static IEnumerable<IWork> Filter(IEnumerable<Context> contexts, WorkAction action)
+        /*
+        public static IFilter Filter(IEnumerable<Context> contexts, WorkAction action)
         {
             foreach(Context c in contexts)
             {
                 yield return action(c);
             }
         }
-
+        */
     }
         
 }

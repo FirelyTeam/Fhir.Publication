@@ -8,13 +8,13 @@ namespace Hl7.Fhir.Publication
 {
     public static class Publisher
     {
-        public static void Generate(string sourcedir, string targetdir)
+        public static void Generate(string sourcedir, string targetdir, string mask)
         {
             Context context = Context.Root(sourcedir, targetdir);
-            Bulk generator = new Bulk();
+            Plan generator = new Plan();
 
-            IEnumerable<IWork> work = Make.Filter(context, "make.mk");
-            generator.Add(work);
+            IFilter filter = Make.Filter(context, mask);
+            generator.Add(filter);
             generator.Execute();
         }
     }

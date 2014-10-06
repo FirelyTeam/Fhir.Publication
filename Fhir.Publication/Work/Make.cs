@@ -9,14 +9,14 @@ namespace Hl7.Fhir.Publication
 {
     public static class Make
     {
-        public static IEnumerable<IWork> Filter(Context context, string mask, bool recurse = false)
+        public static IFilter Filter(Context context, string mask, bool recurse = false)
         {
             return Work.Filter(context, mask, null, recurse, c => Make.Interpret(c));
         }
 
         public static IWork Interpret(Context context)
         {
-            Bulk bulk = new Bulk();
+            Plan bulk = new Plan();
             string[] lines = File.ReadAllLines(context.FullPath);
             foreach (string statement in lines)
             {
@@ -26,7 +26,7 @@ namespace Hl7.Fhir.Publication
             return bulk;
         }
         
-        public static IEnumerable<IWork> Interpret(Context context, string statement)
+        public static IFilter Interpret(Context context, string statement)
         {
             
 
@@ -34,6 +34,13 @@ namespace Hl7.Fhir.Publication
             string mask = words.Skip(1).First();
             string command = words.First();
             bool recurse = words.Contains("-recurse");
+
+            if (words.Contains("-fromoutput"))
+            {
+                string target = context.TargetDir;
+                context = context.Clone();
+                context.FullPath = target;
+            }
 
             if (command == "make")
             {
@@ -59,6 +66,7 @@ namespace Hl7.Fhir.Publication
                 }
 
                 string target = words.Skip(2).First();
+                
                 return Work.Filter(context, mask, target, recurse, c => new Render(c, pipeline));
             }
            

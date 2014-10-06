@@ -5,31 +5,35 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Hl7.Fhir.Publication
-{
-    public class Bulk : IWork
+{ 
+    public class Plan : IWork
     {
         public Context Context { get; set; }
 
-        public List<IWork> Worklist = new List<IWork>();
+        public List<IFilter> Filters = new List<IFilter>();
 
-        public void Add(IEnumerable<IWork> worklist)
+        public void Add(IFilter filter)
         {
-            this.Worklist.AddRange(worklist);
+            this.Filters.Add(filter);
         }
 
-        public void Add(IWork work)
+        public void ExecuteFilter(IFilter filter)
         {
-            this.Worklist.Add(work);
-        }
-
-        public void Execute()
-        {
-            foreach(IWork work in Worklist)
+            foreach (IWork work in filter.Items)
             {
                 work.Execute();
             }
         }
+        
+        public void Execute()
+        {
+            foreach(IFilter filter in Filters)
+            {
+                ExecuteFilter(filter);
+            }
+        }
     }
+
 
     
 
