@@ -46,6 +46,7 @@ namespace Hl7.Fhir.Publication
             work.context = context;
             work.ToExt = toExt;
             work.Action = action;
+            work.Recurse = recurse;
 
             return work;
         }
