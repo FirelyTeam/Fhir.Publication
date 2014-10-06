@@ -36,13 +36,18 @@ using Hl7.Fhir.Specification.Navigation;
 
 namespace Hl7.Fhir.Publication
 {
-    public class StructureGenerator
+    internal class StructureGenerator
     {
         ProfileKnowledgeProvider _pkp;
 
-        public StructureGenerator()
+        protected string OutputDir;
+        protected bool InlineGraphics;
+
+        internal StructureGenerator(String outputDirectory, bool inlineGraphics, ProfileKnowledgeProvider pkp)
         {
-            _pkp = new ProfileKnowledgeProvider("http://www.hl7.org/implement/standards/fhir/");
+            _pkp = pkp;
+            OutputDir = outputDirectory;
+            InlineGraphics = inlineGraphics;
         }
 
         private class UnusedTracker 
@@ -50,10 +55,10 @@ namespace Hl7.Fhir.Publication
 		    public bool used;
 	    }
 
-        public XElement generateStructureTable(String defFile, Profile.ProfileStructureComponent structure, bool diff, String imageFolder, 
-                    bool inlineGraphics, Profile profile, string profileUrl, String profileBaseFileName) 
+        public XElement generateStructureTable(Profile.ProfileStructureComponent structure, bool diff, 
+                    Profile profile, string profileUrl, String profileBaseFileName) 
         {
-            HierarchicalTableGenerator gen = new HierarchicalTableGenerator(imageFolder, inlineGraphics);
+            HierarchicalTableGenerator gen = new HierarchicalTableGenerator(OutputDir, InlineGraphics);
             TableModel model = gen.initNormalTable();
 
             // List<Profile.ElementComponent> list = diff ? structure.getDifferential().getElement() : structure.getSnapshot().getElement();   DSTU2
@@ -61,12 +66,12 @@ namespace Hl7.Fhir.Publication
             var nav = new ElementNavigator(structure);
             nav.MoveToFirstChild();
     
-            genElement(defFile == null ? null : defFile+"#"+structure.Name+".", gen, model.getRows(), nav, profile, diff, profileUrl, profileBaseFileName);
+            genElement(gen, model.getRows(), nav, profile, diff, profileUrl, profileBaseFileName);
             return gen.generate(model);
         }
 
 
-        private void genElement(String defPath, HierarchicalTableGenerator gen, List<Row> rows, ElementNavigator nav, 
+        private void genElement(HierarchicalTableGenerator gen, List<Row> rows, ElementNavigator nav, 
                     Profile profile, bool showMissing, String profileUrl, String profileBaseFileName)
         {
             var element = nav.Current;
@@ -111,7 +116,9 @@ namespace Hl7.Fhir.Publication
             else
                 row.setIcon("icon_resource.png");
 
-            String reference = defPath == null ? null : defPath + makePathLink(element);
+
+            var reference = _pkp.getLinkForStructureDefinition(profileBaseFileName, makePathLink(element));
+            //String reference = defPath == null ? null : defPath + makePathLink(element);
             UnusedTracker used = new UnusedTracker();
             used.used = true;
             
@@ -193,7 +200,7 @@ namespace Hl7.Fhir.Publication
                 {
                     do
                     {
-                        genElement(defPath, gen, row.getSubRows(), nav, profile, showMissing, profileUrl, profileBaseFileName);
+                        genElement(gen, row.getSubRows(), nav, profile, showMissing, profileUrl, profileBaseFileName);
                     } while (nav.MoveToNext());
 
                    nav.MoveToParent();
@@ -271,7 +278,8 @@ namespace Hl7.Fhir.Publication
         }
 
 
-        private Cell generateDescription(HierarchicalTableGenerator gen, Row row, Profile.ElementComponent element, Profile.ElementDefinitionComponent fallback, bool used, String baseURL, String profileUrl, Profile profile)
+        private Cell generateDescription(HierarchicalTableGenerator gen, Row row, Profile.ElementComponent element, Profile.ElementDefinitionComponent fallback, 
+            bool used, String baseURL, String profileUrl, Profile profile)
         {
             Cell c = new Cell();
             row.getCells().Add(c);

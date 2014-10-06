@@ -16,7 +16,7 @@ namespace Hl7.Fhir.Publication
 
         public void Execute()
         {
-            var generator = new ProfileTableGenerator(Context.TargetDir, Context.Name, false, new ProfileKnowledgeProvider("http://hl7.org/fhir"));
+            var generator = new ProfileTableGenerator(Context.TargetDir, Context.Name, false, new ProfileKnowledgeProvider("http://www.hl7.org/implement/standards/fhir/"));
             string s = File.ReadAllText(Context.FullPath);
             var profile = (Profile)FhirParser.ParseResourceFromXml(s);
             var xmldoc = generator.generate(profile, false);
