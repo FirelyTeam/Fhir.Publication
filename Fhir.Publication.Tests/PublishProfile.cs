@@ -17,11 +17,12 @@ namespace Fhir.Profiling.Tests
         [TestMethod]
         public void PublishLipidProfile()
         {
+            var pkp = new ProfileKnowledgeProvider("http://www.hl7.org/implement/standards/fhir/");
             var profile =  (Profile)FhirParser.ParseResourceFromXml(File.ReadAllText(@"TestData\lipid.profile.xml"));
 
             var pagename = "lipid";
 
-            var publisher = new ProfileTableGenerator(@"c:\temp\publisher", "lipid", false, new ProfileKnowledgeProvider("http://hl7.org/fhir"));
+            var publisher = new ProfileTableGenerator(@"c:\temp\publisher", "lipid", false, pkp);
 
             var result = File.ReadAllText(@"TestData\publish-header.xml");
             result += publisher.generate(profile, false).ToString(System.Xml.Linq.SaveOptions.DisableFormatting);
@@ -34,18 +35,19 @@ namespace Fhir.Profiling.Tests
         public void PublishLipidProfileStructures()
         {
             var source = new FileArtifactSource(true);
-            var profile = (Profile)source.ReadResourceArtifact(new Uri("http://from.file/TestData/lipid.profile.xml"));
+            var profile = (Profile)FhirParser.ParseResourceFromXml(File.ReadAllText(@"TestData\lipid.profile.xml"));
 
-            var publisher = new StructureGenerator();
+            var pkp = new ProfileKnowledgeProvider("http://www.hl7.org/implement/standards/fhir/");
+            var publisher = new StructureGenerator(@"c:\temp\publisher\",false,pkp);
 
             foreach (var structure in profile.Structure)
             {
                 var result = File.ReadAllText(@"TestData\publish-header.xml");
-                result += publisher.generateStructureTable("bla.html", structure, false, @"c:\temp\publisher", false, profile, "http://nu.nl/publisher.html", "publisher.html")
+                result += publisher.generateStructureTable(structure, false, profile, "http://nu.nl/publisher.html", "lipid")
                         .ToString(System.Xml.Linq.SaveOptions.DisableFormatting);
                 result += File.ReadAllText(@"TestData\publish-footer.xml");
 
-                File.WriteAllText(@"c:\temp\publisher\" + structure.Name + ".html", result);
+                File.WriteAllText(@"c:\temp\publisher\" + pkp.getLinkForStructure("lipid",structure.Name), result);
             }
         }
 
