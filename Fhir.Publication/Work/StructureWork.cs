@@ -23,10 +23,10 @@ namespace Hl7.Fhir.Publication
 
             foreach (var structure in profile.Structure)
             {
-                var result = generator.generateStructureTable(structure, false, profile, "http://nu.nl/publisher.html", "lipid")
+                var result = generator.generateStructureTable(structure, false, profile, "http://nu.nl/publisher.html", Context.Name)
                         .ToString(System.Xml.Linq.SaveOptions.DisableFormatting);
 
-                File.WriteAllText(Context.TargetFullPath + pkp.getLinkForStructure("lipid", structure.Name), result);
+                File.WriteAllText(Context.TargetDir + "\\" + pkp.getLinkForStructure(Context.Name, structure.Name), result);
             }
         }
     }

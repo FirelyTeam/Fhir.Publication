@@ -64,7 +64,9 @@
     <Compile Include="Framework\Context.cs" />
     <Compile Include="Framework\IFilter.cs" />
     <Compile Include="Profile\ElementDefnRenderingExtensions.cs" />
+    <Compile Include="Renderers\TemplateRenderer.cs" />
     <Compile Include="Work\Copy.cs" />
+    <Compile Include="Work\StructureRenderer.cs" />
     <Compile Include="Work\StructureWork.cs" />
     <Compile Include="Work\ProfileTableWork.cs" />
     <Compile Include="Work\Render.cs" />

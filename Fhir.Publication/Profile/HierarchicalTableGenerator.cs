@@ -243,7 +243,7 @@ namespace Hl7.Fhir.Publication
 
             foreach (Title t in model.getTitles())
             {
-                var tc = renderCell(tr, t, "th", null, null, false, null);     
+                var tc = renderCell(tr, t, "th", null, null, false, null);
             }
 
             foreach (Row r in model.getRows())
@@ -343,7 +343,7 @@ namespace Hl7.Fhir.Publication
             else
             {
                 string style = "vertical-align:top; text-align:left; padding:0px 4px 0px 4px";
-                
+
                 if (c is Title)
                 {
                     var width = ((Title)c).width;
@@ -404,7 +404,7 @@ namespace Hl7.Fhir.Publication
                         s.Add(new XText(text));
                     }
                     else
-                        tc.Add(new XText(p.getText()));
+                        tc.Add(new XText(p.getText() ?? "(empty?)"));
                 }
             }
             if (!String.IsNullOrEmpty(anchor))
@@ -477,19 +477,19 @@ namespace Hl7.Fhir.Publication
         }
 
 
-        private String checkExists(List<Boolean> indents, bool hasChildren) 
+        private String checkExists(List<Boolean> indents, bool hasChildren)
         {
-          StringBuilder b = new StringBuilder();
-         
-            if (inLineGraphics) 
+            StringBuilder b = new StringBuilder();
+
+            if (inLineGraphics)
             {
                 MemoryStream bytes = new MemoryStream();
                 genImage(indents, hasChildren, bytes);
                 b.Append("data: image/png;base64,");
                 var encodeBase64 = Convert.ToBase64String(bytes.ToArray());
                 b.Append(encodeBase64);
-            } 
-            else 
+            }
+            else
             {
                 b.Append("tbl_bck");
                 foreach (Boolean i in indents)
@@ -501,7 +501,7 @@ namespace Hl7.Fhir.Publication
                     b.Append("0");
 
                 b.Append(".png");
-            
+
                 String file = Path.Combine(imageDirectory, b.ToString());
 
                 if (!File.Exists(file))
@@ -509,23 +509,23 @@ namespace Hl7.Fhir.Publication
                     var stream = new FileStream(file, FileMode.Create);
                     genImage(indents, hasChildren, stream);
                 }
-          }
+            }
 
-          return b.ToString();
+            return b.ToString();
         }
 
 
         private void genImage(List<Boolean> indents, bool hasChildren, Stream stream)
         {
-            var bi = new Bitmap(400,2);
+            var bi = new Bitmap(400, 2);
             var graphics = Graphics.FromImage(bi);
 
             graphics.DrawRectangle(new Pen(Color.White), 0, 0, 400, 2);
 
-            for (int i = 0; i < indents.Count; i++) 
+            for (int i = 0; i < indents.Count; i++)
             {
                 if (!indents[i])
-                    bi.SetPixel(12+(i*16), 0, Color.Black);
+                    bi.SetPixel(12 + (i * 16), 0, Color.Black);
             }
 
             if (hasChildren)

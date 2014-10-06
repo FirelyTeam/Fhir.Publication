@@ -21,19 +21,21 @@ namespace Hl7.Fhir.Publication
             foreach (string statement in lines)
             {
                 var filter = Make.Interpret(context, statement);
-                bulk.Add(filter);
+                
+                if (filter != null) bulk.Add(filter);
             }
             return bulk;
         }
         
         public static IFilter Interpret(Context context, string statement)
         {
-            
+            if (string.IsNullOrWhiteSpace(statement)) return null;
 
             string[] words = statement.Split(' ');
             string mask = words.Skip(1).First();
             string command = words.First();
             bool recurse = words.Contains("-recurse");
+            
 
             if (words.Contains("-fromoutput"))
             {
@@ -41,7 +43,6 @@ namespace Hl7.Fhir.Publication
                 context = context.Clone();
                 context.FullPath = target;
             }
-
             if (command == "make")
             {
                 string target = words.Skip(2).FirstOrDefault();
@@ -50,11 +51,16 @@ namespace Hl7.Fhir.Publication
             else if (command == "copy")
             {
                 string target = words.Skip(2).FirstOrDefault();
-                return Work.Filter<Copy>(context, mask);
+                return Work.Filter<Copy>(context, mask, null, recurse);
             }
-            else if (command == "profiletable")
+            
+            else if (command == "structure")
             {
-                return Work.Filter<ProfileTableWork>(context, mask);
+                return Work.Filter<StructureWork>(context, mask, null, recurse);
+            }
+            else if (command == "template")
+            {
+                return Work.Filter<Templater>(context, mask, null, recurse);
             }
             else
             {
@@ -63,6 +69,10 @@ namespace Hl7.Fhir.Publication
                 {
                     if (c == "razor") pipeline.Add(new RazorRenderer());
                     if (c == "markdown") pipeline.Add(new MarkdownRenderer());
+                    if (c == "profiletable") pipeline.Add(new ProfileTableRenderer());
+                    //if (c == "structure") pipeline.Add(new StructureRenderer());
+
+
                 }
 
                 string target = words.Skip(2).First();
