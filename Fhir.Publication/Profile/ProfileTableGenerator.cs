@@ -135,7 +135,7 @@ namespace Hl7.Fhir.Publication
             //else
             //r.setIcon("icon_extension_complex.png");
 
-            var extensionUrl = _pkp.getLinkForExtension(PageName, ext.Code);
+            var extensionUrl = _pkp.getLinkForExtensionDefinition(PageName, ext.Code);
 
             r.getCells().Add(new  Cell(null, extensionUrl, ext.Code, null, null));
             r.getCells().Add(new  Cell(null, null, ext.Definition.DescribeCardinality(), null, null));   //TODO: create rendering extension

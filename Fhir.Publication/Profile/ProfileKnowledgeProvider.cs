@@ -63,15 +63,21 @@ namespace Hl7.Fhir.Publication
         }
 
 
-        internal string getLinkForExtension(string pageName, string extensionAnchor)       
+        internal string getLinkForExtensionDefinition(string pageName, string extensionAnchor)       
         {
-            return pageName + "-definition" + "#extension." + extensionAnchor;
+            return pageName.ToLower() + "-definition.html" + "#extension." + extensionAnchor;
+        }
+
+
+        internal string getLinkForStructureDefinition(string pageName, string structureName)
+        {
+            return pageName.ToLower() + "-definition.html" + "#" + structureName.ToLower().Replace(" ", "");
         }
 
 
         internal string getLinkForStructure(string pageName, string structureName)
         {
-            return pageName + "." + structureName.ToLower().Replace(" ", "") + ".html";
+            return pageName.ToLower() + "." + structureName.ToLower().Replace(" ", "") + ".html";
         }
 
 
