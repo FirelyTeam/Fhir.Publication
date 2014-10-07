@@ -11,7 +11,7 @@ namespace Hl7.Fhir.Publication
     {
         public void Render(Context context, Stream input, Stream output)
         {
-            Razor.Render(context, input, output);
+            //Razor.Render(context, input, output);
         }
     }
 }

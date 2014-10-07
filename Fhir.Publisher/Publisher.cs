@@ -4,18 +4,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hl7.Fhir.Publication
+using Hl7.Fhir.Publication.Renderers;
+
+namespace Hl7.Fhir.Publication.Experimental
 {
     public static class Publisher
     {
+
         public static void Generate(string sourcedir, string targetdir, string mask)
         {
-            Context context = Context.Root(sourcedir, targetdir);
-            Plan generator = new Plan();
+            Root root = new Root(sourcedir, targetdir);
+            Context context = root.Context();
 
-            IFilter filter = Make.Filter(context, mask);
-            generator.Add(filter);
-            generator.Execute();
+            Document document = Filter.GetDocument(context, mask);
+            IWork work = MakeFile.InterpretDocument(document);
+            
+            work.Execute();
+            
+            
         }
     }
     

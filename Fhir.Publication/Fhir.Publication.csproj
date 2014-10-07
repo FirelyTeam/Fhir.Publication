@@ -61,9 +61,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Experimental\Context.cs" />
+    <Compile Include="Experimental\CopyProcessor.cs" />
+    <Compile Include="Experimental\Document.cs" />
+    <Compile Include="Experimental\Filter.cs" />
+    <Compile Include="Experimental\IFilter.cs" />
+    <Compile Include="Experimental\IProcessor.cs" />
+    <Compile Include="Experimental\IRenderer.cs" />
+    <Compile Include="Experimental\Item.cs" />
+    <Compile Include="Experimental\IWork.cs" />
+    <Compile Include="Experimental\Location.cs" />
+    <Compile Include="Experimental\Make.cs" />
+    <Compile Include="Experimental\MakeProcessor.cs" />
+    <Compile Include="Experimental\MarkDownRenderer.cs" />
+    <Compile Include="Experimental\PipeLine.cs" />
+    <Compile Include="Experimental\RazorProcessor.cs" />
+    <Compile Include="Experimental\Root.cs" />
+    <Compile Include="Experimental\Saver.cs" />
+    <Compile Include="Experimental\Stage.cs" />
+    <Compile Include="Experimental\TemplateRenderer.cs" />
     <Compile Include="Framework\Context.cs" />
     <Compile Include="Framework\IFilter.cs" />
     <Compile Include="Profile\ElementDefnRenderingExtensions.cs" />
+    <Compile Include="Experimental\Render.cs" />
     <Compile Include="Renderers\TemplateRenderer.cs" />
     <Compile Include="Work\Copy.cs" />
     <Compile Include="Work\StructureRenderer.cs" />

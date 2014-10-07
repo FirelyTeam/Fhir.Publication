@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Hl7.Fhir.Publication.Renderers;
 
 namespace Hl7.Fhir.Publication
 {

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hl7.Fhir.Publication
+namespace Hl7.Fhir.Publication.Renderers
 {
 
     public class MarkdownRenderer : TextRenderer    

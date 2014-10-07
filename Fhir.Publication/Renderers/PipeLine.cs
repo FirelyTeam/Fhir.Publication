@@ -25,7 +25,7 @@ namespace Hl7.Fhir.Publication
         {
             Stream source = input;
             Stream target = null;
-            foreach(IRenderer renderer in Renderers)
+            foreach (IRenderer renderer in Renderers)
             {
                 source.Seek(0, SeekOrigin.Begin);
                 target = new MemoryStream();
@@ -38,6 +38,6 @@ namespace Hl7.Fhir.Publication
             output.Close();
         }
 
-        
+
     }
 }

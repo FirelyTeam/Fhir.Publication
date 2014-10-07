@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Razor;
 
-namespace Hl7.Fhir.Publication
+namespace Hl7.Fhir.Publication.Experimental
 {
     public static class Razor
     {
@@ -26,8 +26,17 @@ namespace Hl7.Fhir.Publication
             writer.Flush();
             
         }
+
+        public static string Render(Context context, string input)
+        {
+            var reader = new StringReader(input);
+            Assembly assembly = Assemble(reader);
+            RazorTemplate<Context> template = CreateTemplateInstance(assembly, context);
+            return template.Render();
+            
+        }
        
-        public static Assembly Assemble(StreamReader reader)
+        public static Assembly Assemble(TextReader reader)
         {
             RazorTemplateEngine engine = CreateEngine();
             CodeCompileUnit code = engine.GenerateCode(reader).GeneratedCode;
