@@ -21,6 +21,7 @@ namespace Hl7.Fhir.Publication.Experimental
             
             work.Execute();
             
+            Log.Info("Rendering complete. Output to directory {0}", targetdir);
             
         }
     }

@@ -11,7 +11,7 @@ namespace Hl7.Fhir.Publication.Experimental
 
         public void Process(Document input, Stage output)
         {
-            Document target = output.CreateFrom(input);
+            Document target = output.CreateDocumentBasedOn(input);
 
             target.Text = Razor.Render(input.Context, input.Text);
         }

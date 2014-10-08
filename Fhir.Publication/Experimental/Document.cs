@@ -15,43 +15,16 @@ namespace Hl7.Fhir.Publication.Experimental
         public DocumentState State { get; set; }
         public string Name { get; set; }
         public string Extension { get; set; }
-        public string GetSourceFileName()
-        {
-            string filename = Path.ChangeExtension(Name, Extension);
-            filename = Path.Combine(Context.Source.Directory, filename);
-            return filename;
-        }
 
-        public string GetTargetFileName()
-        {
-            string filename = Path.ChangeExtension(Name, Extension);
-            filename = Path.Combine(Context.Target.Directory, filename);
+        public List<Document> Attachments = new List<Document>();
 
-            return filename;
+        public void Attach(params Document[] attachment)
+        {
+            Attachments.AddRange(attachment);
         }
 
         private string _content;
-        public void Load()
-        {
 
-            lock (this)
-            {
-                if (State == DocumentState.Closed)
-                {
-                    string filename = GetSourceFileName();
-                    _content = File.ReadAllText(filename);
-                    State = DocumentState.Open;
-                }
-            }
-        }
-        public void Save()
-        {
-            Load();
-            string filename = GetTargetFileName();
-            Context.EnsureTarget();
-            File.WriteAllText(filename, _content);
-
-        }
         public string Text
         {
             get
@@ -66,6 +39,50 @@ namespace Hl7.Fhir.Publication.Experimental
             }
         }
 
+        public string SourceFullPath
+        {
+            get 
+            {
+                //string filename = Path.ChangeExtension(Name, Extension);
+                string filename = Path.Combine(Context.Source.Directory, FileName);
+                return filename;
+            }
+        }
+
+        public string TargetFullPath
+        {
+            get 
+            {
+                string filename = Path.Combine(Context.Target.Directory, FileName);
+                return filename;
+            }
+
+        }
+
+        
+        public void Load()
+        {
+
+            lock (this)
+            {
+                if (State == DocumentState.Closed)
+                {
+                    _content = File.ReadAllText(SourceFullPath);
+                    State = DocumentState.Open;
+                }
+            }
+        }
+
+        public void Save()
+        {
+            Load();
+
+            Context.EnsureTarget();
+            File.WriteAllText(TargetFullPath, _content);
+
+        }
+
+        
         public Document Append(string value)
         {
             _content = _content + value;
@@ -77,7 +94,7 @@ namespace Hl7.Fhir.Publication.Experimental
         /// Create a new Item, based on the current item, but with a new stream
         /// </summary>
         /// <returns></returns>
-        public Document Duplicate()
+        public Document CloneMetadata()
         {
             Document doc = new Document();
             doc.Context = this.Context.Clone();
@@ -86,11 +103,30 @@ namespace Hl7.Fhir.Publication.Experimental
             doc.State = this.State;
             return doc;
         }
+
+        public Document Clone()
+        {
+            Document clone = CloneMetadata();
+            clone.Text = this.Text;
+            return clone;
+        }
+
+        public string FileName
+        {
+            get
+            {
+                string extension = Extension;
+                if (!extension.StartsWith(".")) extension = "." + extension ;
+                return this.Name + extension;
+            }
+        }
+
         public void SetFilename(string filename, string extension = null)
         {
             this.Name = Path.GetFileNameWithoutExtension(filename);
             this.Extension = (extension != null) ? extension : Path.GetExtension(filename);
         }
+
         public static Document CreateFromFullPath(Context context, string fullpath)
         {
             Document document = new Document();
@@ -98,13 +134,17 @@ namespace Hl7.Fhir.Publication.Experimental
             document.SetFilename(fullpath);
             return document;
         }
+        
         public static Document CreateInContext(Context context, string filename)
         {
             Document document = new Document();
             document.Context = context.Clone();
+            string dir = Path.GetDirectoryName(filename);
+            document.Context.MoveTo(dir);
             document.SetFilename(filename);
             return document;
         }
+
         private Document()
         {
 
@@ -112,8 +152,7 @@ namespace Hl7.Fhir.Publication.Experimental
 
         public override string ToString()
         {
-            string name = Path.ChangeExtension(Name, Extension);
-            return string.Format("{0}\\{1}", Context.Source, name);
+            return string.Format("{0}\\{1}", Context.Source, FileName);
         }
     }
 }

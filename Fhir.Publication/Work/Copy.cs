@@ -14,7 +14,7 @@ namespace Hl7.Fhir.Publication
         public void Execute()
         {
             Context.EnsureTargetDir();
-            Log.WriteLine("Copy {0} to {1}.", Path.Combine(Context.RelativeDir, Context.FileName), Path.GetFileName(Context.TargetFullPath));
+            Log.Debug("Copy {0} to {1}.", Path.Combine(Context.RelativeDir, Context.FileName), Path.GetFileName(Context.TargetFullPath));
             File.Copy(Context.FullPath, Context.TargetFullPath, true);
         }
         

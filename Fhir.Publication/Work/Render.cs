@@ -27,7 +27,7 @@ namespace Hl7.Fhir.Publication
         public void Execute()
         {
             PrepareDir();
-            Log.WriteLine("Rendering {0} to {1}.", Path.Combine(Context.RelativeDir, Context.FileName), Path.GetFileName(Context.TargetFullPath));
+            Log.Debug("Rendering {0} to {1}.", Path.Combine(Context.RelativeDir, Context.FileName), Path.GetFileName(Context.TargetFullPath));
             using (Stream input = File.OpenRead(Context.FullPath))
             using (Stream output = File.OpenWrite(Context.TargetFullPath))
             {

@@ -13,10 +13,11 @@ namespace Hl7.Fhir.Publication.Experimental
         public void Process(Document input, Stage output)
         {
             input.Context.EnsureTarget();
-            Log.WriteLine("Copy {0} to {1}.",
+            Log.Debug("Copy \n from: {0} \n ..to: {1}.", 
                 Path.Combine(input.Context.Source.Directory, input.Name),
                 input.Context.Target.Directory);
-            File.Copy(input.GetSourceFileName(), input.GetTargetFileName(), true);
+
+            File.Copy(input.SourceFullPath, input.TargetFullPath, true);
         }
     }
 }

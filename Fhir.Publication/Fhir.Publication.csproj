@@ -47,8 +47,10 @@
       <HintPath>..\packages\p3-sharpcompress.0.10.5.2\lib\net40\SharpCompress.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Threading.Tasks.Dataflow, Version=4.5.23.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.Tpl.Dataflow.4.5.23\lib\portable-net45+win8+wpa81\System.Threading.Tasks.Dataflow.dll</HintPath>
@@ -61,6 +63,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Experimental\AttachProcessor.cs" />
+    <Compile Include="Experimental\ConcatenateProcessor.cs" />
     <Compile Include="Experimental\Context.cs" />
     <Compile Include="Experimental\CopyProcessor.cs" />
     <Compile Include="Experimental\Document.cs" />
@@ -71,14 +75,18 @@
     <Compile Include="Experimental\Item.cs" />
     <Compile Include="Experimental\IWork.cs" />
     <Compile Include="Experimental\Location.cs" />
-    <Compile Include="Experimental\Make.cs" />
+    <Compile Include="Experimental\MakeInterpreter.cs" />
     <Compile Include="Experimental\MakeProcessor.cs" />
     <Compile Include="Experimental\MarkDownRenderer.cs" />
     <Compile Include="Experimental\PipeLine.cs" />
+    <Compile Include="Experimental\ProfileProcessor.cs" />
     <Compile Include="Experimental\RazorProcessor.cs" />
     <Compile Include="Experimental\Root.cs" />
     <Compile Include="Experimental\Saver.cs" />
     <Compile Include="Experimental\Stage.cs" />
+    <Compile Include="Experimental\Stash.cs" />
+    <Compile Include="Experimental\StashProcessor.cs" />
+    <Compile Include="Experimental\StructureProcessor.cs" />
     <Compile Include="Experimental\TemplateRenderer.cs" />
     <Compile Include="Framework\Context.cs" />
     <Compile Include="Framework\IFilter.cs" />
@@ -115,6 +123,9 @@
     <None Include="validation.zip">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Documentation\DSLexperiments.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

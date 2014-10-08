@@ -19,6 +19,7 @@ namespace Hl7.Fhir.Publication.Experimental
         {
             this.Add(documents);
         }
+        
         public void Add(Document item)
         {
             Queue.Enqueue(item);
@@ -36,11 +37,17 @@ namespace Hl7.Fhir.Publication.Experimental
         {
             return Queue.Dequeue();
         }
-        public Document CreateFrom(Document source)
+
+        public Document CreateDocumentBasedOn(Document source)
         {
-            Document item = source.Duplicate();
+            Document item = source.CloneMetadata();
             Add(item);
             return item;
+        }
+
+        public Document Find(string name)
+        {
+            return Queue.FirstOrDefault(d => d.Name == name);
         }
         public static Stage operator +(Stage stage, IEnumerable<Document> documents)
         {

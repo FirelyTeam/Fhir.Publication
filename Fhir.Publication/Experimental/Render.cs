@@ -16,7 +16,8 @@ namespace Hl7.Fhir.Publication.Experimental
 
         public void Process(Document input, Stage stage)
         {
-            Document output = stage.CreateFrom(input);
+            Log.Debug("Rendering {0} \n from: {1} \n ..to: {2}.", Renderer.GetType().Name, input.SourceFullPath, input.TargetFullPath);
+            Document output = stage.CreateDocumentBasedOn(input);
             Renderer.Render(input, output);
         }
     }

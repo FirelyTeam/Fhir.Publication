@@ -10,21 +10,6 @@ using System.Xml.Linq;
 
 namespace Hl7.Fhir.Publication
 {
-    /*
-    public class ProfileTableWork : IWork
-    {
-        public Context Context { get; set; }
-
-        public void Execute()
-        {
-            var generator = new ProfileTableGenerator(Context.TargetDir, Context.Name, false, new ProfileKnowledgeProvider("http://www.hl7.org/implement/standards/fhir/"));
-            string s = File.ReadAllText(Context.FullPath);
-            var profile = (Profile)FhirParser.ParseResourceFromXml(s);
-            var xmldoc = generator.generate(profile, false);
-            File.WriteAllText(Context.TargetFullPath, xmldoc.ToString(SaveOptions.DisableFormatting));
-        }
-    }
-    */
 
     public class ProfileTableRenderer : TextRenderer
     {

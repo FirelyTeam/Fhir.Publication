@@ -13,14 +13,14 @@ namespace Hl7.Fhir.DocumenterTool
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Fhir publisher tool 0.9 BETA");
+            Console.WriteLine("Fhir publisher tool 0.9.1 BETA");
 
             string dir = null;
             string sourcedir = null;
 
             if (args.Count() != 1) 
             {
-                Console.WriteLine("Parameter missing.");
+                Console.WriteLine("You must provide a make file.");
                 return;
             }
             

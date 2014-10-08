@@ -35,7 +35,7 @@ namespace Hl7.Fhir.Publication
             string[] words = statement.Split(' ');
             string mask = words.Skip(1).First();
             string command = words.First();
-            bool recurse = words.Contains("-recurse");
+            bool recurse = words.Contains("-recursive");
             
 
             if (words.Contains("-fromoutput"))

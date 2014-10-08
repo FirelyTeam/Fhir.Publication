@@ -14,25 +14,25 @@ namespace Hl7.Fhir.Publication.Experimental
     public static class Processor
     {
         
-        public static Stage Process(this IProcessor processor, Stage stage)
+        public static Stage Process(this IProcessor processor, Stage input)
         {
             Stage output = Stage.Empty();
 
-            foreach (Document document in stage.Queue)
+            foreach (Document document in input.Queue)
             {
                 processor.Process(document, output);
             }
             return output;
         }
 
-        public static Stage Process(this PipeLine pipeline, Stage source)
+        public static Stage Process(this PipeLine pipeline, Stage input)
         {
-            Stage stage = source;
+            Stage output = input;
             foreach (IProcessor p in pipeline.Processors)
             {
-                stage = p.Process(stage);
+                output = p.Process(output);
             }
-            return stage;
+            return output;
         }
 
         public static Stage ToStage(this IFilter filter)

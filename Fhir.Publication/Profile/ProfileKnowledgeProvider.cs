@@ -77,7 +77,7 @@ namespace Hl7.Fhir.Publication
 
         internal string getLinkForStructure(string pageName, string structureName)
         {
-            return pageName.ToLower() + "." + structureName.ToLower().Replace(" ", "") + ".html";
+            return pageName.ToLower() + "-" + structureName.ToLower().Replace(" ", "") + ".html";
         }
 
 

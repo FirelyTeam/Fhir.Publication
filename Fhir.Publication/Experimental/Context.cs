@@ -30,6 +30,11 @@ namespace Hl7.Fhir.Publication.Experimental
             Directory.CreateDirectory(Target.Directory);
         }
 
+        public void MoveTo(string dir)
+        {
+            this.Location += new Location(dir); 
+        }
+
         public Context(Root root, Location location = null)
         {
             this.Root = root;

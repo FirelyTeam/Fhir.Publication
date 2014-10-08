@@ -9,6 +9,7 @@ namespace Hl7.Fhir.Publication.Experimental
     public class TemplateRenderer : IRenderer
     {
         Document template;
+
         public TemplateRenderer(Document template)
         {
             this.template = template;

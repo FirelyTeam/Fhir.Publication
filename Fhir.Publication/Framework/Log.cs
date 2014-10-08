@@ -8,9 +8,19 @@ namespace Hl7.Fhir.Publication
 {
     public static class Log
     {
-        public static void WriteLine(string text, params object[] args)
+        public static void Info(string text, params object[] args)
         {
-            Console.WriteLine(text, args);
+            Console.WriteLine("INFO: " + text, args);
+        }
+
+        public static void Error(string text, params object[] args)
+        {
+            Console.WriteLine("ERROR: " + text, args);
+        }
+        
+        public static void Debug(string text, params object[] args)
+        {
+            Console.WriteLine("DEBUG: " + text, args);
         }
     }
 }

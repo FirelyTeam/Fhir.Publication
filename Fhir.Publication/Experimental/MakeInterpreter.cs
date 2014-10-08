@@ -29,13 +29,12 @@ namespace Hl7.Fhir.Publication.Experimental
             return bulk;
         }
 
-
         public static Statement InterpretStatement(Context context, string text)
         {
             // select *.md -recursive; markdown; template template.html ; save .html;
             Statement statement = new Statement();
 
-            string[] sentences = text.Split(';');
+            string[] sentences = text.Split(new string[] { ">>" }, StringSplitOptions.RemoveEmptyEntries);
             statement.Filter = InterpretFilter(context, sentences.First());
             foreach (string s in sentences.Skip(1))
             {
@@ -56,6 +55,7 @@ namespace Hl7.Fhir.Publication.Experimental
                 var words = text.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
                 if (words.Count() == 0) 
                     return null;
+                
                 string command = words.First().ToLower();
                 switch (command)
                 {
@@ -63,9 +63,11 @@ namespace Hl7.Fhir.Publication.Experimental
                         return new RenderProcessor(new MarkDownRenderer());
 
                     case "template":
+                    {
                         string template = words.Skip(1).First();
                         Document document = Document.CreateInContext(context, template);
                         return new RenderProcessor(new TemplateRenderer(document));
+                    }
 
                     case "razor":
                         return new RazorProcessor();
@@ -74,11 +76,35 @@ namespace Hl7.Fhir.Publication.Experimental
                         return new CopyProcessor();
 
                     case "save":
-                        string extension = words.Skip(1).First();
+                    {
+                        string extension = words.Skip(1).FirstOrDefault();
                         return new SaveProcessor(extension);
+                    }
+
+                    case "stash":
+                    {
+                        string key = words.Skip(1).First();
+                        return new StashProcessor(key);
+                    }
+
+                    case "attach":
+                    {
+                        string key = words.Skip(1).First();
+                        string mask = words.Skip(2).First();
+                        return new AttachProcessor(key, mask);
+                    }
+
+                    case "concatenate":
+                        return new ConcatenateProcessor();
 
                     case "make":
                         return new MakeProcessor();
+
+                    case "profiletable":
+                        return new ProfileProcessor();
+
+                    case "structure":
+                        return new StructureProcessor();
 
                     default:
                         return null;
@@ -98,6 +124,7 @@ namespace Hl7.Fhir.Publication.Experimental
                 Filter filter = new Filter();
                 filter.Mask = words.Skip(1).First();
                 filter.Recurse = words.Contains("-recursive");
+                filter.FromOutput = words.Contains("-output");
                 filter.Context = context.Clone();
                 return filter;
             }

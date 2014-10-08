@@ -15,7 +15,7 @@ namespace Hl7.Fhir.Publication.Experimental
         }
         public void Process(Document input, Stage output)
         {
-            input.Extension = this.Extension;
+            if (this.Extension != null) input.Extension = this.Extension;
             input.Save();
         }
     }

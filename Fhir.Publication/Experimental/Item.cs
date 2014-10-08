@@ -10,11 +10,11 @@ namespace Hl7.Fhir.Publication.Experimental
 {
 
     
-    public class Templater : IProcessor
+    public class TestProcessor : IProcessor
     {
         Document template;
 
-        public Templater(Context context, string filename)
+        public TestProcessor(Context context, string filename)
         {
             template = Document.CreateInContext(context, filename);
         }
@@ -23,7 +23,7 @@ namespace Hl7.Fhir.Publication.Experimental
         {
             string t = template.Text;
             string s = source.Text;
-            Document d = stage.CreateFrom(source);
+            Document d = stage.CreateDocumentBasedOn(source);
             d.Text = t + s;
         }
     }

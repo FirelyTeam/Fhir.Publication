@@ -55,6 +55,11 @@ namespace Hl7.Fhir.Publication.Experimental
             return clone;
         }
 
+        public static Location operator + (Location one, Location two)
+        {
+            return Location.Combine(one, two);
+        }
+
         public override string ToString()
         {
             return Directory;
