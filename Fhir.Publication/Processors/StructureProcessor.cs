@@ -23,7 +23,7 @@ namespace Hl7.Fhir.Publication
                         .generateStructureTable(structure, false, profile, "http://nu.nl/publisher.html", input.Name)
                         .ToString(System.Xml.Linq.SaveOptions.DisableFormatting);
 
-                Document document = output.CreateDocumentBasedOn(input);
+                Document document = output.CloneAndPost(input);
                 document.Name = input.Name + "-" + structure.Name;
                 document.Text = result;
 

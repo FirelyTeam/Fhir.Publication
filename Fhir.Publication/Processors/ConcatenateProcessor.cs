@@ -16,7 +16,7 @@ namespace Hl7.Fhir.Publication
             {
                 builder.Append(doc.Text);
             }
-            Document result = output.CreateDocumentBasedOn(input);
+            Document result = output.CloneAndPost(input);
             result.Text = builder.ToString();
         }
 

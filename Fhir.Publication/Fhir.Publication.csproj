@@ -80,7 +80,6 @@
     <Compile Include="Renderers\MarkDownRenderer.cs" />
     <Compile Include="Framework\PipeLine.cs" />
     <Compile Include="Processors\ProfileProcessor.cs" />
-    <Compile Include="Processors\RazorProcessor.cs" />
     <Compile Include="Framework\Root.cs" />
     <Compile Include="Processors\SaveProcessor.cs" />
     <Compile Include="Framework\Stage.cs" />
@@ -106,9 +105,6 @@
     <None Include="validation.zip">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Documentation\DSLexperiments.txt" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -23,7 +23,7 @@ namespace Hl7.Fhir.Publication
         {
             string t = template.Text;
             string s = source.Text;
-            Document d = stage.CreateDocumentBasedOn(source);
+            Document d = stage.CloneAndPost(source);
             d.Text = t + s;
         }
     }

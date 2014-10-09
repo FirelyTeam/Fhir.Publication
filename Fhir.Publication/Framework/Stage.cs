@@ -8,51 +8,60 @@ namespace Hl7.Fhir.Publication
 {
     public class Stage 
     {
-        public Queue<Document> Queue = new Queue<Document>();
-
-        public static Stage Empty()
-        {
-            return new Stage(Enumerable.Empty<Document>());
-        } 
+        private Queue<Document> queue = new Queue<Document>();
         
         public Stage(IEnumerable<Document> documents)
         {
-            this.Add(documents);
+            this.Post(documents);
         }
-        
-        public void Add(Document item)
+
+        public IEnumerable<Document> Documents
         {
-            Queue.Enqueue(item);
+            get
+            {
+                return queue;
+            }
         }
         
-        public void Add(IEnumerable<Document> documents)
+        public void Post(Document item)
+        {
+            queue.Enqueue(item);
+        }
+        
+        public void Post(IEnumerable<Document> documents)
         {
             foreach (var doc in documents)
             {
-                Queue.Enqueue(doc);
+                queue.Enqueue(doc);
             }
         }
 
         public Document Take()
         {
-            return Queue.Dequeue();
+            return queue.Dequeue();
         }
 
-        public Document CreateDocumentBasedOn(Document source)
+        public Document CloneAndPost(Document source)
         {
             Document item = source.CloneMetadata();
-            Add(item);
+            Post(item);
             return item;
         }
 
         public Document Find(string name)
         {
-            return Queue.FirstOrDefault(d => d.Name == name);
+            return queue.FirstOrDefault(d => d.Name == name);
         }
+
         public static Stage operator +(Stage stage, IEnumerable<Document> documents)
         {
-            stage.Add(documents);
+            stage.Post(documents);
             return stage;
         }
+
+        public static Stage New()
+        {
+            return new Stage(Enumerable.Empty<Document>());
+        } 
     }
 }

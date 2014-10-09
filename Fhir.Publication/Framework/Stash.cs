@@ -12,7 +12,7 @@ namespace Hl7.Fhir.Publication
         
         public static Stage New(string key)
         {
-            Stage stage = Stage.Empty();
+            Stage stage = Stage.New();
             stages.Add(key, stage);
             return stage;
         }
@@ -32,7 +32,7 @@ namespace Hl7.Fhir.Publication
         public static void Push(string key, Document document)
         {
             Stage stage = Assert(key);
-            stage.Add(document);
+            stage.Post(document);
         }
 
         public static Document Get(string key, string name)

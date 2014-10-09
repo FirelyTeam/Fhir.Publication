@@ -16,9 +16,9 @@ namespace Hl7.Fhir.Publication
         
         public static Stage Process(this IProcessor processor, Stage input)
         {
-            Stage output = Stage.Empty();
+            Stage output = Stage.New();
 
-            foreach (Document document in input.Queue)
+            foreach (Document document in input.Documents)
             {
                 processor.Process(document, output);
             }

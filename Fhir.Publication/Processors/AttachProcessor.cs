@@ -23,7 +23,7 @@ namespace Hl7.Fhir.Publication
             string name = Disk.ParseMask(input.Name, mask);
             Document attachment = Stash.Get(key, name);
             if (attachment != null) input.Attach(attachment);
-            output.Add(input);
+            output.Post(input);
         }
 
     }

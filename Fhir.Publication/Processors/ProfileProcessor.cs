@@ -17,9 +17,10 @@ namespace Hl7.Fhir.Publication
         {
             var generator = new ProfileTableGenerator(input.Context.Target.Directory, input.Name, false, new ProfileKnowledgeProvider("http://www.hl7.org/implement/standards/fhir/"));
             var profile = (Profile)FhirParser.ParseResourceFromXml(input.Text);
-            Document result = output.CreateDocumentBasedOn(input);
+            Document result = input.CloneMetadata();
             var xmldoc = generator.generate(profile, extensionsOnly: false);
             result.Text = xmldoc.ToString(SaveOptions.DisableFormatting);
+            output.Post(result);
         }
     }
 }
