@@ -4,8 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Hl7.Fhir.Publication.Experimental;
-
+using Hl7.Fhir.Publication;
 
 namespace Hl7.Fhir.DocumenterTool
 {

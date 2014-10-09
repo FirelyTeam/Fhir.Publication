@@ -6,10 +6,4 @@ using System.Threading.Tasks;
 
 namespace Hl7.Fhir.Publication
 {
-    public interface IFilter
-    {
-        IEnumerable<Document> GetItems();
-    }
-
-    
 }

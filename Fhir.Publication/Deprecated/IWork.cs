@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hl7.Fhir.Publication
+namespace Hl7.Fhir.Publication.Deprecated
 {
-    public interface IFilter
+    public interface IWork
     {
-        IEnumerable<Document> GetItems();
+        Context Context { get; set; }
+        void Execute();
     }
 
-    
 }

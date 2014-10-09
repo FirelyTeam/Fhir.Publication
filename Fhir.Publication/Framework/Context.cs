@@ -9,148 +9,55 @@ namespace Hl7.Fhir.Publication
 {
     public class Context
     {
-        public string RootDir;
-        public string TargetRootDir;
-        public string FullPath;
-        public string TargetExt;
-
-        /// <summary>
-        /// Input filename without path, including extension
-        /// </summary>
-        public string FileName
+        public Root Root;
+        public Location Location;
+        public Location Source
         {
             get
             {
-                return Path.GetFileName(FullPath);
+                return Location.Combine(Root.Source, Location);
             }
         }
-
-        public string RelativeDir
+        public Location Target
         {
             get
             {
-                return FileUtils.RelativePath(RootDir, CurrentDir);
+                return Location.Combine(Root.Target, Location);
             }
         }
-
-        public string CurrentDir
+        public void EnsureTarget()
         {
-            get 
-            {
-                if (FullPath != null)
-                {
-                    if (Directory.Exists(FullPath))
-                    {
-                        return FullPath;
-                    }
-                    else
-                    {
-                        return Path.GetDirectoryName(FullPath);
-                    }
-                }
-                else
-                {
-                    return RootDir;
-                }
-                
-            }
+            Directory.CreateDirectory(Target.Directory);
         }
 
-        public string TargetDir
+        public void MoveTo(string dir)
         {
-            get
-            {
-                return Path.Combine(TargetRootDir, RelativeDir);
-            }
+            this.Location += new Location(dir); 
         }
 
-        public string Extension
+        public Context(Root root, Location location = null)
         {
-            get
-            {
-                return Path.GetExtension(FullPath);
-            }
+            this.Root = root;
+            this.Location = location ?? new Location();
         }
-
-        /// <summary>
-        /// Input filename, without path and extension
-        /// </summary>
-        public string Name
+        public static Context CreateFromSource(Root root, string path)
         {
-            get
-            {
-                return Path.GetFileNameWithoutExtension(FullPath);
-            }
+            path = Path.GetDirectoryName(path);
+            var location = Location.RelativeFrom(root.Source, path);
+            return new Context(root, location);
         }
-
-        public void EnsureTargetDir()
-        {
-            FileUtils.EnsurePath(TargetDir);
-        }
-        
-        public string TargetFileName
-        {
-            get
-            {
-                if (TargetExt != null)
-                {
-                    return Path.ChangeExtension(FileName, TargetExt);
-                }
-                else
-                {
-                    return FileName;
-                }
-            }
-        }
-
-        public string TargetFullPath
-        {
-            get 
-            {
-                return Path.Combine(TargetDir, TargetFileName);
-            }
-        }
-
-        public void Activate()
-        {
-            this.EnsureTargetDir();
-            Directory.SetCurrentDirectory(this.CurrentDir);
-        }
-        public static Context Root(string source, string target)
-        {
-            Context context = new Context();
-            context.RootDir = source;
-            context.TargetRootDir = target;
-            return context;
-
-        }
-
         public Context Clone()
         {
-            Context context = new Context();
-            context.RootDir = this.RootDir;
-            context.TargetRootDir = this.TargetRootDir;
-            return context;
-        }
-
-        public Context Clone(string filename)
-        {
-            Context context = this.Clone();
-            context.FullPath = filename;
-            return context;
-        }
-
-        public Context Clone(string filename, string targetext)
-        {
-            Context context = this.Clone();
-            context.FullPath = filename;
-            context.TargetExt = targetext;
+            Context context = new Context(this.Root);
+            context.Location = this.Location.Clone();
             return context;
         }
 
         public override string ToString()
         {
-            return string.Join("\\", RelativeDir, FileName);
+            string s = Location.Directory;
+            if (string.IsNullOrWhiteSpace(s)) s = "(root)";
+            return s;
         }
     }
 }

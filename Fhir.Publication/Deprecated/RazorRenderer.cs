@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hl7.Fhir.Publication
+namespace Hl7.Fhir.Publication.Deprecated
 {
     public class RazorRenderer : IRenderer
     {
-        public void Render(Document input, Document output)
+        public void Render(Context context, Stream input, Stream output)
         {
-            output.Text = Razor.Render(input.Context, input.Text);
+            //Razor.Render(context, input, output);
         }
     }
 }

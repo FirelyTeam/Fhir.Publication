@@ -1,32 +1,26 @@
-﻿using MarkdownDeep;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MarkdownDeep;
 
-namespace Hl7.Fhir.Publication.Renderers
+namespace Hl7.Fhir.Publication
 {
-
-    public class MarkdownRenderer : TextRenderer    
+    public class MarkDownRenderer : IRenderer
     {
-        public override void Render(Context context, StreamReader reader, StreamWriter writer)
+        public void Render(Document input, Document output)
         {
-            var mark = new Markdown();
+                var mark = new Markdown();
 
-            //set preferences of your markdown
-            mark.SafeMode = true;
-            mark.ExtraMode = true;
-            
-            string mdtext = reader.ReadToEnd();
-            string htmlmd = mark.Transform(mdtext);
+                //set preferences of your markdown
+                mark.SafeMode = true;
+                mark.ExtraMode = true;
 
-            writer.Write(htmlmd);            
+                string mdtext = input.Text;
+                output.Text = mark.Transform(mdtext);
         }
-
-        
     }
 
-    
+
 }

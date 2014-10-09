@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="PublishProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitTest1.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fhir.Publication\Fhir.Publication.csproj">

@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Razor;
 
-namespace Hl7.Fhir.Publication.Experimental
+namespace Hl7.Fhir.Publication
 {
     public static class Razor
     {

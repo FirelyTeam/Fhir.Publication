@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace Hl7.Fhir.Publication
 {
-    public class RazorRenderer : IRenderer
+    public class MakeProcessor : IProcessor
     {
-        public void Render(Document input, Document output)
+
+        public void Process(Document input, Stage output)
         {
-            output.Text = Razor.Render(input.Context, input.Text);
+            IWork work = Make.InterpretDocument(input);
+            work.Execute();
         }
     }
 }

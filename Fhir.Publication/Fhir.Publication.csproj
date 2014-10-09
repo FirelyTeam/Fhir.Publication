@@ -63,60 +63,43 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Experimental\AttachProcessor.cs" />
-    <Compile Include="Experimental\ConcatenateProcessor.cs" />
-    <Compile Include="Experimental\Context.cs" />
-    <Compile Include="Experimental\CopyProcessor.cs" />
-    <Compile Include="Experimental\Document.cs" />
-    <Compile Include="Experimental\Filter.cs" />
-    <Compile Include="Experimental\IFilter.cs" />
-    <Compile Include="Experimental\IProcessor.cs" />
-    <Compile Include="Experimental\IRenderer.cs" />
-    <Compile Include="Experimental\Item.cs" />
-    <Compile Include="Experimental\IWork.cs" />
-    <Compile Include="Experimental\Location.cs" />
-    <Compile Include="Experimental\MakeInterpreter.cs" />
-    <Compile Include="Experimental\MakeProcessor.cs" />
-    <Compile Include="Experimental\MarkDownRenderer.cs" />
-    <Compile Include="Experimental\PipeLine.cs" />
-    <Compile Include="Experimental\ProfileProcessor.cs" />
-    <Compile Include="Experimental\RazorProcessor.cs" />
-    <Compile Include="Experimental\Root.cs" />
-    <Compile Include="Experimental\Saver.cs" />
-    <Compile Include="Experimental\Stage.cs" />
-    <Compile Include="Experimental\Stash.cs" />
-    <Compile Include="Experimental\StashProcessor.cs" />
-    <Compile Include="Experimental\StructureProcessor.cs" />
-    <Compile Include="Experimental\TemplateRenderer.cs" />
+    <Compile Include="Processors\AttachProcessor.cs" />
+    <Compile Include="Processors\ConcatenateProcessor.cs" />
     <Compile Include="Framework\Context.cs" />
+    <Compile Include="Processors\CopyProcessor.cs" />
+    <Compile Include="Framework\Document.cs" />
+    <Compile Include="Framework\Filter.cs" />
     <Compile Include="Framework\IFilter.cs" />
-    <Compile Include="Profile\ElementDefnRenderingExtensions.cs" />
-    <Compile Include="Experimental\Render.cs" />
-    <Compile Include="Renderers\TemplateRenderer.cs" />
-    <Compile Include="Work\Copy.cs" />
-    <Compile Include="Work\StructureRenderer.cs" />
-    <Compile Include="Work\StructureWork.cs" />
-    <Compile Include="Work\ProfileTableWork.cs" />
-    <Compile Include="Work\Render.cs" />
-    <Compile Include="Framework\FileUtils.cs" />
-    <Compile Include="Work\Bulk.cs" />
-    <Compile Include="Profile\HierarchicalTableGenerator.cs" />
+    <Compile Include="Framework\IProcessor.cs" />
     <Compile Include="Framework\IRenderer.cs" />
+    <Compile Include="Processors\TestProcessor.cs" />
     <Compile Include="Framework\IWork.cs" />
+    <Compile Include="Framework\Location.cs" />
+    <Compile Include="Framework\Make.cs" />
+    <Compile Include="Processors\MakeProcessor.cs" />
+    <Compile Include="Renderers\MarkDownRenderer.cs" />
+    <Compile Include="Framework\PipeLine.cs" />
+    <Compile Include="Processors\ProfileProcessor.cs" />
+    <Compile Include="Processors\RazorProcessor.cs" />
+    <Compile Include="Framework\Root.cs" />
+    <Compile Include="Processors\SaveProcessor.cs" />
+    <Compile Include="Framework\Stage.cs" />
+    <Compile Include="Framework\Stash.cs" />
+    <Compile Include="Processors\StashProcessor.cs" />
+    <Compile Include="Processors\StructureProcessor.cs" />
+    <Compile Include="Renderers\RazorRenderer.cs" />
+    <Compile Include="Renderers\TemplateRenderer.cs" />
+    <Compile Include="Profile\ElementDefnRenderingExtensions.cs" />
+    <Compile Include="Processors\RenderProcessor.cs" />
+    <Compile Include="Framework\Disk.cs" />
+    <Compile Include="Profile\HierarchicalTableGenerator.cs" />
     <Compile Include="Framework\Log.cs" />
-    <Compile Include="Work\Make.cs" />
-    <Compile Include="Renderers\MarkdownRenderer.cs" />
-    <Compile Include="Renderers\PipeLine.cs" />
     <Compile Include="Profile\ProfileKnowledgeProvider.cs" />
     <Compile Include="Profile\ProfileTableGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Renderers\RazorRenderer.cs" />
     <Compile Include="Razor\Razor.cs" />
     <Compile Include="Razor\RazorTemplate.cs" />
-    <Compile Include="Framework\Work.cs" />
     <Compile Include="Profile\StructureGenerator.cs" />
-    <Compile Include="Renderers\TestRenderer.cs" />
-    <Compile Include="Renderers\TextRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -127,6 +110,7 @@
   <ItemGroup>
     <Content Include="Documentation\DSLexperiments.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

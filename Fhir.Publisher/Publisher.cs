@@ -4,9 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using Hl7.Fhir.Publication.Renderers;
-
-namespace Hl7.Fhir.Publication.Experimental
+namespace Hl7.Fhir.Publication
 {
     public static class Publisher
     {
@@ -17,7 +15,7 @@ namespace Hl7.Fhir.Publication.Experimental
             Context context = root.Context();
 
             Document document = Filter.GetDocument(context, mask);
-            IWork work = MakeFile.InterpretDocument(document);
+            IWork work = Make.InterpretDocument(document);
             
             work.Execute();
             
