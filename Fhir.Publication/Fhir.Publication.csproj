@@ -101,12 +101,58 @@
     <Compile Include="Profile\StructureGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="dist\assets\fonts\glyphiconshalflings-regular.eot" />
+    <None Include="dist\assets\fonts\glyphiconshalflings-regular.otf" />
+    <None Include="dist\assets\fonts\glyphiconshalflings-regular.ttf" />
+    <None Include="dist\assets\fonts\glyphiconshalflings-regular.woff" />
     <None Include="packages.config" />
-    <None Include="validation.zip">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="dist\assets\css\bootstrap-fhir.css" />
+    <Content Include="dist\assets\css\bootstrap-glyphicons.css" />
+    <Content Include="dist\assets\css\project.css" />
+    <Content Include="dist\assets\css\pygments-manni.css" />
+    <Content Include="dist\assets\css\xml.css" />
+    <Content Include="dist\assets\fonts\glyphiconshalflings-regular.svg" />
+    <Content Include="dist\assets\ico\apple-touch-icon-114-precomposed.png" />
+    <Content Include="dist\assets\ico\apple-touch-icon-144-precomposed.png" />
+    <Content Include="dist\assets\ico\apple-touch-icon-57-precomposed.png" />
+    <Content Include="dist\assets\ico\apple-touch-icon-72-precomposed.png" />
+    <Content Include="dist\assets\ico\favicon.ico" />
+    <Content Include="dist\assets\ico\favicon.png" />
+    <Content Include="dist\assets\images\coverage.png" />
+    <Content Include="dist\assets\images\fhir-logo-www.png" />
+    <Content Include="dist\assets\images\fhir-logo.png" />
+    <Content Include="dist\assets\images\hl7-logo.png" />
+    <Content Include="dist\assets\images\logo_ansinew.jpg" />
+    <Content Include="dist\assets\images\Search.png" />
+    <Content Include="dist\assets\images\stripe.png" />
+    <Content Include="dist\assets\images\target.png" />
+    <Content Include="dist\assets\js\fhir.js" />
+    <Content Include="dist\assets\js\html5shiv.js" />
+    <Content Include="dist\assets\js\jquery.js" />
+    <Content Include="dist\assets\js\respond.min.js" />
+    <Content Include="dist\assets\js\xml.js" />
+    <Content Include="dist\dist\css\bootstrap.css" />
+    <Content Include="dist\dist\js\bootstrap.js" />
+    <Content Include="dist\dist\js\bootstrap.min.js" />
+    <Content Include="dist\fhir.css" />
+    <Content Include="dist\icon_datatype.gif" />
+    <Content Include="dist\icon_element.gif" />
+    <Content Include="dist\icon_extension_complex.png" />
+    <Content Include="dist\icon_extension_simple.png" />
+    <Content Include="dist\icon_primitive.png" />
+    <Content Include="dist\icon_profile.png" />
+    <Content Include="dist\icon_reference.png" />
+    <Content Include="dist\icon_resource.png" />
+    <Content Include="dist\icon_reuse.png" />
+    <Content Include="dist\icon_slice.png" />
+    <Content Include="dist\tbl_blank.png" />
+    <Content Include="dist\tbl_spacer.png" />
+    <Content Include="dist\tbl_vjoin.png" />
+    <Content Include="dist\tbl_vjoin_end.png" />
+    <Content Include="dist\tbl_vline.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
