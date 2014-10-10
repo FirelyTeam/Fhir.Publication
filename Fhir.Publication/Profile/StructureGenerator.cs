@@ -66,7 +66,7 @@ namespace Hl7.Fhir.Publication
             var nav = new ElementNavigator(structure);
             nav.MoveToFirstChild();
     
-            genElement(gen, model.getRows(), nav, profile, diff, profileUrl, profileBaseFileName);
+            genElement(gen, model.getRows(), nav, profile, true, profileUrl, profileBaseFileName);
             return gen.generate(model);
         }
 
@@ -337,7 +337,7 @@ namespace Hl7.Fhir.Publication
                     {
                         if (c.getPieces().Any()) c.addPiece(new Piece("br"));
                         c.getPieces().Add(new Piece(null, "Fixed Value: ", null).addStyle("font-weight:bold"));
-                        c.getPieces().Add(new Piece(null, element.Definition.Value.RenderValue(), null));
+                        c.getPieces().Add(new Piece(null, element.Definition.Value.ForDisplay(), null));
                     }
 
                     // ?? example from definition    
