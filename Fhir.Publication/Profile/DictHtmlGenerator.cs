@@ -56,6 +56,8 @@ namespace Hl7.Fhir.Publication
 
         public XElement generate(Profile profile, string profileUrl)
         {
+            write("<div xmlns=\"" + Hl7.Fhir.Support.XmlNs.XHTML + "\">");
+
             if (profile.ExtensionDefn != null && profile.ExtensionDefn.Any())
             {
                 write("<p><a name=\"i0\"><b>Extensions</b></a></p>\r\n");
@@ -78,6 +80,7 @@ namespace Hl7.Fhir.Publication
                 i++;
             }
 
+            write("</div>");
             return XElement.Parse(xhtml.ToString());
         }
 
@@ -249,7 +252,7 @@ namespace Hl7.Fhir.Publication
                 else
                 {
                     String name = s.Name + "." + makePathLink(ec);
-                    String title = ec.Path + ec.Name == null ? "" : "(" + ec.Name + ")";
+                    String title = ec.Path + (ec.Name == null ? "" : "(" + ec.Name + ")");
                     write("  <tr><td colspan=\"2\" class=\"structure\"><a name=\"" + name + "\"> </a><b>" + title + "</b></td></tr>\r\n");
                     generateElementInner(profile, ec.Definition);
                 }
