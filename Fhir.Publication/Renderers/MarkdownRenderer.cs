@@ -11,14 +11,15 @@ namespace Hl7.Fhir.Publication
     {
         public void Render(Document input, Document output)
         {
-                var mark = new Markdown();
+            output.Extension = ".html";
+            var mark = new Markdown();
 
-                //set preferences of your markdown
-                mark.SafeMode = true;
-                mark.ExtraMode = true;
+            //set preferences of your markdown
+            mark.SafeMode = true;
+            mark.ExtraMode = true;
 
-                string mdtext = input.Text;
-                output.Text = mark.Transform(mdtext);
+            string mdtext = input.Text;
+            output.Text = mark.Transform(mdtext);
         }
     }
 
