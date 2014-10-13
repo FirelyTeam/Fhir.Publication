@@ -28,10 +28,17 @@ namespace Hl7.Fhir.Publication
                 return _loader.LocateExtension(new Uri(url));
         }
 
+        internal Model.ValueSet GetValueSet(string url)
+        {
+            return _loader.ArtifactSource.ReadResourceArtifact(new Uri(url)) as ValueSet;
+        }
+
         string _specUrl;
 
         internal string getLinkFor(string typename)
         {
+            if (typename == "*") typename = "open";
+
             //TODO: Make this dependent on the DSTU1/2 etc website
             //TODO: There are more flavours (like narrative, extension, etc.)
             if (isDataType(typename) || isPrimitive(typename))
@@ -160,6 +167,11 @@ namespace Hl7.Fhir.Publication
             return isDataType(typeRefCode) || isPrimitive(typeRefCode) || typeRefCode == "Extension" || ModelInfo.IsKnownResource(typeRefCode);
         }
 
+
+        internal string MakeSpecRef(string p)
+        {
+            return _specUrl + p;
+        }
     }
 
 }
