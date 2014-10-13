@@ -78,6 +78,7 @@ namespace Hl7.Fhir.Publication
             host.DefaultClassName = "Template";
             host.NamespaceImports.Add("System");
             host.NamespaceImports.Add("System.IO");
+            host.NamespaceImports.Add("System.Linq");
 
             var engine = new RazorTemplateEngine(host);
             return engine;

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hl7.Fhir.Publication.Framework
+namespace Hl7.Fhir.Publication
 {
     public static class Processor
     {
