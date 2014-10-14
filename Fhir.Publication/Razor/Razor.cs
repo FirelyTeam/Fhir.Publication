@@ -53,6 +53,7 @@ namespace Hl7.Fhir.Publication
             var parameters = new CompilerParameters(); 
             parameters.GenerateInMemory = true;
             parameters.ReferencedAssemblies.Add(typeof(Razor).Assembly.Location);
+            parameters.ReferencedAssemblies.Add("System.Core.dll");
 
             CompilerResults results = codeProvider.CompileAssemblyFromDom(parameters, code);
             if (results.Errors.HasErrors)
