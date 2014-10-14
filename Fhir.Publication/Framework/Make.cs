@@ -123,7 +123,7 @@ namespace Hl7.Fhir.Publication
                         return new StructureProcessor();
 
                     default:
-                        return null;
+                        throw new Exception("Unknown processing command: " + command);
                 }
             }
             catch
