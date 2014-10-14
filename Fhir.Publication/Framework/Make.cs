@@ -31,7 +31,9 @@ namespace Hl7.Fhir.Publication
 
         public static Statement InterpretStatement(Context context, string text)
         {
-            // select *.md -recursive; markdown; template template.html ; save .html;
+            // example statement:
+            // select *.md -recursive >>  markdown >> template template.html >> save .html
+
             Statement statement = new Statement();
 
             string[] sentences = text.Split(new string[] { ">>" }, StringSplitOptions.RemoveEmptyEntries);
@@ -64,9 +66,22 @@ namespace Hl7.Fhir.Publication
 
                     case "template":
                     {
-                        string template = words.Skip(1).First();
-                        Document document = Document.CreateInContext(context, template);
-                        return new RenderProcessor(new TemplateRenderer(document));
+                        string s = words.Skip(1).First();
+                        TemplateRenderer renderer;
+                        if (s.StartsWith("$"))
+                        {
+                            string key = s;
+                            string name = words.Skip(2).First();
+                            renderer = new TemplateRenderer(key, name);
+                        }
+                        else
+                        {
+                            string template = s;
+                            Document document = Document.CreateInContext(context, template);
+                            renderer = new TemplateRenderer(document);
+                        }
+                        
+                        return new RenderProcessor(renderer);
                     }
 
                     case "razor":
@@ -84,6 +99,7 @@ namespace Hl7.Fhir.Publication
                     case "stash":
                     {
                         string key = words.Skip(1).First();
+                        if (!key.StartsWith("$")) throw new Exception("Stash name should always begin with $.");
                         return new StashProcessor(key);
                     }
 
