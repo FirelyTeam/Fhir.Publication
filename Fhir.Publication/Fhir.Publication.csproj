@@ -78,6 +78,8 @@
     <Compile Include="Framework\Location.cs" />
     <Compile Include="Framework\Make.cs" />
     <Compile Include="Processors\MakeProcessor.cs" />
+    <Compile Include="Profile\ToolingExtensions.cs" />
+    <Compile Include="Profile\ValueSetGenerator.cs" />
     <Compile Include="Profile\DictHtmlGenerator.cs" />
     <Compile Include="Renderers\MarkDownRenderer.cs" />
     <Compile Include="Framework\PipeLine.cs" />
