@@ -51,5 +51,22 @@ namespace Fhir.Profiling.Tests
             }
         }
 
+
+        [TestMethod]
+        public void PublishLipidDicHtml()
+        {
+            var source = new FileArtifactSource(true);
+            var profile = (Profile)FhirParser.ParseResourceFromXml(File.ReadAllText(@"TestData\lipid.profile.xml"));
+
+            var pkp = new ProfileKnowledgeProvider("http://www.hl7.org/implement/standards/fhir/");
+            var publisher = new DictHtmlGenerator(@"c:\temp\publisher\", pkp);
+
+            var result = File.ReadAllText(@"TestData\publish-header.xml");
+            result += publisher.generate(profile, "http://nu.nl/publisher.html")
+                        .ToString(System.Xml.Linq.SaveOptions.DisableFormatting);
+            result += File.ReadAllText(@"TestData\publish-footer.xml");
+
+            File.WriteAllText(@"c:\temp\publisher\" + "dict.html", result);
+        }
     }
 }

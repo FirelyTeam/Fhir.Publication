@@ -63,7 +63,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Framework\Processor.cs" />
     <Compile Include="Processors\AttachProcessor.cs" />
     <Compile Include="Processors\ConcatenateProcessor.cs" />
     <Compile Include="Framework\Context.cs" />
@@ -78,6 +77,7 @@
     <Compile Include="Framework\Location.cs" />
     <Compile Include="Framework\Make.cs" />
     <Compile Include="Processors\MakeProcessor.cs" />
+    <Compile Include="Profile\DictHtmlGenerator.cs" />
     <Compile Include="Renderers\MarkDownRenderer.cs" />
     <Compile Include="Framework\PipeLine.cs" />
     <Compile Include="Processors\ProfileProcessor.cs" />
