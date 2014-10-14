@@ -23,8 +23,7 @@ namespace Hl7.Fhir.Publication
 
         public void Execute()
         {
-            throw new NotImplementedException();
-       //    PipeLine.Process(Filter);
+            PipeLine.Process(Filter);
         }
 
         public override string ToString()

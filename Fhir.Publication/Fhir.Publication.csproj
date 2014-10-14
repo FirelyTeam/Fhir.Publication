@@ -63,6 +63,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Framework\Processor.cs" />
     <Compile Include="Processors\AttachProcessor.cs" />
     <Compile Include="Processors\ConcatenateProcessor.cs" />
     <Compile Include="Framework\Context.cs" />
