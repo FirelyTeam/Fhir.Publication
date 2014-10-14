@@ -13,7 +13,7 @@ namespace Hl7.Fhir.Publication
         {
             Log.Level = Log.ParseLevel(loglevel, LogLevel.Info);
             
-            Log.Info("Fhir publisher tool 0.9.1 BETA");
+            Log.Info("Fhir publisher tool 0.9.3 BETA");
 
             Root root = new Root(sourcedir, targetdir);
             Context context = root.Context();

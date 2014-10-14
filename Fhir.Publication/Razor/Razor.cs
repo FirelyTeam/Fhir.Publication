@@ -53,6 +53,7 @@ namespace Hl7.Fhir.Publication
             var parameters = new CompilerParameters(); 
             parameters.GenerateInMemory = true;
             parameters.ReferencedAssemblies.Add(typeof(Razor).Assembly.Location);
+            parameters.ReferencedAssemblies.Add("System.dll");
             parameters.ReferencedAssemblies.Add("System.Core.dll");
 
             CompilerResults results = codeProvider.CompileAssemblyFromDom(parameters, code);
@@ -79,7 +80,8 @@ namespace Hl7.Fhir.Publication
             host.DefaultClassName = "Template";
             host.NamespaceImports.Add("System");
             host.NamespaceImports.Add("System.IO");
-            host.NamespaceImports.Add("System.Linq");
+            //host.NamespaceImports.Add("System.Linq");
+           // host.NamespaceImports.Add("System.Text.RegularExpressions");
 
             var engine = new RazorTemplateEngine(host);
             return engine;
