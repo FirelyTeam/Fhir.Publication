@@ -76,6 +76,8 @@
     <Compile Include="Framework\IFilter.cs" />
     <Compile Include="Framework\IProcessor.cs" />
     <Compile Include="Framework\IRenderer.cs" />
+    <Compile Include="Processors\ValueSetProcessor.cs" />
+    <Compile Include="Processors\DictTableProcessor.cs" />
     <Compile Include="Processors\TestProcessor.cs" />
     <Compile Include="Framework\IWork.cs" />
     <Compile Include="Framework\Location.cs" />

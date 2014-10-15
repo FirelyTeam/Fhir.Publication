@@ -10,14 +10,14 @@ using System.Xml.Linq;
 namespace Hl7.Fhir.Publication
 {
 
-    public class ProfileProcessor : IProcessor
+    public class DictTableProcessor : IProcessor
     {
         public void Process(Document input, Stage output)
         {
-            var generator = new ProfileTableGenerator(input.Context.Target.Directory, input.Name, false, new ProfileKnowledgeProvider("http://www.hl7.org/implement/standards/fhir/"));
+            var generator = new DictHtmlGenerator(input.Context.Target.Directory, new ProfileKnowledgeProvider("http://www.hl7.org/implement/standards/fhir/"));
             var profile = (Profile)FhirParser.ParseResourceFromXml(input.Text);
             Document result = input.CloneMetadata();
-            var xmldoc = generator.generate(profile, extensionsOnly: false);
+            var xmldoc = generator.generate(profile, "http://di.nl");
             result.Text = xmldoc.ToString(SaveOptions.DisableFormatting);
             output.Post(result);
         }
