@@ -19,12 +19,12 @@ namespace Fhir.Profiling.Tests
             var pkp = new ProfileKnowledgeProvider("http://www.hl7.org/implement/standards/fhir/");
             var profile =  (Profile)FhirParser.ParseResourceFromXml(File.ReadAllText(@"TestData\lipid.profile.xml"));
 
-            var pagename = "lipid";
+            var pagename = profile.Name;
 
-            var publisher = new ProfileTableGenerator(@"c:\temp\publisher", "lipid", false, pkp);
+            var publisher = new ProfileTableGenerator(@"c:\temp\publisher", false, pkp);
 
             var result = File.ReadAllText(@"TestData\publish-header.cshtml");
-            result += publisher.generate(profile, false).ToString(System.Xml.Linq.SaveOptions.DisableFormatting);
+            result += publisher.Generate(profile, false).ToString(System.Xml.Linq.SaveOptions.DisableFormatting);
             result += File.ReadAllText(@"TestData\publish-footer.cshtml");
 
             File.WriteAllText(@"c:\temp\publisher\" + pagename + ".html",result);
@@ -46,7 +46,7 @@ namespace Fhir.Profiling.Tests
                         .ToString(System.Xml.Linq.SaveOptions.DisableFormatting);
                 result += File.ReadAllText(@"TestData\publish-footer.cshtml");
 
-                File.WriteAllText(@"c:\temp\publisher\" + pkp.getLinkForStructure("lipid",structure.Name), result);
+                File.WriteAllText(@"c:\temp\publisher\" + pkp.getLinkForStructure(profile,structure), result);
             }
         }
 
@@ -58,10 +58,10 @@ namespace Fhir.Profiling.Tests
             var profile = (Profile)FhirParser.ParseResourceFromXml(File.ReadAllText(@"TestData\lipid.profile.xml"));
 
             var pkp = new ProfileKnowledgeProvider("http://www.hl7.org/implement/standards/fhir/");
-            var publisher = new DictHtmlGenerator(@"c:\temp\publisher\", pkp);
+            var publisher = new DictHtmlGenerator(pkp);
 
             var result = File.ReadAllText(@"TestData\publish-header.cshtml");
-            result += publisher.generate(profile, "http://nu.nl/publisher.html")
+            result += publisher.Generate(profile, "http://nu.nl/publisher.html")
                         .ToString(System.Xml.Linq.SaveOptions.DisableFormatting);
             result += File.ReadAllText(@"TestData\publish-footer.cshtml");
 

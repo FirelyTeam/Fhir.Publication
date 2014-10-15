@@ -197,7 +197,7 @@ namespace Hl7.Fhir.Publication
             XElement td = new XElement(XmlNs.XHTMLNS + "td"); tr.Add(td);
             var indent = new String('.', i * 2);
             td.Add(new XText(indent + c.Code));
-            td.Add(new XElement(XmlNs.XHTMLNS + "a", new XAttribute("name", nmtokenize(c.Code)), new XText(" ")));
+            td.Add(new XElement(XmlNs.XHTMLNS + "a", new XAttribute("name", ProfileKnowledgeProvider.TokenizeName(c.Code)), new XText(" ")));
 
             td = new XElement(XmlNs.XHTMLNS + "td"); tr.Add(td);
             if (c.Display != null) td.Add(new XText(c.Display));
@@ -261,7 +261,7 @@ namespace Hl7.Fhir.Publication
                 td.Add(new XText(indent));
 
                 var a = new XElement(XmlNs.XHTMLNS + "a");
-                a.Add(new XAttribute("href", "#" + nmtokenize(e.Value)));
+                a.Add(new XAttribute("href", "#" + ProfileKnowledgeProvider.TokenizeName(e.Value)));
                 a.Add(new XText(c.Code));
                 td.Add(a);
             }
@@ -272,23 +272,6 @@ namespace Hl7.Fhir.Publication
             }
 
             return hasExtensions;
-        }
-
-
-
-        public static String nmtokenize(String cs)
-        {
-            StringBuilder s = new StringBuilder();
-            for (int i = 0; i < cs.Length; i++)
-            {
-                char c = cs[i];
-                if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9') || c == '-' || c == '_')
-                    s.Append(c);
-                else if (c != ' ')
-                    s.Append("." + c.ToString());
-            }
-
-            return s.ToString();
         }
 
 
@@ -424,7 +407,7 @@ namespace Hl7.Fhir.Publication
                         if (e != null && codeExistsInValueSet(e, f.Value))
                         {
                             li.Add(new XElement(XmlNs.XHTMLNS + "a",
-                                new XText(f.Value), new XAttribute("href", prefix + getCsRef(inc.System) + "#" + nmtokenize(f.Value))));
+                                new XText(f.Value), new XAttribute("href", prefix + getCsRef(inc.System) + "#" + ProfileKnowledgeProvider.TokenizeName(f.Value))));
                         }
                         else
                             li.Add(new XText(f.Value));

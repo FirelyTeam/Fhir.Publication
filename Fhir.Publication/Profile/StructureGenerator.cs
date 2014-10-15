@@ -59,14 +59,14 @@ namespace Hl7.Fhir.Publication
                     Profile profile, string profileUrl, String profileBaseFileName) 
         {
             HierarchicalTableGenerator gen = new HierarchicalTableGenerator(OutputDir, InlineGraphics);
-            TableModel model = gen.initNormalTable();
+            var model = TableModel.CreateNormalTable();
 
             // List<Profile.ElementComponent> list = diff ? structure.getDifferential().getElement() : structure.getSnapshot().getElement();   DSTU2
             var list = structure.Element;
             var nav = new ElementNavigator(structure);
             nav.MoveToFirstChild();
     
-            genElement(gen, model.getRows(), nav, profile, true, profileUrl, profileBaseFileName);
+            genElement(gen, model.Rows, nav, profile, true, profileUrl, profileBaseFileName);
             return gen.generate(model);
         }
 
@@ -117,7 +117,7 @@ namespace Hl7.Fhir.Publication
                 row.setIcon("icon_resource.png");
 
 
-            var reference = _pkp.getLinkForStructureDefinition(profileBaseFileName, makePathLink(element));
+            var reference = _pkp.getLinkForElementDefinition(profile, element);
             //String reference = defPath == null ? null : defPath + makePathLink(element);
             UnusedTracker used = new UnusedTracker();
             used.used = true;
@@ -218,15 +218,6 @@ namespace Hl7.Fhir.Publication
         private bool allTypesAre(List<Profile.TypeRefComponent> types, String name) 
         {
             return types.All( t => t.Code == name );
-        }
-
-        private String makePathLink(Profile.ElementComponent element)
-        {
-            if (element.Name == null)
-                return element.Path;
-            if (!element.Path.Contains("."))
-                return element.Name;
-            return element.Path.Substring(0, element.Path.LastIndexOf(".")) + "." + element.Name;
         }
 
 
