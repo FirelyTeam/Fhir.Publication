@@ -39,7 +39,12 @@ namespace Hl7.Fhir.Publication
         {
             Stage stage = stages[key];
             if (stage == null) throw new ArgumentException(string.Format("Stash {1} does not exist", key));
-            return stage.Find(name);
+
+            Document doc = stage.Find(name);
+            if (doc == null)
+                throw new Exception(string.Format("Document {0} was not found in stash {1}", name, key));
+            return doc;
+            
         }
     }
     
