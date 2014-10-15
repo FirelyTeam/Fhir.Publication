@@ -351,11 +351,10 @@ namespace Hl7.Fhir.Publication
             bool hasExtensions = false;
             var li = new XElement(XmlNs.XHTMLNS + "li");  ul.Add(li);
 
-            var e = _pkp.GetValueSet(inc.System);
-
+            var e = _pkp.GetValueSetForSystem(inc.System);
         //    AtomEntry<? extends Resource> e = context.getCodeSystems().get(inc.getSystem());
     
-            if ( (inc.Code == null || !inc.Code.Any()) &&  inc.Filter == null || !inc.Filter.Any())
+            if ( (inc.Code == null || !inc.Code.Any()) &&  (inc.Filter == null || !inc.Filter.Any()))
             { 
                 li.Add(new XText(type+" all codes defined in "));
                 addCsRef(inc, li, e);
@@ -413,24 +412,27 @@ namespace Hl7.Fhir.Publication
                     }
                 }
 
-                foreach (var f in inc.Filter) 
-                {                    
-                    li.Add(new XText(type+" codes from "));
-                    addCsRef(inc, li, e);
-
-                    // TODO: Java code does not allow for f.Op to be null, but it is optional
-                    li.Add(new XText(" where "+f.Property+" "+describe(f.Op.GetValueOrDefault())+" "));
-                    if (e != null && codeExistsInValueSet(e, f.Value)) 
+                if (inc.Filter != null)
+                {
+                    foreach (var f in inc.Filter)
                     {
-                        li.Add(new XElement(XmlNs.XHTMLNS+"a",
-                            new XText(f.Value), new XAttribute("href", prefix+getCsRef(inc.System)+"#"+nmtokenize(f.Value))));
-                    } 
-                    else
-                        li.Add(new XText(f.Value));
-                
-                    String disp = f.getDisplayHint();
-                    if (disp != null)
-                        li.Add(new XText(" ("+disp+")"));
+                        li.Add(new XText(type + " codes from "));
+                        addCsRef(inc, li, e);
+
+                        // TODO: Java code does not allow for f.Op to be null, but it is optional
+                        li.Add(new XText(" where " + f.Property + " " + describe(f.Op.GetValueOrDefault()) + " "));
+                        if (e != null && codeExistsInValueSet(e, f.Value))
+                        {
+                            li.Add(new XElement(XmlNs.XHTMLNS + "a",
+                                new XText(f.Value), new XAttribute("href", prefix + getCsRef(inc.System) + "#" + nmtokenize(f.Value))));
+                        }
+                        else
+                            li.Add(new XText(f.Value));
+
+                        String disp = f.getDisplayHint();
+                        if (disp != null)
+                            li.Add(new XText(" (" + disp + ")"));
+                    }
                 }
             }
     
@@ -470,14 +472,14 @@ namespace Hl7.Fhir.Publication
 
        private ValueSet.ValueSetDefineConceptComponent getConceptForCode(ValueSet vs, String code, String system)
        {
-           //TODO: Terminologie services oproepen als de valueset onbekend is
-           //if (e == null) {
-           //  if (context.getTerminologyServices() != null)
-           //    return context.getTerminologyServices().getCodeDefinition(system, code);
-           //  else
-           //    return null;
-           //}    
-           //ValueSet vs = (ValueSet) e.getResource();
+           if (vs == null)
+           {
+               //TODO: include additional terminology services
+               //if (context.getTerminologyServices() != null)
+               //    return context.getTerminologyServices().getCodeDefinition(system, code);
+               //else
+               return null;
+           }
 
            if (vs.Define == null)
                return null;

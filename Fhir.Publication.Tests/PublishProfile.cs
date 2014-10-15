@@ -2,7 +2,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 using Hl7.Fhir.Profiling;
-using Hl7.Fhir.Specification.Model;
 using Hl7.Fhir.Specification.Source;
 using Hl7.Fhir.Model;
 using Hl7.Fhir.Publication;
@@ -24,9 +23,9 @@ namespace Fhir.Profiling.Tests
 
             var publisher = new ProfileTableGenerator(@"c:\temp\publisher", "lipid", false, pkp);
 
-            var result = File.ReadAllText(@"TestData\publish-header.xml");
+            var result = File.ReadAllText(@"TestData\publish-header.cshtml");
             result += publisher.generate(profile, false).ToString(System.Xml.Linq.SaveOptions.DisableFormatting);
-            result += File.ReadAllText(@"TestData\publish-footer.xml");
+            result += File.ReadAllText(@"TestData\publish-footer.cshtml");
 
             File.WriteAllText(@"c:\temp\publisher\" + pagename + ".html",result);
         }
@@ -42,10 +41,10 @@ namespace Fhir.Profiling.Tests
 
             foreach (var structure in profile.Structure)
             {
-                var result = File.ReadAllText(@"TestData\publish-header.xml");
+                var result = File.ReadAllText(@"TestData\publish-header.cshtml");
                 result += publisher.generateStructureTable(structure, false, profile, "http://nu.nl/publisher.html", "lipid")
                         .ToString(System.Xml.Linq.SaveOptions.DisableFormatting);
-                result += File.ReadAllText(@"TestData\publish-footer.xml");
+                result += File.ReadAllText(@"TestData\publish-footer.cshtml");
 
                 File.WriteAllText(@"c:\temp\publisher\" + pkp.getLinkForStructure("lipid",structure.Name), result);
             }
@@ -53,7 +52,7 @@ namespace Fhir.Profiling.Tests
 
 
         [TestMethod]
-        public void PublishLipidDicHtml()
+        public void PublishLipidDictHtml()
         {
             var source = new FileArtifactSource(true);
             var profile = (Profile)FhirParser.ParseResourceFromXml(File.ReadAllText(@"TestData\lipid.profile.xml"));
@@ -61,12 +60,29 @@ namespace Fhir.Profiling.Tests
             var pkp = new ProfileKnowledgeProvider("http://www.hl7.org/implement/standards/fhir/");
             var publisher = new DictHtmlGenerator(@"c:\temp\publisher\", pkp);
 
-            var result = File.ReadAllText(@"TestData\publish-header.xml");
+            var result = File.ReadAllText(@"TestData\publish-header.cshtml");
             result += publisher.generate(profile, "http://nu.nl/publisher.html")
                         .ToString(System.Xml.Linq.SaveOptions.DisableFormatting);
-            result += File.ReadAllText(@"TestData\publish-footer.xml");
+            result += File.ReadAllText(@"TestData\publish-footer.cshtml");
 
             File.WriteAllText(@"c:\temp\publisher\" + "dict.html", result);
+        }
+
+        [TestMethod]
+        public void PublishValueSet()
+        {
+            var source = new FileArtifactSource(true);
+            var vs = (ValueSet)FhirParser.ParseResourceFromXml(File.ReadAllText(@"TestData\hv-laboratory-result-interpretation-v1.xml"));
+
+            var pkp = new ProfileKnowledgeProvider("http://www.hl7.org/implement/standards/fhir/");
+            var publisher = new ValueSetGenerator(@"c:\temp\publisher\", pkp);
+
+            var result = File.ReadAllText(@"TestData\publish-header.cshtml");
+            result += publisher.generate(vs)
+                        .ToString(System.Xml.Linq.SaveOptions.DisableFormatting);
+            result += File.ReadAllText(@"TestData\publish-footer.cshtml");
+
+            File.WriteAllText(@"c:\temp\publisher\" + "hv-laboratory-result-interpretation-v1.html", result);
         }
     }
 }

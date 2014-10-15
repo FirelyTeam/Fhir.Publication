@@ -172,6 +172,28 @@ namespace Hl7.Fhir.Publication
         {
             return _specUrl + p;
         }
+
+
+        public const string V2_SYSTEM_PREFIX = "http://hl7.org/fhir/v2/";
+        public const string V3_SYSTEM_PREFIX = "http://hl7.org/fhir/v3/";
+        public const string FHIR_SYSTEM_PREFIX = "http://hl7.org/fhir/";
+
+        internal ValueSet GetValueSetForSystem(string system)
+        {
+            string valuesetUri = null;
+
+            if (system.StartsWith(V2_SYSTEM_PREFIX))
+                valuesetUri = V2_SYSTEM_PREFIX + "vs/" + system.Substring(V2_SYSTEM_PREFIX.Length);
+            else if (system.StartsWith(V3_SYSTEM_PREFIX))
+                valuesetUri = V3_SYSTEM_PREFIX + "vs/" + system.Substring(V3_SYSTEM_PREFIX.Length);
+            else if (system.StartsWith(FHIR_SYSTEM_PREFIX))
+                valuesetUri = FHIR_SYSTEM_PREFIX + "vs/" + system.Substring(FHIR_SYSTEM_PREFIX.Length);
+
+            if (valuesetUri != null)
+                return GetValueSet(valuesetUri);
+            else
+                return null;
+        }
     }
 
 }
