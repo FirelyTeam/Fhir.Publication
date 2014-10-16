@@ -12,8 +12,8 @@ namespace Hl7.Fhir.Publication
     {
         public void Process(Document input, Stage output)
         {
-            var pkp = new ProfileKnowledgeProvider(input.Name);
-            var generator = new StructureGenerator(input.Context.Target.Directory, false, pkp);
+            var pkp = new ProfileKnowledgeProvider(input.Name, input.Context.Target.Directory);
+            var generator = new StructureGenerator(pkp);
 
             var profile = (Profile)FhirParser.ParseResourceFromXml(input.Text);
 

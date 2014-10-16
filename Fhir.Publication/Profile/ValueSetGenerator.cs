@@ -43,15 +43,11 @@ namespace Hl7.Fhir.Publication
     {
         ProfileKnowledgeProvider _pkp;
 
-        protected string OutputDir;
-        protected bool InlineGraphics;
-
         private StringBuilder xhtml = new StringBuilder();
 
-        internal ValueSetGenerator(String outputDirectory, ProfileKnowledgeProvider pkp)
+        internal ValueSetGenerator(ProfileKnowledgeProvider pkp)
         {
             _pkp = pkp;
-            OutputDir = outputDirectory;
         }
 
 
@@ -104,7 +100,7 @@ namespace Hl7.Fhir.Publication
 
             var langs = new List<String>();
 
-            x.Add(new XElement(XmlNs.XHTMLNS + "h2"), new XText(vs.Name));
+            x.Add(new XElement(XmlNs.XHTMLNS + "h2"), new XText("Value Set for codes in " + vs.Name));
             var p = new XElement(XmlNs.XHTMLNS + "p");
             smartAddText(p, vs.Description);
             x.Add(p);
@@ -281,7 +277,7 @@ namespace Hl7.Fhir.Publication
 
             if (vs.Define == null)
             {
-                var h = new XElement(XmlNs.XHTMLNS + "h2", new XText(vs.Name));
+                var h = new XElement(XmlNs.XHTMLNS + "h2", new XText("Value Set for codes in " + vs.Name));
                 var p = new XElement(XmlNs.XHTMLNS + "p");
                 smartAddText(p, vs.Description);
                 x.Add(h, p);

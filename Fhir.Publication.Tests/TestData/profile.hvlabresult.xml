@@ -1,0 +1,2686 @@
+﻿<Profile xmlns="http://hl7.org/fhir">
+  <text>
+    <status value="empty"/>
+    <div xmlns="http://www.w3.org/1999/xhtml">No narrative was supplied for this Profile</div>
+  </text>
+  <identifier value="urn:hl7.no:hv-laboratory-results:v1"/>
+  <version value="1.0.0"/>
+  <name value="Laboratory Results Helse Vest"/>
+  <publisher value="HL7 Norway"/>
+  <telecom>
+    <system value="email"/>
+    <value value="line.sele@helse-vest-ikt.no"/>
+  </telecom>
+  <description
+      value="This profile contains the constraints on Observation, Organization and SecurityEvent as used by the Laboratory Results PoC run by Helse Vest"/>
+  <code>
+    <system value="http://loinc.org"/>
+    <code value="11502-2"/>
+    <display value="Laboratory report"/>
+  </code>
+  <status value="draft"/>
+  <experimental value="true"/>
+  <date value="2014-09-25T00:00:00+02:00"/>
+  <requirements
+      value="Restrictions in this profile are scoped and determined by the needs of the Helse Vest&#xD;&#xA;    Lab results PoC, and may certainly change and not be representative of the HL7 Norway more &#xD;&#xA;    generic lab results profiles."/>
+  <fhirVersion value="0.0.81"/>
+  <structure>
+    <extension url="http://hl7.org/fhir/Profile/tools-extensions#profile-structure-form">
+      <valueCode value="Snapshot"/>
+    </extension>
+    <extension url="http://hl7.org/fhir/Profile/tools-extensions#profile-base">
+      <valueUri value="http://hl7.org/fhir/Profile/Observation"/>
+    </extension>
+    <type value="Observation"/>
+    <name value="hvLabResult"/>
+    <publish value="true"/>
+    <element>
+      <path value="Observation"/>
+      <definition>
+        <short value="Laboratory result"/>
+        <formal value="a single test result"/>
+        <comments
+            value="Used for simple observations such as device measurements, laboratory atomic results, vital signs, height, weight, smoking status, comments, etc.  Other resources are used to provide context for observations such as Lab reports, etc."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="Resource"/>
+        </type>
+        <constraint>
+          <key value="2"/>
+          <name value="reference range for quantity"/>
+          <severity value="error"/>
+          <human value="Can only have normal range if value is a quantity"/>
+          <xpath value="exists(f:valueQuantity) or not(exists(f:normalRange))"/>
+        </constraint>
+        <isModifier value="false"/>
+        <mapping>
+          <identity value="rim"/>
+          <map value="Observation[classCode=OBS, moodCode=EVN]"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="OBX"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Observation.extension"/>
+      <definition>
+        <short value="Additional Content defined by implementations"/>
+        <formal
+            value="May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."/>
+        <comments
+            value="there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone."/>
+        <synonym value="extensions"/>
+        <synonym value="user content"/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="Extension"/>
+        </type>
+        <isModifier value="false"/>
+      </definition>
+    </element>
+    <element>
+      <path value="Observation.modifierExtension"/>
+      <definition>
+        <short value="Extensions that cannot be ignored"/>
+        <formal
+            value="May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."/>
+        <comments
+            value="there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone."/>
+        <synonym value="extensions"/>
+        <synonym value="user content"/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="Extension"/>
+        </type>
+        <isModifier value="false"/>
+      </definition>
+    </element>
+    <element>
+      <path value="Observation.text"/>
+      <definition>
+        <short value="Text summary of the resource, for human interpretation"/>
+        <formal
+            value="A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it &quot;clinically safe&quot; for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety."/>
+        <comments
+            value="Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative."/>
+        <synonym value="narrative"/>
+        <synonym value="html"/>
+        <synonym value="xhtml"/>
+        <synonym value="display"/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="Narrative"/>
+        </type>
+        <isModifier value="false"/>
+      </definition>
+    </element>
+    <element>
+      <path value="Observation.contained"/>
+      <definition>
+        <short value="Contained, inline Resources"/>
+        <formal
+            value="These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope."/>
+        <comments
+            value="This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again."/>
+        <synonym value="inline resources"/>
+        <synonym value="anonymous resources"/>
+        <synonym value="contained resources"/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="Resource"/>
+        </type>
+        <isModifier value="false"/>
+      </definition>
+    </element>
+    <element>
+      <path value="Observation.name"/>
+      <definition>
+        <short value="Type of observation (code / type)"/>
+        <formal
+            value="Describes what was observed. Sometimes this is called the observation &quot;code&quot;."/>
+        <min value="1"/>
+        <max value="1"/>
+        <type>
+          <code value="CodeableConcept"/>
+        </type>
+        <isModifier value="false"/>
+        <binding>
+          <name value="ObservationType"/>
+          <isExtensible value="true"/>
+          <conformance value="example"/>
+          <referenceResource>
+            <reference value="http://hl7.org/fhir/vs/observation-codes"/>
+          </referenceResource>
+        </binding>
+        <mapping>
+          <identity value="rim"/>
+          <map value="code"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="OBX-3-observation identifier"/>
+        </mapping>
+        <mapping>
+          <identity value="rim"/>
+          <map value="code"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="OBX-3-observation identifier"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Observation.name.extension"/>
+      <definition>
+        <short value="Additional Content defined by implementations"/>
+        <formal
+            value="May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."/>
+        <comments
+            value="there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone."/>
+        <synonym value="extensions"/>
+        <synonym value="user content"/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="Extension"/>
+        </type>
+        <isModifier value="false"/>
+      </definition>
+    </element>
+    <element>
+      <path value="Observation.name.modifierExtension"/>
+      <definition>
+        <short value="Extensions that cannot be ignored"/>
+        <formal
+            value="May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."/>
+        <comments
+            value="there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone."/>
+        <synonym value="extensions"/>
+        <synonym value="user content"/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="Extension"/>
+        </type>
+        <isModifier value="false"/>
+      </definition>
+    </element>
+    <element>
+      <path value="Observation.name.coding"/>
+      <definition>
+        <short value="Code defined by a terminology system"/>
+        <formal value="A reference to a code defined by a terminology system."/>
+        <comments
+            value="&quot;Since the NAME and SHORTNAME in the DIPS LinkView are non &#xD;&#xA;standardized, we don't have a formal coding&quot;"/>
+        <min value="0"/>
+        <max value="0"/>
+        <type>
+          <code value="Coding"/>
+        </type>
+        <isModifier value="false"/>
+        <mapping>
+          <identity value="rim"/>
+          <map value="union(., ./translation)"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="C*E.1-8, C*E.10-22"/>
+        </mapping>
+        <mapping>
+          <identity value="rim"/>
+          <map value="union(., ./translation)"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="C*E.1-8, C*E.10-22"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Observation.name.text"/>
+      <definition>
+        <short value="Plain text representation of the concept"/>
+        <formal
+            value="A human language representation of the concept as seen/selected/uttered by the user who entered the data and/or which represents the intended meaning of the user."/>
+        <comments value="&quot;This will contain the NAME from the DIPS LinkView&quot;"/>
+        <min value="1"/>
+        <max value="1"/>
+        <type>
+          <code value="string"/>
+        </type>
+        <isModifier value="false"/>
+        <mapping>
+          <identity value="rim"/>
+          <map value="./originalText[mediaType/code=&quot;text/plain&quot;]/data"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="C*E.9. But note many systems use C*E.2 for this"/>
+        </mapping>
+        <mapping>
+          <identity value="rim"/>
+          <map value="./originalText[mediaType/code=&quot;text/plain&quot;]/data"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="C*E.9. But note many systems use C*E.2 for this"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Observation.value[x]"/>
+      <definition>
+        <short value="Actual result"/>
+        <formal value="The actual value of the laboratory test"/>
+        <comments
+            value="Since the DIPS source systems returns this as a string, we are limiting the value to string only, appending the unit if available."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="string"/>
+        </type>
+        <isModifier value="false"/>
+        <mapping>
+          <identity value="rim"/>
+          <map value="value"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="OBX.2, OBX.5, OBX.6"/>
+        </mapping>
+        <mapping>
+          <identity value="rim"/>
+          <map value="value"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="OBX.2, OBX.5, OBX.6"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Observation.interpretation"/>
+      <definition>
+        <short value="High, low, normal, etc."/>
+        <formal value="The assessment made based on the result of the observation."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="CodeableConcept"/>
+        </type>
+        <isModifier value="false"/>
+        <binding>
+          <name value="hv-laboratory-result-interpretation-v1"/>
+          <isExtensible value="false"/>
+          <conformance value="required"/>
+          <description
+              value="ValueSet of interpretation codes relevant for the HV lab obs"/>
+          <referenceResource>
+            <reference value="hv-laboratory-result-interpretation-v1"/>
+          </referenceResource>
+        </binding>
+        <mapping>
+          <identity value="rim"/>
+          <map value="interpretationCode"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="OBX-8-interpretation codes"/>
+        </mapping>
+        <mapping>
+          <identity value="rim"/>
+          <map value="interpretationCode"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="OBX-8-interpretation codes"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Observation.comments"/>
+      <definition>
+        <short value="Comments about result"/>
+        <formal
+            value="May include statements about significant, unexpected or unreliable values, or information about the source of the value where this may be relevant to the interpretation of the result."/>
+        <comments value="Comments not available from the DIPS Link View."/>
+        <min value="0"/>
+        <max value="0"/>
+        <type>
+          <code value="string"/>
+        </type>
+        <isModifier value="false"/>
+        <mapping>
+          <identity value="rim"/>
+          <map value="subjectOf.observationEvent[code=&quot;annotation&quot;].value"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="NTE.3 (partner NTE to OBX, or sometimes another (child?) OBX)"/>
+        </mapping>
+        <mapping>
+          <identity value="rim"/>
+          <map value="subjectOf.observationEvent[code=&quot;annotation&quot;].value"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="NTE.3 (partner NTE to OBX, or sometimes another (child?) OBX)"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Observation.applies[x]"/>
+      <definition>
+        <short value="Actual testtime."/>
+        <formal value="The actual testtime."/>
+        <comments
+            value="At least a date should be present unless this observation is a historical report."/>
+        <min value="1"/>
+        <max value="1"/>
+        <type>
+          <code value="dateTime"/>
+        </type>
+        <isModifier value="false"/>
+        <mapping>
+          <identity value="rim"/>
+          <map value="effectiveTime"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map
+              value="OBX-14-date/time of the observation, and/or OBX-19 after v2.4  (depends on who observation made)"
+                    />
+        </mapping>
+        <mapping>
+          <identity value="rim"/>
+          <map value="effectiveTime"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map
+              value="OBX-14-date/time of the observation, and/or OBX-19 after v2.4  (depends on who observation made)"
+                    />
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Observation.issued"/>
+      <definition>
+        <short value="Date/Time this was made available"/>
+        <formal value="Date/Time this was made available."/>
+        <comments value="Updated when the result is updated."/>
+        <min value="0"/>
+        <max value="0"/>
+        <type>
+          <code value="instant"/>
+        </type>
+        <isModifier value="false"/>
+        <mapping>
+          <identity value="rim"/>
+          <map value="participation[typeCode=AUT].time"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map
+              value="OBR.22 (or MSH.7), or perhaps OBX-19 (depends on who observation made)"
+                    />
+        </mapping>
+        <mapping>
+          <identity value="rim"/>
+          <map value="participation[typeCode=AUT].time"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map
+              value="OBR.22 (or MSH.7), or perhaps OBX-19 (depends on who observation made)"
+                    />
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Observation.status"/>
+      <definition>
+        <short value="registered | preliminary | final | amended +"/>
+        <formal value="The status of the result value."/>
+        <min value="1"/>
+        <max value="1"/>
+        <type>
+          <code value="code"/>
+        </type>
+        <isModifier value="true"/>
+        <binding>
+          <name value="hv-laboratory-result-status-v1"/>
+          <isExtensible value="false"/>
+          <conformance value="required"/>
+          <description value="ValueSet of status codes relevant for the HV lab obs"/>
+          <referenceResource>
+            <reference value="hv-laboratory-result-status-v1"/>
+          </referenceResource>
+        </binding>
+        <mapping>
+          <identity value="rim"/>
+          <map
+              value="status  Amended &amp; Final are differentiated by whether it is the subject of a ControlAct event with a type of &quot;revise&quot;"
+                    />
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="OBX-11-observation result status"/>
+        </mapping>
+        <mapping>
+          <identity value="rim"/>
+          <map
+              value="status  Amended &amp; Final are differentiated by whether it is the subject of a ControlAct event with a type of &quot;revise&quot;"
+                    />
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="OBX-11-observation result status"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Observation.reliability"/>
+      <definition>
+        <short value="ok | ongoing | early | questionable | calibrating | error +"/>
+        <formal
+            value="An estimate of the degree to which quality issues have impacted on the value reported."/>
+        <comments value="No reason to doubt the result from the DIPS Link View."/>
+        <min value="1"/>
+        <max value="1"/>
+        <type>
+          <code value="code"/>
+        </type>
+        <isModifier value="true"/>
+        <binding>
+          <name value="ObservationReliability"/>
+          <isExtensible value="false"/>
+          <conformance value="required"/>
+          <referenceResource>
+            <reference value="http://hl7.org/fhir/vs/observation-reliability"/>
+          </referenceResource>
+        </binding>
+        <mapping>
+          <identity value="rim"/>
+          <map value="uncertaintyCode"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="Maybe OBX.8/OBX.9"/>
+        </mapping>
+        <mapping>
+          <identity value="rim"/>
+          <map value="uncertaintyCode"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="Maybe OBX.8/OBX.9"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Observation.bodySite"/>
+      <definition>
+        <short value="Observed body part"/>
+        <formal value="Indicates where on the subject's body the observation was made."/>
+        <comments value="Only used if not implicit in code found in Observation.name."/>
+        <min value="0"/>
+        <max value="0"/>
+        <type>
+          <code value="CodeableConcept"/>
+        </type>
+        <isModifier value="false"/>
+        <binding>
+          <name value="BodySite"/>
+          <isExtensible value="true"/>
+          <conformance value="example"/>
+          <referenceResource>
+            <reference value="http://hl7.org/fhir/vs/body-site"/>
+          </referenceResource>
+        </binding>
+        <mapping>
+          <identity value="rim"/>
+          <map value="targetSiteCode"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="OBX-20-observation site"/>
+        </mapping>
+        <mapping>
+          <identity value="rim"/>
+          <map value="targetSiteCode"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="OBX-20-observation site"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Observation.method"/>
+      <definition>
+        <short value="How it was done"/>
+        <formal value="Indicates the mechanism used to perform the observation."/>
+        <comments value="Only used if not implicit in code for Observation.name."/>
+        <min value="0"/>
+        <max value="0"/>
+        <type>
+          <code value="CodeableConcept"/>
+        </type>
+        <isModifier value="false"/>
+        <binding>
+          <name value="ObservationMethod"/>
+          <isExtensible value="true"/>
+          <conformance value="example"/>
+          <referenceResource>
+            <reference value="http://hl7.org/fhir/vs/observation-methods"/>
+          </referenceResource>
+        </binding>
+        <mapping>
+          <identity value="rim"/>
+          <map value="methodCode"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="OBX-17-observation method"/>
+        </mapping>
+        <mapping>
+          <identity value="rim"/>
+          <map value="methodCode"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="OBX-17-observation method"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Observation.identifier"/>
+      <definition>
+        <short value="Unique Id for this particular observation"/>
+        <formal value="A unique identifier for the simple observation."/>
+        <min value="0"/>
+        <max value="0"/>
+        <type>
+          <code value="Identifier"/>
+        </type>
+        <isModifier value="false"/>
+        <mapping>
+          <identity value="rim"/>
+          <map value="id"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="OBX.21"/>
+        </mapping>
+        <mapping>
+          <identity value="rim"/>
+          <map value="id"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="OBX.21"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Observation.subject"/>
+      <definition>
+        <short value="Who and/or what this is about"/>
+        <formal value="The thing the observation is being made about."/>
+        <comments
+            value="The only circumstance in which the subject can be missing is when the observation is made by a device that does not know the patient. In this case, the observation SHALL be matched to a patient through some context/channel matching technique, and at this point, the observation should be updated."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="ResourceReference"/>
+          <profile value="#hvPatient"/>
+          <aggregation value="contained"/>
+          <aggregation value="referenced"/>
+        </type>
+        <isModifier value="false"/>
+        <mapping>
+          <identity value="rim"/>
+          <map value="participation[typeCode=SBJ]"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="PID-3-patient ID list"/>
+        </mapping>
+        <mapping>
+          <identity value="rim"/>
+          <map value="participation[typeCode=SBJ]"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="PID-3-patient ID list"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Observation.specimen"/>
+      <definition>
+        <short value="Specimen used for this observation"/>
+        <formal value="The specimen that was used when this observation was made."/>
+        <comments
+            value="Observations are not made on specimens themselves; they are made on a subject, but usually by the means of a specimen. Note that although specimens are often involved, they are not always tracked and reported explicitly. Also note that observation resources are often used in contexts that track the specimen explicity (e.g. Diagnostic Report)."/>
+        <min value="0"/>
+        <max value="0"/>
+        <type>
+          <code value="ResourceReference"/>
+          <profile value="http://hl7.org/fhir/Profile/Specimen"/>
+        </type>
+        <isModifier value="false"/>
+        <mapping>
+          <identity value="rim"/>
+          <map value="participation[typeCode=SPC].specimen"/>
+        </mapping>
+        <mapping>
+          <identity value="rim"/>
+          <map value="participation[typeCode=SPC].specimen"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Observation.specimen.extension"/>
+      <definition>
+        <short value="Additional Content defined by implementations"/>
+        <formal
+            value="May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."/>
+        <comments
+            value="there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone."/>
+        <synonym value="extensions"/>
+        <synonym value="user content"/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="Extension"/>
+        </type>
+        <isModifier value="false"/>
+      </definition>
+    </element>
+    <element>
+      <path value="Observation.specimen.modifierExtension"/>
+      <definition>
+        <short value="Extensions that cannot be ignored"/>
+        <formal
+            value="May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."/>
+        <comments
+            value="there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone."/>
+        <synonym value="extensions"/>
+        <synonym value="user content"/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="Extension"/>
+        </type>
+        <isModifier value="false"/>
+      </definition>
+    </element>
+    <element>
+      <path value="Observation.specimen.reference"/>
+      <definition>
+        <short value="Relative, internal or absolute URL reference"/>
+        <formal
+            value="A reference to a location at which the other resource is found. The reference may a relative reference, in which case it is relative to the service base URL, or an absolute URL that resolves to the location where the resource is found. The reference may be version specific or not. If the reference is not to a FHIR RESTful server, then it should be assumed to be version specific. Internal fragment references (start with '#') refer to contained resources."/>
+        <comments
+            value="Using absolute URLs provides a stable scalable approach suitable for a cloud/web context, while using relative/logical references provides a flexible approach suitable for use when trading across closed eco-system boundaries.   Absolute URLs do not need to point to a FHIR RESTful server, though this is the preferred approach. If the url conforms to the structure &quot;/[type]/@[id]&quot; then it should be assumed that the reference is to a FHIR RESTful server."/>
+        <min value="0"/>
+        <max value="0"/>
+        <type>
+          <code value="string"/>
+        </type>
+        <isModifier value="false"/>
+        <mapping>
+          <identity value="rim"/>
+          <map value="N/A"/>
+        </mapping>
+        <mapping>
+          <identity value="rim"/>
+          <map value="N/A"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Observation.specimen.display"/>
+      <definition>
+        <short value="Text alternative for the resource"/>
+        <formal
+            value="Plain text narrative that identifies the resource in addition to the resource reference."/>
+        <comments
+            value="This is generally not the same as the Resource.text of the referenced resource.  The purpose is to identify what's being referenced, not to fully describe it."/>
+        <min value="0"/>
+        <max value="0"/>
+        <type>
+          <code value="string"/>
+        </type>
+        <isModifier value="false"/>
+        <mapping>
+          <identity value="rim"/>
+          <map value="N/A"/>
+        </mapping>
+        <mapping>
+          <identity value="rim"/>
+          <map value="N/A"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Observation.performer"/>
+      <definition>
+        <short value="Who did the observation"/>
+        <formal
+            value="Who was responsible for asserting the observed value as &quot;true&quot;."/>
+        <comments
+            value="This would only be &quot;Device&quot; if the device is responsible for the measurement, not to capture the device used by a human to make the measurement.  (The latter could be captured as an extension.)."/>
+        <min value="1"/>
+        <max value="1"/>
+        <type>
+          <code value="ResourceReference"/>
+          <profile value="http://hl7.org/fhir/Profile/Organization"/>
+          <aggregation value="referenced"/>
+        </type>
+        <isModifier value="false"/>
+        <mapping>
+          <identity value="rim"/>
+          <map value="participation[typeCode=PRF]"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map
+              value="OBX.15 / (Practitioner)  OBX-16-responsible observer,  PRT-5-participation person:PRT-4-participation='RO' /  (Device)  OBX-18-equipment instance identifier , PRT-10-participation device:PRT-4-participation='EQUIP' / (Organization)  OBX-23-performing organization name,  PRT-8-participation organization:PRT-4-participation='PO'"
+                    />
+        </mapping>
+        <mapping>
+          <identity value="rim"/>
+          <map value="participation[typeCode=PRF]"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map
+              value="OBX.15 / (Practitioner)  OBX-16-responsible observer,  PRT-5-participation person:PRT-4-participation='RO' /  (Device)  OBX-18-equipment instance identifier , PRT-10-participation device:PRT-4-participation='EQUIP' / (Organization)  OBX-23-performing organization name,  PRT-8-participation organization:PRT-4-participation='PO'"
+                    />
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Observation.referenceRange"/>
+      <definition>
+        <short value="Provides guide for interpretation"/>
+        <formal
+            value="Guidance on how to interpret the value by comparison to a normal or recommended range."/>
+        <comments
+            value="Most observations only have one generic reference range. Systems MAY choose to restrict to only supplying the relevant reference range based on knowledge about the patient (e.g. specific to the patient's age, gender, weight and other factors), but this may not be possible or appropriate. Whenever more than one reference range is supplied, the differences between them SHOULD be provided in the reference range and/or age properties."/>
+        <min value="0"/>
+        <max value="0"/>
+        <constraint>
+          <key value="3"/>
+          <name value="reference range"/>
+          <severity value="error"/>
+          <human value="Must have at least a low or a high (and no comparators)"/>
+          <xpath
+              value="(exists(f:low) or exists(f:high)) and not(exists(f:low/f:comparator)) and not(exists(f:high/f:comparator))"
+                    />
+        </constraint>
+        <constraint>
+          <key value="3"/>
+          <name value="reference range"/>
+          <severity value="error"/>
+          <human value="Must have at least a low or a high (and no comparators)"/>
+          <xpath
+              value="(exists(f:low) or exists(f:high)) and not(exists(f:low/f:comparator)) and not(exists(f:high/f:comparator))"
+                    />
+        </constraint>
+        <isModifier value="false"/>
+        <mapping>
+          <identity value="rim"/>
+          <map
+              value="outboundRelationship[typeCode=REFV]/target[classCode=OBS, moodCode=EVN]"
+                    />
+        </mapping>
+        <mapping>
+          <identity value="rim"/>
+          <map
+              value="outboundRelationship[typeCode=REFV]/target[classCode=OBS, moodCode=EVN]"
+                    />
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Observation.referenceRange.extension"/>
+      <definition>
+        <short value="Additional Content defined by implementations"/>
+        <formal
+            value="May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."/>
+        <comments
+            value="there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone."/>
+        <synonym value="extensions"/>
+        <synonym value="user content"/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="Extension"/>
+        </type>
+        <isModifier value="false"/>
+      </definition>
+    </element>
+    <element>
+      <path value="Observation.referenceRange.modifierExtension"/>
+      <definition>
+        <short value="Extensions that cannot be ignored"/>
+        <formal
+            value="May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."/>
+        <comments
+            value="there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone."/>
+        <synonym value="extensions"/>
+        <synonym value="user content"/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="Extension"/>
+        </type>
+        <isModifier value="false"/>
+      </definition>
+    </element>
+    <element>
+      <path value="Observation.referenceRange.low"/>
+      <definition>
+        <short value="Low Range, if relevant"/>
+        <formal
+            value="The value of the low bound of the reference range. If this is omitted, the low bound of the reference range is assumed to be meaningless. E.g. &lt;2.3."/>
+        <comments value="Do not use the comparator for &lt; or &gt;."/>
+        <min value="0"/>
+        <max value="0"/>
+        <type>
+          <code value="Quantity"/>
+        </type>
+        <isModifier value="false"/>
+        <mapping>
+          <identity value="rim"/>
+          <map value="value:IVL_PQ.low"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="OBX-7-references range"/>
+        </mapping>
+        <mapping>
+          <identity value="rim"/>
+          <map value="value:IVL_PQ.low"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="OBX-7-references range"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Observation.referenceRange.high"/>
+      <definition>
+        <short value="High Range, if relevant"/>
+        <formal
+            value="The value of the high bound of the reference range. If this is omitted, the high bound of the reference range is assumed to be meaningless. E.g. &gt;5."/>
+        <comments value="Do not use the comparator for &lt; or &gt;."/>
+        <min value="0"/>
+        <max value="0"/>
+        <type>
+          <code value="Quantity"/>
+        </type>
+        <isModifier value="false"/>
+        <mapping>
+          <identity value="rim"/>
+          <map value="value:IVL_PQ.high"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="OBX-7-references range"/>
+        </mapping>
+        <mapping>
+          <identity value="rim"/>
+          <map value="value:IVL_PQ.high"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="OBX-7-references range"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Observation.referenceRange.meaning"/>
+      <definition>
+        <short value="Indicates the meaning/use of this range of this range"/>
+        <formal value="Code for the meaning of the reference range."/>
+        <comments value="This SHOULD be populated if there is more than one range."/>
+        <min value="0"/>
+        <max value="0"/>
+        <type>
+          <code value="CodeableConcept"/>
+        </type>
+        <isModifier value="false"/>
+        <binding>
+          <name value="ObservationRangeMeaning"/>
+          <isExtensible value="true"/>
+          <conformance value="example"/>
+          <referenceResource>
+            <reference value="http://hl7.org/fhir/vs/referencerange-meaning"/>
+          </referenceResource>
+        </binding>
+        <mapping>
+          <identity value="rim"/>
+          <map value="interpretationCode"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="OBX-10-nature of abnormal test?"/>
+        </mapping>
+        <mapping>
+          <identity value="rim"/>
+          <map value="interpretationCode"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="OBX-10-nature of abnormal test?"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Observation.referenceRange.age"/>
+      <definition>
+        <short value="Applicable age range, if relevant"/>
+        <formal
+            value="The age at which this reference range is applicable. This is a neonatal age (e.g. number of weeks at term) if the meaning says so."/>
+        <min value="0"/>
+        <max value="0"/>
+        <type>
+          <code value="Range"/>
+        </type>
+        <isModifier value="false"/>
+        <mapping>
+          <identity value="rim"/>
+          <map
+              value="outboundRelationship[typeCode=PRCN].targetObservationCriterion[code=&quot;age&quot;].value"
+                    />
+        </mapping>
+        <mapping>
+          <identity value="rim"/>
+          <map
+              value="outboundRelationship[typeCode=PRCN].targetObservationCriterion[code=&quot;age&quot;].value"
+                    />
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Observation.related"/>
+      <definition>
+        <short value="Observations related to this observation"/>
+        <formal
+            value="Related observations - either components, or previous observations, or statements of derivation."/>
+        <comments
+            value="Normally, an observation will have either a value or a set of related observations. A few observations (e.g. apgar store) may have both a value and related observations (for apgar, the observations from which the measure is derived)."/>
+        <min value="0"/>
+        <max value="0"/>
+        <isModifier value="false"/>
+        <mapping>
+          <identity value="rim"/>
+          <map value="outBoundRelationship"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="Relationships established by OBX-4 usage"/>
+        </mapping>
+        <mapping>
+          <identity value="rim"/>
+          <map value="outBoundRelationship"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="Relationships established by OBX-4 usage"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Observation.related.extension"/>
+      <definition>
+        <short value="Additional Content defined by implementations"/>
+        <formal
+            value="May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."/>
+        <comments
+            value="there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone."/>
+        <synonym value="extensions"/>
+        <synonym value="user content"/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="Extension"/>
+        </type>
+        <isModifier value="false"/>
+      </definition>
+    </element>
+    <element>
+      <path value="Observation.related.modifierExtension"/>
+      <definition>
+        <short value="Extensions that cannot be ignored"/>
+        <formal
+            value="May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."/>
+        <comments
+            value="there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone."/>
+        <synonym value="extensions"/>
+        <synonym value="user content"/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="Extension"/>
+        </type>
+        <isModifier value="false"/>
+      </definition>
+    </element>
+    <element>
+      <path value="Observation.related.type"/>
+      <definition>
+        <short
+            value="has-component | has-member | derived-from | sequel-to | replaces | qualified-by | interfered-by"/>
+        <formal
+            value="A code specifying the kind of relationship that exists with the target observation."/>
+        <comments
+            value="A relationship type SHOULD be provided. If the relationship type is &quot;COMP&quot; (composed), then the observation should not be displayed/interpreted in the absence of the related observations."/>
+        <min value="0"/>
+        <max value="0"/>
+        <type>
+          <code value="code"/>
+        </type>
+        <isModifier value="false"/>
+        <binding>
+          <name value="ObservationRelationshipType"/>
+          <isExtensible value="false"/>
+          <conformance value="required"/>
+          <referenceResource>
+            <reference value="http://hl7.org/fhir/vs/observation-relationshiptypes"/>
+          </referenceResource>
+        </binding>
+        <mapping>
+          <identity value="rim"/>
+          <map value=".typeCode"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="N/A"/>
+        </mapping>
+        <mapping>
+          <identity value="rim"/>
+          <map value=".typeCode"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="N/A"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Observation.related.target"/>
+      <definition>
+        <short value="Observation that is related to this one"/>
+        <formal value="A reference to the observation that is related to this observation."/>
+        <min value="0"/>
+        <max value="0"/>
+        <type>
+          <code value="ResourceReference"/>
+          <profile value="http://hl7.org/fhir/Profile/Observation"/>
+        </type>
+        <isModifier value="false"/>
+        <mapping>
+          <identity value="rim"/>
+          <map value=".targetObservation"/>
+        </mapping>
+        <mapping>
+          <identity value="rim"/>
+          <map value=".targetObservation"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Observation.related.target.extension"/>
+      <definition>
+        <short value="Additional Content defined by implementations"/>
+        <formal
+            value="May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."/>
+        <comments
+            value="there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone."/>
+        <synonym value="extensions"/>
+        <synonym value="user content"/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="Extension"/>
+        </type>
+        <isModifier value="false"/>
+      </definition>
+    </element>
+    <element>
+      <path value="Observation.related.target.modifierExtension"/>
+      <definition>
+        <short value="Extensions that cannot be ignored"/>
+        <formal
+            value="May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."/>
+        <comments
+            value="there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone."/>
+        <synonym value="extensions"/>
+        <synonym value="user content"/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="Extension"/>
+        </type>
+        <isModifier value="false"/>
+      </definition>
+    </element>
+    <element>
+      <path value="Observation.related.target.reference"/>
+      <definition>
+        <short value="Relative, internal or absolute URL reference"/>
+        <formal
+            value="A reference to a location at which the other resource is found. The reference may a relative reference, in which case it is relative to the service base URL, or an absolute URL that resolves to the location where the resource is found. The reference may be version specific or not. If the reference is not to a FHIR RESTful server, then it should be assumed to be version specific. Internal fragment references (start with '#') refer to contained resources."/>
+        <comments
+            value="Using absolute URLs provides a stable scalable approach suitable for a cloud/web context, while using relative/logical references provides a flexible approach suitable for use when trading across closed eco-system boundaries.   Absolute URLs do not need to point to a FHIR RESTful server, though this is the preferred approach. If the url conforms to the structure &quot;/[type]/@[id]&quot; then it should be assumed that the reference is to a FHIR RESTful server."/>
+        <min value="0"/>
+        <max value="0"/>
+        <type>
+          <code value="string"/>
+        </type>
+        <isModifier value="false"/>
+        <mapping>
+          <identity value="rim"/>
+          <map value="N/A"/>
+        </mapping>
+        <mapping>
+          <identity value="rim"/>
+          <map value="N/A"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Observation.related.target.display"/>
+      <definition>
+        <short value="Text alternative for the resource"/>
+        <formal
+            value="Plain text narrative that identifies the resource in addition to the resource reference."/>
+        <comments
+            value="This is generally not the same as the Resource.text of the referenced resource.  The purpose is to identify what's being referenced, not to fully describe it."/>
+        <min value="0"/>
+        <max value="0"/>
+        <type>
+          <code value="string"/>
+        </type>
+        <isModifier value="false"/>
+        <mapping>
+          <identity value="rim"/>
+          <map value="N/A"/>
+        </mapping>
+        <mapping>
+          <identity value="rim"/>
+          <map value="N/A"/>
+        </mapping>
+      </definition>
+    </element>
+    <searchParam>
+      <name value="_id"/>
+      <type value="token"/>
+      <documentation
+          value="The logical resource id associated with the resource (must be supported by all servers)"
+            />
+    </searchParam>
+    <searchParam>
+      <name value="_language"/>
+      <type value="token"/>
+      <documentation value="The language of the resource"/>
+    </searchParam>
+    <searchParam>
+      <name value="date"/>
+      <type value="date"/>
+      <documentation
+          value="Obtained date/time. If the obtained element is a period, a date that falls in the period"/>
+      <xpath value="f:Observation/f:applies[x]"/>
+    </searchParam>
+    <searchParam>
+      <name value="name"/>
+      <type value="token"/>
+      <documentation value="The name of the observation type"/>
+      <xpath value="f:Observation/f:name"/>
+    </searchParam>
+    <searchParam>
+      <name value="name-value-[x]"/>
+      <type value="composite"/>
+      <documentation value="Both name and one of the value parameters"/>
+    </searchParam>
+    <searchParam>
+      <name value="performer"/>
+      <type value="reference"/>
+      <documentation value="Who and/or what performed the observation"/>
+      <xpath value="f:Observation/f:performer"/>
+    </searchParam>
+    <searchParam>
+      <name value="related"/>
+      <type value="composite"/>
+      <documentation
+          value="Related Observations - search on related-type and related-target together"/>
+    </searchParam>
+    <searchParam>
+      <name value="related-target"/>
+      <type value="reference"/>
+      <documentation value="Observation that is related to this one"/>
+      <xpath value="f:Observation/f:related/f:target"/>
+    </searchParam>
+    <searchParam>
+      <name value="related-type"/>
+      <type value="token"/>
+      <documentation
+          value="has-component | has-member | derived-from | sequel-to | replaces | qualified-by | interfered-by"/>
+      <xpath value="f:Observation/f:related/f:type"/>
+    </searchParam>
+    <searchParam>
+      <name value="reliability"/>
+      <type value="token"/>
+      <documentation value="The reliability of the observation"/>
+      <xpath value="f:Observation/f:reliability"/>
+    </searchParam>
+    <searchParam>
+      <name value="specimen"/>
+      <type value="reference"/>
+      <documentation value="Specimen used for this observation"/>
+      <xpath value="f:Observation/f:specimen"/>
+    </searchParam>
+    <searchParam>
+      <name value="status"/>
+      <type value="token"/>
+      <documentation value="The status of the observation"/>
+      <xpath value="f:Observation/f:status"/>
+    </searchParam>
+    <searchParam>
+      <name value="subject"/>
+      <type value="reference"/>
+      <documentation value="The subject that the observation is about"/>
+      <xpath value="f:Observation/f:subject"/>
+    </searchParam>
+    <searchParam>
+      <name value="value-concept"/>
+      <type value="token"/>
+      <documentation value="The value of the observation, if the value is a CodeableConcept"/>
+      <xpath value="f:Observation/f:value[x]"/>
+    </searchParam>
+    <searchParam>
+      <name value="value-date"/>
+      <type value="date"/>
+      <documentation value="The value of the observation, if the value is a Period"/>
+      <xpath value="f:Observation/f:value[x]"/>
+    </searchParam>
+    <searchParam>
+      <name value="value-quantity"/>
+      <type value="quantity"/>
+      <documentation
+          value="The value of the observation, if the value is a Quantity, or a SampledData (just search on the bounds of the values in sampled data)"/>
+      <xpath value="f:Observation/f:value[x]"/>
+    </searchParam>
+    <searchParam>
+      <name value="value-string"/>
+      <type value="string"/>
+      <documentation
+          value="The value of the observation, if the value is a string, and also searches in CodeableConcept.text"/>
+      <xpath value="f:Observation/f:value[x]"/>
+    </searchParam>
+  </structure>
+  <structure>
+    <extension url="http://hl7.org/fhir/Profile/tools-extensions#profile-structure-form">
+      <valueCode value="Snapshot"/>
+    </extension>
+    <extension url="http://hl7.org/fhir/Profile/tools-extensions#profile-base">
+      <valueUri value="http://hl7.org/fhir/Profile/Patient"/>
+    </extension>
+    <type value="Patient"/>
+    <name value="hvPatient"/>
+    <publish value="true"/>
+    <element>
+      <path value="Patient"/>
+      <definition>
+        <short value="Information about a person or animal receiving health care services"/>
+        <formal
+            value="Demographics and other administrative information about a person or animal receiving care or other health-related services."/>
+        <min value="1"/>
+        <max value="1"/>
+        <type>
+          <code value="Resource"/>
+        </type>
+        <isModifier value="false"/>
+        <mapping>
+          <identity value="rim"/>
+          <map value="Patient[classCode=PAT]"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Patient.extension"/>
+      <definition>
+        <short value="Additional Content defined by implementations"/>
+        <formal
+            value="May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."/>
+        <comments
+            value="there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone."/>
+        <synonym value="extensions"/>
+        <synonym value="user content"/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="Extension"/>
+        </type>
+        <isModifier value="false"/>
+      </definition>
+    </element>
+    <element>
+      <path value="Patient.modifierExtension"/>
+      <definition>
+        <short value="Extensions that cannot be ignored"/>
+        <formal
+            value="May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."/>
+        <comments
+            value="there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone."/>
+        <synonym value="extensions"/>
+        <synonym value="user content"/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="Extension"/>
+        </type>
+        <isModifier value="false"/>
+      </definition>
+    </element>
+    <element>
+      <path value="Patient.text"/>
+      <definition>
+        <short value="Text summary of the resource, for human interpretation"/>
+        <formal
+            value="A human-readable narrative that contains a summary of the resource, and may be used to represent the content of the resource to a human. The narrative need not encode all the structured data, but is required to contain sufficient detail to make it &quot;clinically safe&quot; for a human to just read the narrative. Resource definitions may define what content should be represented in the narrative to ensure clinical safety."/>
+        <comments
+            value="Contained resources do not have narrative. Resources that are not contained SHOULD have a narrative."/>
+        <synonym value="narrative"/>
+        <synonym value="html"/>
+        <synonym value="xhtml"/>
+        <synonym value="display"/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="Narrative"/>
+        </type>
+        <isModifier value="false"/>
+      </definition>
+    </element>
+    <element>
+      <path value="Patient.contained"/>
+      <definition>
+        <short value="Contained, inline Resources"/>
+        <formal
+            value="These resources do not have an independent existence apart from the resource that contains them - they cannot be identified independently, and nor can they have their own independent transaction scope."/>
+        <comments
+            value="This should never be done when the content can be identified properly, as once identification is lost, it is extremely difficult (and context dependent) to restore it again."/>
+        <synonym value="inline resources"/>
+        <synonym value="anonymous resources"/>
+        <synonym value="contained resources"/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="Resource"/>
+        </type>
+        <isModifier value="false"/>
+      </definition>
+    </element>
+    <element>
+      <path value="Patient.identifier"/>
+      <definition>
+        <short value="An identifier for the person as this patient"/>
+        <formal value="An identifier that applies to this person as a patient."/>
+        <min value="1"/>
+        <max value="1"/>
+        <type>
+          <code value="Identifier"/>
+        </type>
+        <isModifier value="false"/>
+        <mapping>
+          <identity value="rim"/>
+          <map value="id"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="PID-3"/>
+        </mapping>
+        <mapping>
+          <identity value="rim"/>
+          <map value="id"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="PID-3"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Patient.identifier.extension"/>
+      <definition>
+        <short value="Additional Content defined by implementations"/>
+        <formal
+            value="May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."/>
+        <comments
+            value="there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone."/>
+        <synonym value="extensions"/>
+        <synonym value="user content"/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="Extension"/>
+        </type>
+        <isModifier value="false"/>
+      </definition>
+    </element>
+    <element>
+      <path value="Patient.identifier.modifierExtension"/>
+      <definition>
+        <short value="Extensions that cannot be ignored"/>
+        <formal
+            value="May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."/>
+        <comments
+            value="there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone."/>
+        <synonym value="extensions"/>
+        <synonym value="user content"/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="Extension"/>
+        </type>
+        <isModifier value="false"/>
+      </definition>
+    </element>
+    <element>
+      <path value="Patient.identifier.use"/>
+      <definition>
+        <short value="usual | official | temp | secondary (If known)"/>
+        <formal value="The purpose of this identifier."/>
+        <comments
+            value="This is labeled as &quot;Is Modifier&quot; because applications should not mistake a temporary id for a permanent one. Applications can assume that an identifier is permanent unless it explicitly says that it is temporary."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="code"/>
+        </type>
+        <isModifier value="true"/>
+        <binding>
+          <name value="IdentifierUse"/>
+          <isExtensible value="false"/>
+          <conformance value="required"/>
+          <referenceResource>
+            <reference value="http://hl7.org/fhir/vs/identifier-use"/>
+          </referenceResource>
+        </binding>
+        <mapping>
+          <identity value="rim"/>
+          <map value="N/A - this is sometimes implied by context"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="CX.5"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Patient.identifier.label"/>
+      <definition>
+        <short value="Description of identifier"/>
+        <formal
+            value="A text string for the identifier that can be displayed to a human so they can recognize the identifier."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="string"/>
+        </type>
+        <isModifier value="false"/>
+        <mapping>
+          <identity value="rim"/>
+          <map value="N/A - this is sometimes implied by context"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="N/A"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Patient.identifier.system"/>
+      <definition>
+        <short value="The namespace for the identifier"/>
+        <formal
+            value="Establishes the namespace in which set of possible id values is unique."/>
+        <min value="1"/>
+        <max value="1"/>
+        <type>
+          <code value="uri"/>
+        </type>
+        <exampleUri value="urn:oid:1.2.3.4.5.6.7"/>
+        <isModifier value="false"/>
+        <mapping>
+          <identity value="rim"/>
+          <map value="II.root"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="CX.4 / EI-2-4"/>
+        </mapping>
+        <mapping>
+          <identity value="servd"/>
+          <map value="./IdentifierType"/>
+        </mapping>
+        <mapping>
+          <identity value="rim"/>
+          <map value="II.root"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="CX.4 / EI-2-4"/>
+        </mapping>
+        <mapping>
+          <identity value="servd"/>
+          <map value="./IdentifierType"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Patient.identifier.value"/>
+      <definition>
+        <short value="The value that is unique"/>
+        <formal
+            value="The portion of the identifier typically displayed to the user and which is unique within the context of the system."/>
+        <comments
+            value="If the value is a full URI, then the system SHALL be urn:ietf:rfc:3986."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="string"/>
+        </type>
+        <isModifier value="false"/>
+        <mapping>
+          <identity value="rim"/>
+          <map value="II.extension or II.root if system indicates OID or GUID"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="CX.1 / EI.1"/>
+        </mapping>
+        <mapping>
+          <identity value="servd"/>
+          <map value="./Value"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Patient.identifier.period"/>
+      <definition>
+        <short value="Time period when id is/was valid for use"/>
+        <formal value="Time period during which identifier is/was valid for use."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="Period"/>
+        </type>
+        <isModifier value="false"/>
+        <mapping>
+          <identity value="rim"/>
+          <map value="N/A - this is sometimes implied by context"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="CX.7 + CX.8"/>
+        </mapping>
+        <mapping>
+          <identity value="servd"/>
+          <map value="./StartDate and ./EndDate"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Patient.identifier.assigner"/>
+      <definition>
+        <short value="Organization that issued id (may be just text)"/>
+        <formal value="Organization that issued/manages the identifier."/>
+        <comments value="The reference may be just a text description of the assigner."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="ResourceReference"/>
+          <profile value="http://hl7.org/fhir/Profile/Organization"/>
+        </type>
+        <isModifier value="false"/>
+        <mapping>
+          <identity value="rim"/>
+          <map
+              value="II.assigningAuthorityName but note that this is an improper use by the definition of the field"
+                    />
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="CX.4 / (CX.4,CX.9,CX.10)"/>
+        </mapping>
+        <mapping>
+          <identity value="servd"/>
+          <map value="./IdentifierIssuingAuthority"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Patient.name"/>
+      <definition>
+        <short value="A name associated with the patient"/>
+        <formal value="A name associated with the individual."/>
+        <comments
+            value="Person may have multiple names with different uses or applicable periods.For animals, the name is a &quot;HumanName&quot; in the sense that is assigned and used by humans and has the same patterns."/>
+        <min value="1"/>
+        <max value="1"/>
+        <type>
+          <code value="HumanName"/>
+        </type>
+        <isModifier value="false"/>
+        <mapping>
+          <identity value="rim"/>
+          <map value="name"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="PID-5, PID-9"/>
+        </mapping>
+        <mapping>
+          <identity value="rim"/>
+          <map value="name"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="PID-5, PID-9"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Patient.telecom"/>
+      <definition>
+        <short value="A contact detail for the individual"/>
+        <formal
+            value="A contact detail (e.g. a telephone number or an email address) by which the individual may be contacted."/>
+        <comments
+            value="Person may have multiple ways to be contacted with different uses or applicable periods.  May need to have options for contacting the person urgently and also to help with identification. The address may not go directly to the individual, but may reach another party that is able to proxy for the patient (i.e. home phone, or pet owner's phone)."/>
+        <min value="0"/>
+        <max value="0"/>
+        <type>
+          <code value="Contact"/>
+        </type>
+        <isModifier value="false"/>
+        <mapping>
+          <identity value="rim"/>
+          <map value="telecom"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="PID-13, PID-14, PID-40"/>
+        </mapping>
+        <mapping>
+          <identity value="rim"/>
+          <map value="telecom"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="PID-13, PID-14, PID-40"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Patient.gender"/>
+      <definition>
+        <short value="Gender for administrative purposes"/>
+        <formal
+            value="Administrative Gender - the gender that the patient is considered to have for administration and record keeping purposes."/>
+        <comments
+            value="The gender may not match the biological sex as determined by genetics, or the individual's preferred identification. Note that for both humans and particularly animals, there are other legitimate possibilities than M and F, though the vast majority of systems and contexts only support M and F."/>
+        <min value="0"/>
+        <max value="0"/>
+        <type>
+          <code value="CodeableConcept"/>
+        </type>
+        <isModifier value="false"/>
+        <binding>
+          <name value="AdministrativeGender"/>
+          <isExtensible value="true"/>
+          <conformance value="preferred"/>
+          <referenceResource>
+            <reference value="http://hl7.org/fhir/vs/administrative-gender"/>
+          </referenceResource>
+        </binding>
+        <mapping>
+          <identity value="rim"/>
+          <map
+              value="player[classCode=PSN|ANM and determinerCode=INSTANCE]/administrativeGender"
+                    />
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="PID-8"/>
+        </mapping>
+        <mapping>
+          <identity value="rim"/>
+          <map
+              value="player[classCode=PSN|ANM and determinerCode=INSTANCE]/administrativeGender"
+                    />
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="PID-8"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Patient.birthDate"/>
+      <definition>
+        <short value="The date and time of birth for the individual"/>
+        <formal value="The date and time of birth for the individual."/>
+        <comments
+            value="At least an estimated year should be provided as a guess if the real dob is unknown."/>
+        <min value="0"/>
+        <max value="0"/>
+        <type>
+          <code value="dateTime"/>
+        </type>
+        <isModifier value="false"/>
+        <mapping>
+          <identity value="rim"/>
+          <map value="player[classCode=PSN|ANM and determinerCode=INSTANCE]/birthTime"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="PID-7"/>
+        </mapping>
+        <mapping>
+          <identity value="rim"/>
+          <map value="player[classCode=PSN|ANM and determinerCode=INSTANCE]/birthTime"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="PID-7"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Patient.deceased[x]"/>
+      <definition>
+        <short value="Indicates if the individual is deceased or not"/>
+        <formal value="Indicates if the individual is deceased or not."/>
+        <comments
+            value="If there's no value in the instance it means there is no statement on whether or not the individual is deceased. Most systems will interpret the absence of a value as a sign of the person being alive."/>
+        <min value="0"/>
+        <max value="0"/>
+        <type>
+          <code value="boolean"/>
+        </type>
+        <type>
+          <code value="dateTime"/>
+        </type>
+        <isModifier value="true"/>
+        <mapping>
+          <identity value="rim"/>
+          <map
+              value="player[classCode=PSN|ANM and determinerCode=INSTANCE]/deceasedInd, player[classCode=PSN|ANM and determinerCode=INSTANCE]/deceasedTime"
+                    />
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="PID-30  (bool) and PID-29 (datetime)"/>
+        </mapping>
+        <mapping>
+          <identity value="rim"/>
+          <map
+              value="player[classCode=PSN|ANM and determinerCode=INSTANCE]/deceasedInd, player[classCode=PSN|ANM and determinerCode=INSTANCE]/deceasedTime"
+                    />
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="PID-30  (bool) and PID-29 (datetime)"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Patient.address"/>
+      <definition>
+        <short value="Addresses for the individual"/>
+        <formal value="Addresses for the individual."/>
+        <comments
+            value="Person may have multiple addresses with different uses or applicable periods."/>
+        <min value="0"/>
+        <max value="0"/>
+        <type>
+          <code value="Address"/>
+        </type>
+        <isModifier value="false"/>
+        <mapping>
+          <identity value="rim"/>
+          <map value="addr"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="PID-11"/>
+        </mapping>
+        <mapping>
+          <identity value="rim"/>
+          <map value="addr"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="PID-11"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Patient.maritalStatus"/>
+      <definition>
+        <short value="Marital (civil) status of a person"/>
+        <formal value="This field contains a patient's most recent marital (civil) status."/>
+        <min value="0"/>
+        <max value="0"/>
+        <type>
+          <code value="CodeableConcept"/>
+        </type>
+        <isModifier value="false"/>
+        <binding>
+          <name value="MaritalStatus"/>
+          <isExtensible value="true"/>
+          <conformance value="preferred"/>
+          <referenceResource>
+            <reference value="http://hl7.org/fhir/vs/marital-status"/>
+          </referenceResource>
+        </binding>
+        <mapping>
+          <identity value="rim"/>
+          <map value="player[classCode=PSN]/maritalStatusCode"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="PID-16"/>
+        </mapping>
+        <mapping>
+          <identity value="rim"/>
+          <map value="player[classCode=PSN]/maritalStatusCode"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="PID-16"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Patient.multipleBirth[x]"/>
+      <definition>
+        <short value="Whether patient is part of a multiple birth"/>
+        <formal
+            value="Indicates whether the patient is part of a multiple or indicates the actual birth order."/>
+        <min value="0"/>
+        <max value="0"/>
+        <type>
+          <code value="boolean"/>
+        </type>
+        <type>
+          <code value="integer"/>
+        </type>
+        <isModifier value="false"/>
+        <mapping>
+          <identity value="rim"/>
+          <map
+              value="player[classCode=PSN|ANM and determinerCode=INSTANCE]/multipleBirthInd,  player[classCode=PSN|ANM and determinerCode=INSTANCE]/multipleBirthOrderNumber"
+                    />
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="PID-24 (bool), PID-25 (integer)"/>
+        </mapping>
+        <mapping>
+          <identity value="rim"/>
+          <map
+              value="player[classCode=PSN|ANM and determinerCode=INSTANCE]/multipleBirthInd,  player[classCode=PSN|ANM and determinerCode=INSTANCE]/multipleBirthOrderNumber"
+                    />
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="PID-24 (bool), PID-25 (integer)"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Patient.photo"/>
+      <definition>
+        <short value="Image of the person"/>
+        <formal value="Image of the person."/>
+        <min value="0"/>
+        <max value="0"/>
+        <type>
+          <code value="Attachment"/>
+        </type>
+        <isModifier value="false"/>
+        <mapping>
+          <identity value="rim"/>
+          <map value="player[classCode=PSN|ANM and determinerCode=INSTANCE]/desc"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="OBX-5 - needs a profile"/>
+        </mapping>
+        <mapping>
+          <identity value="rim"/>
+          <map value="player[classCode=PSN|ANM and determinerCode=INSTANCE]/desc"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="OBX-5 - needs a profile"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Patient.contact"/>
+      <definition>
+        <short value="A contact party (e.g. guardian, partner, friend) for the patient"/>
+        <formal value="A contact party (e.g. guardian, partner, friend) for the patient."/>
+        <comments
+            value="Contact covers all kinds of contact parties: family members, business contacts, guardians, caregivers. Not applicable to register pedigree and family ties beyond use of having contact."/>
+        <min value="0"/>
+        <max value="0"/>
+        <constraint>
+          <key value="1"/>
+          <name value="ContactNeedsDetails"/>
+          <severity value="error"/>
+          <human
+              value="SHALL at least contain a contact's details or a reference to an organization"/>
+          <xpath value="f:name or f:telecom or f:address or f:organization"/>
+        </constraint>
+        <constraint>
+          <key value="1"/>
+          <name value="ContactNeedsDetails"/>
+          <severity value="error"/>
+          <human
+              value="SHALL at least contain a contact's details or a reference to an organization"/>
+          <xpath value="f:name or f:telecom or f:address or f:organization"/>
+        </constraint>
+        <isModifier value="false"/>
+        <mapping>
+          <identity value="rim"/>
+          <map
+              value="player[classCode=PSN|ANM and determinerCode=INSTANCE]/scopedRole[classCode=CON]"
+                    />
+        </mapping>
+        <mapping>
+          <identity value="rim"/>
+          <map
+              value="player[classCode=PSN|ANM and determinerCode=INSTANCE]/scopedRole[classCode=CON]"
+                    />
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Patient.contact.extension"/>
+      <definition>
+        <short value="Additional Content defined by implementations"/>
+        <formal
+            value="May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."/>
+        <comments
+            value="there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone."/>
+        <synonym value="extensions"/>
+        <synonym value="user content"/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="Extension"/>
+        </type>
+        <isModifier value="false"/>
+      </definition>
+    </element>
+    <element>
+      <path value="Patient.contact.modifierExtension"/>
+      <definition>
+        <short value="Extensions that cannot be ignored"/>
+        <formal
+            value="May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."/>
+        <comments
+            value="there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone."/>
+        <synonym value="extensions"/>
+        <synonym value="user content"/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="Extension"/>
+        </type>
+        <isModifier value="false"/>
+      </definition>
+    </element>
+    <element>
+      <path value="Patient.contact.relationship"/>
+      <definition>
+        <short value="The kind of relationship"/>
+        <formal
+            value="The nature of the relationship between the patient and the contact person."/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="CodeableConcept"/>
+        </type>
+        <isModifier value="false"/>
+        <binding>
+          <name value="ContactRelationship"/>
+          <isExtensible value="true"/>
+          <conformance value="preferred"/>
+          <referenceResource>
+            <reference value="http://hl7.org/fhir/vs/patient-contact-relationship"/>
+          </referenceResource>
+        </binding>
+        <mapping>
+          <identity value="rim"/>
+          <map value="code"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="NK1-7, NK1-3"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Patient.contact.name"/>
+      <definition>
+        <short value="A name associated with the person"/>
+        <formal value="A name associated with the person."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="HumanName"/>
+        </type>
+        <isModifier value="false"/>
+        <mapping>
+          <identity value="rim"/>
+          <map value="name"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="NK1-2"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Patient.contact.telecom"/>
+      <definition>
+        <short value="A contact detail for the person"/>
+        <formal
+            value="A contact detail for the person, e.g. a telephone number or an email address."/>
+        <comments
+            value="Person may have multiple ways to be contacted with different uses or applicable periods.  May need to have options for contacting the person urgently, and also to help with identification."/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="Contact"/>
+        </type>
+        <isModifier value="false"/>
+        <mapping>
+          <identity value="rim"/>
+          <map value="telecom"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="NK1-5, NK1-6, NK1-40"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Patient.contact.address"/>
+      <definition>
+        <short value="Address for the contact person"/>
+        <formal value="Address for the contact person."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="Address"/>
+        </type>
+        <isModifier value="false"/>
+        <mapping>
+          <identity value="rim"/>
+          <map value="addr"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="NK1-4"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Patient.contact.gender"/>
+      <definition>
+        <short value="Gender for administrative purposes"/>
+        <formal
+            value="Administrative Gender - the gender that the person is considered to have for administration and record keeping purposes."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="CodeableConcept"/>
+        </type>
+        <isModifier value="false"/>
+        <binding>
+          <name value="AdministrativeGender"/>
+          <isExtensible value="true"/>
+          <conformance value="preferred"/>
+          <referenceResource>
+            <reference value="http://hl7.org/fhir/vs/administrative-gender"/>
+          </referenceResource>
+        </binding>
+        <mapping>
+          <identity value="rim"/>
+          <map
+              value="player[classCode=PSN|ANM and determinerCode=INSTANCE]/administrativeGender"
+                    />
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="NK1-15"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Patient.contact.organization"/>
+      <definition>
+        <short value="Organization that is associated with the contact"/>
+        <formal
+            value="Organization on behalf of which the contact is acting or for which the contact is working."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="ResourceReference"/>
+          <profile value="http://hl7.org/fhir/Profile/Organization"/>
+        </type>
+        <isModifier value="false"/>
+        <mapping>
+          <identity value="rim"/>
+          <map value="scoper"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="NK1-13, NK1-30, NK1-31, NK1-32, NK1-41"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Patient.animal"/>
+      <definition>
+        <short value="If this patient is an animal (non-human)"/>
+        <formal value="This element has a value if the patient is an animal."/>
+        <comments
+            value="The animal element is labeled &quot;Is Modifier&quot; since patients may be non-human. Systems SHALL either handle patient details appropriately (e.g. inform users patient is not human) or reject non-human patient records."/>
+        <min value="0"/>
+        <max value="0"/>
+        <isModifier value="true"/>
+        <mapping>
+          <identity value="rim"/>
+          <map value="player[classCode=ANM]"/>
+        </mapping>
+        <mapping>
+          <identity value="rim"/>
+          <map value="player[classCode=ANM]"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Patient.animal.extension"/>
+      <definition>
+        <short value="Additional Content defined by implementations"/>
+        <formal
+            value="May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."/>
+        <comments
+            value="there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone."/>
+        <synonym value="extensions"/>
+        <synonym value="user content"/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="Extension"/>
+        </type>
+        <isModifier value="false"/>
+      </definition>
+    </element>
+    <element>
+      <path value="Patient.animal.modifierExtension"/>
+      <definition>
+        <short value="Extensions that cannot be ignored"/>
+        <formal
+            value="May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."/>
+        <comments
+            value="there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone."/>
+        <synonym value="extensions"/>
+        <synonym value="user content"/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="Extension"/>
+        </type>
+        <isModifier value="false"/>
+      </definition>
+    </element>
+    <element>
+      <path value="Patient.animal.species"/>
+      <definition>
+        <short value="E.g. Dog, Cow"/>
+        <formal value="Identifies the high level categorization of the kind of animal."/>
+        <comments
+            value="If the patient is non-human, at least a species SHALL be specified."/>
+        <min value="1"/>
+        <max value="1"/>
+        <type>
+          <code value="CodeableConcept"/>
+        </type>
+        <isModifier value="false"/>
+        <binding>
+          <name value="AnimalSpecies"/>
+          <isExtensible value="true"/>
+          <conformance value="example"/>
+          <referenceResource>
+            <reference value="http://hl7.org/fhir/vs/animal-species"/>
+          </referenceResource>
+        </binding>
+        <mapping>
+          <identity value="rim"/>
+          <map value="code"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="PID-35"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Patient.animal.breed"/>
+      <definition>
+        <short value="E.g. Poodle, Angus"/>
+        <formal value="Identifies the detailed categorization of the kind of animal."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="CodeableConcept"/>
+        </type>
+        <isModifier value="false"/>
+        <binding>
+          <name value="AnimalBreed"/>
+          <isExtensible value="true"/>
+          <conformance value="example"/>
+          <referenceResource>
+            <reference value="http://hl7.org/fhir/vs/animal-breeds"/>
+          </referenceResource>
+        </binding>
+        <mapping>
+          <identity value="rim"/>
+          <map
+              value="playedRole[classCode=GEN]/scoper[classCode=ANM, determinerCode=KIND]/code"
+                    />
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="PID-37"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Patient.animal.genderStatus"/>
+      <definition>
+        <short value="E.g. Neutered, Intact"/>
+        <formal value="Indicates the current state of the animal's reproductive organs."/>
+        <min value="0"/>
+        <max value="1"/>
+        <type>
+          <code value="CodeableConcept"/>
+        </type>
+        <isModifier value="false"/>
+        <binding>
+          <name value="AnimalGenderStatus"/>
+          <isExtensible value="true"/>
+          <conformance value="example"/>
+          <referenceResource>
+            <reference value="http://hl7.org/fhir/vs/animal-genderstatus"/>
+          </referenceResource>
+        </binding>
+        <mapping>
+          <identity value="rim"/>
+          <map value="genderStatusCode"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="N/A"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Patient.communication"/>
+      <definition>
+        <short
+            value="Languages which may be used to communicate with the patient about his or her health"/>
+        <formal
+            value="Languages which may be used to communicate with the patient about his or her health."/>
+        <comments
+            value="If no language is specified, this *implies* that the default local language is spoken. For animals, language is not a relevant field, and should be absent from the instance."/>
+        <min value="0"/>
+        <max value="0"/>
+        <type>
+          <code value="CodeableConcept"/>
+        </type>
+        <isModifier value="false"/>
+        <binding>
+          <name value="Language"/>
+          <isExtensible value="false"/>
+          <conformance value="required"/>
+          <referenceUri value="http://tools.ietf.org/html/bcp47"/>
+        </binding>
+        <mapping>
+          <identity value="rim"/>
+          <map
+              value="player[classCode=PSN|ANM and determinerCode=INSTANCE]/languageCommunication/code"
+                    />
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="LAN-2"/>
+        </mapping>
+        <mapping>
+          <identity value="rim"/>
+          <map
+              value="player[classCode=PSN|ANM and determinerCode=INSTANCE]/languageCommunication/code"
+                    />
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="LAN-2"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Patient.careProvider"/>
+      <definition>
+        <short value="Patient's nominated care provider"/>
+        <formal value="Patient's nominated care provider."/>
+        <min value="0"/>
+        <max value="0"/>
+        <type>
+          <code value="ResourceReference"/>
+          <profile value="http://hl7.org/fhir/Profile/Organization"/>
+        </type>
+        <type>
+          <code value="ResourceReference"/>
+          <profile value="http://hl7.org/fhir/Profile/Practitioner"/>
+        </type>
+        <isModifier value="false"/>
+        <mapping>
+          <identity value="rim"/>
+          <map value="subjectOf.CareEvent.performer.AssignedEntity"/>
+        </mapping>
+        <mapping>
+          <identity value="rim"/>
+          <map value="subjectOf.CareEvent.performer.AssignedEntity"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Patient.managingOrganization"/>
+      <definition>
+        <short value="Organization that is the custodian of the patient record"/>
+        <formal value="Organization that is the custodian of the patient record."/>
+        <min value="0"/>
+        <max value="0"/>
+        <type>
+          <code value="ResourceReference"/>
+          <profile value="http://hl7.org/fhir/Profile/Organization"/>
+        </type>
+        <isModifier value="false"/>
+        <mapping>
+          <identity value="rim"/>
+          <map value="scoper"/>
+        </mapping>
+        <mapping>
+          <identity value="rim"/>
+          <map value="scoper"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Patient.link"/>
+      <definition>
+        <short value="Link to another patient resource that concerns the same actual person"/>
+        <formal
+            value="Link to another patient resource that concerns the same actual person."/>
+        <comments
+            value="There is no assumption that linked patient records have mutual links."/>
+        <min value="0"/>
+        <max value="0"/>
+        <isModifier value="true"/>
+        <mapping>
+          <identity value="rim"/>
+          <map value="outboundLink"/>
+        </mapping>
+        <mapping>
+          <identity value="rim"/>
+          <map value="outboundLink"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Patient.link.extension"/>
+      <definition>
+        <short value="Additional Content defined by implementations"/>
+        <formal
+            value="May be used to represent additional information that is not part of the basic definition of the resource. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension."/>
+        <comments
+            value="there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone."/>
+        <synonym value="extensions"/>
+        <synonym value="user content"/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="Extension"/>
+        </type>
+        <isModifier value="false"/>
+      </definition>
+    </element>
+    <element>
+      <path value="Patient.link.modifierExtension"/>
+      <definition>
+        <short value="Extensions that cannot be ignored"/>
+        <formal
+            value="May be used to represent additional information that is not part of the basic definition of the resource, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions."/>
+        <comments
+            value="there can be no stigma associated with the use of extensions by any application, project, or standard - regardless of the institution or jurisdiction that uses or defines the extensions.  The use of extensions is what allows the FHIR specification to retain a core simplicity for everyone."/>
+        <synonym value="extensions"/>
+        <synonym value="user content"/>
+        <min value="0"/>
+        <max value="*"/>
+        <type>
+          <code value="Extension"/>
+        </type>
+        <isModifier value="false"/>
+      </definition>
+    </element>
+    <element>
+      <path value="Patient.link.other"/>
+      <definition>
+        <short value="The other patient resource that the link refers to"/>
+        <formal value="The other patient resource that the link refers to."/>
+        <min value="1"/>
+        <max value="1"/>
+        <type>
+          <code value="ResourceReference"/>
+          <profile value="http://hl7.org/fhir/Profile/Patient"/>
+        </type>
+        <isModifier value="true"/>
+        <mapping>
+          <identity value="rim"/>
+          <map value="id"/>
+        </mapping>
+        <mapping>
+          <identity value="v2"/>
+          <map value="PID-3, MRG-1"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Patient.link.type"/>
+      <definition>
+        <short value="replace | refer | seealso - type of link"/>
+        <formal
+            value="The type of link between this patient resource and another patient resource."/>
+        <min value="1"/>
+        <max value="1"/>
+        <type>
+          <code value="code"/>
+        </type>
+        <isModifier value="true"/>
+        <binding>
+          <name value="LinkType"/>
+          <isExtensible value="false"/>
+          <conformance value="required"/>
+          <referenceResource>
+            <reference value="http://hl7.org/fhir/vs/link-type"/>
+          </referenceResource>
+        </binding>
+        <mapping>
+          <identity value="rim"/>
+          <map value="typeCode"/>
+        </mapping>
+      </definition>
+    </element>
+    <element>
+      <path value="Patient.active"/>
+      <definition>
+        <short value="Whether this patient's record is in active use"/>
+        <formal value="Whether this patient record is in active use."/>
+        <comments
+            value="Default is true. If a record is inactive, and linked to an active record, then future patient/person/record updates should occur on the other patient."/>
+        <min value="0"/>
+        <max value="0"/>
+        <type>
+          <code value="boolean"/>
+        </type>
+        <isModifier value="true"/>
+        <mapping>
+          <identity value="rim"/>
+          <map value="statusCode"/>
+        </mapping>
+        <mapping>
+          <identity value="rim"/>
+          <map value="statusCode"/>
+        </mapping>
+      </definition>
+    </element>
+    <searchParam>
+      <name value="_id"/>
+      <type value="token"/>
+      <documentation
+          value="The logical resource id associated with the resource (must be supported by all servers)"
+            />
+    </searchParam>
+    <searchParam>
+      <name value="_language"/>
+      <type value="token"/>
+      <documentation value="The language of the resource"/>
+    </searchParam>
+    <searchParam>
+      <name value="active"/>
+      <type value="token"/>
+      <documentation value="Whether the patient record is active"/>
+      <xpath value="f:Patient/f:active"/>
+    </searchParam>
+    <searchParam>
+      <name value="address"/>
+      <type value="string"/>
+      <documentation value="An address in any kind of address/part of the patient"/>
+      <xpath value="f:Patient/f:address"/>
+    </searchParam>
+    <searchParam>
+      <name value="animal-breed"/>
+      <type value="token"/>
+      <documentation value="The breed for animal patients"/>
+      <xpath value="f:Patient/f:animal/f:breed"/>
+    </searchParam>
+    <searchParam>
+      <name value="animal-species"/>
+      <type value="token"/>
+      <documentation value="The species for animal patients"/>
+      <xpath value="f:Patient/f:animal/f:species"/>
+    </searchParam>
+    <searchParam>
+      <name value="birthdate"/>
+      <type value="date"/>
+      <documentation value="The patient's date of birth"/>
+      <xpath value="f:Patient/f:birthDate"/>
+    </searchParam>
+    <searchParam>
+      <name value="family"/>
+      <type value="string"/>
+      <documentation value="A portion of the family name of the patient"/>
+      <xpath value="f:Patient/f:name/f:family"/>
+    </searchParam>
+    <searchParam>
+      <name value="gender"/>
+      <type value="token"/>
+      <documentation value="Gender of the patient"/>
+      <xpath value="f:Patient/f:gender"/>
+    </searchParam>
+    <searchParam>
+      <name value="given"/>
+      <type value="string"/>
+      <documentation value="A portion of the given name of the patient"/>
+      <xpath value="f:Patient/f:name/f:given"/>
+    </searchParam>
+    <searchParam>
+      <name value="identifier"/>
+      <type value="token"/>
+      <documentation value="A patient identifier"/>
+      <xpath value="f:Patient/f:identifier"/>
+    </searchParam>
+    <searchParam>
+      <name value="language"/>
+      <type value="token"/>
+      <documentation value="Language code (irrespective of use value)"/>
+      <xpath value="f:Patient/f:communication"/>
+    </searchParam>
+    <searchParam>
+      <name value="link"/>
+      <type value="reference"/>
+      <documentation value="All patients linked to the given patient"/>
+      <xpath value="f:Patient/f:link/f:other"/>
+    </searchParam>
+    <searchParam>
+      <name value="name"/>
+      <type value="string"/>
+      <documentation value="A portion of either family or given name of the patient"/>
+      <xpath value="f:Patient/f:name"/>
+    </searchParam>
+    <searchParam>
+      <name value="phonetic"/>
+      <type value="string"/>
+      <documentation
+          value="A portion of either family or given name using some kind of phonetic matching algorithm"
+            />
+    </searchParam>
+    <searchParam>
+      <name value="provider"/>
+      <type value="reference"/>
+      <documentation value="The organization at which this person is a patient"/>
+      <xpath value="f:Patient/f:managingOrganization"/>
+    </searchParam>
+    <searchParam>
+      <name value="telecom"/>
+      <type value="string"/>
+      <documentation value="The value in any kind of telecom details of the patient"/>
+      <xpath value="f:Patient/f:telecom"/>
+    </searchParam>
+  </structure>
+</Profile>

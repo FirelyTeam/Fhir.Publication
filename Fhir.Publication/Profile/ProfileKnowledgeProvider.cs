@@ -15,10 +15,11 @@ namespace Hl7.Fhir.Publication
 
         private string baseName;
 
-        internal ProfileKnowledgeProvider(string baseName)
+        internal ProfileKnowledgeProvider(string baseName, string imageOutputDirectory)
         {
             this.baseName = baseName;
             _loader = new StructureLoader(ArtifactResolver.CreateCachedDefault());
+            ImageOutputDirectory = imageOutputDirectory;
         }
 
         internal Model.Profile.ProfileExtensionDefnComponent getExtensionDefinition(Model.Profile profile, string url)
@@ -205,7 +206,7 @@ namespace Hl7.Fhir.Publication
             else if (reference.StartsWith("http://hl7.org/fhir/v2/vs/"))
                 return MakeSpecLink("v2/" + reference.Substring(26) + "/index.html");
             else
-                return reference;
+                return reference + ".html";
         }
 
 
@@ -235,6 +236,10 @@ namespace Hl7.Fhir.Publication
             else
                 return null;
         }
+
+        public string ImageOutputDirectory { get; set; }
+
+        public bool InlineGraphics { get; set; }
     }
 
 }

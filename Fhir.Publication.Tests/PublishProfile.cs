@@ -16,11 +16,12 @@ namespace Fhir.Profiling.Tests
         [TestMethod]
         public void PublishLipidProfile()
         {
-            var profile = (Profile)FhirParser.ParseResourceFromXml(File.ReadAllText(@"TestData\lipid.profile.xml"));
-            var pkp = new ProfileKnowledgeProvider("lipid");
+            //var profile = (Profile)FhirParser.ParseResourceFromXml(File.ReadAllText(@"TestData\lipid.profile.xml"));
+            var profile = (Profile)FhirParser.ParseResourceFromXml(File.ReadAllText(@"TestData\profile.hvlabresult.xml"));
+            var pkp = new ProfileKnowledgeProvider("hvlabres", @"c:\temp\dist\images");
 
             {
-                var publisher = new ProfileTableGenerator(@"c:\temp\dist\images", false, pkp);
+                var publisher = new ProfileTableGenerator(pkp);
 
                 var result = File.ReadAllText(@"TestData\publish-header.cshtml");
                 result += publisher.Generate(profile, false).ToString(System.Xml.Linq.SaveOptions.DisableFormatting);
@@ -30,7 +31,7 @@ namespace Fhir.Profiling.Tests
             }
 
             {
-                var publisher = new StructureGenerator(@"c:\temp\dist\images", false, pkp);
+                var publisher = new StructureGenerator(pkp);
 
                 foreach (var structure in profile.Structure)
                 {
@@ -56,7 +57,7 @@ namespace Fhir.Profiling.Tests
             {
                 var vs = (ValueSet)FhirParser.ParseResourceFromXml(File.ReadAllText(@"TestData\hv-laboratory-result-interpretation-v1.xml"));
 
-                var vsGen = new ValueSetGenerator(@"c:\temp\publisher\", pkp);
+                var vsGen = new ValueSetGenerator(pkp);
 
                 var result = File.ReadAllText(@"TestData\publish-header.cshtml");
                 result += vsGen.generate(vs)
