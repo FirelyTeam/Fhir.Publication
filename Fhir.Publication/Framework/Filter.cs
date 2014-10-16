@@ -48,7 +48,7 @@ namespace Hl7.Fhir.Publication
 
         public bool IsMatch(string value)
         {
-            string filepath = FileFullPathToRelativePath(value);
+            string filepath = FileFullPathToRelativePath(value).ToLower();
 
             foreach(string pattern in this.patterns)
             {
