@@ -14,10 +14,12 @@ namespace Hl7.Fhir.Publication
     {
         public void Process(Document input, Stage output)
         {
-            var generator = new DictHtmlGenerator(new ProfileKnowledgeProvider("http://www.hl7.org/implement/standards/fhir/"));
+            var pkp = new ProfileKnowledgeProvider(input.Name);
+            var generator = new DictHtmlGenerator(pkp);
             var profile = (Profile)FhirParser.ParseResourceFromXml(input.Text);
             Document result = input.CloneMetadata();
             var xmldoc = generator.Generate(profile);
+            result.SetFilename(pkp.GetLinkForProfileDict(profile));
             result.Text = xmldoc.ToString(SaveOptions.DisableFormatting);
             output.Post(result);
         }

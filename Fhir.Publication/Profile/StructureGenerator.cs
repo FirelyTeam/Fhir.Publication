@@ -55,8 +55,7 @@ namespace Hl7.Fhir.Publication
 		    public bool used;
 	    }
 
-        public XElement generateStructureTable(Profile.ProfileStructureComponent structure, bool diff, 
-                    Profile profile, string profileUrl, String profileBaseFileName) 
+        public XElement generateStructureTable(Profile.ProfileStructureComponent structure, bool diff, Profile profile) 
         {
             HierarchicalTableGenerator gen = new HierarchicalTableGenerator(OutputDir, InlineGraphics);
             var model = TableModel.CreateNormalTable();
@@ -66,13 +65,13 @@ namespace Hl7.Fhir.Publication
             var nav = new ElementNavigator(structure);
             nav.MoveToFirstChild();
     
-            genElement(gen, model.Rows, nav, profile, true, profileUrl, profileBaseFileName);
+            genElement(gen, model.Rows, nav, profile, true);
             return gen.generate(model);
         }
 
 
         private void genElement(HierarchicalTableGenerator gen, List<Row> rows, ElementNavigator nav, 
-                    Profile profile, bool showMissing, String profileUrl, String profileBaseFileName)
+                    Profile profile, bool showMissing)
         {
             var element = nav.Current;
 
@@ -117,7 +116,7 @@ namespace Hl7.Fhir.Publication
                 row.setIcon("icon_resource.png");
 
 
-            var reference = _pkp.getLinkForElementDefinition(profile, element);
+            var reference = _pkp.GetLinkForElementDefinition(nav.Structure, profile, element);
             //String reference = defPath == null ? null : defPath + makePathLink(element);
             UnusedTracker used = new UnusedTracker();
             used.used = true;
@@ -136,26 +135,26 @@ namespace Hl7.Fhir.Publication
                     {
                         row.getCells().Add(new Cell(null, null, !hasDef ? null : describeCardinality(element.Definition, null, used), null, null));
                         row.getCells().Add(new Cell(null, null, "?? "+element.Definition.Type[0].Profile, null, null));
-                        generateDescription(gen, row, element, null, used.used, profileUrl, element.Definition.Type[0].Profile, profile);
+                        generateDescription(gen, row, element, null, used.used, element.Definition.Type[0].Profile, profile);
                     }
                     else 
                     {
                         row.getCells().Add(new Cell(null, null, !hasDef ? null : describeCardinality(element.Definition, extDefn.Definition, used), null, null));
-                        genTypes(gen, row, extDefn.Definition, profileBaseFileName, profile);
-                        generateDescription(gen, row, element, extDefn.Definition, used.used, profileUrl, element.Definition.Type[0].Profile, profile);
+                        genTypes(gen, row, extDefn.Definition, profile);
+                        generateDescription(gen, row, element, extDefn.Definition, used.used, element.Definition.Type[0].Profile, profile);
                     } 
                 }
                 else if (element.Definition != null) 
                 {
                     row.getCells().Add(new Cell(null, null, !hasDef ? null : describeCardinality(element.Definition, null, used), null, null));
-                    genTypes(gen, row, element.Definition, profileBaseFileName, profile);
-                    generateDescription(gen, row, element, null, used.used, null, null, profile);
+                    genTypes(gen, row, element.Definition, profile);
+                    generateDescription(gen, row, element, null, used.used, null, profile);
                 } 
                 else 
                 {
                     row.getCells().Add(new Cell(null, null, !hasDef ? null : describeCardinality(element.Definition, null, used), null, null));
                     row.getCells().Add(new Cell());
-                    generateDescription(gen, row, element, null, used.used, null, null, profile);
+                    generateDescription(gen, row, element, null, used.used, null, profile);
                 }
             } 
             else 
@@ -163,11 +162,11 @@ namespace Hl7.Fhir.Publication
                 row.getCells().Add(new Cell(null, null, !hasDef ? null : describeCardinality(element.Definition, null, used), null, null));
                 
                 if (element.Definition != null)
-                    genTypes(gen, row, element.Definition, profileBaseFileName, profile);
+                    genTypes(gen, row, element.Definition, profile);
                 else
                     row.getCells().Add(new Cell());
         
-                generateDescription(gen, row, element, null, used.used, null, null, profile);
+                generateDescription(gen, row, element, null, used.used, null, profile);
             }
       
             if (element.Slicing != null) 
@@ -200,7 +199,7 @@ namespace Hl7.Fhir.Publication
                 {
                     do
                     {
-                        genElement(gen, row.getSubRows(), nav, profile, showMissing, profileUrl, profileBaseFileName);
+                        genElement(gen, row.getSubRows(), nav, profile, showMissing);
                     } while (nav.MoveToNext());
 
                    nav.MoveToParent();
@@ -221,7 +220,7 @@ namespace Hl7.Fhir.Publication
         }
 
 
-        private void genTypes(HierarchicalTableGenerator gen, Row r, Profile.ElementDefinitionComponent elementDefn, String profileBaseFileName, Profile profile)
+        private void genTypes(HierarchicalTableGenerator gen, Row r, Profile.ElementDefinitionComponent elementDefn, Profile profile)
         {
             Cell c = new Cell();
             r.getCells().Add(c);
@@ -238,30 +237,35 @@ namespace Hl7.Fhir.Publication
 
                 if (t.Code == "ResourceReference" || (t.Code == "Resource" && t.Profile != null))
                 {
+                    var reference = _pkp.GetLinkForProfileReference(profile, t.Profile);
+                    var label = _pkp.GetLabelForProfileReference(profile, t.Profile);
+
                     if (t.Profile.StartsWith("http://hl7.org/fhir/Profile/"))
                     {
                         String rn = t.Profile.Substring(28);
-                        c.addPiece(new Piece(_pkp.getLinkFor(rn), rn, null));
+                        c.addPiece(new Piece(_pkp.GetLinkForTypeDocu(rn), rn, null));
                     }
                     else if (t.Profile.StartsWith("#"))
-                        c.addPiece(new Piece(profileBaseFileName + "." + t.Profile.Substring(1).ToLower() + ".html", t.Profile, null));
+                        c.addPiece(new Piece(_pkp.GetLinkForLocalStructure(profile, t.Profile.Substring(1)), t.Profile, null));
                     else
                         c.addPiece(new Piece(t.Profile, t.Profile, null));
                 }
                 else if (t.Profile != null)
                 { // a profiled type
-                    String reference = _pkp.getLinkForProfile(profile, t.Profile);
+                    var reference = _pkp.GetLinkForProfileReference(profile, t.Profile);
+                    var label = _pkp.GetLabelForProfileReference(profile, t.Profile);
+
                     if (reference != null)
                     {
                         String[] parts = reference.Split('|');      //TODO: Not too sure, was: String[] parts = ref.split("\\|"); in Java
-                        c.addPiece(new Piece(parts[0], parts[1], t.Code));
+                        c.addPiece(new Piece(reference,label,t.Code));
                     }
                     else
                         c.addPiece(new Piece(reference, t.Code, null));
                 }
-                else if (_pkp.hasLinkFor(t.Code))
+                else if (_pkp.HasLinkForTypeDocu(t.Code))
                 {
-                    c.addPiece(new Piece(_pkp.getLinkFor(t.Code), t.Code, null));
+                    c.addPiece(new Piece(_pkp.GetLinkForTypeDocu(t.Code), t.Code, null));
                 }
                 else
                     c.addPiece(new Piece(null, t.Code, null));
@@ -270,7 +274,7 @@ namespace Hl7.Fhir.Publication
 
 
         private Cell generateDescription(HierarchicalTableGenerator gen, Row row, Profile.ElementComponent element, Profile.ElementDefinitionComponent fallback, 
-            bool used, String baseURL, String profileUrl, Profile profile)
+            bool used, String extensionUrl, Profile profile)
         {
             Cell c = new Cell();
             row.getCells().Add(c);
@@ -288,11 +292,11 @@ namespace Hl7.Fhir.Publication
                     c.addPiece(new Piece(null, fallback.Short, null));
                 }
 
-                if (profileUrl != null)
+                if (extensionUrl != null)
                 {
                     if (c.getPieces().Any()) c.addPiece(new Piece("br"));
-                    String fullUrl = profileUrl.StartsWith("#") ? baseURL + profileUrl : profileUrl;
-                    String reference = _pkp.getLinkForExtension(profile, profileUrl);
+                    String fullUrl = extensionUrl;      
+                    String reference = _pkp.GetLinkForExtensionDefinition(profile, extensionUrl);
                     c.getPieces().Add(new Piece(null, "URL: ", null).addStyle("font-weight:bold"));
                     c.getPieces().Add(new Piece(reference, fullUrl, null));
                 }

@@ -11,10 +11,11 @@ namespace Hl7.Fhir.Publication
     {
         private StructureLoader _loader;
 
-        internal ProfileKnowledgeProvider(string specUrl)
+        public const string DSTU1URL = "http://www.hl7.org/implement/standards/fhir/";
+
+        internal ProfileKnowledgeProvider(string baseName)
         {
             _loader = new StructureLoader(ArtifactResolver.CreateCachedDefault());
-            _specUrl = specUrl;
         }
 
         internal Model.Profile.ProfileExtensionDefnComponent getExtensionDefinition(Model.Profile profile, string url)
@@ -33,24 +34,34 @@ namespace Hl7.Fhir.Publication
             return _loader.ArtifactSource.ReadResourceArtifact(new Uri(url)) as ValueSet;
         }
 
-        string _specUrl;
-
-        internal string getLinkFor(string typename)
+        internal string GetLinkForTypeDocu(string typename)
         {
-            if (typename == "*") typename = "open";
-
-            //TODO: Make this dependent on the DSTU1/2 etc website
-            //TODO: There are more flavours (like narrative, extension, etc.)
-            if (isDataType(typename) || isPrimitive(typename))
-                return _specUrl + "datatypes.html#" + typename.ToLower();
-            else if(ModelInfo.IsKnownResource(typename))
-                return _specUrl + typename.ToLower() + ".html";
-            else if(typename == "Extension")
-                return _specUrl + "extensibility.html#Extension";
+            if (typename == "*")
+                return SpecUrl() + "datatypes.html#open";
+            else if (isDataType(typename) || isPrimitive(typename))
+                return SpecUrl() + "datatypes.html#" + typename.ToLower();
+            else if (ModelInfo.IsKnownResource(typename))
+                return SpecUrl() + typename.ToLower() + ".html";
+            else if (typename == "Extension")
+                return SpecUrl() + "extensibility.html#Extension";
             else
-                return "todo.html";
+                throw new NotImplementedException("Don't know how to link to specification page for type " + typename);
         }
 
+        internal bool HasLinkForTypeDocu(string typename)
+        {
+            return typename == "*" || isDataType(typename) || isPrimitive(typename) || typename == "Extension" || ModelInfo.IsKnownResource(typename);
+        }
+
+
+
+        public string SpecUrl()
+        {
+            return DSTU1URL;
+            //if (version.StartsWith("0.8") || version == null) return DSTU1URL;
+
+            //throw new NotImplementedException("Do not know the URL to specification version  " + version);
+        }
 
         //TODO: Determine dynamically based on core profiles?
         internal bool isDataType(String value)
@@ -70,70 +81,66 @@ namespace Hl7.Fhir.Publication
         }
 
 
+        public const string CORE_TYPE_PROFILEREFERENCE_PREFIX = "http://hl7.org/fhir/Profile/";
 
-        internal string getLinkForExtension(Model.Profile profile, string url)
+        internal string GetLinkForProfileReference(Profile profile, string p)
         {
-            return "todo.html";
-            //String fn;
-            //String code;
-            //if (url.StartsWith("#"))
-            //{
-            //    code = url.Substring(1);
-            //}
-            //else
-            //{
-            //    String[] path = url.Split("#");
-            //    code = path[1];
-            //    profile = definitions.getProfileByURL(path[0]);
-            //}
-
-            //if (profile != null)
-            //{
-            //    fn = (String)profile.getTag("filename");
-            //    return Utilities.changeFileExt(fn, ".html");
-            //}
-            //return null;
+            if (p.StartsWith(CORE_TYPE_PROFILEREFERENCE_PREFIX))
+            {
+                string rn = p.Substring(CORE_TYPE_PROFILEREFERENCE_PREFIX.Length);
+                return GetLinkForTypeDocu(rn);
+            }
+            else if (p.StartsWith("#"))
+                return GetLinkForLocalStructure(profile, p.Substring(1));
+            else
+                return p;
         }
 
-        internal string getLinkForProfile(Model.Profile profile, string p)
+        internal string GetLabelForProfileReference(Profile profile, string p)
         {
-            return "todo.html" + "|" + profile.Name;
-            //        String fn;
-            //if (!url.startsWith("#")) {
-            //  String[] path = url.split("#");
-            //  profile = definitions.getProfileByURL(path[0]);
-            //  if (profile == null && url.startsWith("Profile/"))
-            //    return "hspc-"+url.substring(8)+".html|"+url.substring(8);
-            //}
-            //if (profile != null) {
-            //  fn = profile.getTag("filename")+"|"+profile.getNameSimple();
-            //  return Utilities.changeFileExt(fn, ".html");
-            //}
-            //return null;
+            if (p.StartsWith(CORE_TYPE_PROFILEREFERENCE_PREFIX))
+                return p.Substring(CORE_TYPE_PROFILEREFERENCE_PREFIX.Length);
+            else
+                return p;
         }
 
-
-
-
-        internal string getLinkForExtensionDefinition(Profile profile, Profile.ProfileExtensionDefnComponent extension)       
+        internal string GetLinkForExtensionDefinition(Profile profile, Profile.ProfileExtensionDefnComponent extension)       
         {
-            return GetLinkForProfileDict(profile) + "#extension." + TokenizeName(extension.Code).ToLower();
+            return GetLinkForExtensionDefinition(profile, extension.Code);
+        }
+
+        internal string GetLinkForExtensionDefinition(Profile profile, string extensionUrl)
+        {
+            if (extensionUrl.StartsWith("#"))
+            {
+                var extension = extensionUrl.Substring(1);
+                return GetLinkForProfileDict(profile) + "#extension." + TokenizeName(extension).ToLower();
+            }
+            else
+            {
+                return extensionUrl;
+            }
         }
 
 
-        internal string getLinkForElementDefinition(Profile profile, Profile.ElementComponent element)
+        internal string GetLinkForElementDefinition(Profile.ProfileStructureComponent s, Profile profile, Profile.ElementComponent element)
         {
-            return GetLinkForProfileDict(profile) + "#" + MakeElementDictAnchor(element);
+            return GetLinkForProfileDict(profile) + "#" + MakeElementDictAnchor(s,element);
         }
 
-        internal string getLinkForStructure(Profile profile, Profile.ProfileStructureComponent structure)
+        internal string GetLinkForLocalStructure(Profile profile, Profile.ProfileStructureComponent structure)
         {
-            return getProfilePageName(profile) + "-" + TokenizeName(structure.Name).ToLower() + ".html";
+            return GetLinkForLocalStructure(profile, structure.Name);
+        }
+
+        internal string GetLinkForLocalStructure(Profile profile, string name)
+        {
+            return GetProfilePageName(profile) + "-" + TokenizeName(name).ToLower() + ".html";
         }
 
 
 
-        private string getProfilePageName(Profile profile)
+        private string GetProfilePageName(Profile profile)
         {
             return TokenizeName(profile.Name).ToLower();
         }
@@ -141,23 +148,23 @@ namespace Hl7.Fhir.Publication
 
         public string GetLinkForProfileDict(Profile profile)
         {
-            return getProfilePageName(profile) + "-definition" + ".html";
+            return GetProfilePageName(profile) + "-definition" + ".html";
         }
 
         public string GetLinkForProfileTable(Profile profile)
         {
-            return getProfilePageName(profile) + ".html";
+            return GetProfilePageName(profile) + ".html";
         }
 
-        public string MakeElementDictAnchor(Profile.ElementComponent element)
+        public string MakeElementDictAnchor(Profile.ProfileStructureComponent s, Profile.ElementComponent element)
         {
             if (element.Name == null)
-                return element.Path;
+                return s.Name + "." + element.Path;
 
             if (!element.Path.Contains("."))
-                return element.Name;
+                return s.Name + "." + element.Name;
             else
-                return element.Path.Substring(0, element.Path.LastIndexOf(".")) + "." + element.Name;
+                return s.Name + "." + element.Path.Substring(0, element.Path.LastIndexOf(".")) + "." + element.Name;
         }
 
 
@@ -179,46 +186,27 @@ namespace Hl7.Fhir.Publication
 
 
 
-        internal string resolveBinding(Model.Profile.ElementDefinitionBindingComponent elementDefinitionBindingComponent)
+        internal string resolveBinding(Model.Profile.ElementDefinitionBindingComponent binding)
         {
-            return "todo.html";
-            //  if (binding.getReference() == null)
-            //    return null;
-            //  if (binding.getReference() instanceof UriType) {
-            //    String ref = ((UriType) binding.getReference()).getValue();
-            //    if (ref.startsWith("http://hl7.org/fhir/v3/vs/"))
-            //      return "v3/"+ref.substring(26)+"/index.html";
-            //    else
-            //      return ref;
-            //  } else {
-            //    String ref = ((Reference) binding.getReference()).getReferenceSimple();
-            //    if (ref.startsWith("ValueSet/")) {
-            //      ValueSet vs = definitions.getValuesets().get(ref.substring(8));
-            //      if (vs == null)
-            //        return ref.substring(9)+".html";
-            //      else
-            //        return (String) vs.getTag("filename");
-            //    } else if (ref.startsWith("http://hl7.org/fhir/vs/")) {
-            //      if (new File(Utilities.path(folders.dstDir, "valueset-"+ref.substring(23)+".html")).exists())
-            //        return "valueset-"+ref.substring(23)+".html";
-            //      else
-            //        return ref.substring(23)+".html";
-            //    }  else if (ref.startsWith("http://hl7.org/fhir/v3/vs/"))
-            //      return "v3/"+ref.substring(26)+"/index.html"; 
-            //    else
-            //      return ref;
-            //  } 
-        }
+            if (binding.Reference == null)
+                return null;
 
-        internal bool hasLinkFor(string typeRefCode)
-        {
-            return isDataType(typeRefCode) || isPrimitive(typeRefCode) || typeRefCode == "Extension" || ModelInfo.IsKnownResource(typeRefCode);
+            String reference = binding.Reference is FhirUri ? ((FhirUri)binding.Reference).Value : ((ResourceReference)binding.Reference).Reference;
+
+            if (reference.StartsWith("http://hl7.org/fhir/v3/vs/"))
+                return MakeSpecLink("v3/" + reference.Substring(26) + "/index.html");
+            else if (reference.StartsWith("http://hl7.org/fhir/vs/"))
+                return MakeSpecLink(reference.Substring(23) + ".html");
+            else if (reference.StartsWith("http://hl7.org/fhir/v2/vs/"))
+                return MakeSpecLink("v2/" + reference.Substring(26) + "/index.html");
+            else
+                return reference;
         }
 
 
-        internal string MakeSpecRef(string p)
+        internal string MakeSpecLink(string p)
         {
-            return _specUrl + p;
+            return SpecUrl() + p;
         }
 
 
