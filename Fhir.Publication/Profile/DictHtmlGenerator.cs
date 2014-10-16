@@ -53,7 +53,7 @@ namespace Hl7.Fhir.Publication
         }
 
 
-        public XElement Generate(Profile profile, string profileUrl)
+        public XElement Generate(Profile profile)
         {
             write("<div xmlns=\"" + Hl7.Fhir.Support.XmlNs.XHTML + "\">");
 
@@ -75,7 +75,7 @@ namespace Hl7.Fhir.Publication
 
             foreach (var s in profile.Structure)
             {
-                generateStructure(profile, profileUrl, i, s);
+                generateStructure(profile, i, s);
                 i++;
             }
 
@@ -105,18 +105,18 @@ namespace Hl7.Fhir.Publication
 
         private void generateElementInner(Profile profile, Profile.ElementDefinitionComponent d)
         {
-            tableRowMarkdown("Definition", d.Formal);
-            tableRow("Control", _pkp.MakeSpecRef("conformance-rules.html#conformance"), d.DescribeCardinality() + summariseConditions(d.Condition));
+            tableRowMarkdown("Definition", d.Formal, profile);
+            tableRow("Control", "conformance-rules.html#conformance", d.DescribeCardinality() + summariseConditions(d.Condition));
             tableRowNE("Binding", "terminologies.html", describeBinding(d));
             if (d.NameReference != null)
                 tableRow("Type", null, "See " + d.NameReference);
             else
-                tableRowNE("Type", "datatypes.html", describeTypes(d.Type));
+                tableRowNE("Type", "datatypes.html", describeTypes(profile, d.Type));
             tableRow("Is Modifier", "conformance-rules.html#ismodifier", displayBoolean(d.IsModifier));
             tableRow("Must Support", "conformance-rules.html#mustSupport", displayBoolean(d.MustSupport));
-            tableRowMarkdown("Requirements", d.Requirements);
+            tableRowMarkdown("Requirements", d.Requirements, profile);
             tableRow("Aliases", null, d.Synonym != null ? String.Join(", ", d.Synonym) : null);
-            tableRowMarkdown("Comments", d.Comments);
+            tableRowMarkdown("Comments", d.Comments, profile);
             tableRow("Max Length", null, d.MaxLength == null ? null : d.MaxLength.ToString());
             tableRow("Fixed Value", null, d.Value != null ? d.Value.ForDisplay() : null);
             tableRow("Example", null, d.Example != null ? d.Example.ForDisplay() : null);
@@ -147,32 +147,37 @@ namespace Hl7.Fhir.Publication
                 return d.Binding.ForHtml(_pkp);
         }
 
-        private String describeTypes(List<Profile.TypeRefComponent> types)
+        private String describeTypes(Profile profile, List<Profile.TypeRefComponent> types)
         {
             if (types == null || !types.Any()) return null;
 
             if (types.Count == 1)
-                return describeType(types[0]);
+                return describeType(profile, types[0]);
             else
             {
                 return "Choice of: " +
-                    String.Join(", ", types.Select(t => describeType(t)));
+                    String.Join(", ", types.Select(t => describeType(profile, t)));
             }
         }
 
-        private string describeType(Profile.TypeRefComponent t)
+        private string describeType(Profile profile, Profile.TypeRefComponent t)
         {
             StringBuilder b = new StringBuilder();
 
-            b.Append("<a href=\"");
-            b.Append(_pkp.getLinkFor(t.Code));
-            b.Append("\">");
-            b.Append(t.Code);
-            b.Append("</a>");
+            if (_pkp.HasLinkForTypeDocu(t.Code))
+            {
+                b.Append("<a href=\"");
+                b.Append(_pkp.GetLinkForTypeDocu(t.Code));
+                b.Append("\">");
+                b.Append(t.Code);
+                b.Append("</a>");
+            }
+            else
+                b.Append(t.Code);
 
             if (t.Profile != null)
             {
-                b.Append("<a href=\"todo.html\">");
+                b.Append(String.Format("<a href=\"{0}\">", _pkp.GetLinkForProfileReference(profile, t.Profile)));
                 b.Append("(Profile = " + t.Profile + ")");
                 b.Append("</a>");
             }
@@ -228,7 +233,7 @@ namespace Hl7.Fhir.Publication
             return d.Mapping.Where(map => map.Identity == id).Select(map => map.Map).FirstOrDefault();
         }
 
-        private void generateStructure(Profile profile, string profileUrl, int i, Profile.ProfileStructureComponent s)
+        private void generateStructure(Profile profile, int i, Profile.ProfileStructureComponent s)
         {
             write("<p><a name=\"i" + i.ToString() + "\"><b>" + s.Name + "</b></a></p>\r\n");
             write("<table class=\"dict\">\r\n");
@@ -237,9 +242,8 @@ namespace Hl7.Fhir.Publication
             {
                 if (isProfiledExtension(ec))
                 {
-                    String name = s.Name + "." + makePathLink(ec);
-                    String title = ec.Path + " (" + (ec.Definition.Type[0].Profile.StartsWith("#") ? profileUrl : "")
-                            + ec.Definition.Type[0].Profile + ")";
+                    String name = _pkp.MakeElementDictAnchor(s,ec);
+                    String title = ec.Path + " (" + ec.Definition.Type[0].Profile + ")";
                     write("  <tr><td colspan=\"2\" class=\"structure\"><a name=\"" + name + "\"> </a><b>" + title + "</b></td></tr>\r\n");
 
                     var profExtDefn = _pkp.getExtensionDefinition(profile, ec.Definition.Type[0].Profile);
@@ -250,7 +254,7 @@ namespace Hl7.Fhir.Publication
                 }
                 else
                 {
-                    String name = s.Name + "." + makePathLink(ec);
+                    String name = _pkp.MakeElementDictAnchor(s,ec);
                     String title = ec.Path + (ec.Name == null ? "" : "(" + ec.Name + ")");
                     write("  <tr><td colspan=\"2\" class=\"structure\"><a name=\"" + name + "\"> </a><b>" + title + "</b></td></tr>\r\n");
                     generateElementInner(profile, ec.Definition);
@@ -267,18 +271,7 @@ namespace Hl7.Fhir.Publication
                 ec.Definition.Type[0].Profile != null;
         }
 
-        private String makePathLink(Profile.ElementComponent element)
-        {
-            if (element.Name == null)
-                return element.Path;
-
-            if (!element.Path.Contains("."))
-                return element.Name;
-            else
-                return element.Path.Substring(0, element.Path.LastIndexOf(".")) + "." + element.Name;
-        }
-
-        private void tableRowMarkdown(String name, String value)
+        private void tableRowMarkdown(String name, String value, Profile profile)
         {
             String text;
 
@@ -292,14 +285,8 @@ namespace Hl7.Fhir.Publication
                     String left = text.Substring(0, text.IndexOf("[[["));
                     String linkText = text.Substring(text.IndexOf("[[[") + 3, text.IndexOf("]]]"));
                     String right = text.Substring(text.IndexOf("]]]") + 3);
-                    String[] parts = linkText.Split('#');
 
-                    var url = _pkp.getLinkForProfile(null, parts[0]);
-
-                    if (url == null)
-                    {
-                        url = _pkp.getLinkFor(linkText.ToLower());
-                    }
+                    var url = _pkp.GetLinkForProfileReference(profile, linkText);
 
                     text = left + "[" + linkText + "](" + url + ")" + right;
                 }
@@ -320,7 +307,10 @@ namespace Hl7.Fhir.Publication
             if (!String.IsNullOrEmpty(value))
             {
                 if (defRef != null)
+                {
+                    defRef = _pkp.MakeSpecLink(defRef);
                     write("  <tr><td><a href=\"" + defRef + "\">" + name + "</a></td><td>" + WebUtility.HtmlEncode(value) + "</td></tr>\r\n");
+                }
                 else
                     write("  <tr><td>" + name + "</td><td>" + WebUtility.HtmlEncode(value) + "</td></tr>\r\n");
             }
@@ -330,10 +320,15 @@ namespace Hl7.Fhir.Publication
         private void tableRowNE(String name, String defRef, String value)
         {
             if (!String.IsNullOrEmpty(value))
+            {
                 if (defRef != null)
+                {
+                    defRef = _pkp.MakeSpecLink(defRef);
                     write("  <tr><td><a href=\"" + defRef + "\">" + name + "</a></td><td>" + value + "</td></tr>\r\n");
+                }
                 else
                     write("  <tr><td>" + name + "</td><td>" + value + "</td></tr>\r\n");
+            }
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Hl7.Fhir.Publication
     {
         public void Process(Document input, Stage output)
         {
-            var pkp = new ProfileKnowledgeProvider("http://www.hl7.org/implement/standards/fhir/");
+            var pkp = new ProfileKnowledgeProvider(input.Name);
             var generator = new StructureGenerator(input.Context.Target.Directory, false, pkp);
 
             var profile = (Profile)FhirParser.ParseResourceFromXml(input.Text);
@@ -20,13 +20,12 @@ namespace Hl7.Fhir.Publication
             foreach (var structure in profile.Structure)
             {
                 var result = generator
-                        .generateStructureTable(structure, false, profile, "http://nu.nl/publisher.html", input.Name)
+                        .generateStructureTable(structure, false, profile)
                         .ToString(System.Xml.Linq.SaveOptions.DisableFormatting);
 
                 Document document = output.CloneAndPost(input);
-                document.Name = input.Name + "-" + structure.Name;
+                document.SetFilename(pkp.GetLinkForLocalStructure(profile, structure));
                 document.Text = result;
-
             }
         }      
     }

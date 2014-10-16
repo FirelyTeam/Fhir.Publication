@@ -17,7 +17,7 @@ namespace Hl7.Fhir.Publication
             //set preferences of your markdown
             mark.SafeMode = true;
             mark.ExtraMode = true;
-
+            
             string mdtext = input.Text;
             output.Text = mark.Transform(mdtext);
         }

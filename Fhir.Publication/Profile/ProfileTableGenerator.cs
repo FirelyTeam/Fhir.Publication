@@ -83,7 +83,7 @@ namespace Hl7.Fhir.Publication
                     r.getSubRows().Add(re);
                     re.setIcon("icon_resource.png");
 
-                    var structureUrl = _pkp.getLinkForStructure(profile, s);
+                    var structureUrl = _pkp.GetLinkForLocalStructure(profile, s);
                     
                     re.getCells().Add(new  Cell(null, structureUrl, s.Name, null, null));
                     re.getCells().Add(new  Cell(null, null, "", null, null));
@@ -127,7 +127,7 @@ namespace Hl7.Fhir.Publication
             //else
             //r.setIcon("icon_extension_complex.png");
 
-            var extensionUrl = _pkp.getLinkForExtensionDefinition(profile, ext);
+            var extensionUrl = _pkp.GetLinkForExtensionDefinition(profile, ext);
 
             r.getCells().Add(new  Cell(null, extensionUrl, ext.Code, null, null));
             r.getCells().Add(new  Cell(null, null, ext.Definition.DescribeCardinality(), null, null));   //TODO: create rendering extension
