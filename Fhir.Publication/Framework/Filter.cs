@@ -69,7 +69,7 @@ namespace Hl7.Fhir.Publication
             return Disk.FilterFiles(Directory, recursive, IsMatch);
         }
 
-        public IEnumerable<Document> GetItems()
+        public IEnumerable<Document> Documents()
         {
             foreach (string filename in FileNames())
             {
@@ -98,7 +98,7 @@ namespace Hl7.Fhir.Publication
         public static Document GetDocument(Context context, string mask)
         {
             IFilter filter = Filter.Create(context, mask, false);
-            return filter.GetItems().First();
+            return filter.Documents().First();
         }
 
         public override string ToString()
@@ -106,7 +106,20 @@ namespace Hl7.Fhir.Publication
 
             return string.Format("{0}\\{1} {2}", Context, Mask, Recursive ? "-recursive" : "");
         }
+    }
 
-        
+    public class StashFilter : IFilter
+    {
+        public string StageKey;
+
+        public StashFilter(string key)
+        {
+            StageKey = key;
+        }
+
+        public IEnumerable<Document> Documents()
+        {
+            return Stash.Get(StageKey).Documents;
+        }
     }
 }

@@ -29,6 +29,17 @@ namespace Hl7.Fhir.Publication
             }
         }
 
+        public static Stage Find(string key)
+        {
+            if (stages.ContainsKey(key))
+            {
+                return stages[key];
+            }
+            else
+            { 
+                return null;
+            }
+        }
         public static void Push(string key, Document document)
         {
             Stage stage = Assert(key);
@@ -37,14 +48,17 @@ namespace Hl7.Fhir.Publication
 
         public static Document Get(string key, string name)
         {
-            Stage stage = stages[key];
-            if (stage == null) throw new ArgumentException(string.Format("Stash {1} does not exist", key));
+            Stage stage = Find(key);
+            if (stage == null) throw new ArgumentException(string.Format("Stash {0} does not exist", key));
 
             Document doc = stage.Find(name);
             if (doc == null)
                 throw new Exception(string.Format("Document {0} was not found in stash {1}", name, key));
             return doc;
-            
+        }
+        public static Stage Get(string key)
+        {
+            return stages[key];
         }
     }
     

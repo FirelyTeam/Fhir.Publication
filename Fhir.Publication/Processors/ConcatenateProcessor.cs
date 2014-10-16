@@ -19,6 +19,7 @@ namespace Hl7.Fhir.Publication
             Document result = output.CloneAndPost(input);
             result.Text = builder.ToString();
         }
-
     }
+    
 }
+

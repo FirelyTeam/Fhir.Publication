@@ -10,9 +10,9 @@ namespace Hl7.Fhir.Publication
     {
         Document template;
 
-        string stashkey, name;
+        string stashkey, mask;
 
-        private Document getTemplate()
+        private Document getTemplate(string inputname)
         {
             if (template != null)
             {
@@ -20,7 +20,15 @@ namespace Hl7.Fhir.Publication
             }
             else
             {
-                return Stash.Get(stashkey, name);
+                if (mask != null)
+                {
+                    string name = Disk.ParseMask(inputname, mask);
+                    return Stash.Get(stashkey, name);
+                }
+                else
+                {
+                    return Stash.Get(stashkey).Documents.First();
+                }
             }
         }
         public TemplateRenderer(Document template)
@@ -28,16 +36,17 @@ namespace Hl7.Fhir.Publication
             this.template = template;
         }
 
-        public TemplateRenderer(string stash, string name)
+        public TemplateRenderer(string stash, string mask = null)
         {
             this.stashkey = stash;
-            this.name = name;
+            this.mask = mask;
         }
 
         public void Render(Document input, Document output)
         {
-            Document template = getTemplate();
+            Document template = getTemplate(input.Name);
             output.Text = template.Text.Replace("%body%", input.Text);
+            output.Extension = template.Extension;
         }
     }
     

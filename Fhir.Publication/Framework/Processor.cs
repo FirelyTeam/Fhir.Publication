@@ -32,7 +32,7 @@ namespace Hl7.Fhir.Publication
 
         public static Stage ToStage(this IFilter filter)
         {
-            Stage stage = new Stage(filter.GetItems());
+            Stage stage = new Stage(filter.Documents());
             return stage;
         }
 

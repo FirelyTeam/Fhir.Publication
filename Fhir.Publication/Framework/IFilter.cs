@@ -8,7 +8,7 @@ namespace Hl7.Fhir.Publication
 {
     public interface IFilter
     {
-        IEnumerable<Document> GetItems();
+        IEnumerable<Document> Documents();
     }
 
     

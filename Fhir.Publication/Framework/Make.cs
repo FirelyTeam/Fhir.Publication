@@ -9,16 +9,21 @@ namespace Hl7.Fhir.Publication
 {
     public class Make
     {
+        public const string STASHPREFIX = "$";
+
         
         public static IWork InterpretDocument(Document document)
         {
             Bulk bulk = new Bulk();
             StringReader reader = new StringReader(document.Text);
-            bool ok;
+            bool ok; ;
             do
             {
                 string statement = reader.ReadLine();
-                ok = !string.IsNullOrWhiteSpace(statement);
+                bool skip = (string.IsNullOrWhiteSpace(statement)) || (statement.StartsWith("//"));
+                ok = (statement != null);
+                if (skip) continue;
+                
                 if (ok)
                 {
                     IWork work = InterpretStatement(document.Context, statement);
@@ -68,10 +73,10 @@ namespace Hl7.Fhir.Publication
                     {
                         string s = words.Skip(1).First();
                         TemplateRenderer renderer;
-                        if (s.StartsWith("$"))
+                        if (s.StartsWith(STASHPREFIX))
                         {
                             string key = s;
-                            string name = words.Skip(2).First();
+                            string name = words.Skip(2).FirstOrDefault();
                             renderer = new TemplateRenderer(key, name);
                         }
                         else
@@ -99,7 +104,7 @@ namespace Hl7.Fhir.Publication
                     case "stash":
                     {
                         string key = words.Skip(1).First();
-                        if (!key.StartsWith("$")) throw new Exception("Stash name should always begin with $.");
+                        if (!key.StartsWith(STASHPREFIX)) throw new Exception("Stash name should always begin with " + STASHPREFIX);
                         return new StashProcessor(key);
                     }
 
@@ -143,12 +148,21 @@ namespace Hl7.Fhir.Publication
             try
             {
                 var words = text.Split(' ');
-                Filter filter = new Filter();
-                filter.Mask = words.Skip(1).First();
-                filter.Recursive = words.Contains("-recursive");
-                filter.FromOutput = words.Contains("-output");
-                filter.Context = context.Clone();
-                return filter;
+                string mask = words.Skip(1).First();
+                if (mask.StartsWith(STASHPREFIX))
+                {
+                    return new StashFilter(mask);
+                }
+                else
+                {
+                    Filter filter = new Filter();
+                    filter.Mask = mask;
+                    filter.Recursive = words.Contains("-recursive");
+                    filter.FromOutput = words.Contains("-output");
+                    filter.Context = context.Clone();
+                    return filter;
+                }
+
             }
             catch
             {
