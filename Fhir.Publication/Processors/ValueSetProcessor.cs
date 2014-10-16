@@ -10,14 +10,14 @@ using System.Xml.Linq;
 namespace Hl7.Fhir.Publication
 {
 
-    public class ProfileProcessor : IProcessor
+    public class ValueSetProcessor : IProcessor
     {
         public void Process(Document input, Stage output)
         {
-            var generator = new ProfileTableGenerator(input.Context.Target.Directory, false, new ProfileKnowledgeProvider("http://www.hl7.org/implement/standards/fhir/"));
-            var profile = (Profile)FhirParser.ParseResourceFromXml(input.Text);
+            var generator = new ValueSetGenerator(input.Context.Target.Directory, new ProfileKnowledgeProvider("http://www.hl7.org/implement/standards/fhir/"));
+            var valueset = (ValueSet)FhirParser.ParseResourceFromXml(input.Text);
             Document result = input.CloneMetadata();
-            var xmldoc = generator.Generate(profile, extensionsOnly: false);
+            var xmldoc = generator.generate(valueset);
             result.Text = xmldoc.ToString(SaveOptions.DisableFormatting);
             output.Post(result);
         }

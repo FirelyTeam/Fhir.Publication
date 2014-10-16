@@ -70,23 +70,6 @@ namespace Hl7.Fhir.Publication
         }
 
 
-        internal string getLinkForExtensionDefinition(string pageName, string extensionAnchor)       
-        {
-            return pageName.ToLower() + "-definition.html" + "#extension." + extensionAnchor;
-        }
-
-
-        internal string getLinkForStructureDefinition(string pageName, string structureName)
-        {
-            return pageName.ToLower() + "-definition.html" + "#" + structureName.ToLower().Replace(" ", "");
-        }
-
-
-        internal string getLinkForStructure(string pageName, string structureName)
-        {
-            return pageName.ToLower() + "-" + structureName.ToLower().Replace(" ", "") + ".html";
-        }
-
 
         internal string getLinkForExtension(Model.Profile profile, string url)
         {
@@ -131,6 +114,68 @@ namespace Hl7.Fhir.Publication
 
 
 
+
+
+        internal string getLinkForExtensionDefinition(Profile profile, Profile.ProfileExtensionDefnComponent extension)       
+        {
+            return getProfileDictHtmlPageName(profile).ToLower() + ".html" + "#extension." + TokenizeName(extension.Code).ToLower();
+        }
+
+
+        internal string getLinkForElementDefinition(Profile profile, Profile.ElementComponent element)
+        {
+            return getProfileDictHtmlPageName(profile).ToLower() + ".html" + "#" + MakeElementDictAnchor(element);
+        }
+
+        internal string getLinkForStructure(Profile profile, Profile.ProfileStructureComponent structure)
+        {
+            return getProfilePageName(profile) + "-" + TokenizeName(structure.Name).ToLower() + ".html";
+        }
+
+
+
+        private string getProfilePageName(Profile profile)
+        {
+            return TokenizeName(profile.Name).ToLower();
+        }
+
+
+        private string getProfileDictHtmlPageName(Profile profile)
+        {
+            return getProfilePageName(profile) + "-definition";
+        }
+
+
+        public string MakeElementDictAnchor(Profile.ElementComponent element)
+        {
+            if (element.Name == null)
+                return element.Path;
+
+            if (!element.Path.Contains("."))
+                return element.Name;
+            else
+                return element.Path.Substring(0, element.Path.LastIndexOf(".")) + "." + element.Name;
+        }
+
+
+
+        internal static String TokenizeName(String cs)
+        {
+            StringBuilder s = new StringBuilder();
+            for (int i = 0; i < cs.Length; i++)
+            {
+                char c = cs[i];
+                if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9') || c == '-' || c == '_')
+                    s.Append(c);
+                else if (c != ' ')
+                    s.Append("." + c.ToString());
+            }
+
+            return s.ToString();
+        }
+
+
+
         internal string resolveBinding(Model.Profile.ElementDefinitionBindingComponent elementDefinitionBindingComponent)
         {
             return "todo.html";
@@ -171,6 +216,28 @@ namespace Hl7.Fhir.Publication
         internal string MakeSpecRef(string p)
         {
             return _specUrl + p;
+        }
+
+
+        public const string V2_SYSTEM_PREFIX = "http://hl7.org/fhir/v2/";
+        public const string V3_SYSTEM_PREFIX = "http://hl7.org/fhir/v3/";
+        public const string FHIR_SYSTEM_PREFIX = "http://hl7.org/fhir/";
+
+        internal ValueSet GetValueSetForSystem(string system)
+        {
+            string valuesetUri = null;
+
+            if (system.StartsWith(V2_SYSTEM_PREFIX))
+                valuesetUri = V2_SYSTEM_PREFIX + "vs/" + system.Substring(V2_SYSTEM_PREFIX.Length);
+            else if (system.StartsWith(V3_SYSTEM_PREFIX))
+                valuesetUri = V3_SYSTEM_PREFIX + "vs/" + system.Substring(V3_SYSTEM_PREFIX.Length);
+            else if (system.StartsWith(FHIR_SYSTEM_PREFIX))
+                valuesetUri = FHIR_SYSTEM_PREFIX + "vs/" + system.Substring(FHIR_SYSTEM_PREFIX.Length);
+
+            if (valuesetUri != null)
+                return GetValueSet(valuesetUri);
+            else
+                return null;
         }
     }
 

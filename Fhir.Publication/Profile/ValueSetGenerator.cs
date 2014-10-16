@@ -197,7 +197,7 @@ namespace Hl7.Fhir.Publication
             XElement td = new XElement(XmlNs.XHTMLNS + "td"); tr.Add(td);
             var indent = new String('.', i * 2);
             td.Add(new XText(indent + c.Code));
-            td.Add(new XElement(XmlNs.XHTMLNS + "a", new XAttribute("name", nmtokenize(c.Code)), new XText(" ")));
+            td.Add(new XElement(XmlNs.XHTMLNS + "a", new XAttribute("name", ProfileKnowledgeProvider.TokenizeName(c.Code)), new XText(" ")));
 
             td = new XElement(XmlNs.XHTMLNS + "td"); tr.Add(td);
             if (c.Display != null) td.Add(new XText(c.Display));
@@ -261,7 +261,7 @@ namespace Hl7.Fhir.Publication
                 td.Add(new XText(indent));
 
                 var a = new XElement(XmlNs.XHTMLNS + "a");
-                a.Add(new XAttribute("href", "#" + nmtokenize(e.Value)));
+                a.Add(new XAttribute("href", "#" + ProfileKnowledgeProvider.TokenizeName(e.Value)));
                 a.Add(new XText(c.Code));
                 td.Add(a);
             }
@@ -272,23 +272,6 @@ namespace Hl7.Fhir.Publication
             }
 
             return hasExtensions;
-        }
-
-
-
-        public static String nmtokenize(String cs)
-        {
-            StringBuilder s = new StringBuilder();
-            for (int i = 0; i < cs.Length; i++)
-            {
-                char c = cs[i];
-                if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9') || c == '-' || c == '_')
-                    s.Append(c);
-                else if (c != ' ')
-                    s.Append("." + c.ToString());
-            }
-
-            return s.ToString();
         }
 
 
@@ -351,11 +334,10 @@ namespace Hl7.Fhir.Publication
             bool hasExtensions = false;
             var li = new XElement(XmlNs.XHTMLNS + "li");  ul.Add(li);
 
-            var e = _pkp.GetValueSet(inc.System);
-
+            var e = _pkp.GetValueSetForSystem(inc.System);
         //    AtomEntry<? extends Resource> e = context.getCodeSystems().get(inc.getSystem());
     
-            if ( (inc.Code == null || !inc.Code.Any()) &&  inc.Filter == null || !inc.Filter.Any())
+            if ( (inc.Code == null || !inc.Code.Any()) &&  (inc.Filter == null || !inc.Filter.Any()))
             { 
                 li.Add(new XText(type+" all codes defined in "));
                 addCsRef(inc, li, e);
@@ -413,24 +395,27 @@ namespace Hl7.Fhir.Publication
                     }
                 }
 
-                foreach (var f in inc.Filter) 
-                {                    
-                    li.Add(new XText(type+" codes from "));
-                    addCsRef(inc, li, e);
-
-                    // TODO: Java code does not allow for f.Op to be null, but it is optional
-                    li.Add(new XText(" where "+f.Property+" "+describe(f.Op.GetValueOrDefault())+" "));
-                    if (e != null && codeExistsInValueSet(e, f.Value)) 
+                if (inc.Filter != null)
+                {
+                    foreach (var f in inc.Filter)
                     {
-                        li.Add(new XElement(XmlNs.XHTMLNS+"a",
-                            new XText(f.Value), new XAttribute("href", prefix+getCsRef(inc.System)+"#"+nmtokenize(f.Value))));
-                    } 
-                    else
-                        li.Add(new XText(f.Value));
-                
-                    String disp = f.getDisplayHint();
-                    if (disp != null)
-                        li.Add(new XText(" ("+disp+")"));
+                        li.Add(new XText(type + " codes from "));
+                        addCsRef(inc, li, e);
+
+                        // TODO: Java code does not allow for f.Op to be null, but it is optional
+                        li.Add(new XText(" where " + f.Property + " " + describe(f.Op.GetValueOrDefault()) + " "));
+                        if (e != null && codeExistsInValueSet(e, f.Value))
+                        {
+                            li.Add(new XElement(XmlNs.XHTMLNS + "a",
+                                new XText(f.Value), new XAttribute("href", prefix + getCsRef(inc.System) + "#" + ProfileKnowledgeProvider.TokenizeName(f.Value))));
+                        }
+                        else
+                            li.Add(new XText(f.Value));
+
+                        String disp = f.getDisplayHint();
+                        if (disp != null)
+                            li.Add(new XText(" (" + disp + ")"));
+                    }
                 }
             }
     
@@ -470,14 +455,14 @@ namespace Hl7.Fhir.Publication
 
        private ValueSet.ValueSetDefineConceptComponent getConceptForCode(ValueSet vs, String code, String system)
        {
-           //TODO: Terminologie services oproepen als de valueset onbekend is
-           //if (e == null) {
-           //  if (context.getTerminologyServices() != null)
-           //    return context.getTerminologyServices().getCodeDefinition(system, code);
-           //  else
-           //    return null;
-           //}    
-           //ValueSet vs = (ValueSet) e.getResource();
+           if (vs == null)
+           {
+               //TODO: include additional terminology services
+               //if (context.getTerminologyServices() != null)
+               //    return context.getTerminologyServices().getCodeDefinition(system, code);
+               //else
+               return null;
+           }
 
            if (vs.Define == null)
                return null;

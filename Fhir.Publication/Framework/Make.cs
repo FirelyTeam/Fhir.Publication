@@ -122,6 +122,12 @@ namespace Hl7.Fhir.Publication
                     case "structure":
                         return new StructureProcessor();
 
+                    case "dict":
+                        return new DictTableProcessor();
+
+                    case "valueset":
+                        return new ValueSetProcessor();
+
                     default:
                         throw new Exception("Unknown processing command: " + command);
                 }

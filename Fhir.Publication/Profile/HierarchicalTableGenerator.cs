@@ -39,7 +39,7 @@ using Hl7.Fhir.Support;
 
 namespace Hl7.Fhir.Publication
 {
-    public class Piece
+    internal class Piece
     {
         private String tag;
         private String reference;
@@ -103,7 +103,7 @@ namespace Hl7.Fhir.Publication
     }
 
 
-    public class Cell
+    internal class Cell
     {
         internal List<Piece> pieces = new List<Piece>();
 
@@ -132,7 +132,7 @@ namespace Hl7.Fhir.Publication
 
 
 
-    public class Title : Cell
+    internal class Title : Cell
     {
         internal int width;
 
@@ -145,7 +145,7 @@ namespace Hl7.Fhir.Publication
     }
 
 
-    public class Row
+    internal class Row
     {
         private List<Row> subRows = new List<Row>();
         private List<Cell> cells = new List<Cell>();
@@ -181,22 +181,27 @@ namespace Hl7.Fhir.Publication
     }
 
 
-    public class TableModel
+    internal class TableModel
     {
-        private List<Title> titles = new List<Title>();
-        private List<Row> rows = new List<Row>();
-        public List<Title> getTitles()
+        public static TableModel CreateNormalTable()
         {
-            return titles;
+            TableModel model = new TableModel();
+
+            model.Titles.Add(new Title(null, null, "Name", null, null, 0));
+            model.Titles.Add(new Title(null, null, "Card.", null, null, 0));
+            model.Titles.Add(new Title(null, null, "Type", null, null, 100));
+            model.Titles.Add(new Title(null, null, "Description & Constraints", null, null, 0));
+            return model;
         }
-        public List<Row> getRows()
-        {
-            return rows;
-        }
+
+
+
+        public List<Title> Titles = new List<Title>();
+        public List<Row> Rows = new List<Row>();
     }
 
 
-    public class HierarchicalTableGenerator
+    internal class HierarchicalTableGenerator
     {
         private String imageDirectory;
 
@@ -215,18 +220,6 @@ namespace Hl7.Fhir.Publication
             this.inLineGraphics = inlineGraphics;
         }
 
-        public TableModel initNormalTable()
-        {
-            TableModel model = new TableModel();
-
-            model.getTitles().Add(new Title(null, null, "Name", null, null, 0));
-            model.getTitles().Add(new Title(null, null, "Card.", null, null, 0));
-            model.getTitles().Add(new Title(null, null, "Type", null, null, 100));
-            model.getTitles().Add(new Title(null, null, "Description & Constraints", null, null, 0));
-            return model;
-        }
-
-
         public XElement generate(TableModel model)
         {
             checkModel(model);
@@ -241,12 +234,12 @@ namespace Hl7.Fhir.Publication
 
             table.Add(tr);
 
-            foreach (Title t in model.getTitles())
+            foreach (Title t in model.Titles)
             {
                 var tc = renderCell(tr, t, "th", null, null, false, null);
             }
 
-            foreach (Row r in model.getRows())
+            foreach (Row r in model.Rows)
             {
                 renderRow(table, r, 0, new List<bool>());
             }
@@ -450,12 +443,12 @@ namespace Hl7.Fhir.Publication
 
         private void checkModel(TableModel model)
         {
-            check(model.getRows().Any(), "Must have rows");
-            check(model.getTitles().Any(), "Must have titles");
-            foreach (Cell c in model.getTitles())
+            check(model.Rows.Any(), "Must have rows");
+            check(model.Titles.Any(), "Must have titles");
+            foreach (Cell c in model.Titles)
                 check(c);
-            foreach (Row r in model.getRows())
-                check(r, "rows", model.getTitles().Count);
+            foreach (Row r in model.Rows)
+                check(r, "rows", model.Titles.Count);
         }
 
 

@@ -47,14 +47,13 @@ namespace Hl7.Fhir.Publication
 
         private StringBuilder xhtml = new StringBuilder();
 
-        internal DictHtmlGenerator(String outputDirectory, ProfileKnowledgeProvider pkp)
+        public DictHtmlGenerator(ProfileKnowledgeProvider pkp)
         {
             _pkp = pkp;
-            OutputDir = outputDirectory;
         }
 
 
-        public XElement generate(Profile profile, string profileUrl)
+        public XElement Generate(Profile profile, string profileUrl)
         {
             write("<div xmlns=\"" + Hl7.Fhir.Support.XmlNs.XHTML + "\">");
 
@@ -272,9 +271,11 @@ namespace Hl7.Fhir.Publication
         {
             if (element.Name == null)
                 return element.Path;
+
             if (!element.Path.Contains("."))
                 return element.Name;
-            return element.Path.Substring(0, element.Path.LastIndexOf(".")) + "." + element.Name;
+            else
+                return element.Path.Substring(0, element.Path.LastIndexOf(".")) + "." + element.Name;
         }
 
         private void tableRowMarkdown(String name, String value)
