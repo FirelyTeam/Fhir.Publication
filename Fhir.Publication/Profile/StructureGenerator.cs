@@ -52,7 +52,7 @@ namespace Hl7.Fhir.Publication
 
         public XElement generateStructureTable(Profile.ProfileStructureComponent structure, bool diff, Profile profile) 
         {
-            HierarchicalTableGenerator gen = new HierarchicalTableGenerator(_pkp.ImageOutputDirectory, _pkp.InlineGraphics);
+            HierarchicalTableGenerator gen = new HierarchicalTableGenerator(_pkp);
             var model = TableModel.CreateNormalTable();
 
             // List<Profile.ElementComponent> list = diff ? structure.getDifferential().getElement() : structure.getSnapshot().getElement();   DSTU2

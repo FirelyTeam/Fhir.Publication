@@ -239,6 +239,14 @@ namespace Hl7.Fhir.Publication
 
         public string ImageOutputDirectory { get; set; }
 
+        public string ImageLinkPath { get { return "../dist/images"; } }
+
+        /**
+         * There are circumstances where the table has to present in the absence of a stable supporting infrastructure.
+         * and the file paths cannot be guaranteed. For these reasons, you can tell the builder to inline all the graphics
+         * (all the styles are inlined anyway, since the table fbuiler has even less control over the styling
+         *  
+         */
         public bool InlineGraphics { get; set; }
     }
 

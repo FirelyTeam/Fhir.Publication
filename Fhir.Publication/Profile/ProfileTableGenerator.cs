@@ -49,7 +49,7 @@ namespace Hl7.Fhir.Publication
      
         public XElement Generate(Profile profile, bool extensionsOnly)
         {
-            var gen = new HierarchicalTableGenerator(_pkp.ImageOutputDirectory,_pkp.InlineGraphics);
+            var gen = new HierarchicalTableGenerator(_pkp);
             var model = TableModel.CreateNormalTable();
 
             genProfile(model.Rows, profile, extensionsOnly);
