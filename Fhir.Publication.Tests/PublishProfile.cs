@@ -16,72 +16,55 @@ namespace Fhir.Profiling.Tests
         [TestMethod]
         public void PublishLipidProfile()
         {
-            var pkp = new ProfileKnowledgeProvider("lipid");
-            var profile =  (Profile)FhirParser.ParseResourceFromXml(File.ReadAllText(@"TestData\lipid.profile.xml"));
-            var pagename = profile.Name;
-
-            var publisher = new ProfileTableGenerator(@"c:\temp\publisher", false, pkp);
-
-            var result = File.ReadAllText(@"TestData\publish-header.cshtml");
-            result += publisher.Generate(profile, false).ToString(System.Xml.Linq.SaveOptions.DisableFormatting);
-            result += File.ReadAllText(@"TestData\publish-footer.cshtml");
-
-            File.WriteAllText(@"c:\temp\publisher\" + pkp.GetLinkForProfileTable(profile),result);
-        }
-
-        [TestMethod]
-        public void PublishLipidProfileStructures()
-        {
-            var source = new FileArtifactSource(true);
             var profile = (Profile)FhirParser.ParseResourceFromXml(File.ReadAllText(@"TestData\lipid.profile.xml"));
-
             var pkp = new ProfileKnowledgeProvider("lipid");
-            var publisher = new StructureGenerator(@"c:\temp\publisher\",false,pkp);
 
-            foreach (var structure in profile.Structure)
             {
+                var publisher = new ProfileTableGenerator(@"c:\temp\dist\images", false, pkp);
+
                 var result = File.ReadAllText(@"TestData\publish-header.cshtml");
-                result += publisher.generateStructureTable(structure, false, profile)
-                        .ToString(System.Xml.Linq.SaveOptions.DisableFormatting);
+                result += publisher.Generate(profile, false).ToString(System.Xml.Linq.SaveOptions.DisableFormatting);
                 result += File.ReadAllText(@"TestData\publish-footer.cshtml");
 
-                File.WriteAllText(@"c:\temp\publisher\" + pkp.GetLinkForLocalStructure(profile,structure), result);
+                File.WriteAllText(@"c:\temp\publisher\" + pkp.GetLinkForProfileTable(profile), result);
             }
-        }
 
+            {
+                var publisher = new StructureGenerator(@"c:\temp\dist\images", false, pkp);
 
-        [TestMethod]
-        public void PublishLipidDictHtml()
-        {
-            var source = new FileArtifactSource(true);
-            var profile = (Profile)FhirParser.ParseResourceFromXml(File.ReadAllText(@"TestData\lipid.profile.xml"));
+                foreach (var structure in profile.Structure)
+                {
+                    var result = File.ReadAllText(@"TestData\publish-header.cshtml");
+                    result += publisher.generateStructureTable(structure, false, profile)
+                            .ToString(System.Xml.Linq.SaveOptions.DisableFormatting);
+                    result += File.ReadAllText(@"TestData\publish-footer.cshtml");
 
-            var pkp = new ProfileKnowledgeProvider("lipid");
-            var publisher = new DictHtmlGenerator(pkp);
+                    File.WriteAllText(@"c:\temp\publisher\" + pkp.GetLinkForLocalStructure(profile, structure), result);
+                }
+            }
 
-            var result = File.ReadAllText(@"TestData\publish-header.cshtml");
-            result += publisher.Generate(profile)
-                        .ToString(System.Xml.Linq.SaveOptions.DisableFormatting);
-            result += File.ReadAllText(@"TestData\publish-footer.cshtml");
+            {
+                var dictgen = new DictHtmlGenerator(pkp);
+                var result = File.ReadAllText(@"TestData\publish-header.cshtml");
+                result += dictgen.Generate(profile)
+                            .ToString(System.Xml.Linq.SaveOptions.DisableFormatting);
+                result += File.ReadAllText(@"TestData\publish-footer.cshtml");
 
-            File.WriteAllText(@"c:\temp\publisher\" + pkp.GetLinkForProfileDict(profile), result);
-        }
+                File.WriteAllText(@"c:\temp\publisher\" + pkp.GetLinkForProfileDict(profile), result);
+            }
 
-        [TestMethod]
-        public void PublishValueSet()
-        {
-            var source = new FileArtifactSource(true);
-            var vs = (ValueSet)FhirParser.ParseResourceFromXml(File.ReadAllText(@"TestData\hv-laboratory-result-interpretation-v1.xml"));
+            {
+                var vs = (ValueSet)FhirParser.ParseResourceFromXml(File.ReadAllText(@"TestData\hv-laboratory-result-interpretation-v1.xml"));
 
-            var pkp = new ProfileKnowledgeProvider("lipid");
-            var publisher = new ValueSetGenerator(@"c:\temp\publisher\", pkp);
+                var vsGen = new ValueSetGenerator(@"c:\temp\publisher\", pkp);
 
-            var result = File.ReadAllText(@"TestData\publish-header.cshtml");
-            result += publisher.generate(vs)
-                        .ToString(System.Xml.Linq.SaveOptions.DisableFormatting);
-            result += File.ReadAllText(@"TestData\publish-footer.cshtml");
+                var result = File.ReadAllText(@"TestData\publish-header.cshtml");
+                result += vsGen.generate(vs)
+                            .ToString(System.Xml.Linq.SaveOptions.DisableFormatting);
+                result += File.ReadAllText(@"TestData\publish-footer.cshtml");
 
-            File.WriteAllText(@"c:\temp\publisher\" + "hv-laboratory-result-interpretation-v1.html", result);
+                File.WriteAllText(@"c:\temp\publisher\" + "hv-laboratory-result-interpretation-v1.html", result);
+            }
         }
     }
 }

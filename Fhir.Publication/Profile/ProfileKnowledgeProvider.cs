@@ -191,7 +191,7 @@ namespace Hl7.Fhir.Publication
 
 
 
-        internal string resolveBinding(Model.Profile.ElementDefinitionBindingComponent binding)
+        internal string GetLinkForBinding(Model.Profile.ElementDefinitionBindingComponent binding)
         {
             if (binding.Reference == null)
                 return null;

@@ -313,7 +313,7 @@ namespace Hl7.Fhir.Publication
                     if (element.Definition.Binding != null)
                     {
                         if (c.getPieces().Any()) c.addPiece(new Piece("br"));
-                        String reference = _pkp.resolveBinding(element.Definition.Binding);
+                        String reference = _pkp.GetLinkForBinding(element.Definition.Binding);
                         c.getPieces().Add(new Piece(null, "Binding: ", null).addStyle("font-weight:bold"));
                         c.getPieces().Add(new Piece(reference, element.Definition.Binding.Name, null));
                     }
