@@ -13,7 +13,7 @@ namespace Hl7.Fhir.Publication
 
     public class Statement : IWork
     {
-        public IFilter Filter { get; set; }
+        public ISelector Selector { get; set; }
         public PipeLine PipeLine = new PipeLine();
 
         public void Add(IProcessor processor)
@@ -23,12 +23,12 @@ namespace Hl7.Fhir.Publication
 
         public void Execute()
         {
-            PipeLine.Process(Filter);
+            PipeLine.Process(Selector);
         }
 
         public override string ToString()
         {
-            return string.Format("{0}: {1}", Filter, PipeLine);
+            return string.Format("{0}: {1}", Selector, PipeLine);
         }
     }
 
@@ -53,14 +53,14 @@ namespace Hl7.Fhir.Publication
             }
         }
 
-
+        
     }
 
     public static class Work
     {
-        public static void Append(this Bulk bulk, IFilter filter, PipeLine pipeline)
+        public static void Append(this Bulk bulk, ISelector filter, PipeLine pipeline)
         {
-            var statement = new Statement() { Filter = filter, PipeLine = pipeline };
+            var statement = new Statement() { Selector = filter, PipeLine = pipeline };
             bulk.Append(statement);
         }
     }

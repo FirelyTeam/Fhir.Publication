@@ -8,19 +8,23 @@ using System.Threading.Tasks;
 
 namespace Hl7.Fhir.Publication
 {
-
-    
     public class TestProcessor : IProcessor
     {
         Document template;
 
+        public ISelector Influx { get; set; }
+
+        
         public TestProcessor(Context context, string filename)
         {
+            // todo: move to influx !!!!
             template = Document.CreateInContext(context, filename);
         }
 
         public void Process(Document source, Stage stage)
         {
+            Document template = Influx.Documents.First();
+
             string t = template.Text;
             string s = source.Text;
             Document d = stage.CloneAndPost(source);

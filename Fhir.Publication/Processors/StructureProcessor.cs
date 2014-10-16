@@ -10,6 +10,8 @@ namespace Hl7.Fhir.Publication
 {
     public class StructureProcessor : IProcessor
     {
+        public ISelector Influx { get; set; }
+
         public void Process(Document input, Stage output)
         {
             var pkp = new ProfileKnowledgeProvider(input.Name);

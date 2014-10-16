@@ -12,6 +12,8 @@ namespace Hl7.Fhir.Publication
 
     public class ValueSetProcessor : IProcessor
     {
+        public ISelector Influx { get; set; }
+        
         public void Process(Document input, Stage output)
         {
             var generator = new ValueSetGenerator(input.Context.Target.Directory, new ProfileKnowledgeProvider(input.Name));

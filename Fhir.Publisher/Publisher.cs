@@ -18,7 +18,7 @@ namespace Hl7.Fhir.Publication
             Root root = new Root(sourcedir, targetdir);
             Context context = root.Context();
 
-            Document document = Filter.GetDocument(context, mask);
+            Document document = FileFilter.GetDocument(context, mask);
             IWork work = Make.InterpretDocument(document);
             
             work.Execute();

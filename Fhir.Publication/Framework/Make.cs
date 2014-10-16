@@ -9,7 +9,6 @@ namespace Hl7.Fhir.Publication
 {
     public class Make
     {
-        public const string STASHPREFIX = "$";
 
         
         public static IWork InterpretDocument(Document document)
@@ -42,7 +41,7 @@ namespace Hl7.Fhir.Publication
             Statement statement = new Statement();
 
             string[] sentences = text.Split(new string[] { ">>" }, StringSplitOptions.RemoveEmptyEntries);
-            statement.Filter = InterpretFilter(context, sentences.First());
+            statement.Selector = InterpretSelector(context, sentences.First());
             foreach (string s in sentences.Skip(1))
             {
                 IProcessor processor = InterpretProcessor(context, s);
@@ -64,6 +63,8 @@ namespace Hl7.Fhir.Publication
                     return null;
                 
                 string command = words.First().ToLower();
+                var parameters = words.Skip(1);
+
                 switch (command)
                 {
                     case "markdown":
@@ -71,22 +72,10 @@ namespace Hl7.Fhir.Publication
 
                     case "template":
                     {
-                        string s = words.Skip(1).First();
-                        TemplateRenderer renderer;
-                        if (s.StartsWith(STASHPREFIX))
-                        {
-                            string key = s;
-                            string name = words.Skip(2).FirstOrDefault();
-                            renderer = new TemplateRenderer(key, name);
-                        }
-                        else
-                        {
-                            string template = s;
-                            Document document = Document.CreateInContext(context, template);
-                            renderer = new TemplateRenderer(document);
-                        }
-                        
-                        return new RenderProcessor(renderer);
+                        var processor = new TemplateProcessor();
+                        //pr.Template = influx.Documents.First(); //Document document = Document.CreateInContext(context, template);
+                        processor.Influx = Selector.Create(context, parameters);
+                        return processor;
                     }
 
                     case "razor":
@@ -97,22 +86,24 @@ namespace Hl7.Fhir.Publication
 
                     case "save":
                     {
-                        string extension = words.Skip(1).FirstOrDefault();
-                        return new SaveProcessor(extension);
+                        string mask = parameters.FirstOrDefault();
+                        var processor = new SaveProcessor();
+                        processor.Mask = mask;
+                        return processor;
                     }
 
                     case "stash":
                     {
                         string key = words.Skip(1).First();
-                        if (!key.StartsWith(STASHPREFIX)) throw new Exception("Stash name should always begin with " + STASHPREFIX);
+                        if (!key.StartsWith(Selector.STASHPREFIX)) throw new Exception("Stash name should always begin with " + Selector.STASHPREFIX);
                         return new StashProcessor(key);
                     }
 
                     case "attach":
                     {
-                        string key = words.Skip(1).First();
-                        string mask = words.Skip(2).First();
-                        return new AttachProcessor(key, mask);
+                        IProcessor p = new AttachProcessor();
+                        p.Influx = Selector.Create(context, parameters);
+                        return p;
                     }
 
                     case "concatenate":
@@ -143,26 +134,14 @@ namespace Hl7.Fhir.Publication
             }
         }
 
-        public static IFilter InterpretFilter(Context context, string text)
+        public static ISelector InterpretSelector(Context context, string text)
         {
             try
             {
                 var words = text.Split(' ');
-                string mask = words.Skip(1).First();
-                if (mask.StartsWith(STASHPREFIX))
-                {
-                    return new StashFilter(mask);
-                }
-                else
-                {
-                    Filter filter = new Filter();
-                    filter.Mask = mask;
-                    filter.Recursive = words.Contains("-recursive");
-                    filter.FromOutput = words.Contains("-output");
-                    filter.Context = context.Clone();
-                    return filter;
-                }
-
+                string command = words.First();
+                var parameters = words.Skip(1).ToArray();
+                return Selector.Create(context, parameters);
             }
             catch
             {

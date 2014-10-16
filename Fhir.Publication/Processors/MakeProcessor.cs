@@ -8,6 +8,7 @@ namespace Hl7.Fhir.Publication
 {
     public class MakeProcessor : IProcessor
     {
+        public ISelector Influx { get; set; }
 
         public void Process(Document input, Stage output)
         {

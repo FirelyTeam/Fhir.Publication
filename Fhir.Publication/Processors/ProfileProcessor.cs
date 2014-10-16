@@ -12,6 +12,8 @@ namespace Hl7.Fhir.Publication
 
     public class ProfileProcessor : IProcessor
     {
+        public ISelector Influx { get; set; }
+
         public void Process(Document input, Stage output)
         {
             input.Context.EnsureTarget(); // omdat er eerst plaatjes worden gegenereerd voorafgaand aan het document zelf.
