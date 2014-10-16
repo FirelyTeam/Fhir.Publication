@@ -9,9 +9,10 @@ using System.Xml.Linq;
 
 namespace Hl7.Fhir.Publication
 {
-
     public class DictTableProcessor : IProcessor
     {
+        public ISelector Influx { get; set; }
+
         public void Process(Document input, Stage output)
         {
             var pkp = new ProfileKnowledgeProvider(input.Name, input.Context.Target.Directory);

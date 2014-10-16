@@ -18,11 +18,15 @@ namespace Hl7.Fhir.Publication
 
         public List<Document> Attachments = new List<Document>();
 
-        public void Attach(params Document[] attachment)
+        public void Attach(params Document[] attachments)
         {
-            Attachments.AddRange(attachment);
+            Attachments.AddRange(attachments);
         }
 
+        public void Attach(IEnumerable<Document> attachments)
+        {
+            Attachments.AddRange(attachments);
+        }
         private string _content;
 
         public string Text

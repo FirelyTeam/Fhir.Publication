@@ -10,6 +10,8 @@ namespace Hl7.Fhir.Publication
     {
         string key;
 
+        public ISelector Influx { get; set; }
+
         public StashProcessor(string key)
         {
             this.key = key;

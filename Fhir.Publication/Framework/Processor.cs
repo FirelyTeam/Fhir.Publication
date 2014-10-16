@@ -30,13 +30,13 @@ namespace Hl7.Fhir.Publication
             return output;
         }
 
-        public static Stage ToStage(this IFilter filter)
+        public static Stage ToStage(this ISelector selector)
         {
-            Stage stage = new Stage(filter.Documents());
+            Stage stage = new Stage(selector.Documents);
             return stage;
         }
 
-        public static Stage Process(this PipeLine pipeline, IFilter filter)
+        public static Stage Process(this PipeLine pipeline, ISelector filter)
         {
             Stage stage = filter.ToStage();
             return Processor.Process(pipeline, stage);

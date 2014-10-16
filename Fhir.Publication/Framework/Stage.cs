@@ -62,6 +62,11 @@ namespace Hl7.Fhir.Publication
         public static Stage New()
         {
             return new Stage(Enumerable.Empty<Document>());
-        } 
+        }
+
+        public override string ToString()
+        {
+            return Documents.ToString();
+        }
     }
 }

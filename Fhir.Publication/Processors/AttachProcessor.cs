@@ -8,21 +8,11 @@ namespace Hl7.Fhir.Publication
 {
     public class AttachProcessor : IProcessor
     {
-        string key, mask;
-
-        public AttachProcessor(string key, string mask)
-        {
-            this.key = key;
-            this.mask = mask;
-        }
-
-        
+        public ISelector Influx { get; set; }
 
         public void Process(Document input, Stage output)
         {
-            string name = Disk.ParseMask(input.Name, mask);
-            Document attachment = Stash.Get(key, name);
-            if (attachment != null) input.Attach(attachment);
+            input.Attach(Influx.Documents);
             output.Post(input);
         }
 

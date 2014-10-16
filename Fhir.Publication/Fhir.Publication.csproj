@@ -72,8 +72,8 @@
     <Compile Include="Framework\Context.cs" />
     <Compile Include="Processors\CopyProcessor.cs" />
     <Compile Include="Framework\Document.cs" />
-    <Compile Include="Framework\Filter.cs" />
-    <Compile Include="Framework\IFilter.cs" />
+    <Compile Include="Framework\Selector.cs" />
+    <Compile Include="Framework\ISelector.cs" />
     <Compile Include="Framework\IProcessor.cs" />
     <Compile Include="Framework\IRenderer.cs" />
     <Compile Include="Processors\ValueSetProcessor.cs" />
@@ -96,7 +96,7 @@
     <Compile Include="Processors\StashProcessor.cs" />
     <Compile Include="Processors\StructureProcessor.cs" />
     <Compile Include="Renderers\RazorRenderer.cs" />
-    <Compile Include="Renderers\TemplateRenderer.cs" />
+    <Compile Include="Processors\TemplateProcessor.cs" />
     <Compile Include="Profile\ElementDefnRenderingExtensions.cs" />
     <Compile Include="Processors\RenderProcessor.cs" />
     <Compile Include="Framework\Disk.cs" />

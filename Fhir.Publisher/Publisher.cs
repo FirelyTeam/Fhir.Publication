@@ -13,12 +13,12 @@ namespace Hl7.Fhir.Publication
         {
             Log.Level = Log.ParseLevel(loglevel, LogLevel.Info);
             
-            Log.Info("Fhir publisher tool 0.9.4 BETA");
+            Log.Info("Fhir publisher tool 0.9.5 BETA");
 
             Root root = new Root(sourcedir, targetdir);
             Context context = root.Context();
 
-            Document document = Filter.GetDocument(context, mask);
+            Document document = FileFilter.GetDocument(context, mask);
             IWork work = Make.InterpretDocument(document);
             
             work.Execute();
