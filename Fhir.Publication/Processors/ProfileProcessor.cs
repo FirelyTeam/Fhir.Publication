@@ -18,7 +18,7 @@ namespace Hl7.Fhir.Publication
         {
             input.Context.EnsureTarget(); // omdat er eerst plaatjes worden gegenereerd voorafgaand aan het document zelf.
 
-            var generator = new ProfileTableGenerator(input.Context.Target.Directory, false, new ProfileKnowledgeProvider(input.Name));
+            var generator = new ProfileTableGenerator(new ProfileKnowledgeProvider(input.Name, input.Context.Target.Directory));
             var profile = (Profile)FhirParser.ParseResourceFromXml(input.Text);
             Document result = input.CloneMetadata();
             var xmldoc = generator.Generate(profile, extensionsOnly: false);

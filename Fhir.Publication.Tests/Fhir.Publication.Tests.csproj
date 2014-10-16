@@ -91,6 +91,9 @@
     <Content Include="TestData\lipid.profile.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="TestData\profile.hvlabresult.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
     <None Include="TestData\publish-footer.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

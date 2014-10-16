@@ -43,7 +43,6 @@ namespace Hl7.Fhir.Publication
         ProfileKnowledgeProvider _pkp;
 
         protected string OutputDir;
-        protected bool InlineGraphics;
 
         private StringBuilder xhtml = new StringBuilder();
 
@@ -51,7 +50,6 @@ namespace Hl7.Fhir.Publication
         {
             _pkp = pkp;
         }
-
 
         public XElement Generate(Profile profile)
         {

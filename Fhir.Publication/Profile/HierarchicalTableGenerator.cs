@@ -427,17 +427,19 @@ namespace Hl7.Fhir.Publication
 
         private String srcFor(String filename)
         {
+            var imgPath = "../dist/images/" + filename;
+
             if (inLineGraphics)
             {
                 StringBuilder b = new StringBuilder();
                 b.Append("data: image/png;base64,");
-                byte[] bytes = File.ReadAllBytes(Path.Combine(imageDirectory, filename));
+                byte[] bytes = File.ReadAllBytes(imgPath);
 
                 b.Append(Convert.ToBase64String(bytes));
                 return b.ToString();
             }
             else
-                return filename;
+                return imgPath;
         }
 
 
@@ -504,7 +506,7 @@ namespace Hl7.Fhir.Publication
                 }
             }
 
-            return b.ToString();
+            return "../dist/images/" + b.ToString();
         }
 
 

@@ -15,7 +15,7 @@ namespace Hl7.Fhir.Publication
 
         public void Process(Document input, Stage output)
         {
-            var pkp = new ProfileKnowledgeProvider(input.Name);
+            var pkp = new ProfileKnowledgeProvider(input.Name, input.Context.Target.Directory);
             var generator = new DictHtmlGenerator(pkp);
             var profile = (Profile)FhirParser.ParseResourceFromXml(input.Text);
             Document result = input.CloneMetadata();

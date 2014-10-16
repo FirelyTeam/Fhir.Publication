@@ -39,25 +39,17 @@ namespace Hl7.Fhir.Publication
 {
 
     internal class ProfileTableGenerator
-    { //extends TableGenerator {
-
-        protected bool InlineGraphics { get; set; }
-        protected string OutputDir { get; set; }
-        
+    { //extends TableGenerator {      
         private ProfileKnowledgeProvider _pkp;
 
-        public ProfileTableGenerator(String outputDir, bool inlineGraphics, ProfileKnowledgeProvider pkp)
+        public ProfileTableGenerator(ProfileKnowledgeProvider pkp)
         {
-            OutputDir = outputDir;
-            InlineGraphics = inlineGraphics;
-
             _pkp = pkp;
-            // super(dest, page, pageName, inlineGraphics);
         }
      
         public XElement Generate(Profile profile, bool extensionsOnly)
         {
-            var gen = new HierarchicalTableGenerator(OutputDir, InlineGraphics);
+            var gen = new HierarchicalTableGenerator(_pkp.ImageOutputDirectory,_pkp.InlineGraphics);
             var model = TableModel.CreateNormalTable();
 
             genProfile(model.Rows, profile, extensionsOnly);

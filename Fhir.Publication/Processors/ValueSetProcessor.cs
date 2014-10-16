@@ -16,7 +16,7 @@ namespace Hl7.Fhir.Publication
         
         public void Process(Document input, Stage output)
         {
-            var generator = new ValueSetGenerator(input.Context.Target.Directory, new ProfileKnowledgeProvider(input.Name));
+            var generator = new ValueSetGenerator(new ProfileKnowledgeProvider(input.Name, input.Context.Target.Directory));
             var valueset = (ValueSet)FhirParser.ParseResourceFromXml(input.Text);
             Document result = input.CloneMetadata();
             var xmldoc = generator.generate(valueset);

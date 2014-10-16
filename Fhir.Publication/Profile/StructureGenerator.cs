@@ -40,14 +40,9 @@ namespace Hl7.Fhir.Publication
     {
         ProfileKnowledgeProvider _pkp;
 
-        protected string OutputDir;
-        protected bool InlineGraphics;
-
-        internal StructureGenerator(String outputDirectory, bool inlineGraphics, ProfileKnowledgeProvider pkp)
+        internal StructureGenerator(ProfileKnowledgeProvider pkp)
         {
             _pkp = pkp;
-            OutputDir = outputDirectory;
-            InlineGraphics = inlineGraphics;
         }
 
         private class UnusedTracker 
@@ -57,7 +52,7 @@ namespace Hl7.Fhir.Publication
 
         public XElement generateStructureTable(Profile.ProfileStructureComponent structure, bool diff, Profile profile) 
         {
-            HierarchicalTableGenerator gen = new HierarchicalTableGenerator(OutputDir, InlineGraphics);
+            HierarchicalTableGenerator gen = new HierarchicalTableGenerator(_pkp.ImageOutputDirectory, _pkp.InlineGraphics);
             var model = TableModel.CreateNormalTable();
 
             // List<Profile.ElementComponent> list = diff ? structure.getDifferential().getElement() : structure.getSnapshot().getElement();   DSTU2
@@ -313,7 +308,7 @@ namespace Hl7.Fhir.Publication
                     if (element.Definition.Binding != null)
                     {
                         if (c.getPieces().Any()) c.addPiece(new Piece("br"));
-                        String reference = _pkp.resolveBinding(element.Definition.Binding);
+                        String reference = _pkp.GetLinkForBinding(element.Definition.Binding);
                         c.getPieces().Add(new Piece(null, "Binding: ", null).addStyle("font-weight:bold"));
                         c.getPieces().Add(new Piece(reference, element.Definition.Binding.Name, null));
                     }
