@@ -53,7 +53,7 @@ namespace Hl7.Fhir.Publication
         }
 
 
-        public XElement Generate(Profile profile, string profileUrl)
+        public XElement Generate(Profile profile)
         {
             write("<div xmlns=\"" + Hl7.Fhir.Support.XmlNs.XHTML + "\">");
 
@@ -75,7 +75,7 @@ namespace Hl7.Fhir.Publication
 
             foreach (var s in profile.Structure)
             {
-                generateStructure(profile, profileUrl, i, s);
+                generateStructure(profile, i, s);
                 i++;
             }
 
@@ -228,7 +228,7 @@ namespace Hl7.Fhir.Publication
             return d.Mapping.Where(map => map.Identity == id).Select(map => map.Map).FirstOrDefault();
         }
 
-        private void generateStructure(Profile profile, string profileUrl, int i, Profile.ProfileStructureComponent s)
+        private void generateStructure(Profile profile, int i, Profile.ProfileStructureComponent s)
         {
             write("<p><a name=\"i" + i.ToString() + "\"><b>" + s.Name + "</b></a></p>\r\n");
             write("<table class=\"dict\">\r\n");
@@ -237,9 +237,8 @@ namespace Hl7.Fhir.Publication
             {
                 if (isProfiledExtension(ec))
                 {
-                    String name = s.Name + "." + makePathLink(ec);
-                    String title = ec.Path + " (" + (ec.Definition.Type[0].Profile.StartsWith("#") ? profileUrl : "")
-                            + ec.Definition.Type[0].Profile + ")";
+                    String name = s.Name + "." + _pkp.MakeElementDictAnchor(ec);
+                    String title = ec.Path + " (" + ec.Definition.Type[0].Profile + ")";
                     write("  <tr><td colspan=\"2\" class=\"structure\"><a name=\"" + name + "\"> </a><b>" + title + "</b></td></tr>\r\n");
 
                     var profExtDefn = _pkp.getExtensionDefinition(profile, ec.Definition.Type[0].Profile);
@@ -250,7 +249,7 @@ namespace Hl7.Fhir.Publication
                 }
                 else
                 {
-                    String name = s.Name + "." + makePathLink(ec);
+                    String name = s.Name + "." + _pkp.MakeElementDictAnchor(ec);
                     String title = ec.Path + (ec.Name == null ? "" : "(" + ec.Name + ")");
                     write("  <tr><td colspan=\"2\" class=\"structure\"><a name=\"" + name + "\"> </a><b>" + title + "</b></td></tr>\r\n");
                     generateElementInner(profile, ec.Definition);
@@ -265,17 +264,6 @@ namespace Hl7.Fhir.Publication
             return ec.Definition.Type != null && ec.Definition.Type.Count == 1 && 
                 ec.Definition.Type[0].Code == "Extension" && 
                 ec.Definition.Type[0].Profile != null;
-        }
-
-        private String makePathLink(Profile.ElementComponent element)
-        {
-            if (element.Name == null)
-                return element.Path;
-
-            if (!element.Path.Contains("."))
-                return element.Name;
-            else
-                return element.Path.Substring(0, element.Path.LastIndexOf(".")) + "." + element.Name;
         }
 
         private void tableRowMarkdown(String name, String value)

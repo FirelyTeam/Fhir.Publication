@@ -115,16 +115,15 @@ namespace Hl7.Fhir.Publication
 
 
 
-
         internal string getLinkForExtensionDefinition(Profile profile, Profile.ProfileExtensionDefnComponent extension)       
         {
-            return getProfileDictHtmlPageName(profile).ToLower() + ".html" + "#extension." + TokenizeName(extension.Code).ToLower();
+            return GetLinkForProfileDict(profile) + "#extension." + TokenizeName(extension.Code).ToLower();
         }
 
 
         internal string getLinkForElementDefinition(Profile profile, Profile.ElementComponent element)
         {
-            return getProfileDictHtmlPageName(profile).ToLower() + ".html" + "#" + MakeElementDictAnchor(element);
+            return GetLinkForProfileDict(profile) + "#" + MakeElementDictAnchor(element);
         }
 
         internal string getLinkForStructure(Profile profile, Profile.ProfileStructureComponent structure)
@@ -140,11 +139,15 @@ namespace Hl7.Fhir.Publication
         }
 
 
-        private string getProfileDictHtmlPageName(Profile profile)
+        public string GetLinkForProfileDict(Profile profile)
         {
-            return getProfilePageName(profile) + "-definition";
+            return getProfilePageName(profile) + "-definition" + ".html";
         }
 
+        public string GetLinkForProfileTable(Profile profile)
+        {
+            return getProfilePageName(profile) + ".html";
+        }
 
         public string MakeElementDictAnchor(Profile.ElementComponent element)
         {

@@ -17,7 +17,7 @@ namespace Hl7.Fhir.Publication
             var generator = new DictHtmlGenerator(new ProfileKnowledgeProvider("http://www.hl7.org/implement/standards/fhir/"));
             var profile = (Profile)FhirParser.ParseResourceFromXml(input.Text);
             Document result = input.CloneMetadata();
-            var xmldoc = generator.Generate(profile, "http://di.nl");
+            var xmldoc = generator.Generate(profile);
             result.Text = xmldoc.ToString(SaveOptions.DisableFormatting);
             output.Post(result);
         }

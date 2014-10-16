@@ -27,7 +27,7 @@ namespace Fhir.Profiling.Tests
             result += publisher.Generate(profile, false).ToString(System.Xml.Linq.SaveOptions.DisableFormatting);
             result += File.ReadAllText(@"TestData\publish-footer.cshtml");
 
-            File.WriteAllText(@"c:\temp\publisher\" + pagename + ".html",result);
+            File.WriteAllText(@"c:\temp\publisher\" + pkp.GetLinkForProfileTable(profile),result);
         }
 
         [TestMethod]
@@ -61,11 +61,11 @@ namespace Fhir.Profiling.Tests
             var publisher = new DictHtmlGenerator(pkp);
 
             var result = File.ReadAllText(@"TestData\publish-header.cshtml");
-            result += publisher.Generate(profile, "http://nu.nl/publisher.html")
+            result += publisher.Generate(profile)
                         .ToString(System.Xml.Linq.SaveOptions.DisableFormatting);
             result += File.ReadAllText(@"TestData\publish-footer.cshtml");
 
-            File.WriteAllText(@"c:\temp\publisher\" + "dict.html", result);
+            File.WriteAllText(@"c:\temp\publisher\" + pkp.GetLinkForProfileDict(profile), result);
         }
 
         [TestMethod]
