@@ -49,7 +49,7 @@ namespace Hl7.Fhir.Publication
      
         public XElement Generate(Profile profile, bool extensionsOnly)
         {
-            var gen = new HierarchicalTableGenerator(_pkp.ImageOutputDirectory,_pkp.InlineGraphics);
+            var gen = new HierarchicalTableGenerator(_pkp);
             var model = TableModel.CreateNormalTable();
 
             genProfile(model.Rows, profile, extensionsOnly);
@@ -79,8 +79,7 @@ namespace Hl7.Fhir.Publication
                     
                     re.getCells().Add(new  Cell(null, structureUrl, s.Name, null, null));
                     re.getCells().Add(new  Cell(null, null, "", null, null));
-                    re.getCells().Add(new  Cell(null, null, s.Type, null, null));
-
+                    re.getCells().Add(new  Cell(null, _pkp.GetLinkForTypeDocu(s.Type), s.Type, null, null));
                     re.getCells().Add(new  Cell(null, null, s.Element[0].Definition.Short, null, null));     // DSTU1
                     //re.getCells().Add(new  Cell(null, null, s.Base, null, null));       // DSTU2
                 }

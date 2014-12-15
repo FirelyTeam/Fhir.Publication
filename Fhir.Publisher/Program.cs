@@ -44,6 +44,7 @@ namespace Hl7.Fhir.DocumenterTool
             catch (Exception e)
             {
                 Console.WriteLine("Error ({0}): {1}", e.GetType(), e.Message);
+                Console.ReadLine();
             }
         }
     }

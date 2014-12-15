@@ -35,13 +35,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Hl7.Fhir.Core, Version=0.11.2.18201, Culture=neutral, PublicKeyToken=d706911480550fc3, processorArchitecture=MSIL">
+    <Reference Include="Hl7.Fhir.Core, Version=0.11.2.21434, Culture=neutral, PublicKeyToken=d706911480550fc3, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Hl7.Fhir.0.11.2-alpha1\lib\net45\Hl7.Fhir.Core.dll</HintPath>
+      <HintPath>..\packages\Hl7.Fhir.0.11.2\lib\net45\Hl7.Fhir.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Hl7.Fhir.Specification, Version=0.11.2.18203, Culture=neutral, PublicKeyToken=d706911480550fc3, processorArchitecture=MSIL">
+    <Reference Include="Hl7.Fhir.Specification, Version=0.11.2.21435, Culture=neutral, PublicKeyToken=d706911480550fc3, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Hl7.Fhir.0.11.2-alpha1\lib\net45\Hl7.Fhir.Specification.dll</HintPath>
+      <HintPath>..\packages\Hl7.Fhir.Specification.0.11.2\lib\net45\Hl7.Fhir.Specification.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
