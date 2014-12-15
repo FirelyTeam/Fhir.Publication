@@ -12,8 +12,6 @@ namespace Hl7.Fhir.DocumenterTool
     {
         static void Main(string[] args)
         {
-            
-
             string dir = null;
             string sourcedir = null;
 

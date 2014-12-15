@@ -104,7 +104,12 @@ namespace Hl7.Fhir.Publication
         public static Document GetDocument(Context context, string mask)
         {
             ISelector filter = FileFilter.Create(context, mask, false);
-            return filter.Documents.First();
+            Document doc = filter.Documents.FirstOrDefault();
+            if (doc == null)
+            {
+                throw new Exception(string.Format("Mask {0} yielded no results", mask));
+            }
+            else return doc;
         }
 
         public override string ToString()
@@ -113,8 +118,6 @@ namespace Hl7.Fhir.Publication
             return string.Format("{0}\\{1} {2}", Context, Filter, Recursive ? "-recursive" : "");
         }
 
-
-        
     }
 
     public class StashFilter : ISelector
@@ -135,6 +138,11 @@ namespace Hl7.Fhir.Publication
             {
                 return Stash.Get(Key).Documents;
             }
+        }
+
+        public override string ToString()
+        {
+            return string.Format("Stash {0} ({1})", Key, Mask);
         }
 
     }
@@ -188,7 +196,14 @@ namespace Hl7.Fhir.Publication
 
         public static Document Single(this ISelector selector, Document document)
         {
-            return Selector.Match(selector, document).First();
+            
+            IEnumerable<Document> documents = Selector.Match(selector, document);
+            Document output = documents.FirstOrDefault();
+            if (output == null)
+            {
+                throw new Exception(string.Format("Selection {0} is empty for {1}.", selector, document));
+            }
+            else return output;
         }
         
 
