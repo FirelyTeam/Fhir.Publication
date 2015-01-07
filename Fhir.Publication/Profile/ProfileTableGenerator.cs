@@ -120,7 +120,7 @@ namespace Hl7.Fhir.Publication
 
             var extensionUrl = _pkp.GetLinkForExtensionDefinition(profile, ext);
 
-            r.getCells().Add(new  Cell(null, extensionUrl, ext.Code, null, null));
+            r.getCells().Add(new  Cell(null, null, ext.Code, null, null));
             r.getCells().Add(new  Cell(null, null, ext.Definition.DescribeCardinality(), null, null));   //TODO: create rendering extension
             r.getCells().Add(new  Cell(null, null, ext.Definition.DescribeTypeCode(), null, null));       //TODO: create rendering extension
             //    r.getCells().add(gen.new Cell(null, null, ext.getDefinition().getShortDefn(), null, null));
