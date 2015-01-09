@@ -191,7 +191,6 @@ namespace Hl7.Fhir.Publication
             {
                 return selector.Documents;
             }
-            
         }
 
         public static Document Single(this ISelector selector, Document document)

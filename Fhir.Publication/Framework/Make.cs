@@ -10,12 +10,16 @@ namespace Hl7.Fhir.Publication
     public class Make
     {
 
-        
         public static IWork InterpretDocument(Document document)
         {
+            return InterpretDocument(document.Text, document.Context);
+        }
+
+        public static IWork InterpretDocument(string text, Context context)
+        {
             Bulk bulk = new Bulk();
-            StringReader reader = new StringReader(document.Text);
-            bool ok; ;
+            StringReader reader = new StringReader(text);
+            bool ok; 
             do
             {
                 string statement = reader.ReadLine();
@@ -25,7 +29,7 @@ namespace Hl7.Fhir.Publication
                 
                 if (ok)
                 {
-                    IWork work = InterpretStatement(document.Context, statement);
+                    IWork work = InterpretStatement(context, statement);
                     bulk.Append(work);
                 }
             }
@@ -111,6 +115,12 @@ namespace Hl7.Fhir.Publication
 
                     case "make":
                         return new MakeProcessor();
+
+                    case "makeall":
+                    {
+                        string folder = parameters.FirstOrDefault();
+                        return new MakeForAllProcessor(folder);
+                    }
 
                     case "profiletable":
                         return new ProfileProcessor();

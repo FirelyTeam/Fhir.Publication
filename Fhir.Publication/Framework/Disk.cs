@@ -75,7 +75,13 @@ namespace Hl7.Fhir.Publication
             {
                 return path;
             }
+        }
+
+        public static IEnumerable<string> Directories(string directory, string pattern)
+        {
+            return Directory.EnumerateDirectories(directory, pattern).Select(s => s.TrimEnd('\\') + "\\");
 
         }
+        
     }
 }

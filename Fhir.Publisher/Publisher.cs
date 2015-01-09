@@ -19,7 +19,7 @@ namespace Hl7.Fhir.Publication
             Context context = root.Context();
 
             Document document = FileFilter.GetDocument(context, mask);
-            IWork work = Make.InterpretDocument(document);
+            IWork work = Make.InterpretDocument(document.Text, document.Context);
             
             work.Execute();
             
