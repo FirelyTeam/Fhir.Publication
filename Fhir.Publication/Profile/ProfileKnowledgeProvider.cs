@@ -45,6 +45,8 @@ namespace Hl7.Fhir.Publication
                 return SpecUrl() + "datatypes.html#open";
             else if (isDataType(typename) || isPrimitive(typename))
                 return SpecUrl() + "datatypes.html#" + typename.ToLower();
+            else if (typename == "Any")
+                return SpecUrl() + "resourcelist.html";
             else if (ModelInfo.IsKnownResource(typename))
                 return SpecUrl() + typename.ToLower() + ".html";
             else if (typename == "Extension")
