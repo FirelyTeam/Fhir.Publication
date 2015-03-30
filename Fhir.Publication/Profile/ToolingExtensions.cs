@@ -72,15 +72,15 @@ namespace Hl7.Fhir.Publication
           }
 
 
-          public static String GetDeprecated(this ValueSet.ValueSetDefineConceptComponent c)
-          {
-              return ReadBooleanExtension(c, EXT_DEPRECATED);
-          }
+          //public static String GetDeprecated(this ValueSet.ValueSetDefineConceptComponent c)
+          //{
+          //    return ReadBooleanExtension(c, EXT_DEPRECATED);
+          //}
 
-          public static String GetComment(this ValueSet.ValueSetDefineConceptComponent c)
-          {
-              return ReadStringExtension(c, EXT_COMMENT);
-          }
+          //public static String GetComment(this ValueSet.ValueSetDefineConceptComponent c)
+          //{
+          //    return ReadStringExtension(c, EXT_COMMENT);
+          //}
 
           public static String getDisplayHint(this Element def) 
           {

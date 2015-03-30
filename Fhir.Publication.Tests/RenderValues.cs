@@ -1,8 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
-using Hl7.Fhir.Profiling;
-using Hl7.Fhir.Specification.Model;
 using Hl7.Fhir.Specification.Source;
 using Hl7.Fhir.Model;
 using Hl7.Fhir.Publication;
@@ -67,7 +65,7 @@ namespace Fhir.Profiling.Tests
             q.Units = "kilo";
             Assert.AreEqual("4.5 kilo", q.ForDisplay());
 
-            q.Comparator = Quantity.QuantityCompararator.LessOrEqual;
+            q.Comparator = Quantity.QuantityComparator.LessOrEqual;
             Assert.AreEqual("<=4.5 kilo", q.ForDisplay());
         }
 

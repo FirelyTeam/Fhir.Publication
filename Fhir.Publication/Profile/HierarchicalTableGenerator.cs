@@ -103,7 +103,7 @@ namespace Hl7.Fhir.Publication.Profile
 
             foreach (Cell t in r.getCells())
             {
-                renderCell(tr, t, "td", first ? r.getIcon() : null, first ? r.getHint() : null, first ? indents : null, r.getSubRows().Any(), first ? r.getAnchor() : null);
+                renderCell(tr, t, "td", first ? r.getIcon() : null, first ? r.Hint : null, first ? indents : null, r.getSubRows().Any(), first ? r.getAnchor() : null);
                 first = false;
             }
 
@@ -534,7 +534,8 @@ namespace Hl7.Fhir.Publication.Profile
         private List<Cell> cells = new List<Cell>();
         private String icon;
         private String anchor;
-        private String hint;
+
+        public string Hint;
 
         public List<Row> getSubRows()
         {
@@ -560,12 +561,6 @@ namespace Hl7.Fhir.Publication.Profile
         {
             this.anchor = anchor;
         }
-
-        public String getHint()
-        {
-            return hint;
-        }
-
     }
 
 

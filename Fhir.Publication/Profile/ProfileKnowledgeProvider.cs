@@ -9,7 +9,7 @@ namespace Hl7.Fhir.Publication.Profile
 {
     internal class ProfileKnowledgeProvider
     {
-        private StructureLoader _loader;
+//        private StructureLoader _loader;
 
         public const string DSTU1URL = "http://www.hl7.org/implement/standards/fhir/";
 
@@ -18,26 +18,26 @@ namespace Hl7.Fhir.Publication.Profile
         internal ProfileKnowledgeProvider(string baseName, string imageOutputDirectory)
         {
             this.baseName = baseName;
-            _loader = new StructureLoader(ArtifactResolver.CreateCachedDefault());
+   //         _loader = new StructureLoader(ArtifactResolver.CreateCachedDefault());
             ImageOutputDirectory = imageOutputDirectory;
         }
 
-        internal Model.Profile.ProfileExtensionDefnComponent getExtensionDefinition(Model.Profile profile, string url)
-        {
-            if (url.StartsWith("#"))
-            {
-                var extAnchor = url.Substring(1);
-                return profile.ExtensionDefn.Where(ext => ext.Code == extAnchor).FirstOrDefault();
-            }
-            else
-                return _loader.LocateExtension(new Uri(url));
-        }
+        //internal Model.Profile.ProfileExtensionDefnComponent getExtensionDefinition(Model.Profile profile, string url)
+        //{
+        //    if (url.StartsWith("#"))
+        //    {
+        //        var extAnchor = url.Substring(1);
+        //        return profile.ExtensionDefn.Where(ext => ext.Code == extAnchor).FirstOrDefault();
+        //    }
+        //    else
+        //        return _loader.LocateExtension(new Uri(url));
+        //}
 
-        internal Model.ValueSet GetValueSet(string url)
-        {
-            if (!url.StartsWith("http")) url = "http://local/" + url;
-            return _loader.ArtifactSource.ReadResourceArtifact(new Uri(url)) as ValueSet;
-        }
+        //internal Model.ValueSet GetValueSet(string url)
+        //{
+        //    if (!url.StartsWith("http")) url = "http://local/" + url;
+        //    return _loader.ArtifactSource.ReadResourceArtifact(new Uri(url)) as ValueSet;
+        //}
 
         internal string GetLinkForTypeDocu(string typename)
         {
@@ -194,22 +194,22 @@ namespace Hl7.Fhir.Publication.Profile
 
 
 
-        internal string GetLinkForBinding(Model.Profile.ElementDefinitionBindingComponent binding)
-        {
-            if (binding.Reference == null)
-                return null;
+        //internal string GetLinkForBinding(Model.Profile.ElementDefinitionBindingComponent binding)
+        //{
+        //    if (binding.Reference == null)
+        //        return null;
 
-            String reference = binding.Reference is FhirUri ? ((FhirUri)binding.Reference).Value : ((ResourceReference)binding.Reference).Reference;
+        //    String reference = binding.Reference is FhirUri ? ((FhirUri)binding.Reference).Value : ((ResourceReference)binding.Reference).Reference;
 
-            if (reference.StartsWith("http://hl7.org/fhir/v3/vs/"))
-                return MakeSpecLink("v3/" + reference.Substring(26) + "/index.html");
-            else if (reference.StartsWith("http://hl7.org/fhir/vs/"))
-                return MakeSpecLink(reference.Substring(23) + ".html");
-            else if (reference.StartsWith("http://hl7.org/fhir/v2/vs/"))
-                return MakeSpecLink("v2/" + reference.Substring(26) + "/index.html");
-            else
-                return reference + ".html";
-        }
+        //    if (reference.StartsWith("http://hl7.org/fhir/v3/vs/"))
+        //        return MakeSpecLink("v3/" + reference.Substring(26) + "/index.html");
+        //    else if (reference.StartsWith("http://hl7.org/fhir/vs/"))
+        //        return MakeSpecLink(reference.Substring(23) + ".html");
+        //    else if (reference.StartsWith("http://hl7.org/fhir/v2/vs/"))
+        //        return MakeSpecLink("v2/" + reference.Substring(26) + "/index.html");
+        //    else
+        //        return reference + ".html";
+        //}
 
 
         internal string MakeSpecLink(string p)
@@ -222,22 +222,22 @@ namespace Hl7.Fhir.Publication.Profile
         public const string V3_SYSTEM_PREFIX = "http://hl7.org/fhir/v3/";
         public const string FHIR_SYSTEM_PREFIX = "http://hl7.org/fhir/";
 
-        internal ValueSet GetValueSetForSystem(string system)
-        {
-            string valuesetUri = null;
+        //internal ValueSet GetValueSetForSystem(string system)
+        //{
+        //    string valuesetUri = null;
 
-            if (system.StartsWith(V2_SYSTEM_PREFIX))
-                valuesetUri = V2_SYSTEM_PREFIX + "vs/" + system.Substring(V2_SYSTEM_PREFIX.Length);
-            else if (system.StartsWith(V3_SYSTEM_PREFIX))
-                valuesetUri = V3_SYSTEM_PREFIX + "vs/" + system.Substring(V3_SYSTEM_PREFIX.Length);
-            else if (system.StartsWith(FHIR_SYSTEM_PREFIX))
-                valuesetUri = FHIR_SYSTEM_PREFIX + "vs/" + system.Substring(FHIR_SYSTEM_PREFIX.Length);
+        //    if (system.StartsWith(V2_SYSTEM_PREFIX))
+        //        valuesetUri = V2_SYSTEM_PREFIX + "vs/" + system.Substring(V2_SYSTEM_PREFIX.Length);
+        //    else if (system.StartsWith(V3_SYSTEM_PREFIX))
+        //        valuesetUri = V3_SYSTEM_PREFIX + "vs/" + system.Substring(V3_SYSTEM_PREFIX.Length);
+        //    else if (system.StartsWith(FHIR_SYSTEM_PREFIX))
+        //        valuesetUri = FHIR_SYSTEM_PREFIX + "vs/" + system.Substring(FHIR_SYSTEM_PREFIX.Length);
 
-            if (valuesetUri != null)
-                return GetValueSet(valuesetUri);
-            else
-                return null;
-        }
+        //    if (valuesetUri != null)
+        //        return GetValueSet(valuesetUri);
+        //    else
+        //        return null;
+        //}
 
         public string ImageOutputDirectory { get; set; }
 

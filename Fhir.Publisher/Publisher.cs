@@ -18,10 +18,10 @@ namespace Hl7.Fhir.Publication
             Root root = new Root(sourcedir, targetdir);
             Context context = root.Context();
 
-            Document document = FileFilter.GetDocument(context, mask);
-            IWork work = Make.InterpretDocument(document.Text, document.Context);
+     //       Document document = FileFilter.GetDocument(context, mask);
+     //       IWork work = Make.InterpretDocument(document.Text, document.Context);
             
-            work.Execute();
+     //       work.Execute();
             
             Log.Info("Rendering complete. Output to directory {0}", targetdir);
             

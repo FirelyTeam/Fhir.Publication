@@ -7,8 +7,8 @@
     <ProjectGuid>{D5B4F03D-79EB-4A8E-B3B8-4A3B1210033C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Hl7.Fhir.Publication</RootNamespace>
-    <AssemblyName>Fhir.Documenting</AssemblyName>
+    <RootNamespace>Fhir.Publication</RootNamespace>
+    <AssemblyName>Fhir.Publication</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,24 +30,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Hl7.Fhir.Core, Version=0.11.2.21434, Culture=neutral, PublicKeyToken=d706911480550fc3, processorArchitecture=MSIL">
+    <Reference Include="Hl7.Fhir.Core, Version=0.20.2.32053, Culture=neutral, PublicKeyToken=d706911480550fc3, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Hl7.Fhir.0.11.2\lib\net45\Hl7.Fhir.Core.dll</HintPath>
+      <HintPath>..\packages\Hl7.Fhir.DSTU2.0.20.2-alpha4\lib\net45\Hl7.Fhir.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Hl7.Fhir.Specification, Version=0.11.2.21435, Culture=neutral, PublicKeyToken=d706911480550fc3, processorArchitecture=MSIL">
+    <Reference Include="Hl7.Fhir.Specification, Version=0.20.2.32055, Culture=neutral, PublicKeyToken=d706911480550fc3, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Hl7.Fhir.Specification.0.11.2\lib\net45\Hl7.Fhir.Specification.dll</HintPath>
+      <HintPath>..\packages\Hl7.Fhir.Specification.DSTU2.0.20.2-alpha4\lib\net45\Hl7.Fhir.Specification.dll</HintPath>
     </Reference>
     <Reference Include="MarkdownDeep">
       <HintPath>..\packages\MarkdownDeep.NET.1.5\lib\.NetFramework 3.5\MarkdownDeep.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpCompress, Version=0.10.3.0, Culture=neutral, PublicKeyToken=64eb6448c87dfed9, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\p3-sharpcompress.0.10.5.2\lib\net40\SharpCompress.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.7\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration.Install" />
@@ -66,48 +62,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Framework\Processor.cs" />
-    <Compile Include="Processors\AttachProcessor.cs" />
-    <Compile Include="Processors\ConcatenateProcessor.cs" />
     <Compile Include="Framework\Context.cs" />
-    <Compile Include="Processors\CopyProcessor.cs" />
-    <Compile Include="Framework\Document.cs" />
-    <Compile Include="Framework\Selector.cs" />
-    <Compile Include="Framework\ISelector.cs" />
-    <Compile Include="Framework\IProcessor.cs" />
-    <Compile Include="Framework\IRenderer.cs" />
-    <Compile Include="Processors\ValueSetProcessor.cs" />
-    <Compile Include="Processors\DictTableProcessor.cs" />
-    <Compile Include="Processors\TestProcessor.cs" />
-    <Compile Include="Framework\IWork.cs" />
-    <Compile Include="Framework\Location.cs" />
-    <Compile Include="Framework\Make.cs" />
-    <Compile Include="Processors\MakeProcessor.cs" />
-    <Compile Include="Profile\ToolingExtensions.cs" />
-    <Compile Include="Profile\ValueSetGenerator.cs" />
-    <Compile Include="Profile\DictHtmlGenerator.cs" />
-    <Compile Include="Renderers\MarkDownRenderer.cs" />
-    <Compile Include="Framework\PipeLine.cs" />
-    <Compile Include="Processors\ProfileProcessor.cs" />
-    <Compile Include="Framework\Root.cs" />
-    <Compile Include="Processors\SaveProcessor.cs" />
-    <Compile Include="Framework\Stage.cs" />
-    <Compile Include="Framework\Stash.cs" />
-    <Compile Include="Processors\StashProcessor.cs" />
-    <Compile Include="Processors\StructureProcessor.cs" />
-    <Compile Include="Renderers\RazorRenderer.cs" />
-    <Compile Include="Processors\TemplateProcessor.cs" />
-    <Compile Include="Profile\ElementDefnRenderingExtensions.cs" />
-    <Compile Include="Processors\RenderProcessor.cs" />
     <Compile Include="Framework\Disk.cs" />
-    <Compile Include="Profile\HierarchicalTableGenerator.cs" />
+    <Compile Include="Framework\Document.cs" />
+    <Compile Include="Framework\IRenderer.cs" />
+    <Compile Include="Framework\Location.cs" />
     <Compile Include="Framework\Log.cs" />
+    <Compile Include="Framework\Root.cs" />
+    <Compile Include="Profile\ElementDefnRenderingExtensions.cs" />
+    <Compile Include="Profile\LinqXmlExtensions.cs" />
+    <Compile Include="Renderers\MarkDownRenderer.cs" />
+    <Compile Include="Renderers\RazorRenderer.cs" />
+    <Compile Include="Profile\HierarchicalTableGenerator.cs" />
     <Compile Include="Profile\ProfileKnowledgeProvider.cs" />
-    <Compile Include="Profile\ProfileTableGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Razor\Razor.cs" />
     <Compile Include="Razor\RazorTemplate.cs" />
-    <Compile Include="Profile\StructureGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="dist\assets\fonts\glyphiconshalflings-regular.eot" />
@@ -115,7 +85,7 @@
     <None Include="dist\assets\fonts\glyphiconshalflings-regular.ttf" />
     <None Include="dist\assets\fonts\glyphiconshalflings-regular.woff" />
     <None Include="packages.config" />
-    <None Include="validation.zip">
+    <None Include="validation-min.zip">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

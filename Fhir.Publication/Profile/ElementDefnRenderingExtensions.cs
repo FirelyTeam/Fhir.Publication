@@ -40,71 +40,71 @@ namespace Hl7.Fhir.Publication
 {
     public static class ElementDefnRenderingExtensions
     {
-        public static string DescribeCardinality(this Profile.ElementDefinitionComponent defn)
-        {
-            if (defn.Max == null || defn.Max == "-1")
-                return defn.Min.ToString() + "..*";
-            else
-                return defn.Min.ToString() + ".." + defn.Max;
-        }
+        //public static string DescribeCardinality(this Profile.ElementDefinitionComponent defn)
+        //{
+        //    if (defn.Max == null || defn.Max == "-1")
+        //        return defn.Min.ToString() + "..*";
+        //    else
+        //        return defn.Min.ToString() + ".." + defn.Max;
+        //}
 
-        public static string DescribeTypeCode(this Profile.ElementDefinitionComponent defn)
-        {
-            return String.Join(" | ", defn.Type.Select(tr => tr.Code));
-        }
+        //public static string DescribeTypeCode(this Profile.ElementDefinitionComponent defn)
+        //{
+        //    return String.Join(" | ", defn.Type.Select(tr => tr.Code));
+        //}
 
-        public static string DescribeContext(this Profile.ProfileExtensionDefnComponent ext)
-        {
-            return String.Join(", ", ext.Context);
-        }
+        //public static string DescribeContext(this Profile.ProfileExtensionDefnComponent ext)
+        //{
+        //    return String.Join(", ", ext.Context);
+        //}
 
-        internal static string ForHtml(this Profile.ElementDefinitionBindingComponent binding, ProfileKnowledgeProvider pkp = null)
-        {
-            if (binding.Reference == null || pkp == null) 
-                return binding.Description;
+        //internal static string ForHtml(this Profile.ElementDefinitionBindingComponent binding, ProfileKnowledgeProvider pkp = null)
+        //{
+        //    if (binding.Reference == null || pkp == null) 
+        //        return binding.Description;
 
-            var reference = binding.Reference is FhirUri ? ((FhirUri)binding.Reference).Value 
-                    : ((ResourceReference)binding.Reference).Reference;
+        //    var reference = binding.Reference is FhirUri ? ((FhirUri)binding.Reference).Value 
+        //            : ((ResourceReference)binding.Reference).Reference;
 
-            var vs = pkp.GetValueSet(reference);
+        //    var vs = pkp.GetValueSet(reference);
 
-            if (vs != null)
-                return binding.Description +  "<br/>" + conf(binding) + "<a href=\"" + reference + "\">"+ vs.Name + "</a>" +confTail(binding);
+        //    if (vs != null)
+        //        return binding.Description +  "<br/>" + conf(binding) + "<a href=\"" + reference + "\">"+ vs.Name + "</a>" +confTail(binding);
             
-            if (reference.StartsWith("http:") || reference.StartsWith("https:"))
-                return binding.Description + "<br/>" + conf(binding) + " <a href=\""+reference+"\">"+reference+"</a>"+ confTail(binding);
-            else
-                return binding.Description + "<br/>" + conf(binding)+" ?? Broken Reference to "+reference+" ??" + confTail(binding);
+        //    if (reference.StartsWith("http:") || reference.StartsWith("https:"))
+        //        return binding.Description + "<br/>" + conf(binding) + " <a href=\""+reference+"\">"+reference+"</a>"+ confTail(binding);
+        //    else
+        //        return binding.Description + "<br/>" + conf(binding)+" ?? Broken Reference to "+reference+" ??" + confTail(binding);
 
-        }
+        //}
 
 
-        private static String conf(Profile.ElementDefinitionBindingComponent def) 
-        {
-            if (def.Conformance == null)
-                return "For codes, see ";
+        //private static String conf(Profile.ElementDefinitionBindingComponent def) 
+        //{
+        //    if (def.Conformance == null)
+        //        return "For codes, see ";
 
-            switch (def.Conformance)
-            {
-                case Profile.BindingConformance.Example:
-                    return "For example codes, see ";
-                case Profile.BindingConformance.Preferred:
-                    return "The codes SHOULD be taken from ";
-                case Profile.BindingConformance.Required:
-                    return "The codes SHALL be taken from ";
-                default:
-                    return "??";
-            }
-        }
+        //    switch (def.Conformance)
+        //    {
+        //        case Profile.BindingConformance.Example:
+        //            return "For example codes, see ";
+        //        case Profile.BindingConformance.Preferred:
+        //            return "The codes SHOULD be taken from ";
+        //        case Profile.BindingConformance.Required:
+        //            return "The codes SHALL be taken from ";
+        //        default:
+        //            return "??";
+        //    }
+        //}
 
-        private static String confTail(Profile.ElementDefinitionBindingComponent def) 
-        {
-            //TODO: Note: I think the Java implmentation assumes a default of "false" here for IsExtensible...
-            if (def.Conformance == Profile.BindingConformance.Preferred || (def.Conformance == Profile.BindingConformance.Required && def.IsExtensible.GetValueOrDefault(false)))
-                return "; other codes may be used where these codes are not suitable";
-            else
-             return "";
-        }
+        //private static String confTail(Profile.ElementDefinitionBindingComponent def) 
+        //{
+        //    //TODO: Note: I think the Java implmentation assumes a default of "false" here for IsExtensible...
+        //    if (def.Conformance == Profile.BindingConformance.Preferred || (def.Conformance == Profile.BindingConformance.Required && def.IsExtensible.GetValueOrDefault(false)))
+        //        return "; other codes may be used where these codes are not suitable";
+        //    else
+        //     return "";
+        //}
 
   
 
@@ -154,8 +154,8 @@ namespace Hl7.Fhir.Publication
 
         public static string ForDisplay(this Quantity value)
         {
-            string comp = value.Comparator==null ? String.Empty : value.Comparator.ConvertTo<string>();          
-            var val = value.Value == null ? "??" : value.Value.ConvertTo<string>();
+            string comp = value.Comparator==null ? String.Empty : PrimitiveTypeConverter.ConvertTo<string>(value.Comparator);
+            var val = value.Value == null ? "??" : PrimitiveTypeConverter.ConvertTo<string>(value.Value);
             var unit = value.Units != null ? (value.Units.Length > 2 ? " " : "") + value.Units : value.Code;
 
             return comp+val+unit;
@@ -169,24 +169,10 @@ namespace Hl7.Fhir.Publication
                 return String.Empty;
         }
 
-        public static string ForDisplay(this Element value)
-        {
-            if (value is FhirBoolean) return ((FhirBoolean)value).Value.ConvertTo<string>();
-            if (value is Integer) return ((Integer)value).Value.ConvertTo<string>();
-            if (value is FhirDecimal) return ((FhirDecimal)value).Value.ConvertTo<string>();
-            if (value is Base64Binary) return Convert.ToBase64String(((Base64Binary)value).Value);
-            if (value is Instant) return ((Instant)value).Value.ConvertTo<string>();
-            if (value is FhirString) return ((FhirString)value).Value;            
-            if (value is FhirUri) return ((FhirUri)value).Value;
-            if (value is Date) return ((Date)value).Value;
-            if (value is FhirDateTime) return ((FhirDateTime)value).Value;
-                       
-            if (value is Code) return ((Code)value).Value;
-            if (value is Oid) return ((Oid)value).Value;
-            if (value is Uuid) return ((Uuid)value).Value;
-            if (value is Id) return ((Id)value).Value;
 
-            return String.Format("({0} todo)", value.GetType().Name);
+        public static string ForDisplay(this Primitive value)
+        {
+            return PrimitiveTypeConverter.GetValueAsString(value);
         }
     }
 }

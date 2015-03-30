@@ -35,21 +35,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Hl7.Fhir.Core, Version=0.11.2.21434, Culture=neutral, PublicKeyToken=d706911480550fc3, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Hl7.Fhir.0.11.2\lib\net45\Hl7.Fhir.Core.dll</HintPath>
+    <Reference Include="Hl7.Fhir.Core">
+      <HintPath>..\packages\Hl7.Fhir.DSTU2.0.20.2-alpha4\lib\net45\Hl7.Fhir.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Hl7.Fhir.Specification, Version=0.11.2.21435, Culture=neutral, PublicKeyToken=d706911480550fc3, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Hl7.Fhir.Specification.0.11.2\lib\net45\Hl7.Fhir.Specification.dll</HintPath>
+    <Reference Include="Hl7.Fhir.Specification">
+      <HintPath>..\packages\Hl7.Fhir.Specification.DSTU2.0.20.2-alpha4\lib\net45\Hl7.Fhir.Specification.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpCompress, Version=0.10.3.0, Culture=neutral, PublicKeyToken=64eb6448c87dfed9, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\p3-sharpcompress.0.10.5.2\lib\net40\SharpCompress.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.7\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.XML" />
@@ -69,7 +63,6 @@
   </Choose>
   <ItemGroup>
     <Compile Include="RenderValues.cs" />
-    <Compile Include="PublishProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -80,7 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="validation.zip">
+    <None Include="validation-min.zip">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
