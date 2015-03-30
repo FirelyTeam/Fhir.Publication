@@ -5,7 +5,7 @@ using System.Text;
 using Hl7.Fhir.Model;
 using Hl7.Fhir.Specification.Source;
 
-namespace Hl7.Fhir.Publication
+namespace Hl7.Fhir.Publication.Profile
 {
     internal class ProfileKnowledgeProvider
     {
@@ -90,90 +90,90 @@ namespace Hl7.Fhir.Publication
 
         public const string CORE_TYPE_PROFILEREFERENCE_PREFIX = "http://hl7.org/fhir/Profile/";
 
-        internal string GetLinkForProfileReference(Profile profile, string p)
-        {
-            if (p.StartsWith(CORE_TYPE_PROFILEREFERENCE_PREFIX))
-            {
-                string rn = p.Substring(CORE_TYPE_PROFILEREFERENCE_PREFIX.Length);
-                return GetLinkForTypeDocu(rn);
-            }
-            else if (p.StartsWith("#"))
-                return GetLinkForLocalStructure(profile, p.Substring(1));
-            else
-                return p;
-        }
+        //internal string GetLinkForProfileReference(Profile profile, string p)
+        //{
+        //    if (p.StartsWith(CORE_TYPE_PROFILEREFERENCE_PREFIX))
+        //    {
+        //        string rn = p.Substring(CORE_TYPE_PROFILEREFERENCE_PREFIX.Length);
+        //        return GetLinkForTypeDocu(rn);
+        //    }
+        //    else if (p.StartsWith("#"))
+        //        return GetLinkForLocalStructure(profile, p.Substring(1));
+        //    else
+        //        return p;
+        //}
 
-        internal string GetLabelForProfileReference(Profile profile, string p)
-        {
-            if (p.StartsWith(CORE_TYPE_PROFILEREFERENCE_PREFIX))
-                return p.Substring(CORE_TYPE_PROFILEREFERENCE_PREFIX.Length);
-            else
-                return p;
-        }
+        //internal string GetLabelForProfileReference(Profile profile, string p)
+        //{
+        //    if (p.StartsWith(CORE_TYPE_PROFILEREFERENCE_PREFIX))
+        //        return p.Substring(CORE_TYPE_PROFILEREFERENCE_PREFIX.Length);
+        //    else
+        //        return p;
+        //}
 
-        internal string GetLinkForExtensionDefinition(Profile profile, Profile.ProfileExtensionDefnComponent extension)       
-        {
-            return GetLinkForExtensionDefinition(profile, extension.Code);
-        }
+        //internal string GetLinkForExtensionDefinition(Profile profile, Profile.ProfileExtensionDefnComponent extension)       
+        //{
+        //    return GetLinkForExtensionDefinition(profile, extension.Code);
+        //}
 
-        internal string GetLinkForExtensionDefinition(Profile profile, string extensionUrl)
-        {
-            if (extensionUrl.StartsWith("#"))
-            {
-                var extension = extensionUrl.Substring(1);
-                return GetLinkForProfileDict(profile) + "#extension." + TokenizeName(extension).ToLower();
-            }
-            else
-            {
-                return extensionUrl;
-            }
-        }
-
-
-        internal string GetLinkForElementDefinition(Profile.ProfileStructureComponent s, Profile profile, Profile.ElementComponent element)
-        {
-            return GetLinkForProfileDict(profile) + "#" + MakeElementDictAnchor(s,element);
-        }
-
-        internal string GetLinkForLocalStructure(Profile profile, Profile.ProfileStructureComponent structure)
-        {
-            return GetLinkForLocalStructure(profile, structure.Name);
-        }
-
-        internal string GetLinkForLocalStructure(Profile profile, string name)
-        {
-            return GetProfilePageName(profile) + "-" + TokenizeName(name).ToLower() + ".html";
-        }
+        //internal string GetLinkForExtensionDefinition(Profile profile, string extensionUrl)
+        //{
+        //    if (extensionUrl.StartsWith("#"))
+        //    {
+        //        var extension = extensionUrl.Substring(1);
+        //        return GetLinkForProfileDict(profile) + "#extension." + TokenizeName(extension).ToLower();
+        //    }
+        //    else
+        //    {
+        //        return extensionUrl;
+        //    }
+        //}
 
 
+        //internal string GetLinkForElementDefinition(Profile.ProfileStructureComponent s, Profile profile, Profile.ElementComponent element)
+        //{
+        //    return GetLinkForProfileDict(profile) + "#" + MakeElementDictAnchor(s,element);
+        //}
 
-        private string GetProfilePageName(Profile profile)
-        {
-            //return TokenizeName(baseName).ToLower();
-            return baseName.ToLower();
-        }
+        //internal string GetLinkForLocalStructure(Profile profile, Profile.ProfileStructureComponent structure)
+        //{
+        //    return GetLinkForLocalStructure(profile, structure.Name);
+        //}
+
+        //internal string GetLinkForLocalStructure(Profile profile, string name)
+        //{
+        //    return GetProfilePageName(profile) + "-" + TokenizeName(name).ToLower() + ".html";
+        //}
 
 
-        public string GetLinkForProfileDict(Profile profile)
-        {
-            return GetProfilePageName(profile) + "-definition" + ".html";
-        }
 
-        public string GetLinkForProfileTable(Profile profile)
-        {
-            return GetProfilePageName(profile) + ".html";
-        }
+        //private string GetProfilePageName(Profile profile)
+        //{
+        //    //return TokenizeName(baseName).ToLower();
+        //    return baseName.ToLower();
+        //}
 
-        public string MakeElementDictAnchor(Profile.ProfileStructureComponent s, Profile.ElementComponent element)
-        {
-            if (element.Name == null)
-                return s.Name + "." + element.Path;
 
-            if (!element.Path.Contains("."))
-                return s.Name + "." + element.Name;
-            else
-                return s.Name + "." + element.Path.Substring(0, element.Path.LastIndexOf(".")) + "." + element.Name;
-        }
+        //public string GetLinkForProfileDict(Profile profile)
+        //{
+        //    return GetProfilePageName(profile) + "-definition" + ".html";
+        //}
+
+        //public string GetLinkForProfileTable(Profile profile)
+        //{
+        //    return GetProfilePageName(profile) + ".html";
+        //}
+
+        //public string MakeElementDictAnchor(Profile.ProfileStructureComponent s, Profile.ElementComponent element)
+        //{
+        //    if (element.Name == null)
+        //        return s.Name + "." + element.Path;
+
+        //    if (!element.Path.Contains("."))
+        //        return s.Name + "." + element.Name;
+        //    else
+        //        return s.Name + "." + element.Path.Substring(0, element.Path.LastIndexOf(".")) + "." + element.Name;
+        //}
 
 
 
