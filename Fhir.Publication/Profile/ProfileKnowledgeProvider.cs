@@ -1,29 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using Hl7.Fhir.Model;
+using Hl7.Fhir.Rest;
 using Hl7.Fhir.Specification.Source;
 
 namespace Hl7.Fhir.Publication.Profile
 {
     internal class ProfileKnowledgeProvider
     {
-//        private StructureLoader _loader;
-
-        public const string DSTU1URL = "http://www.hl7.org/implement/standards/fhir/";
+        public const string DSTUURL = "http://hl7-fhir.github.io/";
 
         private string baseName;
 
         private IArtifactSource _source;
 
-        public ProfileKnowledgeProvider(string baseName, string imageOutputDirectory, IArtifactSource source)
+        public ProfileKnowledgeProvider(string baseName, string imageOutputDirectory, string genImageUrl, string dist, bool standAlone, IArtifactSource source)
         {
-            this.baseName = baseName;  
+            this.baseName = verifyEndSlash(baseName);  
             ImageOutputDirectory = imageOutputDirectory;
+            GenImageUrl = verifyEndSlash(genImageUrl);
+            DistUrl = verifyEndSlash(dist);
+            StandAlone = standAlone;
             _source = source;
         }
 
+
+        public bool IsResource(string typename)
+        {
+            return ModelInfo.IsKnownResource(typename);
+        }
 
         //TODO: Determine dynamically based on core profiles?
         public bool isDataType(String value)
@@ -35,7 +43,7 @@ namespace Hl7.Fhir.Publication.Profile
         //TODO: Determine based on core profiles
         public bool isPrimitive(String value)
         {
-            return new[] { "boolean", "integer", "decimal", "base64Binary", "instant", "string", "date", "dateTime", "code", "oid", "uuid", "id" }.Contains(value);
+            return new[] { "boolean", "integer", "string", "decimal", "uri", "base64Binary", "instant", "date", "dateTime", "time", "code", "oid", "id", "unsignedInt", "positiveInt" }.Contains(value);
         }
 
 
@@ -47,7 +55,7 @@ namespace Hl7.Fhir.Publication.Profile
 
         public string GetLinkForElementDefinition(StructureDefinition structure, ElementDefinition element)
         {
-            return GetLinkForProfileDict(structure) + "#" + MakeElementDictAnchor(s, element);
+            return GetLinkForProfileDict(structure) + "#" + MakeElementDictAnchor(element);
         }
 
         public static string GetLinkForProfileDict(StructureDefinition structure)
@@ -126,28 +134,76 @@ namespace Hl7.Fhir.Publication.Profile
 
         public string SpecUrl()
         {
-            return DSTU1URL;
-            //if (version.StartsWith("0.8") || version == null) return DSTU1URL;
-
-            //throw new NotImplementedException("Do not know the URL to specification version  " + version);
+            return DSTUURL;
         }
 
 
-        //public string GetLinkForProfileReference(Profile profile, string p)
-        //{
-        //    if (p.StartsWith(CORE_TYPE_PROFILEREFERENCE_PREFIX))
-        //    {
-        //        string rn = p.Substring(CORE_TYPE_PROFILEREFERENCE_PREFIX.Length);
-        //        return GetLinkForTypeDocu(rn);
-        //    }
-        //    else if (p.StartsWith("#"))
-        //        return GetLinkForLocalStructure(profile, p.Substring(1));
-        //    else
-        //        return p;
-        //}
+        public const string CORE_TYPE_STRUCTDEF_PREFIX = "http://hl7.org/fhir/StructureDefinition";
+
+        public string GetLinkForProfileReference(string uri)
+        {
+            if (uri.StartsWith(CORE_TYPE_STRUCTDEF_PREFIX))
+            {
+                var rn = new ResourceIdentity(uri).Id;
+
+                if (HasLinkForCoreTypeDocu(rn))
+                    return GetLinkForCoreTypeDocu(rn);
+                else
+                    return uri;
+            }
+            else
+                return uri;
+        }
+
+
+        public string GetLabelForProfileReference(string uri)
+        {
+            if (uri.StartsWith(CORE_TYPE_STRUCTDEF_PREFIX))
+                return new ResourceIdentity(uri).Id;
+            else
+                return uri;
+        }
 
 
 
+        public string GetLinkForCoreTypeDocu(string typename)
+        {
+            var link = generateCoreTypeLink(typename);
+
+            if (link != null)
+                return link;
+            else
+                throw new NotImplementedException("Don't know how to link to specification page for type " + typename);
+
+        }
+
+        private string generateCoreTypeLink(string typename)
+        {
+            if (typename == "*")
+                return MakeSpecLink("datatypes.html#open");
+            else if (isDataType(typename) || isPrimitive(typename))
+                return MakeSpecLink("datatypes.html#" + typename.ToLower());
+            else if (typename == "Any")
+                return MakeSpecLink("resourcelist.html");
+            else if (IsResource(typename))
+                return MakeSpecLink(typename.ToLower() + ".html");
+            else if (typename == "Extension")
+                return MakeSpecLink("extensibility.html#Extension");
+            else if (typename == "Meta")
+                return MakeSpecLink("resource.html#Meta");
+            else if (typename == "Narrative")
+                return MakeSpecLink("narrative.html#Narrative");
+            else if (typename == "Resource")
+                return MakeSpecLink("resource.html");
+            else
+                return null;
+        }
+
+
+        public bool HasLinkForCoreTypeDocu(string typename)
+        {
+            return generateCoreTypeLink(typename) != null;
+        }
 
         //internal Model.ValueSet GetValueSet(string url)
         //{
@@ -155,40 +211,9 @@ namespace Hl7.Fhir.Publication.Profile
         //    return _loader.ArtifactSource.ReadResourceArtifact(new Uri(url)) as ValueSet;
         //}
 
-        internal string GetLinkForTypeDocu(string typename)
-        {
-            if (typename == "*")
-                return SpecUrl() + "datatypes.html#open";
-            else if (isDataType(typename) || isPrimitive(typename))
-                return SpecUrl() + "datatypes.html#" + typename.ToLower();
-            else if (typename == "Any")
-                return SpecUrl() + "resourcelist.html";
-            else if (ModelInfo.IsKnownResource(typename))
-                return SpecUrl() + typename.ToLower() + ".html";
-            else if (typename == "Extension")
-                return SpecUrl() + "extensibility.html#Extension";
-            else
-                throw new NotImplementedException("Don't know how to link to specification page for type " + typename);
-        }
-
-        internal bool HasLinkForTypeDocu(string typename)
-        {
-            return typename == "*" || isDataType(typename) || isPrimitive(typename) || typename == "Extension" || ModelInfo.IsKnownResource(typename);
-        }
 
 
 
-      
-
-
-
-        //internal string GetLabelForProfileReference(Profile profile, string p)
-        //{
-        //    if (p.StartsWith(CORE_TYPE_PROFILEREFERENCE_PREFIX))
-        //        return p.Substring(CORE_TYPE_PROFILEREFERENCE_PREFIX.Length);
-        //    else
-        //        return p;
-        //}
 
         //internal string GetLinkForExtensionDefinition(Profile profile, Profile.ProfileExtensionDefnComponent extension)       
         //{
@@ -196,8 +221,6 @@ namespace Hl7.Fhir.Publication.Profile
         //}
 
        
-
-
         //internal string GetLinkForElementDefinition(Profile.ProfileStructureComponent s, Profile profile, Profile.ElementComponent element)
         //{
         //    return GetLinkForProfileDict(profile) + "#" + MakeElementDictAnchor(s,element);
@@ -241,16 +264,9 @@ namespace Hl7.Fhir.Publication.Profile
             return s.ToString();
         }
 
-
-
-       
-
-
-
-
-        public const string V2_SYSTEM_PREFIX = "http://hl7.org/fhir/v2/";
-        public const string V3_SYSTEM_PREFIX = "http://hl7.org/fhir/v3/";
-        public const string FHIR_SYSTEM_PREFIX = "http://hl7.org/fhir/";
+        //public const string V2_SYSTEM_PREFIX = "http://hl7.org/fhir/v2/";
+        //public const string V3_SYSTEM_PREFIX = "http://hl7.org/fhir/v3/";
+        //public const string FHIR_SYSTEM_PREFIX = "http://hl7.org/fhir/";
 
         //internal ValueSet GetValueSetForSystem(string system)
         //{
@@ -270,9 +286,9 @@ namespace Hl7.Fhir.Publication.Profile
         //}
 
         public string ImageOutputDirectory { get; set; }
-
-        public string ImageLinkPath { get { return "../dist/images"; } }
-
+        public string GenImageUrl { get; set; }
+        public string DistUrl { get; set; }
+        
         /**
          * There are circumstances where the table has to present in the absence of a stable supporting infrastructure.
          * and the file paths cannot be guaranteed. For these reasons, you can tell the builder to inline all the graphics
@@ -280,6 +296,30 @@ namespace Hl7.Fhir.Publication.Profile
          *  
          */
         public bool InlineGraphics { get; set; }
+
+        public string GetGenImagePath(string p)
+        {
+            return Path.Combine(ImageOutputDirectory, p);
+        }
+
+        public string GetGenImageLink(string p)
+        {
+            return GenImageUrl + p;
+        }
+
+        public string GetDistImageLink(string filename)
+        {
+            return  DistUrl + "images/" + filename;
+        }
+
+        private static string verifyEndSlash(string filename)
+        {
+            if (filename.EndsWith("/")) return filename;
+
+            return filename + "/";
+        }
+
+        public bool StandAlone { get; set; }
     }
 
 }

@@ -30,13 +30,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Hl7.Fhir.Core, Version=0.20.2.32053, Culture=neutral, PublicKeyToken=d706911480550fc3, processorArchitecture=MSIL">
+    <Reference Include="Hl7.Fhir.Core, Version=0.20.2.29318, Culture=neutral, PublicKeyToken=d706911480550fc3, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Hl7.Fhir.DSTU2.0.20.2-alpha4\lib\net45\Hl7.Fhir.Core.dll</HintPath>
+      <HintPath>..\packages\Hl7.Fhir.DSTU2.0.20.2\lib\net45\Hl7.Fhir.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Hl7.Fhir.Specification, Version=0.20.2.32055, Culture=neutral, PublicKeyToken=d706911480550fc3, processorArchitecture=MSIL">
+    <Reference Include="Hl7.Fhir.Specification, Version=0.20.2.29320, Culture=neutral, PublicKeyToken=d706911480550fc3, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Hl7.Fhir.Specification.DSTU2.0.20.2-alpha4\lib\net45\Hl7.Fhir.Specification.dll</HintPath>
+      <HintPath>..\packages\Hl7.Fhir.Specification.DSTU2.0.20.2\lib\net45\Hl7.Fhir.Specification.dll</HintPath>
     </Reference>
     <Reference Include="MarkdownDeep">
       <HintPath>..\packages\MarkdownDeep.NET.1.5\lib\.NetFramework 3.5\MarkdownDeep.dll</HintPath>
@@ -71,6 +71,7 @@
     <Compile Include="Framework\Root.cs" />
     <Compile Include="Profile\ElementDefnRenderingExtensions.cs" />
     <Compile Include="Profile\LinqXmlExtensions.cs" />
+    <Compile Include="Profile\StructureTableGenerator.cs" />
     <Compile Include="Renderers\MarkDownRenderer.cs" />
     <Compile Include="Renderers\RazorRenderer.cs" />
     <Compile Include="Profile\HierarchicalTableGenerator.cs" />
@@ -80,14 +81,12 @@
     <Compile Include="Razor\RazorTemplate.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="dist\assets\fonts\glyphiconshalflings-regular.eot" />
     <None Include="dist\assets\fonts\glyphiconshalflings-regular.otf" />
     <None Include="dist\assets\fonts\glyphiconshalflings-regular.ttf" />
     <None Include="dist\assets\fonts\glyphiconshalflings-regular.woff" />
     <None Include="packages.config" />
-    <None Include="validation-min.zip">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="dist\assets\css\bootstrap-fhir.css" />

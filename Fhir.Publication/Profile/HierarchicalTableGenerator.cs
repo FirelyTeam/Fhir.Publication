@@ -84,7 +84,7 @@ namespace Hl7.Fhir.Publication.Profile
             if (tc != null)
                 tc.AddTag("span").SetAttribute("style", "float: right")
                         .AddTag("a").SetAttribute("title", "Legend for this format").SetAttribute("href", model.DocoRef)
-                        .AddTag("img").SetAttribute("alt", "doco").SetAttribute("src", model.DocoImg);
+                        .AddTag("img").SetAttribute("alt", "doco").SetAttribute("src", _pkp.GetDistImageLink(model.DocoImg));
 
             foreach (Row r in model.Rows)
             {
@@ -107,7 +107,7 @@ namespace Hl7.Fhir.Publication.Profile
                 first = false;
             }
 
-            // table.addText("\r\n");
+            table.AddText("\r\n");
 
             for (int i = 0; i < r.getSubRows().Count; i++)
             {
@@ -235,7 +235,7 @@ namespace Hl7.Fhir.Publication.Profile
 
                 StringBuilder b = new StringBuilder();
                 b.Append("data: image/png;base64,");
-                var bytes = File.ReadAllBytes(filename);
+                var bytes = File.ReadAllBytes(_pkp.GetDistImageLink(filename));
 
                 b.Append(Convert.ToBase64String(bytes));
                 _files.Add(filename, b.ToString());
@@ -243,7 +243,7 @@ namespace Hl7.Fhir.Publication.Profile
                 return b.ToString();
             }
             else
-                return filename;
+                return _pkp.GetDistImageLink(filename);
         }
 
 
@@ -318,16 +318,18 @@ namespace Hl7.Fhir.Publication.Profile
 
                 b.Append(".png");
 
-                String file = Path.Combine(_pkp.ImageOutputDirectory, b.ToString());
+                String file = _pkp.GetGenImagePath(b.ToString());
 
                 if (!File.Exists(file))
                 {
+                    if (!Directory.Exists(Path.GetDirectoryName(file)))
+                        Directory.CreateDirectory(Path.GetDirectoryName(file));
                     var stream = new FileStream(file, FileMode.Create);
                     genImage(indents, hasChildren, stream);
                 }
             }
 
-            return Path.Combine(_pkp.ImageLinkPath, b.ToString());
+            return _pkp.GetGenImageLink(b.ToString());
         }
 
 
@@ -413,6 +415,11 @@ namespace Hl7.Fhir.Publication.Profile
         public String getHint()
         {
             return hint;
+        }
+
+        public void setHint(string hint)
+        {
+            this.hint = hint;
         }
 
         public String getTag()
@@ -567,12 +574,12 @@ namespace Hl7.Fhir.Publication.Profile
 
     internal class TableModel
     {
-        public static TableModel CreateNormalTable()
+        public static TableModel CreateNormalTable(ProfileKnowledgeProvider pkp)
         {
             TableModel model = new TableModel();
 
             model.DocoImg = "help16.png";
-            model.DocoRef = "formats.html#table";
+            model.DocoRef = pkp.MakeSpecLink("formats.html#table");
             model.Titles.Add(new Title(null, model.DocoRef, "Name", "The logical name of the element", null, 0));
             model.Titles.Add(new Title(null, model.DocoRef, "Flags", "Information about the use of the element", null, 0));
             model.Titles.Add(new Title(null, model.DocoRef, "Card.", "Minimum and Maximum # of times the the element can appear in the instance", null, 0));
