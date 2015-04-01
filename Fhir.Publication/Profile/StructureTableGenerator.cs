@@ -26,6 +26,9 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 
 */
+
+// Classes in this file are updated to match instance/utils/ProfileUtilities.java commit #5080 in the Java tooling trunk
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,13 +37,13 @@ using System.Xml.Linq;
 using Hl7.Fhir.Model;
 using Hl7.Fhir.Specification.Navigation;
 
-namespace Hl7.Fhir.Publication
+namespace Hl7.Fhir.Publication.Profile
 {
-    internal class StructureGenerator
+    internal class StructureTableGenerator
     {
         ProfileKnowledgeProvider _pkp;
 
-        internal StructureGenerator(ProfileKnowledgeProvider pkp)
+        internal StructureTableGenerator(ProfileKnowledgeProvider pkp)
         {
             _pkp = pkp;
         }
@@ -50,87 +53,104 @@ namespace Hl7.Fhir.Publication
 		    public bool used;
 	    }
 
-        public XElement generateStructureTable(Profile.ProfileStructureComponent structure, bool diff, Profile profile) 
+        public XElement generateStructureTable(StructureDefinition structure, bool diff, bool snapshot) 
         {
             HierarchicalTableGenerator gen = new HierarchicalTableGenerator(_pkp);
             var model = TableModel.CreateNormalTable();
 
-            // List<Profile.ElementComponent> list = diff ? structure.getDifferential().getElement() : structure.getSnapshot().getElement();   DSTU2
-            var list = structure.Element;
+            List<ElementDefinition> list = diff ? structure.Differential.Element : structure.Snapshot.Element;
+            List<StructureDefinition> structures = new List<StructureDefinition>();
+            structures.Add(structure);
+
             var nav = new ElementNavigator(structure);
             nav.MoveToFirstChild();
-    
-            genElement(gen, model.Rows, nav, profile, true);
-            return gen.generate(model);
+
+            genElement(null, gen, model.Rows, nav, _pkp, null, snapshot);
+            return gen.generate(model);    
         }
 
 
-        private void genElement(HierarchicalTableGenerator gen, List<Row> rows, ElementNavigator nav, 
-                    Profile profile, bool showMissing)
+        private void genElement(string defPath, HierarchicalTableGenerator gen, List<Row> rows, ElementNavigator nav, ProfileKnowledgeProvider pkp, bool? extensions, bool snapshot)
         {
             var element = nav.Current;
+            String s = element.GetNameFromPath();
 
-            if(onlyInformationIsMapping(nav.Structure.Element, element)) return;  // we don't even show it in this case
+            if (!snapshot && extensions != null && extensions != (s=="extension" || s=="modifierExtension"))
+                return;
+
+            if(onlyInformationIsMapping(nav)) return;  // we don't even show it in this case
 
             Row row = new Row();
             row.setAnchor(element.Path);
-            String s = element.GetNameFromPath();
-
+            
             bool hasDef = element.Definition != null;
             bool ext = false;
     
             if (s == "extension" || s == "modifierExtension")
-            { 
-                row.setIcon("icon_extension_simple.png");
+            {
+                row.setIcon("icon_extension_simple.png", HierarchicalTableGenerator.TEXT_ICON_EXTENSION_SIMPLE);
                 ext = true;
             }
-            else if (!hasDef || element.Definition.Type == null || element.Definition.Type.Count == 0)
+            else if (!hasDef || element.Type == null || !element.Type.Any())
             {
-                row.setIcon("icon_element.gif");
+                row.setIcon("icon_element.gif", HierarchicalTableGenerator.TEXT_ICON_ELEMENT);
             }
-            else if (hasDef && element.Definition.Type.Count > 1)
+            else if (hasDef && element.Type.Count > 1)
             {
-                if (allTypesAre(element.Definition.Type, "ResourceReference"))
-                    row.setIcon("icon_reference.png");
+                if (allTypesAre(element.Type, "Reference"))
+                    row.setIcon("icon_reference.png", HierarchicalTableGenerator.TEXT_ICON_REFERENCE);
                 else
-                    row.setIcon("icon_choice.gif");
+                    row.setIcon("icon_choice.gif", HierarchicalTableGenerator.TEXT_ICON_CHOICE);
             }
-            else if (hasDef && element.Definition.Type[0].Code.StartsWith("@"))
+            else if (hasDef && element.Type[0].Code.StartsWith("@"))
             {
                 //TODO: That's not a legal code, will this ever appear?
                 //I am pretty sure this depends on ElementDefn.NameReference
-                row.setIcon("icon_reuse.png");
+                row.setIcon("icon_reuse.png", HierarchicalTableGenerator.TEXT_ICON_REUSE);
             }
-            else if (hasDef && _pkp.isPrimitive(element.Definition.Type[0].Code))
-                row.setIcon("icon_primitive.png");
-            else if (hasDef && _pkp.isReference(element.Definition.Type[0].Code))
-                row.setIcon("icon_reference.png");
-            else if (hasDef && _pkp.isDataType(element.Definition.Type[0].Code))
-                row.setIcon("icon_datatype.gif");
+            else if (hasDef && _pkp.isPrimitive(element.Type[0].Code))
+                row.setIcon("icon_primitive.png", HierarchicalTableGenerator.TEXT_ICON_PRIMITIVE);
+            else if (hasDef && _pkp.isReference(element.Type[0].Code))
+                row.setIcon("icon_reference.png", HierarchicalTableGenerator.TEXT_ICON_REFERENCE);
+            else if (hasDef && _pkp.isDataType(element.Type[0].Code))
+                row.setIcon("icon_datatype.gif", HierarchicalTableGenerator.TEXT_ICON_DATATYPE);
             else
-                row.setIcon("icon_resource.png");
+                row.setIcon("icon_resource.png", HierarchicalTableGenerator.TEXT_ICON_RESOURCE);
 
+            var reference = _pkp.GetLinkForElementDefinition(nav.Structure, element);
 
-            var reference = _pkp.GetLinkForElementDefinition(nav.Structure, profile, element);
-            //String reference = defPath == null ? null : defPath + makePathLink(element);
             UnusedTracker used = new UnusedTracker();
             used.used = true;
             
-            Cell left = new Cell(null, reference, s, !hasDef ? null : element.Definition.Formal, null);
+            Cell left = new Cell(null, reference, s, !hasDef ? null : element.Definition, null);
             row.getCells().Add(left);
+            Cell gc = new Cell();
+            row.getCells().Add(gc);
+
+            if (element.IsModifier.GetValueOrDefault())
+                checkForNoChange(element.IsModifierElement, gc.addImage("modifier.png", "This element is a modifier element", "?!"));
+            if (element.MustSupport.GetValueOrDefault()) 
+                checkForNoChange(element.MustSupportElement, gc.addImage("mustsupport.png", "This element must be supported", "S"));
+            if (element.IsSummary.GetValueOrDefault()) 
+                checkForNoChange(element.IsSummaryElement, gc.addImage("summary.png", "This element is included in summaries", "Î£"));
+            if (!element.Constraint.IsNullOrEmpty() || !element.ConditionElement.IsNullOrEmpty()) 
+                gc.addImage("lock.png", "This element has or is affected by some invariants", "I");
+
+            StructureDefinition extDefn = null;
+
     
             if (ext)
             {
                 // If this element (row) in the table is an extension...
-                if (element.Definition != null && element.Definition.Type.Count == 1 && element.Definition.Type[0].Profile != null) 
+                if (element.Type != null && element.Type.Count == 1 && element.Type[0].Profile != null) 
                 {
-                    Profile.ProfileExtensionDefnComponent extDefn = _pkp.getExtensionDefinition(profile, element.Definition.Type[0].Profile);
+                    extDefn = _pkp.GetExtensionDefinition(element.Type[0].Profile);
         
                     if (extDefn == null) 
                     {
-                        row.getCells().Add(new Cell(null, null, !hasDef ? null : describeCardinality(element.Definition, null, used), null, null));
-                        row.getCells().Add(new Cell(null, null, "?? "+element.Definition.Type[0].Profile, null, null));
-                        generateDescription(gen, row, element, null, used.used, element.Definition.Type[0].Profile, profile);
+                        genCardinality(gen, element, row, hasDef, used, null);
+                        row.getCells().Add(new Cell(null, null, "?? " + element.Type[0].Profile, null, null));
+                        generateDescription(gen, row, element, null, used.used, extDefn.Url, pkp);
                     }
                     else 
                     {
@@ -203,15 +223,49 @@ namespace Hl7.Fhir.Publication
         }
 
   
-        private bool onlyInformationIsMapping(List<Profile.ElementComponent> all, Profile.ElementComponent element)
+        private bool onlyInformationIsMapping(ElementNavigator nav)
         {
             return false;
             //TODO: Port
+            //return (!e.hasName() && !e.hasSlicing() && (onlyInformationIsMapping(e))) &&
+            //    getChildren(list, e).isEmpty();
+
         }
 
-        private bool allTypesAre(List<Profile.TypeRefComponent> types, String name) 
+        //TODO: Port
+        //private boolean onlyInformationIsMapping(ElementDefinition d) {
+        //return !d.hasShort() && !d.hasDefinition() && 
+        //    !d.hasRequirements() && !d.getAlias().isEmpty() && !d.hasMinElement() &&
+        //    !d.hasMax() && !d.getType().isEmpty() && !d.hasNameReference() && 
+        //    !d.hasExample() && !d.hasFixed() && !d.hasMaxLengthElement() &&
+        //    !d.getCondition().isEmpty() && !d.getConstraint().isEmpty() && !d.hasMustSupportElement() &&
+        //    !d.hasBinding();
+        //}
+
+
+        private bool allTypesAre(List<ElementDefinition.TypeRefComponent> types, String name) 
         {
             return types.All( t => t.Code == name );
+        }
+
+
+        //TODO: Maybe copy Forge code? That also traces whether there are changes to an element...
+        private Piece checkForNoChange(Element source, Piece piece)
+        {
+            //if (source.hasUserData(DERIVATION_EQUALS))            
+            //{
+            //    piece.addStyle("opacity: 0.5");
+            //}
+            return piece;
+        }
+
+        private Piece checkForNoChange(Element src1, Element src2, Piece piece)
+        {
+            //if (src1.hasUserData(DERIVATION_EQUALS) && src2.hasUserData(DERIVATION_EQUALS))
+            //{
+            //    piece.addStyle("opacity: 0.5");
+            //}
+            return piece;
         }
 
 
@@ -268,32 +322,32 @@ namespace Hl7.Fhir.Publication
         }
 
 
-        private Cell generateDescription(HierarchicalTableGenerator gen, Row row, Profile.ElementComponent element, Profile.ElementDefinitionComponent fallback, 
-            bool used, String extensionUrl, Profile profile)
+        private Cell generateDescription(HierarchicalTableGenerator gen, Row row, ElementDefinition element,
+            ElementDefinition fallback,
+            bool used, string extensionUrl, ProfileKnowledgeProvider pkp)
         {
             Cell c = new Cell();
             row.getCells().Add(c);
 
             if (used)
             {
-                if (element.Definition != null && element.Definition.Short != null)
+                if (element.Short != null)
                 {
                     if (c.getPieces().Any()) c.addPiece(new Piece("br"));
-                    c.addPiece(new Piece(null, element.Definition.Short, null));
+                    c.addPiece(checkForNoChange(element.ShortElement, new Piece(null, element.Short, null)));
                 }
                 else if (fallback != null && fallback.Short != null)
                 {
                     if (c.getPieces().Any()) c.addPiece(new Piece("br"));
-                    c.addPiece(new Piece(null, fallback.Short, null));
+                    c.addPiece(checkForNoChange(fallback.ShortElement, new Piece(null, fallback.Short, null)));
                 }
 
                 if (extensionUrl != null)
                 {
                     if (c.getPieces().Any()) c.addPiece(new Piece("br"));
-                    String fullUrl = extensionUrl;      
-                    String reference = _pkp.GetLinkForExtensionDefinition(profile, extensionUrl);
+                    String reference = _pkp.GetLinkForExtensionDefinition(extensionUrl);
                     c.getPieces().Add(new Piece(null, "URL: ", null).addStyle("font-weight:bold"));
-                    c.getPieces().Add(new Piece(reference, fullUrl, null));
+                    c.getPieces().Add(new Piece(reference, reference, null));
                 }
 
                 if (element.Slicing != null)
@@ -303,54 +357,128 @@ namespace Hl7.Fhir.Publication
                     c.getPieces().Add(new Piece(null, describeSlice(element.Slicing), null));
                 }
 
-                if (element.Definition != null)
+                if (element.Binding != null)
                 {
-                    if (element.Definition.Binding != null)
+                    if (c.getPieces().Any()) c.addPiece(new Piece("br"));
+                    String reference = _pkp.GetLinkForBinding(element.Binding);
+                    c.getPieces().Add(checkForNoChange(element.Binding,
+                        new Piece(null, "Binding: ", null).addStyle("font-weight:bold")));
+                    c.getPieces().Add(checkForNoChange(element.Binding, new Piece(reference, element.Binding.Name, null)));
+
+                    if (element.Binding.Strength.HasValue)
+                    {
+                        c.getPieces().Add(checkForNoChange(element.Binding, new Piece(null, " (", null)));
+                        c.getPieces().Add(checkForNoChange(element.Binding, new Piece(null,
+                                bindingStrengthToCode(element.Binding.Strength),
+                                bindingStrengthToDefinition(element.Binding.Strength))));
+                        c.getPieces().Add(new Piece(null, ")", null));
+                    }
+                }
+
+                if (element.Constraint != null)
+                {
+                    foreach (var inv in element.Constraint)
                     {
                         if (c.getPieces().Any()) c.addPiece(new Piece("br"));
-                        String reference = _pkp.GetLinkForBinding(element.Definition.Binding);
-                        c.getPieces().Add(new Piece(null, "Binding: ", null).addStyle("font-weight:bold"));
-                        c.getPieces().Add(new Piece(reference, element.Definition.Binding.Name, null));
+                        c.getPieces().Add(checkForNoChange(inv, new Piece(null, inv.Key + ": ", null).addStyle("font-weight:bold")));
+                        c.getPieces().Add(checkForNoChange(inv, new Piece(null, inv.Human, null)));
                     }
+                }
 
-                    if (element.Definition.Constraint != null)
-                    {
-                        foreach (Profile.ElementDefinitionConstraintComponent inv in element.Definition.Constraint)
-                        {
-                            if (c.getPieces().Any()) c.addPiece(new Piece("br"));
-                            c.getPieces().Add(new Piece(null, "Inv-" + inv.Key + ": ", null).addStyle("font-weight:bold"));
-                            c.getPieces().Add(new Piece(null, inv.Human, null));
-                        }
-                    }
-
-                    if (element.Definition.Value != null)
-                    {
-                        if (c.getPieces().Any()) c.addPiece(new Piece("br"));
-                        c.getPieces().Add(new Piece(null, "Fixed Value: ", null).addStyle("font-weight:bold"));
-                        c.getPieces().Add(new Piece(null, element.Definition.Value.ForDisplay(), null));
-                    }
-
-                    // ?? example from definition    
+                if (element.Fixed != null)
+                {
+                    if (c.getPieces().Any()) c.addPiece(new Piece("br"));
+                    c.getPieces().Add(checkForNoChange(element.Fixed,
+                        new Piece(null, "Fixed Value: ", null).addStyle("font-weight:bold")));
+                    c.getPieces().Add(checkForNoChange(element.Fixed, new Piece(null, buildJson(element.Fixed), null)
+                            .addStyle("color: darkgreen")));
+                }
+                else if (element.Pattern != null)
+                {
+                    if (c.getPieces().Any()) c.addPiece(new Piece("br"));
+                    c.getPieces().Add(checkForNoChange(element.Pattern,
+                        new Piece(null, "Required Pattern: ", null).addStyle("font-weight:bold")));
+                    c.getPieces().Add(checkForNoChange(element.Pattern, new Piece(null, buildJson(element.Pattern), null)
+                        .addStyle("color: darkgreen")));
+                }
+                else if (element.Example != null)
+                {
+                    if (c.getPieces().Any()) c.addPiece(new Piece("br"));
+                    c.getPieces().Add(checkForNoChange(element.Example, new Piece(null, "Example: ", null).addStyle("font-weight:bold")));
+                    c.getPieces().Add(checkForNoChange(element.Example, new Piece(null, buildJson(element.Example), null).addStyle("color: darkgreen")));
                 }
             }
 
             return c;
         }
 
+        private String buildJson(Element value)
+        {
+            if (value is Primitive)
+                return Hl7.Fhir.Serialization.PrimitiveTypeConverter.GetValueAsString((Primitive)value);
 
-        private String describeSlice(Profile.ElementSlicingComponent slicing)
+            return Hl7.Fhir.Serialization.FhirSerializer.SerializeToJson(value, root:"root");
+        }
+
+        private string bindingStrengthToCode(ElementDefinition.BindingStrength? strength)
+        {
+            if(strength == null) return "?";
+
+            return strength.ToString().ToLower();
+        }
+
+        private string bindingStrengthToDefinition(ElementDefinition.BindingStrength? strength)
+        {
+            if(strength == null) return "?";
+
+            switch (strength) 
+            {
+            case ElementDefinition.BindingStrength.Required: return "To be conformant, instances of this element SHALL include a code from the specified value set.";
+            case ElementDefinition.BindingStrength.Extensible: return "To be conformant, instances of this element SHALL include a code from the specified value set if any of the codes within the value set can apply to the concept being communicated.  If the valueset does not cover the concept (based on human review), alternate codings (or, data type allowing, text) may be included instead.";
+            case ElementDefinition.BindingStrength.Preferred: return "Instances are encouraged to draw from the specified codes for interoperability purposes but are not required to do so to be considered conformant.";
+            case ElementDefinition.BindingStrength.Example: return "Instances are not expected or even encouraged to draw from the specified value set.  The value set merely provides examples of the types of concepts intended to be included.";
+            default: return "?";
+          }
+        }
+
+
+        private String describeSlice(ElementDefinition.ElementDefinitionSlicingComponent slicing)
         {
             string rules;
 
             switch (slicing.Rules)
             {
-                case Profile.SlicingRules.Closed: rules = "Closed"; break;
-                case Profile.SlicingRules.Open: rules = "Open"; break;
-                case Profile.SlicingRules.OpenAtEnd: rules = "Open At End"; break;
+                case ElementDefinition.SlicingRules.Closed: rules = "Closed"; break;
+                case ElementDefinition.SlicingRules.Open: rules = "Open"; break;
+                case ElementDefinition.SlicingRules.OpenAtEnd: rules = "Open At End"; break;
                 default: rules = "??"; break;
             }
 
-            return (slicing.Ordered == true ? "Ordered, " : "Unordered, ") + rules + ", by " + slicing.Discriminator;
+            return (slicing.Ordered == true ? "Ordered, " : "Unordered, ") + rules + ", by " + String.Join(", ",slicing.Discriminator);
+        }
+
+
+        private void genCardinality(HierarchicalTableGenerator gen, ElementDefinition definition, Row row, bool hasDef, UnusedTracker tracker, ElementDefinition fallback) 
+        {
+            var min = definition.MinElement ?? new Integer();
+            var max = definition.MaxElement ?? new FhirString();
+
+            if (min.Value == null && fallback != null)
+                min = fallback.MinElement ?? new Integer();
+            if (max.Value == null && fallback != null)
+                max = fallback.MaxElement ?? new FhirString();
+
+            tracker.used = max == null || !(max.Value == "0");
+
+            Cell cell = new Cell(null, null, null, null, null);
+            row.getCells().Add(cell);
+    
+            if (min != null || max != null)
+            {
+                cell.addPiece(checkForNoChange(min, new Piece(null, !min.Value.HasValue ? "" : min.Value.ToString(), null)));
+                cell.addPiece(checkForNoChange(min,max, new Piece(null, "..", null)));
+                cell.addPiece(checkForNoChange(min, new Piece(null, max.Value != null ? "" : max.Value, null)));
+            } 
         }
 
 

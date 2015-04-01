@@ -28,6 +28,7 @@ POSSIBILITY OF SUCH DAMAGE.
 */
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -173,6 +174,14 @@ namespace Hl7.Fhir.Publication
         public static string ForDisplay(this Primitive value)
         {
             return PrimitiveTypeConverter.GetValueAsString(value);
+        }
+
+
+        public static bool IsNullOrEmpty(this IList list)
+        {
+            if (list == null) return true;
+
+            return list.Count == 0;
         }
     }
 }

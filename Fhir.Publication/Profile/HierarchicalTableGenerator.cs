@@ -28,7 +28,7 @@ POSSIBILITY OF SUCH DAMAGE.
 */
 
 
-// Classes in this file are updated to match commit #5035 in the Java tooling trunk
+// Classes in this file are updated to match utilities/xhtml/HeirarchicalTableGenerator.java commit #5035 in the Java tooling trunk
 
 using System;
 using System.Collections.Generic;
@@ -549,9 +549,10 @@ namespace Hl7.Fhir.Publication.Profile
         {
             return icon;
         }
-        public void setIcon(String icon)
+        public void setIcon(String icon, string hint)
         {
             this.icon = icon;
+            this.Hint = hint;
         }
         public String getAnchor()
         {

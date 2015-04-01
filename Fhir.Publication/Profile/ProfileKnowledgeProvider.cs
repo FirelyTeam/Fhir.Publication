@@ -15,23 +15,139 @@ namespace Hl7.Fhir.Publication.Profile
 
         private string baseName;
 
-        internal ProfileKnowledgeProvider(string baseName, string imageOutputDirectory)
+        private IArtifactSource _source;
+
+        public ProfileKnowledgeProvider(string baseName, string imageOutputDirectory, IArtifactSource source)
         {
-            this.baseName = baseName;
-   //         _loader = new StructureLoader(ArtifactResolver.CreateCachedDefault());
+            this.baseName = baseName;  
             ImageOutputDirectory = imageOutputDirectory;
+            _source = source;
         }
 
-        //internal Model.Profile.ProfileExtensionDefnComponent getExtensionDefinition(Model.Profile profile, string url)
+
+        //TODO: Determine dynamically based on core profiles?
+        public bool isDataType(String value)
+        {
+            return new[] { "Identifier", "HumanName", "Address", "ContactPoint", "Timing", "Quantity", "Attachment", "Range",
+                  "Period", "Ratio", "CodeableConcept", "Coding", "SampledData", "Age", "Distance", "Duration", "Count", "Money" }.Contains(value);
+        }
+
+        //TODO: Determine based on core profiles
+        public bool isPrimitive(String value)
+        {
+            return new[] { "boolean", "integer", "decimal", "base64Binary", "instant", "string", "date", "dateTime", "code", "oid", "uuid", "id" }.Contains(value);
+        }
+
+
+        public bool isReference(String value)
+        {
+            return value == "Reference";
+        }
+
+
+        public string GetLinkForElementDefinition(StructureDefinition structure, ElementDefinition element)
+        {
+            return GetLinkForProfileDict(structure) + "#" + MakeElementDictAnchor(s, element);
+        }
+
+        public static string GetLinkForProfileDict(StructureDefinition structure)
+        {
+            return GetProfilePageName(structure) + "-definition" + ".html";
+        }
+
+        private static string GetProfilePageName(StructureDefinition structure)
+        {
+            return TokenizeName(structure.Name).ToLower();
+        }
+
+
+        public string MakeElementDictAnchor(ElementDefinition element)
+        {
+            return element.Name ?? element.Path;
+        }
+
+
+        public StructureDefinition GetExtensionDefinition(string url)
+        {
+            if (url.StartsWith("#"))
+            {
+                //TODO
+                throw new NotImplementedException("Contained extensions not done yet");
+            }
+            else
+            {
+                var cr = _source.ReadConformanceResource(url) as StructureDefinition; 
+                if(cr != null && cr.Type == StructureDefinition.StructureDefinitionType.Extension)
+                {
+                    if(cr.Snapshot == null)
+                        throw new NotImplementedException("No snapshot representation on extension for url " + url);
+
+                    return cr;
+                }
+                else
+                    return null;
+            }
+        }
+
+
+        public string GetLinkForExtensionDefinition(string extensionUrl)
+        {
+            var extd = GetExtensionDefinition(extensionUrl);
+
+            if (extd != null) return extd.Url;
+
+            return extensionUrl;
+        }
+
+
+        public string GetLinkForBinding(ElementDefinition.ElementDefinitionBindingComponent binding)
+        {
+            if (binding.ValueSet == null)
+                return null;
+
+            String reference = binding.ValueSet is FhirUri ? 
+                    ((FhirUri)binding.ValueSet).Value : ((ResourceReference)binding.ValueSet).Reference;
+
+            if (reference.StartsWith("http://hl7.org/fhir/v3/vs/"))
+                return MakeSpecLink("v3/" + reference.Substring(26) + "/index.html");
+            else if (reference.StartsWith("http://hl7.org/fhir/vs/"))
+                return MakeSpecLink(reference.Substring(23) + ".html");
+            else if (reference.StartsWith("http://hl7.org/fhir/v2/vs/"))
+                return MakeSpecLink("v2/" + reference.Substring(26) + "/index.html");
+            else
+                return reference + ".html";
+        }
+
+        public string MakeSpecLink(string p)
+        {
+            return SpecUrl() + p;
+        }
+
+
+        public string SpecUrl()
+        {
+            return DSTU1URL;
+            //if (version.StartsWith("0.8") || version == null) return DSTU1URL;
+
+            //throw new NotImplementedException("Do not know the URL to specification version  " + version);
+        }
+
+
+        //public string GetLinkForProfileReference(Profile profile, string p)
         //{
-        //    if (url.StartsWith("#"))
+        //    if (p.StartsWith(CORE_TYPE_PROFILEREFERENCE_PREFIX))
         //    {
-        //        var extAnchor = url.Substring(1);
-        //        return profile.ExtensionDefn.Where(ext => ext.Code == extAnchor).FirstOrDefault();
+        //        string rn = p.Substring(CORE_TYPE_PROFILEREFERENCE_PREFIX.Length);
+        //        return GetLinkForTypeDocu(rn);
         //    }
+        //    else if (p.StartsWith("#"))
+        //        return GetLinkForLocalStructure(profile, p.Substring(1));
         //    else
-        //        return _loader.LocateExtension(new Uri(url));
+        //        return p;
         //}
+
+
+
 
         //internal Model.ValueSet GetValueSet(string url)
         //{
@@ -62,46 +178,9 @@ namespace Hl7.Fhir.Publication.Profile
 
 
 
-        public string SpecUrl()
-        {
-            return DSTU1URL;
-            //if (version.StartsWith("0.8") || version == null) return DSTU1URL;
-
-            //throw new NotImplementedException("Do not know the URL to specification version  " + version);
-        }
-
-        //TODO: Determine dynamically based on core profiles?
-        internal bool isDataType(String value)
-        {
-            return new[] { "Identifier", "HumanName", "Address", "ContactPoint", "Timing", "Quantity", "Attachment", "Range",
-                  "Period", "Ratio", "CodeableConcept", "Coding", "SampledData", "Age", "Distance", "Duration", "Count", "Money" }.Contains(value);
-        }
-
-        internal bool isReference(String value)
-        {
-            return value == "ResourceReference";
-        }
-
-        internal bool isPrimitive(String value)
-        {
-            return new[] { "boolean", "integer", "decimal", "base64Binary", "instant", "string", "date", "dateTime", "code", "oid", "uuid", "id" }.Contains(value);
-        }
+      
 
 
-        public const string CORE_TYPE_PROFILEREFERENCE_PREFIX = "http://hl7.org/fhir/Profile/";
-
-        //internal string GetLinkForProfileReference(Profile profile, string p)
-        //{
-        //    if (p.StartsWith(CORE_TYPE_PROFILEREFERENCE_PREFIX))
-        //    {
-        //        string rn = p.Substring(CORE_TYPE_PROFILEREFERENCE_PREFIX.Length);
-        //        return GetLinkForTypeDocu(rn);
-        //    }
-        //    else if (p.StartsWith("#"))
-        //        return GetLinkForLocalStructure(profile, p.Substring(1));
-        //    else
-        //        return p;
-        //}
 
         //internal string GetLabelForProfileReference(Profile profile, string p)
         //{
@@ -116,18 +195,7 @@ namespace Hl7.Fhir.Publication.Profile
         //    return GetLinkForExtensionDefinition(profile, extension.Code);
         //}
 
-        //internal string GetLinkForExtensionDefinition(Profile profile, string extensionUrl)
-        //{
-        //    if (extensionUrl.StartsWith("#"))
-        //    {
-        //        var extension = extensionUrl.Substring(1);
-        //        return GetLinkForProfileDict(profile) + "#extension." + TokenizeName(extension).ToLower();
-        //    }
-        //    else
-        //    {
-        //        return extensionUrl;
-        //    }
-        //}
+       
 
 
         //internal string GetLinkForElementDefinition(Profile.ProfileStructureComponent s, Profile profile, Profile.ElementComponent element)
@@ -147,33 +215,14 @@ namespace Hl7.Fhir.Publication.Profile
 
 
 
-        //private string GetProfilePageName(Profile profile)
-        //{
-        //    //return TokenizeName(baseName).ToLower();
-        //    return baseName.ToLower();
-        //}
 
 
-        //public string GetLinkForProfileDict(Profile profile)
-        //{
-        //    return GetProfilePageName(profile) + "-definition" + ".html";
-        //}
 
         //public string GetLinkForProfileTable(Profile profile)
         //{
         //    return GetProfilePageName(profile) + ".html";
         //}
 
-        //public string MakeElementDictAnchor(Profile.ProfileStructureComponent s, Profile.ElementComponent element)
-        //{
-        //    if (element.Name == null)
-        //        return s.Name + "." + element.Path;
-
-        //    if (!element.Path.Contains("."))
-        //        return s.Name + "." + element.Name;
-        //    else
-        //        return s.Name + "." + element.Path.Substring(0, element.Path.LastIndexOf(".")) + "." + element.Name;
-        //}
 
 
 
@@ -194,28 +243,9 @@ namespace Hl7.Fhir.Publication.Profile
 
 
 
-        //internal string GetLinkForBinding(Model.Profile.ElementDefinitionBindingComponent binding)
-        //{
-        //    if (binding.Reference == null)
-        //        return null;
-
-        //    String reference = binding.Reference is FhirUri ? ((FhirUri)binding.Reference).Value : ((ResourceReference)binding.Reference).Reference;
-
-        //    if (reference.StartsWith("http://hl7.org/fhir/v3/vs/"))
-        //        return MakeSpecLink("v3/" + reference.Substring(26) + "/index.html");
-        //    else if (reference.StartsWith("http://hl7.org/fhir/vs/"))
-        //        return MakeSpecLink(reference.Substring(23) + ".html");
-        //    else if (reference.StartsWith("http://hl7.org/fhir/v2/vs/"))
-        //        return MakeSpecLink("v2/" + reference.Substring(26) + "/index.html");
-        //    else
-        //        return reference + ".html";
-        //}
+       
 
 
-        internal string MakeSpecLink(string p)
-        {
-            return SpecUrl() + p;
-        }
 
 
         public const string V2_SYSTEM_PREFIX = "http://hl7.org/fhir/v2/";
