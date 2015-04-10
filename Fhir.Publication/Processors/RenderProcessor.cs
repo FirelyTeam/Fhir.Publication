@@ -8,7 +8,10 @@ namespace Hl7.Fhir.Publication
 {
     public class RenderProcessor : IProcessor
     {
+        public ISelector Influx { get; set; }
+
         public IRenderer Renderer { get; set; }
+
         public RenderProcessor(IRenderer renderer)
         {
             this.Renderer = renderer;

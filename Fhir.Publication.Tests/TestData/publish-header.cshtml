@@ -1,0 +1,136 @@
+﻿<head>
+    <title>Helse Vest implementation guide for Laboratory results</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="http://hl7.org/fhir" />
+
+    <link href="../dist/css/fhir.css" rel="stylesheet" />
+
+    <!-- Bootstrap core CSS -->
+    <link href="../dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="../dist/css/bootstrap-fhir.css" rel="stylesheet" />
+
+    <!-- Project extras -->
+    <link href="../dist/css/project.css" rel="stylesheet" />
+    <link href="../dist/css/pygments-manni.css" rel="stylesheet" />
+
+    <script src="../dist/js/jquery.js"> </script>
+    <script src="../dist/js/bootstrap.min.js"> </script>
+    <script src="../dist/js/respond.min.js"> </script>
+    <script src="../dist/js/fhir.js"> </script>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="../dist/js/html5shiv.js"></script>
+        <script src="../dist/js/respond.min.js"></script>
+    <![endif]-->
+    <!-- Favicons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../dist/images/apple-touch-icon-144-precomposed.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../dist/images/apple-touch-icon-114-precomposed.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../dist/images/apple-touch-icon-72-precomposed.png" />
+    <link rel="apple-touch-icon-precomposed" href="../dist/images/apple-touch-icon-57-precomposed.png" />
+    <link rel="shortcut icon" href="../dist/images/favicon.png" />
+
+</head>
+<body>
+
+    <div id="segment-header" class="segment">
+        <!-- segment-header -->
+        <div class="container">
+            <!-- container -->
+            <a id="logo" href="http://hl7.org/fhir">
+                <img src="../dist/images/fhir-logo-www.png" alt="logo fhir" />
+            </a>
+            <div id="hl7-status">
+                <b>Helse Vest implementation guide for Laboratory results</b>
+            </div>
+
+            <div id="hl7-nav">
+                <a id="hl7-logo" href="http://www.hl7.org">
+                    <img src="../dist/images/hl7-logo.png" width="42" height="50" alt="visit the hl7 website" />
+                </a>
+            </div>
+            <!--hl7-search-->
+        </div>
+        <div class="container">
+            <!-- container -->
+        </div>
+    </div>
+    <!-- /segment-header -->
+
+
+    <div id="segment-navbar" class="segment">
+        <!-- segment-navbar -->
+        <div id="stripe"> </div>
+        <div class="container">
+            <!-- container -->
+            <!-- HEADER CONTENT -->
+
+            <nav class="navbar navbar-inverse">
+                <div class="container">
+                    <button data-target=".navbar-inverse-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+                        <span class="icon-bar"> </span>
+                        <span class="icon-bar"> </span>
+                        <span class="icon-bar"> </span>
+                    </button>
+                    <a href="index.html" class="navbar-brand hidden">FHIR</a>
+                    <div class="nav-collapse collapse navbar-inverse-collapse">
+                        <ul class="nav navbar-nav">
+
+                            @{
+
+
+                                const string CHAPTER = "Chapter";
+                                string currentdir = Directory.GetCurrentDirectory().ToString();
+                                string[] dirs = Directory.GetDirectories(currentdir, CHAPTER + "*");
+
+                                Regex regex = new Regex(@"\d{1,2}");
+
+                                //Orders the directorynames on Chapter numbers.
+                                var ordereddirs = from dir in dirs
+                                                  orderby int.Parse(regex.Match(dir.Remove(0, currentdir.Length + 1)).Value) ascending
+                                                  select dir;
+
+                                foreach (string dir in ordereddirs)
+                                {
+                                    string dirname = dir.Remove(0, currentdir.Length + 1);
+                                    int numlength = regex.Match(dirname).Value.Length;
+                                    string chaptername = dirname.Remove(0, CHAPTER.Length + numlength + 1);
+                                    string link = "../" + dirname + "/index.html";
+                                    string tag = "<a href='" + link + "'>" + chaptername + "</a>";
+
+
+                                    <li>
+                                        @tag
+                                    </li>
+
+                                }
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+
+                                <div id="segment-breadcrumb" class="segment">
+                                    <!-- segment-breadcrumb -->
+                                    <div class="container">
+                                        <!-- container -->
+                                        <ul class="breadcrumb"></ul>
+                                    </div>
+                                    <!-- /container -->
+                                </div>
+
+
+
+                                <div id="segment-content" class="segment">
+                                    <!-- segment-content -->
+                                    <div class="container">
+                                        <!-- container -->
+                                        <div class="row">
+                                            <div class="inner-wrapper">
+                                                <!-- CONTENT CONTENT -->
+
+
+                                                <div class="col-9">

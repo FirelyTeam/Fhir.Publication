@@ -31,6 +31,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Linq;
 using Hl7.Fhir.Introspection;
 using Hl7.Fhir.Model;
 using Hl7.Fhir.Serialization;
@@ -56,6 +57,57 @@ namespace Hl7.Fhir.Publication
         {
             return String.Join(", ", ext.Context);
         }
+
+        internal static string ForHtml(this Profile.ElementDefinitionBindingComponent binding, ProfileKnowledgeProvider pkp = null)
+        {
+            if (binding.Reference == null || pkp == null) 
+                return binding.Description;
+
+            var reference = binding.Reference is FhirUri ? ((FhirUri)binding.Reference).Value 
+                    : ((ResourceReference)binding.Reference).Reference;
+
+            var vs = pkp.GetValueSet(reference);
+
+            if (vs != null)
+                return binding.Description +  "<br/>" + conf(binding) + "<a href=\"" + reference + "\">"+ vs.Name + "</a>" +confTail(binding);
+            
+            if (reference.StartsWith("http:") || reference.StartsWith("https:"))
+                return binding.Description + "<br/>" + conf(binding) + " <a href=\""+reference+"\">"+reference+"</a>"+ confTail(binding);
+            else
+                return binding.Description + "<br/>" + conf(binding)+" ?? Broken Reference to "+reference+" ??" + confTail(binding);
+
+        }
+
+
+        private static String conf(Profile.ElementDefinitionBindingComponent def) 
+        {
+            if (def.Conformance == null)
+                return "For codes, see ";
+
+            switch (def.Conformance)
+            {
+                case Profile.BindingConformance.Example:
+                    return "For example codes, see ";
+                case Profile.BindingConformance.Preferred:
+                    return "The codes SHOULD be taken from ";
+                case Profile.BindingConformance.Required:
+                    return "The codes SHALL be taken from ";
+                default:
+                    return "??";
+            }
+        }
+
+        private static String confTail(Profile.ElementDefinitionBindingComponent def) 
+        {
+            //TODO: Note: I think the Java implmentation assumes a default of "false" here for IsExtensible...
+            if (def.Conformance == Profile.BindingConformance.Preferred || (def.Conformance == Profile.BindingConformance.Required && def.IsExtensible.GetValueOrDefault(false)))
+                return "; other codes may be used where these codes are not suitable";
+            else
+             return "";
+        }
+
+  
+
 
         public static string ForDisplay(this CodeableConcept value)
         {

@@ -39,193 +39,14 @@ using Hl7.Fhir.Support;
 
 namespace Hl7.Fhir.Publication
 {
-    public class Piece
+     internal class HierarchicalTableGenerator
     {
-        private String tag;
-        private String reference;
-        private String text;
-        private String hint;
-        private String style;
+        private ProfileKnowledgeProvider _pkp;
 
-        public Piece(String tag)
+        public HierarchicalTableGenerator(ProfileKnowledgeProvider pkp)
         {
-            this.tag = tag;
+            _pkp = pkp;
         }
-
-        public Piece(String reference, String text, String hint)
-        {
-            this.reference = reference;
-            this.text = text;
-            this.hint = hint;
-        }
-        public String getReference()
-        {
-            return reference;
-        }
-        public void setReference(String value)
-        {
-            reference = value;
-        }
-        public String getText()
-        {
-            return text;
-        }
-        public String getHint()
-        {
-            return hint;
-        }
-
-        public String getTag()
-        {
-            return tag;
-        }
-
-        public String getStyle()
-        {
-            return style;
-        }
-
-        public Piece setStyle(String style)
-        {
-            this.style = style;
-            return this;
-        }
-
-        public Piece addStyle(String style)
-        {
-            if (this.style != null)
-                this.style = this.style + ": " + style;
-            else
-                this.style = style;
-            return this;
-        }
-
-    }
-
-
-    public class Cell
-    {
-        internal List<Piece> pieces = new List<Piece>();
-
-        public Cell()
-        {
-        }
-
-        public Cell(String prefix, String reference, String text, String hint, String suffix)
-        {
-
-            if (!String.IsNullOrEmpty(prefix)) pieces.Add(new Piece(null, prefix, null));
-            pieces.Add(new Piece(reference, text, hint));
-            if (!String.IsNullOrEmpty(suffix)) pieces.Add(new Piece(null, suffix, null));
-        }
-
-        public List<Piece> getPieces()
-        {
-            return pieces;
-        }
-        public Cell addPiece(Piece piece)
-        {
-            pieces.Add(piece);
-            return this;
-        }
-    }
-
-
-
-    public class Title : Cell
-    {
-        internal int width;
-
-        public Title(String prefix, String reference, String text, String hint, String suffix, int width)
-            : base(prefix, reference, text, hint, suffix)
-        {
-
-            this.width = width;
-        }
-    }
-
-
-    public class Row
-    {
-        private List<Row> subRows = new List<Row>();
-        private List<Cell> cells = new List<Cell>();
-        private String icon;
-        private String anchor;
-
-        public List<Row> getSubRows()
-        {
-            return subRows;
-        }
-        public List<Cell> getCells()
-        {
-            return cells;
-        }
-        public String getIcon()
-        {
-            return icon;
-        }
-        public void setIcon(String icon)
-        {
-            this.icon = icon;
-        }
-        public String getAnchor()
-        {
-            return anchor;
-        }
-        public void setAnchor(String anchor)
-        {
-            this.anchor = anchor;
-        }
-
-
-    }
-
-
-    public class TableModel
-    {
-        private List<Title> titles = new List<Title>();
-        private List<Row> rows = new List<Row>();
-        public List<Title> getTitles()
-        {
-            return titles;
-        }
-        public List<Row> getRows()
-        {
-            return rows;
-        }
-    }
-
-
-    public class HierarchicalTableGenerator
-    {
-        private String imageDirectory;
-
-        /**
-         * There are circumstances where the table has to present in the absence of a stable supporting infrastructure.
-         * and the file paths cannot be guaranteed. For these reasons, you can tell the builder to inline all the graphics
-         * (all the styles are inlined anyway, since the table fbuiler has even less control over the styling
-         *  
-         */
-        private bool inLineGraphics;
-
-
-        public HierarchicalTableGenerator(String dest, bool inlineGraphics)
-        {
-            this.imageDirectory = dest;
-            this.inLineGraphics = inlineGraphics;
-        }
-
-        public TableModel initNormalTable()
-        {
-            TableModel model = new TableModel();
-
-            model.getTitles().Add(new Title(null, null, "Name", null, null, 0));
-            model.getTitles().Add(new Title(null, null, "Card.", null, null, 0));
-            model.getTitles().Add(new Title(null, null, "Type", null, null, 100));
-            model.getTitles().Add(new Title(null, null, "Description & Constraints", null, null, 0));
-            return model;
-        }
-
 
         public XElement generate(TableModel model)
         {
@@ -241,12 +62,12 @@ namespace Hl7.Fhir.Publication
 
             table.Add(tr);
 
-            foreach (Title t in model.getTitles())
+            foreach (Title t in model.Titles)
             {
                 var tc = renderCell(tr, t, "th", null, null, false, null);
             }
 
-            foreach (Row r in model.getRows())
+            foreach (Row r in model.Rows)
             {
                 renderRow(table, r, 0, new List<bool>());
             }
@@ -434,28 +255,30 @@ namespace Hl7.Fhir.Publication
 
         private String srcFor(String filename)
         {
-            if (inLineGraphics)
+            var imgPath = "../dist/images/" + filename;
+
+            if (_pkp.InlineGraphics)
             {
                 StringBuilder b = new StringBuilder();
                 b.Append("data: image/png;base64,");
-                byte[] bytes = File.ReadAllBytes(Path.Combine(imageDirectory, filename));
+                byte[] bytes = File.ReadAllBytes(imgPath);
 
                 b.Append(Convert.ToBase64String(bytes));
                 return b.ToString();
             }
             else
-                return filename;
+                return imgPath;
         }
 
 
         private void checkModel(TableModel model)
         {
-            check(model.getRows().Any(), "Must have rows");
-            check(model.getTitles().Any(), "Must have titles");
-            foreach (Cell c in model.getTitles())
+            check(model.Rows.Any(), "Must have rows");
+            check(model.Titles.Any(), "Must have titles");
+            foreach (Cell c in model.Titles)
                 check(c);
-            foreach (Row r in model.getRows())
-                check(r, "rows", model.getTitles().Count);
+            foreach (Row r in model.Rows)
+                check(r, "rows", model.Titles.Count);
         }
 
 
@@ -481,7 +304,7 @@ namespace Hl7.Fhir.Publication
         {
             StringBuilder b = new StringBuilder();
 
-            if (inLineGraphics)
+            if (_pkp.InlineGraphics)
             {
                 MemoryStream bytes = new MemoryStream();
                 genImage(indents, hasChildren, bytes);
@@ -502,7 +325,7 @@ namespace Hl7.Fhir.Publication
 
                 b.Append(".png");
 
-                String file = Path.Combine(imageDirectory, b.ToString());
+                String file = Path.Combine(_pkp.ImageOutputDirectory, b.ToString());
 
                 if (!File.Exists(file))
                 {
@@ -511,7 +334,7 @@ namespace Hl7.Fhir.Publication
                 }
             }
 
-            return b.ToString();
+            return Path.Combine(_pkp.ImageLinkPath, b.ToString());
         }
 
 
@@ -543,6 +366,168 @@ namespace Hl7.Fhir.Publication
                 throw new Exception(message);
         }
     }
+
+
+     internal class Piece
+     {
+         private String tag;
+         private String reference;
+         private String text;
+         private String hint;
+         private String style;
+
+         public Piece(String tag)
+         {
+             this.tag = tag;
+         }
+
+         public Piece(String reference, String text, String hint)
+         {
+             this.reference = reference;
+             this.text = text;
+             this.hint = hint;
+         }
+         public String getReference()
+         {
+             return reference;
+         }
+         public void setReference(String value)
+         {
+             reference = value;
+         }
+         public String getText()
+         {
+             return text;
+         }
+         public String getHint()
+         {
+             return hint;
+         }
+
+         public String getTag()
+         {
+             return tag;
+         }
+
+         public String getStyle()
+         {
+             return style;
+         }
+
+         public Piece setStyle(String style)
+         {
+             this.style = style;
+             return this;
+         }
+
+         public Piece addStyle(String style)
+         {
+             if (this.style != null)
+                 this.style = this.style + ": " + style;
+             else
+                 this.style = style;
+             return this;
+         }
+
+     }
+
+
+     internal class Cell
+     {
+         internal List<Piece> pieces = new List<Piece>();
+
+         public Cell()
+         {
+         }
+
+         public Cell(String prefix, String reference, String text, String hint, String suffix)
+         {
+
+             if (!String.IsNullOrEmpty(prefix)) pieces.Add(new Piece(null, prefix, null));
+             pieces.Add(new Piece(reference, text, hint));
+             if (!String.IsNullOrEmpty(suffix)) pieces.Add(new Piece(null, suffix, null));
+         }
+
+         public List<Piece> getPieces()
+         {
+             return pieces;
+         }
+         public Cell addPiece(Piece piece)
+         {
+             pieces.Add(piece);
+             return this;
+         }
+     }
+
+
+
+     internal class Title : Cell
+     {
+         internal int width;
+
+         public Title(String prefix, String reference, String text, String hint, String suffix, int width)
+             : base(prefix, reference, text, hint, suffix)
+         {
+
+             this.width = width;
+         }
+     }
+
+
+     internal class Row
+     {
+         private List<Row> subRows = new List<Row>();
+         private List<Cell> cells = new List<Cell>();
+         private String icon;
+         private String anchor;
+
+         public List<Row> getSubRows()
+         {
+             return subRows;
+         }
+         public List<Cell> getCells()
+         {
+             return cells;
+         }
+         public String getIcon()
+         {
+             return icon;
+         }
+         public void setIcon(String icon)
+         {
+             this.icon = icon;
+         }
+         public String getAnchor()
+         {
+             return anchor;
+         }
+         public void setAnchor(String anchor)
+         {
+             this.anchor = anchor;
+         }
+
+
+     }
+
+
+     internal class TableModel
+     {
+         public static TableModel CreateNormalTable()
+         {
+             TableModel model = new TableModel();
+
+             model.Titles.Add(new Title(null, null, "Name", null, null, 0));
+             model.Titles.Add(new Title(null, null, "Card.", null, null, 0));
+             model.Titles.Add(new Title(null, null, "Type", null, null, 100));
+             model.Titles.Add(new Title(null, null, "Description & Constraints", null, null, 0));
+             return model;
+         }
+
+
+
+         public List<Title> Titles = new List<Title>();
+         public List<Row> Rows = new List<Row>();
+     }
 }
 
 

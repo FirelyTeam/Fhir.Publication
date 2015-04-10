@@ -44,7 +44,7 @@ namespace Hl7.Fhir.Publication
 
         public static string ParseMask(string name, string mask)
         {
-            string[] parts = name.Split(new char[] { '-', '.' });
+            string[] parts = name.Split(new char[] { '.' });
             string result = mask;
             for (int i = 0; i <= parts.Count()-1; i++)
             {
@@ -75,7 +75,13 @@ namespace Hl7.Fhir.Publication
             {
                 return path;
             }
+        }
+
+        public static IEnumerable<string> Directories(string directory, string pattern)
+        {
+            return Directory.EnumerateDirectories(directory, pattern).Select(s => s.TrimEnd('\\') + "\\");
 
         }
+        
     }
 }

@@ -9,19 +9,27 @@ namespace Hl7.Fhir.Publication
 {
     public class Make
     {
-        
+
         public static IWork InterpretDocument(Document document)
         {
+            return InterpretDocument(document.Text, document.Context);
+        }
+
+        public static IWork InterpretDocument(string text, Context context)
+        {
             Bulk bulk = new Bulk();
-            StringReader reader = new StringReader(document.Text);
-            bool ok;
+            StringReader reader = new StringReader(text);
+            bool ok; 
             do
             {
                 string statement = reader.ReadLine();
-                ok = !string.IsNullOrWhiteSpace(statement);
+                bool skip = (string.IsNullOrWhiteSpace(statement)) || (statement.StartsWith("//"));
+                ok = (statement != null);
+                if (skip) continue;
+                
                 if (ok)
                 {
-                    IWork work = InterpretStatement(document.Context, statement);
+                    IWork work = InterpretStatement(context, statement);
                     bulk.Append(work);
                 }
             }
@@ -31,11 +39,13 @@ namespace Hl7.Fhir.Publication
 
         public static Statement InterpretStatement(Context context, string text)
         {
-            // select *.md -recursive; markdown; template template.html ; save .html;
+            // example statement:
+            // select *.md -recursive >>  markdown >> template template.html >> save .html
+
             Statement statement = new Statement();
 
             string[] sentences = text.Split(new string[] { ">>" }, StringSplitOptions.RemoveEmptyEntries);
-            statement.Filter = InterpretFilter(context, sentences.First());
+            statement.Selector = InterpretSelector(context, sentences.First());
             foreach (string s in sentences.Skip(1))
             {
                 IProcessor processor = InterpretProcessor(context, s);
@@ -57,6 +67,8 @@ namespace Hl7.Fhir.Publication
                     return null;
                 
                 string command = words.First().ToLower();
+                var parameters = words.Skip(1);
+
                 switch (command)
                 {
                     case "markdown":
@@ -64,9 +76,10 @@ namespace Hl7.Fhir.Publication
 
                     case "template":
                     {
-                        string template = words.Skip(1).First();
-                        Document document = Document.CreateInContext(context, template);
-                        return new RenderProcessor(new TemplateRenderer(document));
+                        var processor = new TemplateProcessor();
+                        //pr.Template = influx.Documents.First(); //Document document = Document.CreateInContext(context, template);
+                        processor.Influx = Selector.Create(context, parameters);
+                        return processor;
                     }
 
                     case "razor":
@@ -77,21 +90,24 @@ namespace Hl7.Fhir.Publication
 
                     case "save":
                     {
-                        string extension = words.Skip(1).FirstOrDefault();
-                        return new SaveProcessor(extension);
+                        string mask = parameters.FirstOrDefault();
+                        var processor = new SaveProcessor();
+                        processor.Mask = mask;
+                        return processor;
                     }
 
                     case "stash":
                     {
                         string key = words.Skip(1).First();
+                        if (!key.StartsWith(Selector.STASHPREFIX)) throw new Exception("Stash name should always begin with " + Selector.STASHPREFIX);
                         return new StashProcessor(key);
                     }
 
                     case "attach":
                     {
-                        string key = words.Skip(1).First();
-                        string mask = words.Skip(2).First();
-                        return new AttachProcessor(key, mask);
+                        IProcessor p = new AttachProcessor();
+                        p.Influx = Selector.Create(context, parameters);
+                        return p;
                     }
 
                     case "concatenate":
@@ -100,14 +116,26 @@ namespace Hl7.Fhir.Publication
                     case "make":
                         return new MakeProcessor();
 
+                    case "makeall":
+                    {
+                        string folder = parameters.FirstOrDefault();
+                        return new MakeForAllProcessor(folder);
+                    }
+
                     case "profiletable":
                         return new ProfileProcessor();
 
                     case "structure":
                         return new StructureProcessor();
 
+                    case "dict":
+                        return new DictTableProcessor();
+
+                    case "valueset":
+                        return new ValueSetProcessor();
+
                     default:
-                        return null;
+                        throw new Exception("Unknown processing command: " + command);
                 }
             }
             catch
@@ -116,17 +144,14 @@ namespace Hl7.Fhir.Publication
             }
         }
 
-        public static IFilter InterpretFilter(Context context, string text)
+        public static ISelector InterpretSelector(Context context, string text)
         {
             try
             {
                 var words = text.Split(' ');
-                Filter filter = new Filter();
-                filter.Mask = words.Skip(1).First();
-                filter.Recursive = words.Contains("-recursive");
-                filter.FromOutput = words.Contains("-output");
-                filter.Context = context.Clone();
-                return filter;
+                string command = words.First();
+                var parameters = words.Skip(1).ToArray();
+                return Selector.Create(context, parameters);
             }
             catch
             {

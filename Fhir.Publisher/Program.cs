@@ -12,12 +12,10 @@ namespace Hl7.Fhir.DocumenterTool
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Fhir publisher tool 0.9.1 BETA");
-
             string dir = null;
             string sourcedir = null;
 
-            if (args.Count() != 1) 
+            if (args.Count() < 1) 
             {
                 Console.WriteLine("You must provide a make file.");
                 return;
@@ -35,14 +33,18 @@ namespace Hl7.Fhir.DocumenterTool
             
             string targetdir = dir + "\\Generated";
 
+            string loglevel = args.FirstOrDefault(a => a.StartsWith("-log:"));
+            if (loglevel != null) loglevel = loglevel.Remove(0, 5);
+
             
             try
             {
-                Publisher.Generate(sourcedir, targetdir, filter);
+                Publisher.Generate(sourcedir, targetdir, filter, loglevel);
             }
             catch (Exception e)
             {
-                Console.WriteLine("Exception {0}:\n{1}", e.GetType(), e.Message);
+                Console.WriteLine("Error ({0}): {1}", e.GetType(), e.Message);
+                Console.ReadLine();
             }
         }
     }

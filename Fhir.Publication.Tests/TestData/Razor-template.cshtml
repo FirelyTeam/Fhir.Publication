@@ -1,4 +1,6 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿@using System.Text.RegularExpressions;
+@using System.Linq;
+
 <!DOCTYPE HTML>
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
@@ -77,8 +79,33 @@
             </button>
             <a href="index.html" class="navbar-brand hidden">FHIR</a>
             <div class="nav-collapse collapse navbar-inverse-collapse">
-              <ul class="nav navbar-nav">
+              <ul class="nav navbar-nav">                
+                
+                @{
+                    string currentdir = Directory.GetCurrentDirectory().ToString();
+                    string[] dirs = Directory.GetDirectories(currentdir, "Chapter*");
+
+                    Regex regex = new Regex(@"\d{1,2}");
+
+
+                    var ordereddirs = from dir in dirs
+                                    orderby int.Parse(regex.Match(dir.Remove(0, currentdir.Length + 1)).Value) ascending
+                                    select dir;
+
+                    foreach (string dir in ordereddirs)
+                    {
+                       string s = dir.Remove(0, currentdir.Length + 1);
+                       string link = @s + "/index.html";
+
                 <li>
+                    <a href=@link> @s </a>
+                </li>
+                    
+                }
+                
+
+                
+                <!--<li>
                   <a href="index.html">Home</a>
                 </li>
                 <li>
@@ -98,7 +125,7 @@
                 </li>
                 <li>
                   <a href="infrastructure.html">Infrastructure</a>
-                </li>
+                </li>-->
 
               </ul>
             </div>

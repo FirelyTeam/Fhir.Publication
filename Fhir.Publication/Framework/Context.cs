@@ -18,13 +18,16 @@ namespace Hl7.Fhir.Publication
                 return Location.Combine(Root.Source, Location);
             }
         }
-        public Location Target
+        public Location Target 
         {
             get
             {
                 return Location.Combine(Root.Target, Location);
             }
         }
+
+        public Location Work { get; set; } // For now only used by the make file itself so that it can operate on another directory than it's own.
+
         public void EnsureTarget()
         {
             Directory.CreateDirectory(Target.Directory);

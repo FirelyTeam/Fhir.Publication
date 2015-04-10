@@ -38,37 +38,21 @@ using Hl7.Fhir.Serialization;
 namespace Hl7.Fhir.Publication
 {
 
-    public class ProfileTableGenerator
-    { //extends TableGenerator {
-
-        protected bool InlineGraphics { get; set; }
-        protected string OutputDir { get; set; }
-        protected string PageName { get; set; }
-        
+    internal class ProfileTableGenerator
+    { //extends TableGenerator {      
         private ProfileKnowledgeProvider _pkp;
 
-        internal ProfileTableGenerator(String outputDir, String pageName, bool inlineGraphics, ProfileKnowledgeProvider pkp)
+        public ProfileTableGenerator(ProfileKnowledgeProvider pkp)
         {
-            OutputDir = outputDir;
-            InlineGraphics = inlineGraphics;
-            PageName = pageName;
-
             _pkp = pkp;
-            // super(dest, page, pageName, inlineGraphics);
         }
-
-        protected bool dictLinks()
+     
+        public XElement Generate(Profile profile, bool extensionsOnly)
         {
-            return false;
-        }
+            var gen = new HierarchicalTableGenerator(_pkp);
+            var model = TableModel.CreateNormalTable();
 
-
-        public XElement generate(Profile p, bool extensionsOnly)
-        {
-            var gen = new HierarchicalTableGenerator(OutputDir, InlineGraphics);
-            TableModel model = gen.initNormalTable();
-
-            genProfile(model.getRows(), p, extensionsOnly);
+            genProfile(model.Rows, profile, extensionsOnly);
 
             return gen.generate(model);
         }
@@ -91,12 +75,11 @@ namespace Hl7.Fhir.Publication
                     r.getSubRows().Add(re);
                     re.setIcon("icon_resource.png");
 
-                    var structureUrl = _pkp.getLinkForStructure(PageName, s.Name);
+                    var structureUrl = _pkp.GetLinkForLocalStructure(profile, s);
                     
                     re.getCells().Add(new  Cell(null, structureUrl, s.Name, null, null));
                     re.getCells().Add(new  Cell(null, null, "", null, null));
-                    re.getCells().Add(new  Cell(null, null, s.Type, null, null));
-
+                    re.getCells().Add(new  Cell(null, _pkp.GetLinkForTypeDocu(s.Type), s.Type, null, null));
                     re.getCells().Add(new  Cell(null, null, s.Element[0].Definition.Short, null, null));     // DSTU1
                     //re.getCells().Add(new  Cell(null, null, s.Base, null, null));       // DSTU2
                 }
@@ -116,14 +99,14 @@ namespace Hl7.Fhir.Publication
 
                 foreach (var ext in profile.ExtensionDefn)
                 {
-                    genExtension(re.getSubRows(), ext, true);
+                    genExtension(re.getSubRows(), profile, ext, true);
                 }
             }
 
         }
 
 
-        private void genExtension(List<Row> rows, Profile.ProfileExtensionDefnComponent ext, bool root)
+        private void genExtension(List<Row> rows, Profile profile, Profile.ProfileExtensionDefnComponent ext, bool root)
         {
             var r = new  Row();
             rows.Add(r);
@@ -135,9 +118,9 @@ namespace Hl7.Fhir.Publication
             //else
             //r.setIcon("icon_extension_complex.png");
 
-            var extensionUrl = _pkp.getLinkForExtensionDefinition(PageName, ext.Code);
+            var extensionUrl = _pkp.GetLinkForExtensionDefinition(profile, ext);
 
-            r.getCells().Add(new  Cell(null, extensionUrl, ext.Code, null, null));
+            r.getCells().Add(new  Cell(null, null, ext.Code, null, null));
             r.getCells().Add(new  Cell(null, null, ext.Definition.DescribeCardinality(), null, null));   //TODO: create rendering extension
             r.getCells().Add(new  Cell(null, null, ext.Definition.DescribeTypeCode(), null, null));       //TODO: create rendering extension
             //    r.getCells().add(gen.new Cell(null, null, ext.getDefinition().getShortDefn(), null, null));

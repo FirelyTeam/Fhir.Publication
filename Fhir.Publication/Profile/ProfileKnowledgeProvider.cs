@@ -11,10 +11,15 @@ namespace Hl7.Fhir.Publication
     {
         private StructureLoader _loader;
 
-        internal ProfileKnowledgeProvider(string specUrl)
+        public const string DSTU1URL = "http://www.hl7.org/implement/standards/fhir/";
+
+        private string baseName;
+
+        internal ProfileKnowledgeProvider(string baseName, string imageOutputDirectory)
         {
+            this.baseName = baseName;
             _loader = new StructureLoader(ArtifactResolver.CreateCachedDefault());
-            _specUrl = specUrl;
+            ImageOutputDirectory = imageOutputDirectory;
         }
 
         internal Model.Profile.ProfileExtensionDefnComponent getExtensionDefinition(Model.Profile profile, string url)
@@ -28,22 +33,42 @@ namespace Hl7.Fhir.Publication
                 return _loader.LocateExtension(new Uri(url));
         }
 
-        string _specUrl;
-
-        internal string getLinkFor(string typename)
+        internal Model.ValueSet GetValueSet(string url)
         {
-            //TODO: Make this dependent on the DSTU1/2 etc website
-            //TODO: There are more flavours (like narrative, extension, etc.)
-            if (isDataType(typename) || isPrimitive(typename))
-                return _specUrl + "datatypes.html#" + typename.ToLower();
-            else if(ModelInfo.IsKnownResource(typename))
-                return _specUrl + typename.ToLower() + ".html";
-            else if(typename == "Extension")
-                return _specUrl + "extensibility.html#Extension";
-            else
-                return "todo.html";
+            if (!url.StartsWith("http")) url = "http://local/" + url;
+            return _loader.ArtifactSource.ReadResourceArtifact(new Uri(url)) as ValueSet;
         }
 
+        internal string GetLinkForTypeDocu(string typename)
+        {
+            if (typename == "*")
+                return SpecUrl() + "datatypes.html#open";
+            else if (isDataType(typename) || isPrimitive(typename))
+                return SpecUrl() + "datatypes.html#" + typename.ToLower();
+            else if (typename == "Any")
+                return SpecUrl() + "resourcelist.html";
+            else if (ModelInfo.IsKnownResource(typename))
+                return SpecUrl() + typename.ToLower() + ".html";
+            else if (typename == "Extension")
+                return SpecUrl() + "extensibility.html#Extension";
+            else
+                throw new NotImplementedException("Don't know how to link to specification page for type " + typename);
+        }
+
+        internal bool HasLinkForTypeDocu(string typename)
+        {
+            return typename == "*" || isDataType(typename) || isPrimitive(typename) || typename == "Extension" || ModelInfo.IsKnownResource(typename);
+        }
+
+
+
+        public string SpecUrl()
+        {
+            return DSTU1URL;
+            //if (version.StartsWith("0.8") || version == null) return DSTU1URL;
+
+            //throw new NotImplementedException("Do not know the URL to specification version  " + version);
+        }
 
         //TODO: Determine dynamically based on core profiles?
         internal bool isDataType(String value)
@@ -63,103 +88,168 @@ namespace Hl7.Fhir.Publication
         }
 
 
-        internal string getLinkForExtensionDefinition(string pageName, string extensionAnchor)       
+        public const string CORE_TYPE_PROFILEREFERENCE_PREFIX = "http://hl7.org/fhir/Profile/";
+
+        internal string GetLinkForProfileReference(Profile profile, string p)
         {
-            return pageName.ToLower() + "-definition.html" + "#extension." + extensionAnchor;
+            if (p.StartsWith(CORE_TYPE_PROFILEREFERENCE_PREFIX))
+            {
+                string rn = p.Substring(CORE_TYPE_PROFILEREFERENCE_PREFIX.Length);
+                return GetLinkForTypeDocu(rn);
+            }
+            else if (p.StartsWith("#"))
+                return GetLinkForLocalStructure(profile, p.Substring(1));
+            else
+                return p;
+        }
+
+        internal string GetLabelForProfileReference(Profile profile, string p)
+        {
+            if (p.StartsWith(CORE_TYPE_PROFILEREFERENCE_PREFIX))
+                return p.Substring(CORE_TYPE_PROFILEREFERENCE_PREFIX.Length);
+            else
+                return p;
+        }
+
+        internal string GetLinkForExtensionDefinition(Profile profile, Profile.ProfileExtensionDefnComponent extension)       
+        {
+            return GetLinkForExtensionDefinition(profile, extension.Code);
+        }
+
+        internal string GetLinkForExtensionDefinition(Profile profile, string extensionUrl)
+        {
+            if (extensionUrl.StartsWith("#"))
+            {
+                var extension = extensionUrl.Substring(1);
+                return GetLinkForProfileDict(profile) + "#extension." + TokenizeName(extension).ToLower();
+            }
+            else
+            {
+                return extensionUrl;
+            }
         }
 
 
-        internal string getLinkForStructureDefinition(string pageName, string structureName)
+        internal string GetLinkForElementDefinition(Profile.ProfileStructureComponent s, Profile profile, Profile.ElementComponent element)
         {
-            return pageName.ToLower() + "-definition.html" + "#" + structureName.ToLower().Replace(" ", "");
+            return GetLinkForProfileDict(profile) + "#" + MakeElementDictAnchor(s,element);
         }
 
-
-        internal string getLinkForStructure(string pageName, string structureName)
+        internal string GetLinkForLocalStructure(Profile profile, Profile.ProfileStructureComponent structure)
         {
-            return pageName.ToLower() + "-" + structureName.ToLower().Replace(" ", "") + ".html";
+            return GetLinkForLocalStructure(profile, structure.Name);
         }
 
-
-        internal string getLinkForExtension(Model.Profile profile, string url)
+        internal string GetLinkForLocalStructure(Profile profile, string name)
         {
-            return "todo.html";
-            //String fn;
-            //String code;
-            //if (url.StartsWith("#"))
-            //{
-            //    code = url.Substring(1);
-            //}
-            //else
-            //{
-            //    String[] path = url.Split("#");
-            //    code = path[1];
-            //    profile = definitions.getProfileByURL(path[0]);
-            //}
-
-            //if (profile != null)
-            //{
-            //    fn = (String)profile.getTag("filename");
-            //    return Utilities.changeFileExt(fn, ".html");
-            //}
-            //return null;
-        }
-
-        internal string getLinkForProfile(Model.Profile profile, string p)
-        {
-            return "todo.html" + "|" + profile.Name;
-            //        String fn;
-            //if (!url.startsWith("#")) {
-            //  String[] path = url.split("#");
-            //  profile = definitions.getProfileByURL(path[0]);
-            //  if (profile == null && url.startsWith("Profile/"))
-            //    return "hspc-"+url.substring(8)+".html|"+url.substring(8);
-            //}
-            //if (profile != null) {
-            //  fn = profile.getTag("filename")+"|"+profile.getNameSimple();
-            //  return Utilities.changeFileExt(fn, ".html");
-            //}
-            //return null;
+            return GetProfilePageName(profile) + "-" + TokenizeName(name).ToLower() + ".html";
         }
 
 
 
-        internal string resolveBinding(Model.Profile.ElementDefinitionBindingComponent elementDefinitionBindingComponent)
+        private string GetProfilePageName(Profile profile)
         {
-            return "todo.html";
-            //  if (binding.getReference() == null)
-            //    return null;
-            //  if (binding.getReference() instanceof UriType) {
-            //    String ref = ((UriType) binding.getReference()).getValue();
-            //    if (ref.startsWith("http://hl7.org/fhir/v3/vs/"))
-            //      return "v3/"+ref.substring(26)+"/index.html";
-            //    else
-            //      return ref;
-            //  } else {
-            //    String ref = ((Reference) binding.getReference()).getReferenceSimple();
-            //    if (ref.startsWith("ValueSet/")) {
-            //      ValueSet vs = definitions.getValuesets().get(ref.substring(8));
-            //      if (vs == null)
-            //        return ref.substring(9)+".html";
-            //      else
-            //        return (String) vs.getTag("filename");
-            //    } else if (ref.startsWith("http://hl7.org/fhir/vs/")) {
-            //      if (new File(Utilities.path(folders.dstDir, "valueset-"+ref.substring(23)+".html")).exists())
-            //        return "valueset-"+ref.substring(23)+".html";
-            //      else
-            //        return ref.substring(23)+".html";
-            //    }  else if (ref.startsWith("http://hl7.org/fhir/v3/vs/"))
-            //      return "v3/"+ref.substring(26)+"/index.html"; 
-            //    else
-            //      return ref;
-            //  } 
+            //return TokenizeName(baseName).ToLower();
+            return baseName.ToLower();
         }
 
-        internal bool hasLinkFor(string typeRefCode)
+
+        public string GetLinkForProfileDict(Profile profile)
         {
-            return isDataType(typeRefCode) || isPrimitive(typeRefCode) || typeRefCode == "Extension" || ModelInfo.IsKnownResource(typeRefCode);
+            return GetProfilePageName(profile) + "-definition" + ".html";
         }
 
+        public string GetLinkForProfileTable(Profile profile)
+        {
+            return GetProfilePageName(profile) + ".html";
+        }
+
+        public string MakeElementDictAnchor(Profile.ProfileStructureComponent s, Profile.ElementComponent element)
+        {
+            if (element.Name == null)
+                return s.Name + "." + element.Path;
+
+            if (!element.Path.Contains("."))
+                return s.Name + "." + element.Name;
+            else
+                return s.Name + "." + element.Path.Substring(0, element.Path.LastIndexOf(".")) + "." + element.Name;
+        }
+
+
+
+        internal static String TokenizeName(String cs)
+        {
+            StringBuilder s = new StringBuilder();
+            for (int i = 0; i < cs.Length; i++)
+            {
+                char c = cs[i];
+                if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9') || c == '-' || c == '_')
+                    s.Append(c);
+                else if (c != ' ')
+                    s.Append("." + c.ToString());
+            }
+
+            return s.ToString();
+        }
+
+
+
+        internal string GetLinkForBinding(Model.Profile.ElementDefinitionBindingComponent binding)
+        {
+            if (binding.Reference == null)
+                return null;
+
+            String reference = binding.Reference is FhirUri ? ((FhirUri)binding.Reference).Value : ((ResourceReference)binding.Reference).Reference;
+
+            if (reference.StartsWith("http://hl7.org/fhir/v3/vs/"))
+                return MakeSpecLink("v3/" + reference.Substring(26) + "/index.html");
+            else if (reference.StartsWith("http://hl7.org/fhir/vs/"))
+                return MakeSpecLink(reference.Substring(23) + ".html");
+            else if (reference.StartsWith("http://hl7.org/fhir/v2/vs/"))
+                return MakeSpecLink("v2/" + reference.Substring(26) + "/index.html");
+            else
+                return reference + ".html";
+        }
+
+
+        internal string MakeSpecLink(string p)
+        {
+            return SpecUrl() + p;
+        }
+
+
+        public const string V2_SYSTEM_PREFIX = "http://hl7.org/fhir/v2/";
+        public const string V3_SYSTEM_PREFIX = "http://hl7.org/fhir/v3/";
+        public const string FHIR_SYSTEM_PREFIX = "http://hl7.org/fhir/";
+
+        internal ValueSet GetValueSetForSystem(string system)
+        {
+            string valuesetUri = null;
+
+            if (system.StartsWith(V2_SYSTEM_PREFIX))
+                valuesetUri = V2_SYSTEM_PREFIX + "vs/" + system.Substring(V2_SYSTEM_PREFIX.Length);
+            else if (system.StartsWith(V3_SYSTEM_PREFIX))
+                valuesetUri = V3_SYSTEM_PREFIX + "vs/" + system.Substring(V3_SYSTEM_PREFIX.Length);
+            else if (system.StartsWith(FHIR_SYSTEM_PREFIX))
+                valuesetUri = FHIR_SYSTEM_PREFIX + "vs/" + system.Substring(FHIR_SYSTEM_PREFIX.Length);
+
+            if (valuesetUri != null)
+                return GetValueSet(valuesetUri);
+            else
+                return null;
+        }
+
+        public string ImageOutputDirectory { get; set; }
+
+        public string ImageLinkPath { get { return "../dist/images"; } }
+
+        /**
+         * There are circumstances where the table has to present in the absence of a stable supporting infrastructure.
+         * and the file paths cannot be guaranteed. For these reasons, you can tell the builder to inline all the graphics
+         * (all the styles are inlined anyway, since the table fbuiler has even less control over the styling
+         *  
+         */
+        public bool InlineGraphics { get; set; }
     }
 
 }

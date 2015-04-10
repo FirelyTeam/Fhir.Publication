@@ -10,6 +10,7 @@ namespace Hl7.Fhir.Publication
     {
         public void Render(Document input, Document output)
         {
+            output.Extension = ".html";
             output.Text = Razor.Render(input.Context, input.Text);
         }
     }

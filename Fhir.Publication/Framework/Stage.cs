@@ -50,7 +50,7 @@ namespace Hl7.Fhir.Publication
 
         public Document Find(string name)
         {
-            return queue.FirstOrDefault(d => d.Name == name);
+            return queue.FirstOrDefault(d => d.Name == name || d.FileName == name);
         }
 
         public static Stage operator +(Stage stage, IEnumerable<Document> documents)
@@ -62,6 +62,11 @@ namespace Hl7.Fhir.Publication
         public static Stage New()
         {
             return new Stage(Enumerable.Empty<Document>());
-        } 
+        }
+
+        public override string ToString()
+        {
+            return Documents.ToString();
+        }
     }
 }
