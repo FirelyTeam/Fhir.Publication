@@ -37,6 +37,7 @@ using System.Xml.Linq;
 using Hl7.Fhir.Model;
 using Hl7.Fhir.Rest;
 using Hl7.Fhir.Specification.Navigation;
+using Newtonsoft.Json.Linq;
 
 namespace Hl7.Fhir.Publication.Profile
 {
@@ -456,7 +457,14 @@ namespace Hl7.Fhir.Publication.Profile
             if (value is Primitive)
                 return Hl7.Fhir.Serialization.PrimitiveTypeConverter.GetValueAsString((Primitive)value);
 
-            return Hl7.Fhir.Serialization.FhirSerializer.SerializeToJson(value, root: null);
+            var json = Hl7.Fhir.Serialization.FhirSerializer.SerializeToJson(value, root: "removeme");
+            
+            //HACK: the previous serializer call has (wrongly) generated json with a "resourceType:removeme"
+            //member. Remove this member to get the kind of json we want to display in the tree
+            var jsonObject = JObject.Parse(json);
+            jsonObject.Remove("resourceType");
+
+            return jsonObject.ToString(formatting: Newtonsoft.Json.Formatting.None);
         }
 
         private string bindingStrengthToCode(ElementDefinition.BindingStrength? strength)

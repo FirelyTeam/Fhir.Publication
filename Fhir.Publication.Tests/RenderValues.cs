@@ -3,7 +3,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 using Hl7.Fhir.Specification.Source;
 using Hl7.Fhir.Model;
-using Hl7.Fhir.Publication;
 using System.IO;
 using Hl7.Fhir.Serialization;
 using System.Collections.Generic;
