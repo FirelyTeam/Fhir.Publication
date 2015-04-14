@@ -35,10 +35,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Hl7.Fhir.Core">
+    <Reference Include="Hl7.Fhir.Core, Version=0.50.1.26235, Culture=neutral, PublicKeyToken=d706911480550fc3, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Hl7.Fhir.DSTU2.0.50.1\lib\net45\Hl7.Fhir.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Hl7.Fhir.Specification">
+    <Reference Include="Hl7.Fhir.Specification, Version=0.50.1.25288, Culture=neutral, PublicKeyToken=d706911480550fc3, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Hl7.Fhir.Specification.DSTU2.0.50.1\lib\net45\Hl7.Fhir.Specification.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -66,12 +68,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Fhir.Publication\Fhir.Publication.csproj">
-      <Project>{d5b4f03d-79eb-4a8e-b3b8-4a3b1210033c}</Project>
-      <Name>Fhir.Publication</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="validation.zip">
@@ -97,6 +93,12 @@
     <None Include="TestData\publish-header.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Fhir.Publication\Fhir.Publication.csproj">
+      <Project>{d5b4f03d-79eb-4a8e-b3b8-4a3b1210033c}</Project>
+      <Name>Fhir.Publication</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

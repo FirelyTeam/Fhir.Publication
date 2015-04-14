@@ -35,65 +35,71 @@ using System.Threading.Tasks;
 using Hl7.Fhir.Model;
 using Hl7.Fhir.Serialization;
 
-namespace Hl7.Fhir.Publication
+namespace Hl7.Fhir.Publication.Profile
 {
     internal static class ToolingExtensions
     {
-          public const String EXT_COMMENT = "http://hl7.org/fhir/Profile/tools-extensions#comment";
-          public const String EXT_DISPLAY = "http://hl7.org/fhir/Profile/tools-extensions#display";
-          public const String EXT_DEFINITION = "http://hl7.org/fhir/Profile/tools-extensions#definition";
-          public const String EXT_DEPRECATED = "http://hl7.org/fhir/Profile/tools-extensions#deprecated";
-          public const String EXT_ISSUE_SOURCE = "http://hl7.org/fhir/Profile/tools-extensions#issue-source";
-          public const String EXT_SUBSUMES = "http://hl7.org/fhir/Profile/tools-extensions#subsumes";
-          public const String EXT_DISPLAY_HINT = "http://hl7.org/fhir/Profile/tools-extensions#display-hint";
-          public const String EXT_FLYOVER = "http://hl7.org/fhir/Profile/questionnaire-extensions#flyover";
-          private const String EXT_QTYPE = "http://www.healthintersections.com.au/fhir/Profile/metadata#type";
-          private const String EXT_EXPANSION_CLOSED = "http://hl7.org/fhir/Profile/questionnaire-extensions#closed";
-          private const String EXT_QREF = "http://www.healthintersections.com.au/fhir/Profile/metadata#reference";
-          private const String EXTENSION_FILTER_ONLY = "http://www.healthintersections.com.au/fhir/Profile/metadata#expandNeedsFilter";
-          private const String EXT_TYPE = "http://www.healthintersections.com.au/fhir/Profile/metadata#type";
-          private const String EXT_REFERENCE = "http://www.healthintersections.com.au/fhir/Profile/metadata#reference";
+        public const String EXT_SUBSUMES = "http://hl7.org/fhir/StructureDefinition/valueset-subsumes";
+        private const String EXT_OID = "http://hl7.org/fhir/StructureDefinition/valueset-oid";
+        public const String EXT_DEPRECATED = "http://hl7.org/fhir/StructureDefinition/valueset-deprecated";
+        public const String EXT_DEFINITION = "http://hl7.org/fhir/StructureDefinition/valueset-definition";
+        public const String EXT_COMMENT = "http://hl7.org/fhir/StructureDefinition/valueset-comments";
+        private const String EXT_IDENTIFIER = "http://hl7.org/fhir/StructureDefinition/identifier";
+        private const String EXT_TRANSLATION = "http://hl7.org/fhir/StructureDefinition/translation";
+        public const String EXT_ISSUE_SOURCE = "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source";
+        public const String EXT_DISPLAY_HINT = "http://hl7.org/fhir/StructureDefinition/structuredefinition-display-hint";
 
-          public static String ReadBooleanExtension(Element c, String uri) 
-          {
-              var ext = c.GetExtensionValue(uri);
-              if(ext == null) return null;
+        // unregistered?
 
-              if(!(ext is FhirBoolean)) return null;
-              return ((FhirBoolean)ext).Value.ConvertTo<string>();
-          }
+        public const String EXT_FLYOVER = "http://hl7.org/fhir/Profile/questionnaire-extensions#flyover";
+        private const String EXT_QTYPE = "http://www.healthintersections.com.au/fhir/Profile/metadata#type";
+        private const String EXT_EXPANSION_CLOSED = "http://hl7.org/fhir/Profile/questionnaire-extensions#closed";
+        private const String EXT_QREF = "http://www.healthintersections.com.au/fhir/Profile/metadata#reference";
+        private const String EXTENSION_FILTER_ONLY = "http://www.healthintersections.com.au/fhir/Profile/metadata#expandNeedsFilter";
+        private const String EXT_TYPE = "http://www.healthintersections.com.au/fhir/Profile/metadata#type";
+        private const String EXT_REFERENCE = "http://www.healthintersections.com.au/fhir/Profile/metadata#reference";
+        private const String EXT_ALLOWABLE_UNITS = "http://hl7.org/fhir/StructureDefinition/elementdefinition-allowedUnits";
 
-          public static String ReadStringExtension(Element c, String uri)
-          {
-              var ext = c.GetExtensionValue(uri) as FhirString;
-              if (ext == null) return null;
+        public static bool? ReadBooleanExtension(Element c, String uri)
+        {
+            var ext = c.GetExtensionValue(uri);
+            if (ext == null) return null;
 
-              return ext.Value;
-          }
+            if (!(ext is FhirBoolean)) return null;
+            return ((FhirBoolean)ext).Value;
+        }
 
+        public static String ReadStringExtension(Element c, String uri)
+        {
+            var ext = c.GetExtensionValue(uri) as FhirString;
+            if (ext == null) return null;
 
-          //public static String GetDeprecated(this ValueSet.ValueSetDefineConceptComponent c)
-          //{
-          //    return ReadBooleanExtension(c, EXT_DEPRECATED);
-          //}
-
-          //public static String GetComment(this ValueSet.ValueSetDefineConceptComponent c)
-          //{
-          //    return ReadStringExtension(c, EXT_COMMENT);
-          //}
-
-          public static String getDisplayHint(this Element def) 
-          {
-              return ReadStringExtension(def, EXT_DISPLAY_HINT);    
-          }
+            return ext.Value;
+        }
 
 
-          public static IEnumerable<Code> GetSubsumes(this ValueSet.ValueSetDefineConceptComponent c)
-          {
+        public static bool? GetDeprecated(this ValueSet.ConceptDefinitionComponent c)
+        {
+            return ReadBooleanExtension(c, EXT_DEPRECATED);
+        }
+
+        public static String GetComment(this ValueSet.ConceptDefinitionComponent c)
+        {
+            return ReadStringExtension(c, EXT_COMMENT);
+        }
+
+        //public static String getDisplayHint(this Element def)
+        //{
+        //    return ReadStringExtension(def, EXT_DISPLAY_HINT);
+        //}
+
+
+        public static IEnumerable<Code> GetSubsumes(this ValueSet.ConceptDefinitionComponent c)
+        {
             if (c.Extension != null)
                 return c.Extension.Where(ext => ext.Url == EXT_SUBSUMES).Where(ext => ext.Value is Code).Select(ext => (Code)ext.Value);
             else
                 return Enumerable.Empty<Code>();
-          }
+        }
     }
 }
