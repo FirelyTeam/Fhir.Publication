@@ -77,24 +77,16 @@ namespace Hl7.Fhir.Publication.Profile
 
         public StructureDefinition GetExtensionDefinition(string url)
         {
-            if (url.StartsWith("#"))
+            var cr = _source.ReadConformanceResource(url) as StructureDefinition; 
+            if(cr != null && cr.Type == StructureDefinition.StructureDefinitionType.Extension)
             {
-                //TODO
-                throw new NotImplementedException("Contained extensions not done yet");
+                if(cr.Snapshot == null)
+                    throw new NotImplementedException("No snapshot representation on extension for url " + url);
+
+                return cr;
             }
             else
-            {
-                var cr = _source.ReadConformanceResource(url) as StructureDefinition; 
-                if(cr != null && cr.Type == StructureDefinition.StructureDefinitionType.Extension)
-                {
-                    if(cr.Snapshot == null)
-                        throw new NotImplementedException("No snapshot representation on extension for url " + url);
-
-                    return cr;
-                }
-                else
-                    return null;
-            }
+                return null;
         }
 
 
@@ -320,6 +312,35 @@ namespace Hl7.Fhir.Publication.Profile
         }
 
         public bool StandAlone { get; set; }
+
+        public IEnumerable<ConceptMap> GetConceptMaps()
+        {
+            //Note: we assume the ArtifactSource caches the conceptmaps. Otherwise this is expensive.
+
+            var conceptMapUrls = _source.ListConformanceResources().Where(info => info.Type == ResourceType.ConceptMap).Select(info => info.Url);
+
+            return conceptMapUrls.Select(url => (ConceptMap)_source.ReadConformanceResource(url));
+        }
+
+        public IEnumerable<ConceptMap> GetConceptMapsForSource(string uri)
+        {
+            return GetConceptMaps().Where(cm => cm.SourceAsString() == uri);
+        }
+
+        public IEnumerable<ConceptMap> GetConceptMapsForSource(ValueSet source)
+        {
+            return GetConceptMapsForSource(source.Url);
+        }
+
+        public IEnumerable<ConceptMap> GetConceptMapsForSource(StructureDefinition source)
+        {
+            return GetConceptMapsForSource(source.Url);
+        }
+
+        public ValueSet GetValueSet(string url)
+        {
+            return _source.ReadConformanceResource(url) as ValueSet;
+        }
     }
 
 }
