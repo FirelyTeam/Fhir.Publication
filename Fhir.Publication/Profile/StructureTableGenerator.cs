@@ -409,8 +409,7 @@ namespace Hl7.Fhir.Publication.Profile
                     {
                         c.getPieces().Add(checkForNoChange(element.Binding, new Piece(null, " (", null)));
                         c.getPieces().Add(checkForNoChange(element.Binding, new Piece(null,
-                                bindingStrengthToCode(element.Binding.Strength),
-                                bindingStrengthToDefinition(element.Binding.Strength))));
+                            element.Binding.bindingStrengthToCode(), element.Binding.bindingStrengthToDefinition())));
                         c.getPieces().Add(new Piece(null, ")", null));
                     }
                 }
@@ -430,7 +429,7 @@ namespace Hl7.Fhir.Publication.Profile
                     if (c.getPieces().Any()) c.addPiece(new Piece("br"));
                     c.getPieces().Add(checkForNoChange(element.Fixed,
                         new Piece(null, "Fixed Value: ", null).addStyle("font-weight:bold")));
-                    c.getPieces().Add(checkForNoChange(element.Fixed, new Piece(null, buildJson(element.Fixed), null)
+                    c.getPieces().Add(checkForNoChange(element.Fixed, new Piece(null, element.Fixed.EncodeValue(), null)
                             .addStyle("color: darkgreen")));
                 }
                 else if (element.Pattern != null)
@@ -438,55 +437,21 @@ namespace Hl7.Fhir.Publication.Profile
                     if (c.getPieces().Any()) c.addPiece(new Piece("br"));
                     c.getPieces().Add(checkForNoChange(element.Pattern,
                         new Piece(null, "Required Pattern: ", null).addStyle("font-weight:bold")));
-                    c.getPieces().Add(checkForNoChange(element.Pattern, new Piece(null, buildJson(element.Pattern), null)
+                    c.getPieces().Add(checkForNoChange(element.Pattern, new Piece(null, element.Pattern.EncodeValue(), null)
                         .addStyle("color: darkgreen")));
                 }
                 else if (element.Example != null)
                 {
                     if (c.getPieces().Any()) c.addPiece(new Piece("br"));
                     c.getPieces().Add(checkForNoChange(element.Example, new Piece(null, "Example: ", null).addStyle("font-weight:bold")));
-                    c.getPieces().Add(checkForNoChange(element.Example, new Piece(null, buildJson(element.Example), null).addStyle("color: darkgreen")));
+                    c.getPieces().Add(checkForNoChange(element.Example, new Piece(null, element.Example.EncodeValue(), null).addStyle("color: darkgreen")));
                 }
             }
 
             return c;
         }
 
-        private String buildJson(Element value)
-        {
-            if (value is Primitive)
-                return Hl7.Fhir.Serialization.PrimitiveTypeConverter.GetValueAsString((Primitive)value);
-
-            var json = Hl7.Fhir.Serialization.FhirSerializer.SerializeToJson(value, root: "removeme");
-            
-            //HACK: the previous serializer call has (wrongly) generated json with a "resourceType:removeme"
-            //member. Remove this member to get the kind of json we want to display in the tree
-            var jsonObject = JObject.Parse(json);
-            jsonObject.Remove("resourceType");
-
-            return jsonObject.ToString(formatting: Newtonsoft.Json.Formatting.None);
-        }
-
-        private string bindingStrengthToCode(ElementDefinition.BindingStrength? strength)
-        {
-            if(strength == null) return "?";
-
-            return strength.ToString().ToLower();
-        }
-
-        private string bindingStrengthToDefinition(ElementDefinition.BindingStrength? strength)
-        {
-            if(strength == null) return "?";
-
-            switch (strength) 
-            {
-            case ElementDefinition.BindingStrength.Required: return "To be conformant, instances of this element SHALL include a code from the specified value set.";
-            case ElementDefinition.BindingStrength.Extensible: return "To be conformant, instances of this element SHALL include a code from the specified value set if any of the codes within the value set can apply to the concept being communicated.  If the valueset does not cover the concept (based on human review), alternate codings (or, data type allowing, text) may be included instead.";
-            case ElementDefinition.BindingStrength.Preferred: return "Instances are encouraged to draw from the specified codes for interoperability purposes but are not required to do so to be considered conformant.";
-            case ElementDefinition.BindingStrength.Example: return "Instances are not expected or even encouraged to draw from the specified value set.  The value set merely provides examples of the types of concepts intended to be included.";
-            default: return "?";
-          }
-        }
+     
 
 
         private String describeSlice(ElementDefinition.ElementDefinitionSlicingComponent slicing)

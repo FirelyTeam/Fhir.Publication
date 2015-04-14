@@ -78,5 +78,26 @@ namespace Fhir.Profiling.Tests
             //    File.WriteAllText(@"c:\temp\publisher\" + "hv-laboratory-result-interpretation-v1.html", result);
             //}
         }
+
+
+        [TestMethod]
+        public void PublishDictHtml()
+        {
+            //var profile = (Profile)FhirParser.ParseResourceFromXml(File.ReadAllText(@"TestData\lipid.profile.xml"));
+            var source = ArtifactResolver.CreateCachedDefault();
+            var pkp = new ProfileKnowledgeProvider("hvlabres", @"c:\temp\publisher\gen", "../gen", "../dist", true, source);
+
+            var tableGenerator = new DictHtmlGenerator(pkp);
+
+            var lipid = source.ReadConformanceResource("http://hl7.org/fhir/StructureDefinition/lipid-report-lipidprofile") as StructureDefinition;
+            Assert.IsNotNull(lipid);
+            var doc = tableGenerator.Generate(lipid);
+
+            var filename = new ResourceIdentity(lipid.Url).Id;
+
+            File.WriteAllText(@"c:\temp\publisher\" + filename + ".html", doc.ToString());
+
+        }
+
     }
 }
