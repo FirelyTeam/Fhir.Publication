@@ -108,6 +108,11 @@ namespace Hl7.Fhir.Publication.Profile
             String reference = binding.ValueSet is FhirUri ? 
                     ((FhirUri)binding.ValueSet).Value : ((ResourceReference)binding.ValueSet).Reference;
 
+            return GetLinkForValueSet(reference);
+        }
+
+        public string GetLinkForValueSet(String reference)
+        {
             if (reference.StartsWith("http://hl7.org/fhir/v3/vs/"))
                 return MakeSpecLink("v3/" + reference.Substring(26) + "/index.html");
             else if (reference.StartsWith("http://hl7.org/fhir/vs/"))
