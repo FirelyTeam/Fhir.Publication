@@ -69,6 +69,7 @@
     <Compile Include="Framework\Location.cs" />
     <Compile Include="Framework\Log.cs" />
     <Compile Include="Framework\Root.cs" />
+    <Compile Include="Profile\DictHtmlGenerator.cs" />
     <Compile Include="Profile\ElementDefnRenderingExtensions.cs" />
     <Compile Include="Profile\LinqXmlExtensions.cs" />
     <Compile Include="Profile\StructureTableGenerator.cs" />

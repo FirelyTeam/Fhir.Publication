@@ -36,7 +36,7 @@ using Hl7.Fhir.Model;
 using Hl7.Fhir.Specification.Navigation;
 using MarkdownDeep;
 
-namespace Hl7.Fhir.Publication
+namespace Hl7.Fhir.Publication.Profile
 {
     internal class DictHtmlGenerator
     {
@@ -51,35 +51,103 @@ namespace Hl7.Fhir.Publication
             _pkp = pkp;
         }
 
-        public XElement Generate(Profile profile)
+        public XElement Generate(StructureDefinition profile)
         {
-            write("<div xmlns=\"" + Hl7.Fhir.Support.XmlNs.XHTML + "\">");
+            
+            write("<table class=\"dict\">\r\n");
 
-            if (profile.ExtensionDefn != null && profile.ExtensionDefn.Any())
+            foreach(var ec in profile.Snapshot.Element)
             {
-                write("<p><a name=\"i0\"><b>Extensions</b></a></p>\r\n");
-                write("<table class=\"dict\">\r\n");
-
-                foreach (var e in profile.ExtensionDefn)
+                if(isProfiledExtension(ec))
                 {
-                    generateExtension(profile, e);
+                    string name = profile.Id + "." + makePathLink(ec);
+                    StructureDefinition extDefn = _pkp.GetExtensionDefinition(ec.Type[0].Profile);
+                    if (extDefn == null)
+                    {
+                        string title = ec.Path + " (" + (ec.Type[0].Profile.StartsWith("#") ? profile.Url : "") + ec.Type[0].Profile + ")";
+                        write("  <tr><td colspan=\"2\" class=\"structure\"><a name=\"" + name + "\"> </a><b>" + title + "</b></td></tr>\r\n");
+                        generateElementInner(profile, ec, 1, null);
+                    }
+                    else
+                    {
+                        String title = ec.Path + " (<a href=\"" + (_pkp.GetLinkForExtensionDefinition(extDefn.Url) != null ? _pkp.GetLinkForExtensionDefinition(extDefn.Url) : "extension-" + extDefn.Id.ToLower() + ".html\">" + (ec.Type[0].Profile.StartsWith("#") ? profile.Url : "") + ec.Type[0].Profile + "</a>)");
+                        write("  <tr><td colspan=\"2\" class=\"structure\"><a name=\"" + name + "\"> </a><b>" + title + "</b></td></tr>\r\n");
+                        ElementDefinition valueDefn = getExtensionValueDefinition(extDefn);
+                        generateElementInner(extDefn, extDefn.Snapshot.Element[0], valueDefn == null ? 2 : 3, valueDefn);
+                    }
                 }
-
-                write("</table>\r\n");
+                else {
+	                String name = profile.Id+"."+ makePathLink(ec);
+	                String title = ec.Path + (ec.Name != null ? "" : "(" +ec.Name +")");
+	                write(" <tr><td colspan=\"2\" class=\"structure\"><a name=\""+name+"\"> </a><b>"+title+"</b></td></tr>\r\n");
+	                generateElementInner(profile, ec, 1, null);
+	                if (ec.Slicing != null)
+	                    generateSlicing(profile, ec.Slicing);
+	            }                
             }
-
-            //if(profile.Structure != null && profile.Structure.Any())
-            int i = 1;
-
-            foreach (var s in profile.Structure)
-            {
-                generateStructure(profile, i, s);
-                i++;
-            }
-
-            write("</div>");
+            write("</table>\r\n");
             return XElement.Parse(xhtml.ToString());
+             
+            //write("<div xmlns=\"" + Hl7.Fhir.Support.XmlNs.XHTML + "\">");
+
+            //if (profile.ExtensionDefn != null && profile.ExtensionDefn.Any())
+            //{
+            //    write("<p><a name=\"i0\"><b>Extensions</b></a></p>\r\n");
+            //    write("<table class=\"dict\">\r\n");
+
+            //    foreach (var e in profile.ExtensionDefn)
+            //    {
+            //        generateExtension(profile, e);
+            //    }
+
+            //    write("</table>\r\n");
+            //}
+
+            ////if(profile.Structure != null && profile.Structure.Any())
+            //int i = 1;
+
+            //foreach (var s in profile.Structure)
+            //{
+            //    generateStructure(profile, i, s);
+            //    i++;
+            //}
+
+            //write("</div>");
+            //return XElement.Parse(xhtml.ToString());
         }
+
+        private ElementDefinition getExtensionValueDefinition(StructureDefinition extDefn) {
+            foreach (ElementDefinition ed in extDefn.Snapshot.Element) {
+                if (ed.Path.StartsWith("Extension.value"))
+                return ed;
+            }
+            return null;
+        }
+
+        
+             private void generateSlicing(StructureDefinition profile, ElementDefinition.ElementDefinitionSlicingComponent slicing)
+             {
+                StringBuilder b = new StringBuilder();
+                if (slicing.Ordered == true)
+                  b.Append("<li>ordered</li>");
+                else
+                  b.Append("<li>unordered</li>");
+                if (slicing.Rules != null)
+                  b.Append("<li>"+slicing.Rules.Value+"</li>");
+                if (slicing.Discriminator != null) {
+                  b.Append("<li>discriminators: ");
+                  bool first = true;
+                  foreach (var s in slicing.Discriminator) {
+                    if (first)
+                      first = false;
+                    else
+                      b.Append(", ");
+                    b.Append(s);
+                  }
+                  b.Append("</li>");
+                }
+                tableRowNE("Slicing", "profiling.html#slicing", "This element introduces a set of slices. The slicing rules are: <ul> "+b.ToString()+"</ul>");
+             }
 
 
         private void write(string s)
@@ -87,40 +155,121 @@ namespace Hl7.Fhir.Publication
             xhtml.Append(s);
         }
 
-        private void generateExtension(Profile profile, Profile.ProfileExtensionDefnComponent e)
+        private String makePathLink(ElementDefinition element)
         {
-            write("  <tr><td colspan=\"2\" class=\"structure\"><a name=\"extension." + e.Code + "\"> </a><b>Extension " + e.Code + "</b></td></tr>\r\n");
-            generateElementInner(profile, e.Definition);
-
-            // DSTU2
-            //       if (e.Element.size() > 1) {
-            //for (int i = 1; i < e.Element.size(); i++) {
-            //  ElementComponent ec = e.Element.get(i);
-            //  write("  <tr><td colspan=\"2\" class=\"structure\"><a name=\"extension."+ec.getPath+"\"> </a><b>&nbsp;"+ec.getPath+"</b></td></tr>\r\n");
-            //  generateElementInner(profile, ec.Definition);
-            //      }
+            if (element.Name == null || element.Name == "")
+                return element.Path;
+            if (!element.Path.Contains("."))
+                return element.Name;
+            return element.Path.Substring(0, element.Path.LastIndexOf(".")) + "." + element.Name;
         }
 
-        private void generateElementInner(Profile profile, Profile.ElementDefinitionComponent d)
+        //private void GenerateExtensionDefinition(StructureDefinition profile, Profile.ProfileExtensionDefnComponent e)
+        //{
+        //    write("  <tr><td colspan=\"2\" class=\"structure\"><a name=\"extension." + e.Code + "\"> </a><b>Extension " + e.Code + "</b></td></tr>\r\n");
+        //    generateElementInner(profile, e.Definition);
+
+        //    // DSTU2
+        //    //       if (e.Element.size() > 1) {
+        //    //for (int i = 1; i < e.Element.size(); i++) {
+        //    //  ElementComponent ec = e.Element.get(i);
+        //    //  write("  <tr><td colspan=\"2\" class=\"structure\"><a name=\"extension."+ec.getPath+"\"> </a><b>&nbsp;"+ec.getPath+"</b></td></tr>\r\n");
+        //    //  generateElementInner(profile, ec.Definition);
+        //    //      }
+        //}
+
+        private void generateElementInner(StructureDefinition profile, ElementDefinition d, int mode, ElementDefinition value)
         {
-            tableRowMarkdown("Definition", d.Formal, profile);
-            tableRow("Control", "conformance-rules.html#conformance", d.DescribeCardinality() + summariseConditions(d.Condition));
+            //tableRowMarkdown
+            tableRowNE("Definition", null, processMarkdown(d.Definition));
+            tableRowNE("Note", null, businessIdWarning(tail(d.Path)));
+            tableRow("Control", "conformance-rules.html#conformance", d.DescribeCardinality() + summariseConditions(d.Condition));     
             tableRowNE("Binding", "terminologies.html", describeBinding(d));
+
             if (d.NameReference != null)
                 tableRow("Type", null, "See " + d.NameReference);
             else
-                tableRowNE("Type", "datatypes.html", describeTypes(profile, d.Type));
+                tableRowNE("Type", "datatypes.html", describeTypes(d.Type) + processSecondary(mode,value));
             tableRow("Is Modifier", "conformance-rules.html#ismodifier", displayBoolean(d.IsModifier));
             tableRow("Must Support", "conformance-rules.html#mustSupport", displayBoolean(d.MustSupport));
-            tableRowMarkdown("Requirements", d.Requirements, profile);
-            tableRow("Aliases", null, d.Synonym != null ? String.Join(", ", d.Synonym) : null);
-            tableRowMarkdown("Comments", d.Comments, profile);
+            tableRowNE("Requirements", null, processMarkdown(d.Requirements));
+            tableRowHint("Alternate Names", "Other names by which this resource/element may be known", null, String.Join(", ", d.Alias));           
+            tableRowNE("Comments", null, processMarkdown(d.Comments));
             tableRow("Max Length", null, d.MaxLength == null ? null : d.MaxLength.ToString());
-            tableRow("Fixed Value", null, d.Value != null ? d.Value.ForDisplay() : null);
-            tableRow("Example", null, d.Example != null ? d.Example.ForDisplay() : null);
+            tableRowNE("Default Value", null, d.DefaultValue.EncodeValue());
+
+            tableRowNE("Meaning if Missing", null, d.MeaningWhenMissing);
+            tableRowNE("Fixed Value", null, d.Fixed != null ? d.Fixed.EncodeValue() : null);
+            tableRowNE("Pattern Value", null, d.Pattern != null ? d.Fixed.EncodeValue() : null);
+            tableRow("Example", null, d.Example != null ? d.Example.EncodeValue() : null);
             tableRowNE("Invariants", null, describeInvariants(d.Constraint));
             tableRow("LOINC Code", null, getMapping(profile, d, LOINC_MAPPING));
             tableRow("SNOMED-CT Code", null, getMapping(profile, d, SNOMED_MAPPING));
+        }
+
+          private String processSecondary(int mode, ElementDefinition value){
+            switch (mode) {
+            case 1 : return "";
+            case 2 : return "  (Complex Extension)";
+            case 3 : return "  (Extension Type: "+ describeTypes(value.Type) +")";
+            default: return "";
+            }
+          }
+
+        public string businessIdWarning(string name)
+        {
+            if (name.Equals("identifier"))
+                return "This is a business identifer, not a resource identifier (see <a href=\"resource.html#identifiers\">discussion</a>)";
+            if (name.Equals("version"))
+                return "This is a business versionId, not a resource identifier (see <a href=\"resource.html#versions\">discussion</a>)";
+            return null;
+        }
+
+        private string tail(string path) {
+            if (path.Contains("."))
+              return path.Substring(0, path.IndexOf("."));
+            else
+              return path;
+        }
+
+        public string processMarkdown(string text)
+        {
+            if (text == null)
+                return "";
+            text = text.Replace("||", "\r\n\r\n");
+            while (text.Contains("[[["))
+            {
+                string left = text.Substring(0, text.IndexOf("[[["));
+                string linkText = text.Substring(text.IndexOf("[[[") + 3, text.IndexOf("]]]"));
+                string right = text.Substring(text.IndexOf("]]]") + 3);
+                string url = "";
+                string[] delimiterChars = new string[] { "\\#" };
+                string[] parts = linkText.Split(delimiterChars, StringSplitOptions.RemoveEmptyEntries);
+                if (parts[0].Contains("/StructureDefinition/"))
+                {
+                    StructureDefinition ed = _pkp.GetExtensionDefinition(parts[0]);
+                    if (ed == null)
+                        throw new Exception("Unable to find extension " + parts[0]);
+                    url = _pkp.GetLinkForExtensionDefinition(ed.Url) + ".html";
+                }
+                if (url == null || url == "")
+                {
+                    delimiterChars = new string[] { "\\." };
+                    string[] paths = parts[0].Split(delimiterChars, StringSplitOptions.RemoveEmptyEntries);
+                    StructureDefinition p = _pkp.GetConstraintDefinition(paths[0]);
+                    if (p != null)
+                        url = _pkp.GetLinkForCoreTypeDocu(linkText);
+                }
+                text = left + "[" + linkText + "](" + url + ")" + right;
+            }
+            var mark = new Markdown();
+
+            //set preferences of your markdown
+            mark.SafeMode = true;
+            mark.ExtraMode = true;
+
+            return mark.Transform(WebUtility.HtmlEncode(text));
+
         }
 
         internal const string RIM_MAPPING = "http://hl7.org/v3";
@@ -137,7 +286,7 @@ namespace Hl7.Fhir.Publication
                 return " ?";
         }
 
-        private String describeBinding(Profile.ElementDefinitionComponent d)
+        private String describeBinding(ElementDefinition d)
         {
             if (d.Binding == null)
                 return null;
@@ -145,39 +294,49 @@ namespace Hl7.Fhir.Publication
                 return d.Binding.ForHtml(_pkp);
         }
 
-        private String describeTypes(Profile profile, List<Profile.TypeRefComponent> types)
+        private String describeTypes(List<ElementDefinition.TypeRefComponent> types)
         {
             if (types == null || !types.Any()) return null;
 
-            if (types.Count == 1)
-                return describeType(profile, types[0]);
-            else
-            {
-                return "Choice of: " +
-                    String.Join(", ", types.Select(t => describeType(profile, t)));
+            StringBuilder b = new StringBuilder();
+            if (types.Count() == 1)
+                describeType(b, types[0]);
+            else {
+                bool first = true;
+                b.Append("Choice of: ");
+                foreach (var t in types) {
+                if (first)
+                    first = false;
+                else
+                    b.Append(", ");
+                describeType(b, t);
+                }
             }
+            return b.ToString();
         }
 
-        private string describeType(Profile profile, Profile.TypeRefComponent t)
+        private string describeType(StringBuilder b, ElementDefinition.TypeRefComponent t)
         {
-            StringBuilder b = new StringBuilder();
-
-            if (_pkp.HasLinkForTypeDocu(t.Code))
+            if (!t.Code.StartsWith("="))
             {
-                b.Append("<a href=\"");
-                b.Append(_pkp.GetLinkForTypeDocu(t.Code));
-                b.Append("\">");
-                b.Append(t.Code);
-                b.Append("</a>");
-            }
-            else
-                b.Append(t.Code);
-
-            if (t.Profile != null)
-            {
-                b.Append(String.Format("<a href=\"{0}\">", _pkp.GetLinkForProfileReference(profile, t.Profile)));
-                b.Append("(Profile = " + t.Profile + ")");
-                b.Append("</a>");
+                if (t.Code.StartsWith("xs:"))
+                {
+                    b.Append(t.Code);
+                }
+                else
+                {
+                    b.Append("<a href=\"");
+                    b.Append(_pkp.GetLinkForCoreTypeDocu(t.Code));
+                    b.Append("\">");
+                    b.Append(t.Code);
+                    b.Append("</a>");
+                }
+                if (t.Profile != null)
+                {
+                    b.Append(String.Format("<a href=\"{0}\">", _pkp.GetLinkForProfileReference(t.Profile)));
+                    b.Append("(Profile = " + t.Profile + ")");
+                    b.Append("</a>");
+                }
             }
 
             return b.ToString();
@@ -191,7 +350,7 @@ namespace Hl7.Fhir.Publication
                 return null;
         }
 
-        private String describeInvariants(List<Profile.ElementDefinitionConstraintComponent> constraints)
+        private String describeInvariants(List<ElementDefinition.ElementDefinitionConstraintComponent> constraints)
         {
             if (constraints == null || !constraints.Any())
                 return null;
@@ -220,7 +379,7 @@ namespace Hl7.Fhir.Publication
         }
 
 
-        private String getMapping(Profile profile, Profile.ElementDefinitionComponent d, String uri)
+        private String getMapping(StructureDefinition profile, ElementDefinition d, String uri)
         {
             if (profile.Mapping == null) return null;
             if (d.Mapping == null) return null;
@@ -231,74 +390,72 @@ namespace Hl7.Fhir.Publication
             return d.Mapping.Where(map => map.Identity == id).Select(map => map.Map).FirstOrDefault();
         }
 
-        private void generateStructure(Profile profile, int i, Profile.ProfileStructureComponent s)
-        {
-            write("<p><a name=\"i" + i.ToString() + "\"><b>" + s.Name + "</b></a></p>\r\n");
-            write("<table class=\"dict\">\r\n");
+        //private void generateStructure(StructureDefinition profile, int i, StructureDefinition.ProfileStructureComponent s)
+        //{
+        //    write("<p><a name=\"i" + i.ToString() + "\"><b>" + s.Name + "</b></a></p>\r\n");
+        //    write("<table class=\"dict\">\r\n");
 
-            foreach (var ec in s.Element)
-            {
-                if (isProfiledExtension(ec))
-                {
-                    String name = _pkp.MakeElementDictAnchor(s,ec);
-                    String title = ec.Path + " (" + ec.Definition.Type[0].Profile + ")";
-                    write("  <tr><td colspan=\"2\" class=\"structure\"><a name=\"" + name + "\"> </a><b>" + title + "</b></td></tr>\r\n");
+        //    foreach (var ec in s.Element)
+        //    {
+        //        if (isProfiledExtension(ec))
+        //        {
+        //            String name = _pkp.MakeElementDictAnchor(s,ec);
+        //            String title = ec.Path + " (" + ec.Definition.Type[0].Profile + ")";
+        //            write("  <tr><td colspan=\"2\" class=\"structure\"><a name=\"" + name + "\"> </a><b>" + title + "</b></td></tr>\r\n");
 
-                    var profExtDefn = _pkp.getExtensionDefinition(profile, ec.Definition.Type[0].Profile);
-                    var extDefn = ec.Definition;
-                    if (profExtDefn != null) extDefn = profExtDefn.Definition;
+        //            var profExtDefn = _pkp.getExtensionDefinition(profile, ec.Definition.Type[0].Profile);
+        //            var extDefn = ec.Definition;
+        //            if (profExtDefn != null) extDefn = profExtDefn.Definition;
                   
-                    generateElementInner(profile, extDefn);
-                }
-                else
-                {
-                    String name = _pkp.MakeElementDictAnchor(s,ec);
-                    String title = ec.Path + (ec.Name == null ? "" : "(" + ec.Name + ")");
-                    write("  <tr><td colspan=\"2\" class=\"structure\"><a name=\"" + name + "\"> </a><b>" + title + "</b></td></tr>\r\n");
-                    generateElementInner(profile, ec.Definition);
-                }
-            }
+        //            generateElementInner(profile, extDefn);
+        //        }
+        //        else
+        //        {
+        //            String name = _pkp.MakeElementDictAnchor(s,ec);
+        //            String title = ec.Path + (ec.Name == null ? "" : "(" + ec.Name + ")");
+        //            write("  <tr><td colspan=\"2\" class=\"structure\"><a name=\"" + name + "\"> </a><b>" + title + "</b></td></tr>\r\n");
+        //            generateElementInner(profile, ec.Definition);
+        //        }
+        //    }
 
-            write("</table>\r\n");
-        }
+        //    write("</table>\r\n");
+        //}
 
-        private bool isProfiledExtension(Profile.ElementComponent ec)
+        private bool isProfiledExtension(ElementDefinition ec)
         {
-            return ec.Definition.Type != null && ec.Definition.Type.Count == 1 && 
-                ec.Definition.Type[0].Code == "Extension" && 
-                ec.Definition.Type[0].Profile != null;
+            return ec.Type.Count == 1 && ec.Type[0].Code.Equals("Extension") && ec.Type[0].Profile != null && ec.Type[0].Profile != "";
         }
 
-        private void tableRowMarkdown(String name, String value, Profile profile)
-        {
-            String text;
+        //private void tableRowMarkdown(String name, String value, StructureDefinition profile)
+        //{
+        //    String text;
 
-            if (value == null)
-                text = "";
-            else
-            {
-                text = value.Replace("||", "\r\n\r\n");
-                while (text.Contains("[[["))
-                {
-                    String left = text.Substring(0, text.IndexOf("[[["));
-                    String linkText = text.Substring(text.IndexOf("[[[") + 3, text.IndexOf("]]]"));
-                    String right = text.Substring(text.IndexOf("]]]") + 3);
+        //    if (value == null)
+        //        text = "";
+        //    else
+        //    {
+        //        text = value.Replace("||", "\r\n\r\n");
+        //        while (text.Contains("[[["))
+        //        {
+        //            String left = text.Substring(0, text.IndexOf("[[["));
+        //            String linkText = text.Substring(text.IndexOf("[[[") + 3, text.IndexOf("]]]"));
+        //            String right = text.Substring(text.IndexOf("]]]") + 3);
 
-                    var url = _pkp.GetLinkForProfileReference(profile, linkText);
+        //            var url = _pkp.GetLinkForProfileReference(profile, linkText);
 
-                    text = left + "[" + linkText + "](" + url + ")" + right;
-                }
-            }
+        //            text = left + "[" + linkText + "](" + url + ")" + right;
+        //        }
+        //    }
 
-            var mark = new Markdown();
+        //    var mark = new Markdown();
 
-            //set preferences of your markdown
-            mark.SafeMode = true;
-            mark.ExtraMode = true;
+        //    //set preferences of your markdown
+        //    mark.SafeMode = true;
+        //    mark.ExtraMode = true;
 
-            var formatted = mark.Transform(WebUtility.HtmlEncode(text));
-            write("  <tr><td>" + name + "</td><td>" + formatted + "</td></tr>\r\n");
-        }
+        //    var formatted = mark.Transform(WebUtility.HtmlEncode(text));
+        //    write("  <tr><td>" + name + "</td><td>" + formatted + "</td></tr>\r\n");
+        //}
 
         private void tableRow(String name, String defRef, String value)
         {
@@ -328,8 +485,21 @@ namespace Hl7.Fhir.Publication
                     write("  <tr><td>" + name + "</td><td>" + value + "</td></tr>\r\n");
             }
         }
+
+
+        private void tableRowHint(String name, String hint, String defRef, String value)
+        {
+            if (value != null && !"".Equals(value)) 
+            {
+                if (defRef != null) 
+                write("  <tr><td><a href=\"" + defRef +"\" title=\"" + WebUtility.HtmlEncode(hint)+ "\">"+name+"</a></td><td>"+ WebUtility.HtmlEncode(value) +"</td></tr>\r\n");
+                else
+                    write("  <tr><td title=\"" + WebUtility.HtmlEncode(hint) + "\">" + name + "</td><td>" + WebUtility.HtmlEncode(value) + "</td></tr>\r\n");
+            }
+        }
     }
 }
+
 
 
 #if ORIGINAL_JAVA_CODE

@@ -27,7 +27,6 @@ namespace Hl7.Fhir.Publication.Profile
             _source = source;
         }
 
-
         public bool IsResource(string typename)
         {
             return ModelInfo.IsKnownResource(typename);
@@ -81,7 +80,7 @@ namespace Hl7.Fhir.Publication.Profile
             if(cr != null && cr.Type == StructureDefinition.StructureDefinitionType.Extension)
             {
                 if(cr.Snapshot == null)
-                    throw new NotImplementedException("No snapshot representation on extension for url " + url);
+                    throw new NotImplementedException("No snapshot representation for StructureDefinition (extension) at url " + url);
 
                 return cr;
             }
@@ -89,6 +88,20 @@ namespace Hl7.Fhir.Publication.Profile
                 return null;
         }
 
+        public StructureDefinition GetConstraintDefinition(string url)
+        {
+            var cr = _source.ReadConformanceResource(url) as StructureDefinition;
+            if (cr != null && cr.Type == StructureDefinition.StructureDefinitionType.Constraint)
+            {
+                if (cr.Snapshot == null)
+                    throw new NotImplementedException("No snapshot representation for StructureDefinition (constraint) at url " + url);
+
+                return cr;
+            }
+            else
+                return null;
+
+        }
 
         public string GetLinkForExtensionDefinition(string extensionUrl)
         {
@@ -192,6 +205,8 @@ namespace Hl7.Fhir.Publication.Profile
                 return MakeSpecLink("narrative.html#Narrative");
             else if (typename == "Resource")
                 return MakeSpecLink("resource.html");
+            else if (typename == "Reference")
+                return MakeSpecLink("references.html#Reference");
             else
                 return null;
         }
@@ -202,10 +217,10 @@ namespace Hl7.Fhir.Publication.Profile
             return generateCoreTypeLink(typename) != null;
         }
 
-        //internal Model.ValueSet GetValueSet(string url)
+        //internal model.valueset getvalueset(string url)
         //{
-        //    if (!url.StartsWith("http")) url = "http://local/" + url;
-        //    return _loader.ArtifactSource.ReadResourceArtifact(new Uri(url)) as ValueSet;
+        //    if (!url.startswith("http")) url = "http://local/" + url;
+        //    return _loader.artifactsource.readresourceartifact(new uri(url)) as valueset;
         //}
 
 
