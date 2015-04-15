@@ -86,34 +86,30 @@ namespace Hl7.Fhir.Publication.Profile
 	            }                
             }
             write("</table>\r\n");
-            return XElement.Parse(xhtml.ToString());
-             
-            //write("<div xmlns=\"" + Hl7.Fhir.Support.XmlNs.XHTML + "\">");
+            var model = XElement.Parse(xhtml.ToString());
+            return wrap(model, profile.Name);            
+        }
 
-            //if (profile.ExtensionDefn != null && profile.ExtensionDefn.Any())
-            //{
-            //    write("<p><a name=\"i0\"><b>Extensions</b></a></p>\r\n");
-            //    write("<table class=\"dict\">\r\n");
+        private XElement wrap(XElement table, string name)
+        {
+            string head =
+                "<head><title>StructureDefinition: " + name + "</title>" +
+                "<meta content='width=device-width, initial-scale=1.0' name='viewport'/>" +
+                "<meta content='http://hl7.org/fhir' name='author'/>" +
+                "<link rel='stylesheet' href='../dist/css/fhir.css'/>" +
+                "<link rel='Prev' href='http://hl7.org/implement/standards/fhir/lipid-report-lipidprofile'/>" +
+                "<link rel='stylesheet' href='../dist/css/bootstrap.css'/>" +
+                "<link rel='stylesheet' href='../dist/css/bootstrap-fhir.css'/>" +
+                "<link rel='stylesheet' href='../dist/css/project.css'/>" +
+                "</head>";
 
-            //    foreach (var e in profile.ExtensionDefn)
-            //    {
-            //        generateExtension(profile, e);
-            //    }
+            string page = "<html>" + head + "<body /></html>";
 
-            //    write("</table>\r\n");
-            //}
+            XElement result = XElement.Parse(page);
+            var body = result.Element("body");
+            body.Add(table);
 
-            ////if(profile.Structure != null && profile.Structure.Any())
-            //int i = 1;
-
-            //foreach (var s in profile.Structure)
-            //{
-            //    generateStructure(profile, i, s);
-            //    i++;
-            //}
-
-            //write("</div>");
-            //return XElement.Parse(xhtml.ToString());
+            return result;
         }
 
         private ElementDefinition getExtensionValueDefinition(StructureDefinition extDefn) {
@@ -125,29 +121,30 @@ namespace Hl7.Fhir.Publication.Profile
         }
 
         
-             private void generateSlicing(StructureDefinition profile, ElementDefinition.ElementDefinitionSlicingComponent slicing)
-             {
-                StringBuilder b = new StringBuilder();
-                if (slicing.Ordered == true)
-                  b.Append("<li>ordered</li>");
-                else
-                  b.Append("<li>unordered</li>");
-                if (slicing.Rules != null)
-                  b.Append("<li>"+slicing.Rules.Value+"</li>");
-                if (slicing.Discriminator != null) {
-                  b.Append("<li>discriminators: ");
-                  bool first = true;
-                  foreach (var s in slicing.Discriminator) {
+        private void generateSlicing(StructureDefinition profile, ElementDefinition.ElementDefinitionSlicingComponent slicing)
+        {
+            StringBuilder b = new StringBuilder();
+            if (slicing.Ordered == true)
+                b.Append("<li>ordered</li>");
+            else
+                b.Append("<li>unordered</li>");
+            if (slicing.Rules != null)
+                b.Append("<li>"+slicing.Rules.Value+"</li>");
+            if (slicing.Discriminator != null) {
+                b.Append("<li>discriminators: ");
+                bool first = true;
+                foreach (var s in slicing.Discriminator) 
+                {
                     if (first)
-                      first = false;
+                        first = false;
                     else
-                      b.Append(", ");
+                        b.Append(", ");
                     b.Append(s);
-                  }
-                  b.Append("</li>");
                 }
-                tableRowNE("Slicing", "profiling.html#slicing", "This element introduces a set of slices. The slicing rules are: <ul> "+b.ToString()+"</ul>");
-             }
+                b.Append("</li>");
+            }
+            tableRowNE("Slicing", "profiling.html#slicing", "This element introduces a set of slices. The slicing rules are: <ul> "+b.ToString()+"</ul>");
+        }
 
 
         private void write(string s)

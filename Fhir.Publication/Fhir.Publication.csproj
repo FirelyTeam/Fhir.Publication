@@ -85,967 +85,2883 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="dist\fonts\glyphiconshalflings-regular.eot" />
-    <None Include="dist\fonts\glyphiconshalflings-regular.otf" />
-    <None Include="dist\fonts\glyphiconshalflings-regular.ttf" />
-    <None Include="dist\fonts\glyphiconshalflings-regular.woff" />
-    <None Include="dist\images\fhir-summary.pdf" />
-    <None Include="dist\images\glossary example.xcf" />
-    <None Include="dist\images\source\Slicing.vsd" />
+    <None Include="dist\fonts\glyphiconshalflings-regular.eot">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="dist\fonts\glyphiconshalflings-regular.otf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="dist\fonts\glyphiconshalflings-regular.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="dist\fonts\glyphiconshalflings-regular.woff">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="dist\images\fhir-summary.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="dist\images\glossary example.xcf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="dist\images\source\Slicing.vsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="dist\css\bootstrap-fhir.css" />
-    <Content Include="dist\css\bootstrap-glyphicons.css" />
-    <Content Include="dist\css\bootstrap.css" />
-    <Content Include="dist\css\fhir.css" />
-    <Content Include="dist\css\project.css" />
-    <Content Include="dist\css\pygments-manni.css" />
-    <Content Include="dist\css\xml.css" />
-    <Content Include="dist\fonts\glyphiconshalflings-regular.svg" />
-    <Content Include="dist\gen\tbl_bck00.png" />
-    <Content Include="dist\gen\tbl_bck1.png" />
-    <Content Include="dist\gen\tbl_bck10.png" />
-    <Content Include="dist\gen\tbl_bck100.png" />
-    <Content Include="dist\gen\tbl_bck11.png" />
-    <Content Include="dist\gen\tbl_bck110.png" />
-    <Content Include="dist\images\agent.png" />
-    <Content Include="dist\images\animal.png" />
-    <Content Include="dist\images\assessmentscale.png" />
-    <Content Include="dist\images\base.png" />
-    <Content Include="dist\images\cc0.png" />
-    <Content Include="dist\images\change.png" />
-    <Content Include="dist\images\conformance.png" />
-    <Content Include="dist\images\constraint.png" />
-    <Content Include="dist\images\daf-actors-and-interactions.png" />
-    <Content Include="dist\images\daf-fhir-query-stack.png" />
-    <Content Include="dist\images\datatypes.png" />
-    <Content Include="dist\images\definitions.png" />
-    <Content Include="dist\images\device.png" />
-    <Content Include="dist\images\documentconformance.png" />
-    <Content Include="dist\images\documentheader.png" />
-    <Content Include="dist\images\dt-map.png" />
-    <Content Include="dist\images\dt-primitives.png" />
-    <Content Include="dist\images\dt-structures.png" />
-    <Content Include="dist\images\dt-types.png" />
-    <Content Include="dist\images\header-tabs.png" />
-    <Content Include="dist\images\help.png" />
-    <Content Include="dist\images\help16.png" />
-    <Content Include="dist\images\hl7-care-connected-final-transparent.png" />
-    <Content Include="dist\images\hl7-care-connected-final.png" />
-    <Content Include="dist\images\hl7logo.png" />
-    <Content Include="dist\images\icon-fhir-16.png" />
-    <Content Include="dist\images\icon_bundle.png" />
-    <Content Include="dist\images\icon_choice.gif" />
-    <Content Include="dist\images\icon_datatype.gif" />
-    <Content Include="dist\images\icon_element.gif" />
-    <Content Include="dist\images\icon_extension.png" />
-    <Content Include="dist\images\icon_extension_complex.png" />
-    <Content Include="dist\images\icon_extension_simple.png" />
-    <Content Include="dist\images\icon_primitive.png" />
-    <Content Include="dist\images\icon_profile.png" />
-    <Content Include="dist\images\icon_reference.png" />
-    <Content Include="dist\images\icon_resource.png" />
-    <Content Include="dist\images\icon_reuse.png" />
-    <Content Include="dist\images\icon_slice.png" />
-    <Content Include="dist\images\icon_text.png" />
-    <Content Include="dist\images\labreport.png" />
-    <Content Include="dist\images\lock.png" />
-    <Content Include="dist\images\logo.png" />
-    <Content Include="dist\images\messageconformance.png" />
-    <Content Include="dist\images\messageheader.png" />
-    <Content Include="dist\images\mixin-base.png" />
-    <Content Include="dist\images\mixin-pure.png" />
-    <Content Include="dist\images\mixin-wrapper.png" />
-    <Content Include="dist\images\modifier-extension-warning.png" />
-    <Content Include="dist\images\modifier.png" />
-    <Content Include="dist\images\mustsupport.png" />
-    <Content Include="dist\images\organization.png" />
-    <Content Include="dist\images\patient.png" />
-    <Content Include="dist\images\person.png" />
-    <Content Include="dist\images\prescription.png" />
-    <Content Include="dist\images\problem.png" />
-    <Content Include="dist\images\profile.png" />
-    <Content Include="dist\images\res-map.png" />
-    <Content Include="dist\images\rss.png" />
-    <Content Include="dist\images\sdc-generic-workflow.png" />
-    <Content Include="dist\images\security-icon-app.png" />
-    <Content Include="dist\images\security-icon-fhir.png" />
-    <Content Include="dist\images\security-icon-sec.png" />
-    <Content Include="dist\images\security-icon-user.png" />
-    <Content Include="dist\images\security-layout.png" />
-    <Content Include="dist\images\shot.png" />
-    <Content Include="dist\images\slicing.png" />
-    <Content Include="dist\images\stock\128\3d bar chart.png" />
-    <Content Include="dist\images\stock\128\About.png" />
-    <Content Include="dist\images\stock\128\Add.png" />
-    <Content Include="dist\images\stock\128\Altach.png" />
-    <Content Include="dist\images\stock\128\Auto zoom.png" />
-    <Content Include="dist\images\stock\128\Back.png" />
-    <Content Include="dist\images\stock\128\Bad mark.png" />
-    <Content Include="dist\images\stock\128\Bar graph.png" />
-    <Content Include="dist\images\stock\128\Burn CD.png" />
-    <Content Include="dist\images\stock\128\Burn data.png" />
-    <Content Include="dist\images\stock\128\Burn dustbin.png" />
-    <Content Include="dist\images\stock\128\Burn money.png" />
-    <Content Include="dist\images\stock\128\Burn trash can.png" />
-    <Content Include="dist\images\stock\128\Calendar.png" />
-    <Content Include="dist\images\stock\128\Cancel.png" />
-    <Content Include="dist\images\stock\128\Card file.png" />
-    <Content Include="dist\images\stock\128\CD-disk.png" />
-    <Content Include="dist\images\stock\128\Certification.png" />
-    <Content Include="dist\images\stock\128\Chart.png" />
-    <Content Include="dist\images\stock\128\Clear.png" />
-    <Content Include="dist\images\stock\128\Close.png" />
-    <Content Include="dist\images\stock\128\Copy.png" />
-    <Content Include="dist\images\stock\128\Cut.png" />
-    <Content Include="dist\images\stock\128\Data.png" />
-    <Content Include="dist\images\stock\128\Datasheet v2.png" />
-    <Content Include="dist\images\stock\128\Datasheet.png" />
-    <Content Include="dist\images\stock\128\Delete.png" />
-    <Content Include="dist\images\stock\128\Destruction of documents.png" />
-    <Content Include="dist\images\stock\128\Disaster.png" />
-    <Content Include="dist\images\stock\128\Dollar.png" />
-    <Content Include="dist\images\stock\128\Download.png" />
-    <Content Include="dist\images\stock\128\E-mail.png" />
-    <Content Include="dist\images\stock\128\Earth.png" />
-    <Content Include="dist\images\stock\128\Edit.png" />
-    <Content Include="dist\images\stock\128\Empty dustbin.png" />
-    <Content Include="dist\images\stock\128\Empty trash can.png" />
-    <Content Include="dist\images\stock\128\Eraser.png" />
-    <Content Include="dist\images\stock\128\Euro.png" />
-    <Content Include="dist\images\stock\128\Eye.png" />
-    <Content Include="dist\images\stock\128\Favorites.png" />
-    <Content Include="dist\images\stock\128\Film.png" />
-    <Content Include="dist\images\stock\128\Filter.png" />
-    <Content Include="dist\images\stock\128\Find next.png" />
-    <Content Include="dist\images\stock\128\Find previous.png" />
-    <Content Include="dist\images\stock\128\Find.png" />
-    <Content Include="dist\images\stock\128\Fire curl.png" />
-    <Content Include="dist\images\stock\128\Fire engine.png" />
-    <Content Include="dist\images\stock\128\Fire v2.png" />
-    <Content Include="dist\images\stock\128\Fire.png" />
-    <Content Include="dist\images\stock\128\Fireman.png" />
-    <Content Include="dist\images\stock\128\Firewall.png" />
-    <Content Include="dist\images\stock\128\Flame.png" />
-    <Content Include="dist\images\stock\128\Flash drive.png" />
-    <Content Include="dist\images\stock\128\Folder.png" />
-    <Content Include="dist\images\stock\128\Forward.png" />
-    <Content Include="dist\images\stock\128\Full dustbin.png" />
-    <Content Include="dist\images\stock\128\Full trash can.png" />
-    <Content Include="dist\images\stock\128\Good mark.png" />
-    <Content Include="dist\images\stock\128\Help.png" />
-    <Content Include="dist\images\stock\128\History.png" />
-    <Content Include="dist\images\stock\128\Home.png" />
-    <Content Include="dist\images\stock\128\Hot file.png" />
-    <Content Include="dist\images\stock\128\Hot folder.png" />
-    <Content Include="dist\images\stock\128\Hot table.png" />
-    <Content Include="dist\images\stock\128\Hourglass.png" />
-    <Content Include="dist\images\stock\128\Info.png" />
-    <Content Include="dist\images\stock\128\Internet access.png" />
-    <Content Include="dist\images\stock\128\Keys.png" />
-    <Content Include="dist\images\stock\128\Landscape.png" />
-    <Content Include="dist\images\stock\128\Lightning.png" />
-    <Content Include="dist\images\stock\128\List.png" />
-    <Content Include="dist\images\stock\128\Lock.png" />
-    <Content Include="dist\images\stock\128\Magnifier.png" />
-    <Content Include="dist\images\stock\128\Mail.png" />
-    <Content Include="dist\images\stock\128\Measure.png" />
-    <Content Include="dist\images\stock\128\Microsoft.png" />
-    <Content Include="dist\images\stock\128\Money.png" />
-    <Content Include="dist\images\stock\128\Mouse.png" />
-    <Content Include="dist\images\stock\128\New file.png" />
-    <Content Include="dist\images\stock\128\Newspaper.png" />
-    <Content Include="dist\images\stock\128\No entry.png" />
-    <Content Include="dist\images\stock\128\No.png" />
-    <Content Include="dist\images\stock\128\Notepad.png" />
-    <Content Include="dist\images\stock\128\Notes.png" />
-    <Content Include="dist\images\stock\128\Objects.png" />
-    <Content Include="dist\images\stock\128\OK.png" />
-    <Content Include="dist\images\stock\128\Okay.png" />
-    <Content Include="dist\images\stock\128\Open file.png" />
-    <Content Include="dist\images\stock\128\Options.png" />
-    <Content Include="dist\images\stock\128\Paste.png" />
-    <Content Include="dist\images\stock\128\Percent.png" />
-    <Content Include="dist\images\stock\128\Picture file.png" />
-    <Content Include="dist\images\stock\128\Pie chart.png" />
-    <Content Include="dist\images\stock\128\Portrait.png" />
-    <Content Include="dist\images\stock\128\Pound sterling.png" />
-    <Content Include="dist\images\stock\128\Preview.png" />
-    <Content Include="dist\images\stock\128\Print preview.png" />
-    <Content Include="dist\images\stock\128\Print.png" />
-    <Content Include="dist\images\stock\128\Properties.png" />
-    <Content Include="dist\images\stock\128\Question.png" />
-    <Content Include="dist\images\stock\128\Red OK.png" />
-    <Content Include="dist\images\stock\128\Red pin.png" />
-    <Content Include="dist\images\stock\128\Redo.png" />
-    <Content Include="dist\images\stock\128\Refresh document.png" />
-    <Content Include="dist\images\stock\128\Refresh.png" />
-    <Content Include="dist\images\stock\128\Registration.png" />
-    <Content Include="dist\images\stock\128\Remove.png" />
-    <Content Include="dist\images\stock\128\Repair computer.png" />
-    <Content Include="dist\images\stock\128\Report.png" />
-    <Content Include="dist\images\stock\128\Rulers.png" />
-    <Content Include="dist\images\stock\128\Save all.png" />
-    <Content Include="dist\images\stock\128\Save as.png" />
-    <Content Include="dist\images\stock\128\Save file.png" />
-    <Content Include="dist\images\stock\128\Screen settings.png" />
-    <Content Include="dist\images\stock\128\Set square.png" />
-    <Content Include="dist\images\stock\128\Silver flash drive.png" />
-    <Content Include="dist\images\stock\128\Sorting 1-9.png" />
-    <Content Include="dist\images\stock\128\Sorting 9-1.png" />
-    <Content Include="dist\images\stock\128\Sorting A-Z.png" />
-    <Content Include="dist\images\stock\128\Sorting Z-A.png" />
-    <Content Include="dist\images\stock\128\Sound file.png" />
-    <Content Include="dist\images\stock\128\Spell checking.png" />
-    <Content Include="dist\images\stock\128\Stop.png" />
-    <Content Include="dist\images\stock\128\Sum.png" />
-    <Content Include="dist\images\stock\128\Table.png" />
-    <Content Include="dist\images\stock\128\Tables.png" />
-    <Content Include="dist\images\stock\128\Telephone.png" />
-    <Content Include="dist\images\stock\128\Text file.png" />
-    <Content Include="dist\images\stock\128\Text.png" />
-    <Content Include="dist\images\stock\128\Turn off.png" />
-    <Content Include="dist\images\stock\128\Undo.png" />
-    <Content Include="dist\images\stock\128\Up folder.png" />
-    <Content Include="dist\images\stock\128\Update password.png" />
-    <Content Include="dist\images\stock\128\Upload.png" />
-    <Content Include="dist\images\stock\128\Video file.png" />
-    <Content Include="dist\images\stock\128\Warning.png" />
-    <Content Include="dist\images\stock\128\Wrench.png" />
-    <Content Include="dist\images\stock\128\Yen.png" />
-    <Content Include="dist\images\stock\128\Yes.png" />
-    <Content Include="dist\images\stock\128\Zoom in.png" />
-    <Content Include="dist\images\stock\128\Zoom out.png" />
-    <Content Include="dist\images\stock\16\3d bar chart.png" />
-    <Content Include="dist\images\stock\16\About.png" />
-    <Content Include="dist\images\stock\16\Add.png" />
-    <Content Include="dist\images\stock\16\Altach.png" />
-    <Content Include="dist\images\stock\16\Auto zoom.png" />
-    <Content Include="dist\images\stock\16\Back.png" />
-    <Content Include="dist\images\stock\16\Bad mark.png" />
-    <Content Include="dist\images\stock\16\Bar graph.png" />
-    <Content Include="dist\images\stock\16\Burn CD.png" />
-    <Content Include="dist\images\stock\16\Burn data.png" />
-    <Content Include="dist\images\stock\16\Burn dustbin.png" />
-    <Content Include="dist\images\stock\16\Burn money.png" />
-    <Content Include="dist\images\stock\16\Burn trash can.png" />
-    <Content Include="dist\images\stock\16\Calendar.png" />
-    <Content Include="dist\images\stock\16\Cancel.png" />
-    <Content Include="dist\images\stock\16\Card file.png" />
-    <Content Include="dist\images\stock\16\CD-disk.png" />
-    <Content Include="dist\images\stock\16\Certification.png" />
-    <Content Include="dist\images\stock\16\Chart.png" />
-    <Content Include="dist\images\stock\16\Clear.png" />
-    <Content Include="dist\images\stock\16\Close.png" />
-    <Content Include="dist\images\stock\16\Copy.png" />
-    <Content Include="dist\images\stock\16\Cut.png" />
-    <Content Include="dist\images\stock\16\Data.png" />
-    <Content Include="dist\images\stock\16\Datasheet v2.png" />
-    <Content Include="dist\images\stock\16\Datasheet.png" />
-    <Content Include="dist\images\stock\16\Delete.png" />
-    <Content Include="dist\images\stock\16\Destruction of documents.png" />
-    <Content Include="dist\images\stock\16\Disaster.png" />
-    <Content Include="dist\images\stock\16\Dollar.png" />
-    <Content Include="dist\images\stock\16\Download.png" />
-    <Content Include="dist\images\stock\16\E-mail.png" />
-    <Content Include="dist\images\stock\16\Earth.png" />
-    <Content Include="dist\images\stock\16\Edit.png" />
-    <Content Include="dist\images\stock\16\Empty dustbin.png" />
-    <Content Include="dist\images\stock\16\Empty trash can.png" />
-    <Content Include="dist\images\stock\16\Eraser.png" />
-    <Content Include="dist\images\stock\16\Euro.png" />
-    <Content Include="dist\images\stock\16\Eye.png" />
-    <Content Include="dist\images\stock\16\Favorites.png" />
-    <Content Include="dist\images\stock\16\Film.png" />
-    <Content Include="dist\images\stock\16\Filter.png" />
-    <Content Include="dist\images\stock\16\Find next.png" />
-    <Content Include="dist\images\stock\16\Find previous.png" />
-    <Content Include="dist\images\stock\16\Find.png" />
-    <Content Include="dist\images\stock\16\Fire curl.png" />
-    <Content Include="dist\images\stock\16\Fire engine.png" />
-    <Content Include="dist\images\stock\16\Fire v2.png" />
-    <Content Include="dist\images\stock\16\Fire.png" />
-    <Content Include="dist\images\stock\16\Fireman.png" />
-    <Content Include="dist\images\stock\16\Firewall.png" />
-    <Content Include="dist\images\stock\16\Flame.png" />
-    <Content Include="dist\images\stock\16\Flash drive.png" />
-    <Content Include="dist\images\stock\16\Folder.png" />
-    <Content Include="dist\images\stock\16\Forward.png" />
-    <Content Include="dist\images\stock\16\Full dustbin.png" />
-    <Content Include="dist\images\stock\16\Full trash can.png" />
-    <Content Include="dist\images\stock\16\Good mark.png" />
-    <Content Include="dist\images\stock\16\Help.png" />
-    <Content Include="dist\images\stock\16\History.png" />
-    <Content Include="dist\images\stock\16\Home.png" />
-    <Content Include="dist\images\stock\16\Hot folder.png" />
-    <Content Include="dist\images\stock\16\Hot table.png" />
-    <Content Include="dist\images\stock\16\Hourglass.png" />
-    <Content Include="dist\images\stock\16\Info.png" />
-    <Content Include="dist\images\stock\16\Internet access.png" />
-    <Content Include="dist\images\stock\16\Keys.png" />
-    <Content Include="dist\images\stock\16\Landscape.png" />
-    <Content Include="dist\images\stock\16\Lightning.png" />
-    <Content Include="dist\images\stock\16\List.png" />
-    <Content Include="dist\images\stock\16\Lock.png" />
-    <Content Include="dist\images\stock\16\Magnifier.png" />
-    <Content Include="dist\images\stock\16\Mail.png" />
-    <Content Include="dist\images\stock\16\Measure.png" />
-    <Content Include="dist\images\stock\16\Microsoft.png" />
-    <Content Include="dist\images\stock\16\Money.png" />
-    <Content Include="dist\images\stock\16\Mouse.png" />
-    <Content Include="dist\images\stock\16\New file.png" />
-    <Content Include="dist\images\stock\16\Newspaper.png" />
-    <Content Include="dist\images\stock\16\No entry.png" />
-    <Content Include="dist\images\stock\16\No.png" />
-    <Content Include="dist\images\stock\16\Notepad.png" />
-    <Content Include="dist\images\stock\16\Notes.png" />
-    <Content Include="dist\images\stock\16\Objects.png" />
-    <Content Include="dist\images\stock\16\OK.png" />
-    <Content Include="dist\images\stock\16\Okay.png" />
-    <Content Include="dist\images\stock\16\Open file.png" />
-    <Content Include="dist\images\stock\16\Options.png" />
-    <Content Include="dist\images\stock\16\Paste.png" />
-    <Content Include="dist\images\stock\16\Percent.png" />
-    <Content Include="dist\images\stock\16\Picture file.png" />
-    <Content Include="dist\images\stock\16\Pie chart.png" />
-    <Content Include="dist\images\stock\16\Portrait.png" />
-    <Content Include="dist\images\stock\16\Pound sterling.png" />
-    <Content Include="dist\images\stock\16\Preview.png" />
-    <Content Include="dist\images\stock\16\Print preview.png" />
-    <Content Include="dist\images\stock\16\Print.png" />
-    <Content Include="dist\images\stock\16\Properties.png" />
-    <Content Include="dist\images\stock\16\Question.png" />
-    <Content Include="dist\images\stock\16\Red OK.png" />
-    <Content Include="dist\images\stock\16\Red pin.png" />
-    <Content Include="dist\images\stock\16\Redo.png" />
-    <Content Include="dist\images\stock\16\Refresh document.png" />
-    <Content Include="dist\images\stock\16\Refresh.png" />
-    <Content Include="dist\images\stock\16\Registration.png" />
-    <Content Include="dist\images\stock\16\Remove.png" />
-    <Content Include="dist\images\stock\16\Repair computer.png" />
-    <Content Include="dist\images\stock\16\Report.png" />
-    <Content Include="dist\images\stock\16\Rulers.png" />
-    <Content Include="dist\images\stock\16\Save all.png" />
-    <Content Include="dist\images\stock\16\Save as.png" />
-    <Content Include="dist\images\stock\16\Save file.png" />
-    <Content Include="dist\images\stock\16\Screen settings.png" />
-    <Content Include="dist\images\stock\16\Set square.png" />
-    <Content Include="dist\images\stock\16\Silver flash drive.png" />
-    <Content Include="dist\images\stock\16\Sorting 1-9.png" />
-    <Content Include="dist\images\stock\16\Sorting 9-1.png" />
-    <Content Include="dist\images\stock\16\Sorting A-Z.png" />
-    <Content Include="dist\images\stock\16\Sorting Z-A.png" />
-    <Content Include="dist\images\stock\16\Sound file.png" />
-    <Content Include="dist\images\stock\16\Spell checking.png" />
-    <Content Include="dist\images\stock\16\Stop.png" />
-    <Content Include="dist\images\stock\16\Sum.png" />
-    <Content Include="dist\images\stock\16\Table.png" />
-    <Content Include="dist\images\stock\16\Tables.png" />
-    <Content Include="dist\images\stock\16\Telephone.png" />
-    <Content Include="dist\images\stock\16\Text file.png" />
-    <Content Include="dist\images\stock\16\Text.png" />
-    <Content Include="dist\images\stock\16\Turn off.png" />
-    <Content Include="dist\images\stock\16\Undo.png" />
-    <Content Include="dist\images\stock\16\Up folder.png" />
-    <Content Include="dist\images\stock\16\Update password.png" />
-    <Content Include="dist\images\stock\16\Upload.png" />
-    <Content Include="dist\images\stock\16\Video file.png" />
-    <Content Include="dist\images\stock\16\Warning.png" />
-    <Content Include="dist\images\stock\16\Wrench.png" />
-    <Content Include="dist\images\stock\16\Yen.png" />
-    <Content Include="dist\images\stock\16\Yes.png" />
-    <Content Include="dist\images\stock\16\Zoom in.png" />
-    <Content Include="dist\images\stock\16\Zoom out.png" />
-    <Content Include="dist\images\stock\24\3d bar chart.png" />
-    <Content Include="dist\images\stock\24\About.png" />
-    <Content Include="dist\images\stock\24\Add.png" />
-    <Content Include="dist\images\stock\24\Altach.png" />
-    <Content Include="dist\images\stock\24\Auto zoom.png" />
-    <Content Include="dist\images\stock\24\Back.png" />
-    <Content Include="dist\images\stock\24\Bad mark.png" />
-    <Content Include="dist\images\stock\24\Bar graph.png" />
-    <Content Include="dist\images\stock\24\Burn CD.png" />
-    <Content Include="dist\images\stock\24\Burn data.png" />
-    <Content Include="dist\images\stock\24\Burn dustbin.png" />
-    <Content Include="dist\images\stock\24\Burn money.png" />
-    <Content Include="dist\images\stock\24\Burn trash can.png" />
-    <Content Include="dist\images\stock\24\Calendar.png" />
-    <Content Include="dist\images\stock\24\Cancel.png" />
-    <Content Include="dist\images\stock\24\Card file.png" />
-    <Content Include="dist\images\stock\24\CD-disk.png" />
-    <Content Include="dist\images\stock\24\Certification.png" />
-    <Content Include="dist\images\stock\24\Chart.png" />
-    <Content Include="dist\images\stock\24\Clear.png" />
-    <Content Include="dist\images\stock\24\Close.png" />
-    <Content Include="dist\images\stock\24\Copy.png" />
-    <Content Include="dist\images\stock\24\Cut.png" />
-    <Content Include="dist\images\stock\24\Data.png" />
-    <Content Include="dist\images\stock\24\Datasheet v2.png" />
-    <Content Include="dist\images\stock\24\Datasheet.png" />
-    <Content Include="dist\images\stock\24\Delete.png" />
-    <Content Include="dist\images\stock\24\Destruction of documents.png" />
-    <Content Include="dist\images\stock\24\Disaster.png" />
-    <Content Include="dist\images\stock\24\Dollar.png" />
-    <Content Include="dist\images\stock\24\Download.png" />
-    <Content Include="dist\images\stock\24\E-mail.png" />
-    <Content Include="dist\images\stock\24\Earth.png" />
-    <Content Include="dist\images\stock\24\Edit.png" />
-    <Content Include="dist\images\stock\24\Empty dustbin.png" />
-    <Content Include="dist\images\stock\24\Empty trash can.png" />
-    <Content Include="dist\images\stock\24\Eraser.png" />
-    <Content Include="dist\images\stock\24\Euro.png" />
-    <Content Include="dist\images\stock\24\Eye.png" />
-    <Content Include="dist\images\stock\24\Favorites.png" />
-    <Content Include="dist\images\stock\24\Film.png" />
-    <Content Include="dist\images\stock\24\Filter.png" />
-    <Content Include="dist\images\stock\24\Find next.png" />
-    <Content Include="dist\images\stock\24\Find previous.png" />
-    <Content Include="dist\images\stock\24\Find.png" />
-    <Content Include="dist\images\stock\24\Fire curl.png" />
-    <Content Include="dist\images\stock\24\Fire engine.png" />
-    <Content Include="dist\images\stock\24\Fire v2.png" />
-    <Content Include="dist\images\stock\24\Fire.png" />
-    <Content Include="dist\images\stock\24\Fireman.png" />
-    <Content Include="dist\images\stock\24\Firewall.png" />
-    <Content Include="dist\images\stock\24\Flame.png" />
-    <Content Include="dist\images\stock\24\Flash drive.png" />
-    <Content Include="dist\images\stock\24\Folder.png" />
-    <Content Include="dist\images\stock\24\Forward.png" />
-    <Content Include="dist\images\stock\24\Full dustbin.png" />
-    <Content Include="dist\images\stock\24\Full trash can.png" />
-    <Content Include="dist\images\stock\24\Good mark.png" />
-    <Content Include="dist\images\stock\24\Help.png" />
-    <Content Include="dist\images\stock\24\History.png" />
-    <Content Include="dist\images\stock\24\Home.png" />
-    <Content Include="dist\images\stock\24\Hot file.png" />
-    <Content Include="dist\images\stock\24\Hot folder.png" />
-    <Content Include="dist\images\stock\24\Hot table.png" />
-    <Content Include="dist\images\stock\24\Hourglass.png" />
-    <Content Include="dist\images\stock\24\Info.png" />
-    <Content Include="dist\images\stock\24\Internet access.png" />
-    <Content Include="dist\images\stock\24\Keys.png" />
-    <Content Include="dist\images\stock\24\Landscape.png" />
-    <Content Include="dist\images\stock\24\Lightning.png" />
-    <Content Include="dist\images\stock\24\List.png" />
-    <Content Include="dist\images\stock\24\Lock.png" />
-    <Content Include="dist\images\stock\24\Magnifier.png" />
-    <Content Include="dist\images\stock\24\Mail.png" />
-    <Content Include="dist\images\stock\24\Measure.png" />
-    <Content Include="dist\images\stock\24\Microsoft.png" />
-    <Content Include="dist\images\stock\24\Money.png" />
-    <Content Include="dist\images\stock\24\Mouse.png" />
-    <Content Include="dist\images\stock\24\New file.png" />
-    <Content Include="dist\images\stock\24\Newspaper.png" />
-    <Content Include="dist\images\stock\24\No entry.png" />
-    <Content Include="dist\images\stock\24\No.png" />
-    <Content Include="dist\images\stock\24\Notepad.png" />
-    <Content Include="dist\images\stock\24\Notes.png" />
-    <Content Include="dist\images\stock\24\Objects.png" />
-    <Content Include="dist\images\stock\24\OK.png" />
-    <Content Include="dist\images\stock\24\Okay.png" />
-    <Content Include="dist\images\stock\24\Open file.png" />
-    <Content Include="dist\images\stock\24\Options.png" />
-    <Content Include="dist\images\stock\24\Paste.png" />
-    <Content Include="dist\images\stock\24\Percent.png" />
-    <Content Include="dist\images\stock\24\Picture file.png" />
-    <Content Include="dist\images\stock\24\Pie chart.png" />
-    <Content Include="dist\images\stock\24\Portrait.png" />
-    <Content Include="dist\images\stock\24\Pound sterling.png" />
-    <Content Include="dist\images\stock\24\Preview.png" />
-    <Content Include="dist\images\stock\24\Print preview.png" />
-    <Content Include="dist\images\stock\24\Print.png" />
-    <Content Include="dist\images\stock\24\Properties.png" />
-    <Content Include="dist\images\stock\24\Question.png" />
-    <Content Include="dist\images\stock\24\Red OK.png" />
-    <Content Include="dist\images\stock\24\Red pin.png" />
-    <Content Include="dist\images\stock\24\Redo.png" />
-    <Content Include="dist\images\stock\24\Refresh document.png" />
-    <Content Include="dist\images\stock\24\Refresh.png" />
-    <Content Include="dist\images\stock\24\Registration.png" />
-    <Content Include="dist\images\stock\24\Remove.png" />
-    <Content Include="dist\images\stock\24\Repair computer.png" />
-    <Content Include="dist\images\stock\24\Report.png" />
-    <Content Include="dist\images\stock\24\Rulers.png" />
-    <Content Include="dist\images\stock\24\Save all.png" />
-    <Content Include="dist\images\stock\24\Save as.png" />
-    <Content Include="dist\images\stock\24\Save file.png" />
-    <Content Include="dist\images\stock\24\Screen settings.png" />
-    <Content Include="dist\images\stock\24\Set square.png" />
-    <Content Include="dist\images\stock\24\Silver flash drive.png" />
-    <Content Include="dist\images\stock\24\Sorting 1-9.png" />
-    <Content Include="dist\images\stock\24\Sorting 9-1.png" />
-    <Content Include="dist\images\stock\24\Sorting A-Z.png" />
-    <Content Include="dist\images\stock\24\Sorting Z-A.png" />
-    <Content Include="dist\images\stock\24\Sound file.png" />
-    <Content Include="dist\images\stock\24\Spell checking.png" />
-    <Content Include="dist\images\stock\24\Stop.png" />
-    <Content Include="dist\images\stock\24\Sum.png" />
-    <Content Include="dist\images\stock\24\Table.png" />
-    <Content Include="dist\images\stock\24\Tables.png" />
-    <Content Include="dist\images\stock\24\Telephone.png" />
-    <Content Include="dist\images\stock\24\Text file.png" />
-    <Content Include="dist\images\stock\24\Text.png" />
-    <Content Include="dist\images\stock\24\Turn off.png" />
-    <Content Include="dist\images\stock\24\Undo.png" />
-    <Content Include="dist\images\stock\24\Up folder.png" />
-    <Content Include="dist\images\stock\24\Update password.png" />
-    <Content Include="dist\images\stock\24\Upload.png" />
-    <Content Include="dist\images\stock\24\Video file.png" />
-    <Content Include="dist\images\stock\24\Warning.png" />
-    <Content Include="dist\images\stock\24\Wrench.png" />
-    <Content Include="dist\images\stock\24\Yen.png" />
-    <Content Include="dist\images\stock\24\Yes.png" />
-    <Content Include="dist\images\stock\24\Zoom in.png" />
-    <Content Include="dist\images\stock\24\Zoom out.png" />
-    <Content Include="dist\images\stock\256\3d bar chart.png" />
-    <Content Include="dist\images\stock\256\About.png" />
-    <Content Include="dist\images\stock\256\Add.png" />
-    <Content Include="dist\images\stock\256\Altach.png" />
-    <Content Include="dist\images\stock\256\Auto zoom.png" />
-    <Content Include="dist\images\stock\256\Back.png" />
-    <Content Include="dist\images\stock\256\Bad mark.png" />
-    <Content Include="dist\images\stock\256\Bar graph.png" />
-    <Content Include="dist\images\stock\256\Burn CD.png" />
-    <Content Include="dist\images\stock\256\Burn data.png" />
-    <Content Include="dist\images\stock\256\Burn dustbin.png" />
-    <Content Include="dist\images\stock\256\Burn money.png" />
-    <Content Include="dist\images\stock\256\Burn trash can.png" />
-    <Content Include="dist\images\stock\256\Calendar.png" />
-    <Content Include="dist\images\stock\256\Cancel.png" />
-    <Content Include="dist\images\stock\256\Card file.png" />
-    <Content Include="dist\images\stock\256\CD-disk.png" />
-    <Content Include="dist\images\stock\256\Certification.png" />
-    <Content Include="dist\images\stock\256\Chart.png" />
-    <Content Include="dist\images\stock\256\Clear.png" />
-    <Content Include="dist\images\stock\256\Close.png" />
-    <Content Include="dist\images\stock\256\Copy.png" />
-    <Content Include="dist\images\stock\256\Cut.png" />
-    <Content Include="dist\images\stock\256\Data.png" />
-    <Content Include="dist\images\stock\256\Datasheet v2.png" />
-    <Content Include="dist\images\stock\256\Datasheet.png" />
-    <Content Include="dist\images\stock\256\Delete.png" />
-    <Content Include="dist\images\stock\256\Destruction of documents.png" />
-    <Content Include="dist\images\stock\256\Disaster.png" />
-    <Content Include="dist\images\stock\256\Dollar.png" />
-    <Content Include="dist\images\stock\256\Download.png" />
-    <Content Include="dist\images\stock\256\E-mail.png" />
-    <Content Include="dist\images\stock\256\Earth.png" />
-    <Content Include="dist\images\stock\256\Edit.png" />
-    <Content Include="dist\images\stock\256\Empty dustbin.png" />
-    <Content Include="dist\images\stock\256\Empty trash can.png" />
-    <Content Include="dist\images\stock\256\Eraser.png" />
-    <Content Include="dist\images\stock\256\Euro.png" />
-    <Content Include="dist\images\stock\256\Eye.png" />
-    <Content Include="dist\images\stock\256\Favorites.png" />
-    <Content Include="dist\images\stock\256\Film.png" />
-    <Content Include="dist\images\stock\256\Filter.png" />
-    <Content Include="dist\images\stock\256\Find next.png" />
-    <Content Include="dist\images\stock\256\Find previous.png" />
-    <Content Include="dist\images\stock\256\Find.png" />
-    <Content Include="dist\images\stock\256\Fire curl.png" />
-    <Content Include="dist\images\stock\256\Fire engine.png" />
-    <Content Include="dist\images\stock\256\Fire v2.png" />
-    <Content Include="dist\images\stock\256\Fire.png" />
-    <Content Include="dist\images\stock\256\Fireman.png" />
-    <Content Include="dist\images\stock\256\Firewall.png" />
-    <Content Include="dist\images\stock\256\Flame.png" />
-    <Content Include="dist\images\stock\256\Flash drive.png" />
-    <Content Include="dist\images\stock\256\Folder.png" />
-    <Content Include="dist\images\stock\256\Forward.png" />
-    <Content Include="dist\images\stock\256\Full dustbin.png" />
-    <Content Include="dist\images\stock\256\Full trash can.png" />
-    <Content Include="dist\images\stock\256\Good mark.png" />
-    <Content Include="dist\images\stock\256\Help.png" />
-    <Content Include="dist\images\stock\256\History.png" />
-    <Content Include="dist\images\stock\256\Home.png" />
-    <Content Include="dist\images\stock\256\Hot file.png" />
-    <Content Include="dist\images\stock\256\Hot folder.png" />
-    <Content Include="dist\images\stock\256\Hot table.png" />
-    <Content Include="dist\images\stock\256\Hourglass.png" />
-    <Content Include="dist\images\stock\256\Info.png" />
-    <Content Include="dist\images\stock\256\Internet access.png" />
-    <Content Include="dist\images\stock\256\Keys.png" />
-    <Content Include="dist\images\stock\256\Landscape.png" />
-    <Content Include="dist\images\stock\256\Lightning.png" />
-    <Content Include="dist\images\stock\256\List.png" />
-    <Content Include="dist\images\stock\256\Lock.png" />
-    <Content Include="dist\images\stock\256\Magnifier.png" />
-    <Content Include="dist\images\stock\256\Mail.png" />
-    <Content Include="dist\images\stock\256\Measure.png" />
-    <Content Include="dist\images\stock\256\Microsoft.png" />
-    <Content Include="dist\images\stock\256\Money.png" />
-    <Content Include="dist\images\stock\256\Mouse.png" />
-    <Content Include="dist\images\stock\256\New file.png" />
-    <Content Include="dist\images\stock\256\Newspaper.png" />
-    <Content Include="dist\images\stock\256\No entry.png" />
-    <Content Include="dist\images\stock\256\No.png" />
-    <Content Include="dist\images\stock\256\Notepad.png" />
-    <Content Include="dist\images\stock\256\Notes.png" />
-    <Content Include="dist\images\stock\256\Objects.png" />
-    <Content Include="dist\images\stock\256\OK.png" />
-    <Content Include="dist\images\stock\256\Okay.png" />
-    <Content Include="dist\images\stock\256\Open file.png" />
-    <Content Include="dist\images\stock\256\Options.png" />
-    <Content Include="dist\images\stock\256\Paste.png" />
-    <Content Include="dist\images\stock\256\Percent.png" />
-    <Content Include="dist\images\stock\256\Picture file.png" />
-    <Content Include="dist\images\stock\256\Pie chart.png" />
-    <Content Include="dist\images\stock\256\Portrait.png" />
-    <Content Include="dist\images\stock\256\Pound sterling.png" />
-    <Content Include="dist\images\stock\256\Preview.png" />
-    <Content Include="dist\images\stock\256\Print preview.png" />
-    <Content Include="dist\images\stock\256\Print.png" />
-    <Content Include="dist\images\stock\256\Properties.png" />
-    <Content Include="dist\images\stock\256\Question.png" />
-    <Content Include="dist\images\stock\256\Red OK.png" />
-    <Content Include="dist\images\stock\256\Red pin.png" />
-    <Content Include="dist\images\stock\256\Redo.png" />
-    <Content Include="dist\images\stock\256\Refresh document.png" />
-    <Content Include="dist\images\stock\256\Refresh.png" />
-    <Content Include="dist\images\stock\256\Registration.png" />
-    <Content Include="dist\images\stock\256\Remove.png" />
-    <Content Include="dist\images\stock\256\Repair computer.png" />
-    <Content Include="dist\images\stock\256\Report.png" />
-    <Content Include="dist\images\stock\256\Rulers.png" />
-    <Content Include="dist\images\stock\256\Save all.png" />
-    <Content Include="dist\images\stock\256\Save as.png" />
-    <Content Include="dist\images\stock\256\Save file.png" />
-    <Content Include="dist\images\stock\256\Screen settings.png" />
-    <Content Include="dist\images\stock\256\Set square.png" />
-    <Content Include="dist\images\stock\256\Silver flash drive.png" />
-    <Content Include="dist\images\stock\256\Sorting 1-9.png" />
-    <Content Include="dist\images\stock\256\Sorting 9-1.png" />
-    <Content Include="dist\images\stock\256\Sorting A-Z.png" />
-    <Content Include="dist\images\stock\256\Sorting Z-A.png" />
-    <Content Include="dist\images\stock\256\Sound file.png" />
-    <Content Include="dist\images\stock\256\Spell checking.png" />
-    <Content Include="dist\images\stock\256\Stop.png" />
-    <Content Include="dist\images\stock\256\Sum.png" />
-    <Content Include="dist\images\stock\256\Table.png" />
-    <Content Include="dist\images\stock\256\Tables.png" />
-    <Content Include="dist\images\stock\256\Telephone.png" />
-    <Content Include="dist\images\stock\256\Text file.png" />
-    <Content Include="dist\images\stock\256\Text.png" />
-    <Content Include="dist\images\stock\256\Turn off.png" />
-    <Content Include="dist\images\stock\256\Undo.png" />
-    <Content Include="dist\images\stock\256\Up folder.png" />
-    <Content Include="dist\images\stock\256\Update password.png" />
-    <Content Include="dist\images\stock\256\Upload.png" />
-    <Content Include="dist\images\stock\256\Video file.png" />
-    <Content Include="dist\images\stock\256\Warning.png" />
-    <Content Include="dist\images\stock\256\Wrench.png" />
-    <Content Include="dist\images\stock\256\Yen.png" />
-    <Content Include="dist\images\stock\256\Yes.png" />
-    <Content Include="dist\images\stock\256\Zoom in.png" />
-    <Content Include="dist\images\stock\256\Zoom out.png" />
-    <Content Include="dist\images\stock\32\3d bar chart.png" />
-    <Content Include="dist\images\stock\32\About.png" />
-    <Content Include="dist\images\stock\32\Add.png" />
-    <Content Include="dist\images\stock\32\Altach.png" />
-    <Content Include="dist\images\stock\32\Auto zoom.png" />
-    <Content Include="dist\images\stock\32\Back.png" />
-    <Content Include="dist\images\stock\32\Bad mark.png" />
-    <Content Include="dist\images\stock\32\Bar graph.png" />
-    <Content Include="dist\images\stock\32\Burn CD.png" />
-    <Content Include="dist\images\stock\32\Burn data.png" />
-    <Content Include="dist\images\stock\32\Burn dustbin.png" />
-    <Content Include="dist\images\stock\32\Burn money.png" />
-    <Content Include="dist\images\stock\32\Burn trash can.png" />
-    <Content Include="dist\images\stock\32\Calendar.png" />
-    <Content Include="dist\images\stock\32\Cancel.png" />
-    <Content Include="dist\images\stock\32\Card file.png" />
-    <Content Include="dist\images\stock\32\CD-disk.png" />
-    <Content Include="dist\images\stock\32\Certification.png" />
-    <Content Include="dist\images\stock\32\Chart.png" />
-    <Content Include="dist\images\stock\32\Clear.png" />
-    <Content Include="dist\images\stock\32\Close.png" />
-    <Content Include="dist\images\stock\32\Copy.png" />
-    <Content Include="dist\images\stock\32\Cut.png" />
-    <Content Include="dist\images\stock\32\Data.png" />
-    <Content Include="dist\images\stock\32\Datasheet v2.png" />
-    <Content Include="dist\images\stock\32\Datasheet.png" />
-    <Content Include="dist\images\stock\32\Delete.png" />
-    <Content Include="dist\images\stock\32\Destruction of documents.png" />
-    <Content Include="dist\images\stock\32\Disaster.png" />
-    <Content Include="dist\images\stock\32\Dollar.png" />
-    <Content Include="dist\images\stock\32\Download.png" />
-    <Content Include="dist\images\stock\32\E-mail.png" />
-    <Content Include="dist\images\stock\32\Earth.png" />
-    <Content Include="dist\images\stock\32\Edit.png" />
-    <Content Include="dist\images\stock\32\Empty dustbin.png" />
-    <Content Include="dist\images\stock\32\Empty trash can.png" />
-    <Content Include="dist\images\stock\32\Eraser.png" />
-    <Content Include="dist\images\stock\32\Euro.png" />
-    <Content Include="dist\images\stock\32\Eye.png" />
-    <Content Include="dist\images\stock\32\Favorites.png" />
-    <Content Include="dist\images\stock\32\Film.png" />
-    <Content Include="dist\images\stock\32\Filter.png" />
-    <Content Include="dist\images\stock\32\Find next.png" />
-    <Content Include="dist\images\stock\32\Find previous.png" />
-    <Content Include="dist\images\stock\32\Find.png" />
-    <Content Include="dist\images\stock\32\Fire curl.png" />
-    <Content Include="dist\images\stock\32\Fire engine.png" />
-    <Content Include="dist\images\stock\32\Fire v2.png" />
-    <Content Include="dist\images\stock\32\Fire.png" />
-    <Content Include="dist\images\stock\32\Fireman.png" />
-    <Content Include="dist\images\stock\32\Firewall.png" />
-    <Content Include="dist\images\stock\32\Flame.png" />
-    <Content Include="dist\images\stock\32\Flash drive.png" />
-    <Content Include="dist\images\stock\32\Folder.png" />
-    <Content Include="dist\images\stock\32\Forward.png" />
-    <Content Include="dist\images\stock\32\Full dustbin.png" />
-    <Content Include="dist\images\stock\32\Full trash can.png" />
-    <Content Include="dist\images\stock\32\Good mark.png" />
-    <Content Include="dist\images\stock\32\Help.png" />
-    <Content Include="dist\images\stock\32\History.png" />
-    <Content Include="dist\images\stock\32\Home.png" />
-    <Content Include="dist\images\stock\32\Hot file.png" />
-    <Content Include="dist\images\stock\32\Hot folder.png" />
-    <Content Include="dist\images\stock\32\Hot table.png" />
-    <Content Include="dist\images\stock\32\Hourglass.png" />
-    <Content Include="dist\images\stock\32\Info.png" />
-    <Content Include="dist\images\stock\32\Internet access.png" />
-    <Content Include="dist\images\stock\32\Keys.png" />
-    <Content Include="dist\images\stock\32\Landscape.png" />
-    <Content Include="dist\images\stock\32\Lightning.png" />
-    <Content Include="dist\images\stock\32\List.png" />
-    <Content Include="dist\images\stock\32\Lock.png" />
-    <Content Include="dist\images\stock\32\Magnifier.png" />
-    <Content Include="dist\images\stock\32\Mail.png" />
-    <Content Include="dist\images\stock\32\Measure.png" />
-    <Content Include="dist\images\stock\32\Microsoft.png" />
-    <Content Include="dist\images\stock\32\Money.png" />
-    <Content Include="dist\images\stock\32\Mouse.png" />
-    <Content Include="dist\images\stock\32\New file.png" />
-    <Content Include="dist\images\stock\32\Newspaper.png" />
-    <Content Include="dist\images\stock\32\No entry.png" />
-    <Content Include="dist\images\stock\32\No.png" />
-    <Content Include="dist\images\stock\32\Notepad.png" />
-    <Content Include="dist\images\stock\32\Notes.png" />
-    <Content Include="dist\images\stock\32\Objects.png" />
-    <Content Include="dist\images\stock\32\OK.png" />
-    <Content Include="dist\images\stock\32\Okay.png" />
-    <Content Include="dist\images\stock\32\Open file.png" />
-    <Content Include="dist\images\stock\32\Options.png" />
-    <Content Include="dist\images\stock\32\Paste.png" />
-    <Content Include="dist\images\stock\32\Percent.png" />
-    <Content Include="dist\images\stock\32\Picture file.png" />
-    <Content Include="dist\images\stock\32\Pie chart.png" />
-    <Content Include="dist\images\stock\32\Portrait.png" />
-    <Content Include="dist\images\stock\32\Pound sterling.png" />
-    <Content Include="dist\images\stock\32\Preview.png" />
-    <Content Include="dist\images\stock\32\Print preview.png" />
-    <Content Include="dist\images\stock\32\Print.png" />
-    <Content Include="dist\images\stock\32\Properties.png" />
-    <Content Include="dist\images\stock\32\Question.png" />
-    <Content Include="dist\images\stock\32\Red OK.png" />
-    <Content Include="dist\images\stock\32\Red pin.png" />
-    <Content Include="dist\images\stock\32\Redo.png" />
-    <Content Include="dist\images\stock\32\Refresh document.png" />
-    <Content Include="dist\images\stock\32\Refresh.png" />
-    <Content Include="dist\images\stock\32\Registration.png" />
-    <Content Include="dist\images\stock\32\Remove.png" />
-    <Content Include="dist\images\stock\32\Repair computer.png" />
-    <Content Include="dist\images\stock\32\Report.png" />
-    <Content Include="dist\images\stock\32\Rulers.png" />
-    <Content Include="dist\images\stock\32\Save all.png" />
-    <Content Include="dist\images\stock\32\Save as.png" />
-    <Content Include="dist\images\stock\32\Save file.png" />
-    <Content Include="dist\images\stock\32\Screen settings.png" />
-    <Content Include="dist\images\stock\32\Set square.png" />
-    <Content Include="dist\images\stock\32\Silver flash drive.png" />
-    <Content Include="dist\images\stock\32\Sorting 1-9.png" />
-    <Content Include="dist\images\stock\32\Sorting 9-1.png" />
-    <Content Include="dist\images\stock\32\Sorting A-Z.png" />
-    <Content Include="dist\images\stock\32\Sorting Z-A.png" />
-    <Content Include="dist\images\stock\32\Sound file.png" />
-    <Content Include="dist\images\stock\32\Spell checking.png" />
-    <Content Include="dist\images\stock\32\Stop.png" />
-    <Content Include="dist\images\stock\32\Sum.png" />
-    <Content Include="dist\images\stock\32\Table.png" />
-    <Content Include="dist\images\stock\32\Tables.png" />
-    <Content Include="dist\images\stock\32\Telephone.png" />
-    <Content Include="dist\images\stock\32\Text file.png" />
-    <Content Include="dist\images\stock\32\Text.png" />
-    <Content Include="dist\images\stock\32\Turn off.png" />
-    <Content Include="dist\images\stock\32\Undo.png" />
-    <Content Include="dist\images\stock\32\Up folder.png" />
-    <Content Include="dist\images\stock\32\Update password.png" />
-    <Content Include="dist\images\stock\32\Upload.png" />
-    <Content Include="dist\images\stock\32\Video file.png" />
-    <Content Include="dist\images\stock\32\Warning.png" />
-    <Content Include="dist\images\stock\32\Wrench.png" />
-    <Content Include="dist\images\stock\32\Yen.png" />
-    <Content Include="dist\images\stock\32\Yes.png" />
-    <Content Include="dist\images\stock\32\Zoom in.png" />
-    <Content Include="dist\images\stock\32\Zoom out.png" />
-    <Content Include="dist\images\stock\48\3d bar chart.png" />
-    <Content Include="dist\images\stock\48\About.png" />
-    <Content Include="dist\images\stock\48\Add.png" />
-    <Content Include="dist\images\stock\48\Altach.png" />
-    <Content Include="dist\images\stock\48\Auto zoom.png" />
-    <Content Include="dist\images\stock\48\Back.png" />
-    <Content Include="dist\images\stock\48\Bad mark.png" />
-    <Content Include="dist\images\stock\48\Bar graph.png" />
-    <Content Include="dist\images\stock\48\Burn CD.png" />
-    <Content Include="dist\images\stock\48\Burn data.png" />
-    <Content Include="dist\images\stock\48\Burn dustbin.png" />
-    <Content Include="dist\images\stock\48\Burn money.png" />
-    <Content Include="dist\images\stock\48\Burn trash can.png" />
-    <Content Include="dist\images\stock\48\Calendar.png" />
-    <Content Include="dist\images\stock\48\Cancel.png" />
-    <Content Include="dist\images\stock\48\Card file.png" />
-    <Content Include="dist\images\stock\48\CD-disk.png" />
-    <Content Include="dist\images\stock\48\Certification.png" />
-    <Content Include="dist\images\stock\48\Chart.png" />
-    <Content Include="dist\images\stock\48\Clear.png" />
-    <Content Include="dist\images\stock\48\Close.png" />
-    <Content Include="dist\images\stock\48\Copy.png" />
-    <Content Include="dist\images\stock\48\Cut.png" />
-    <Content Include="dist\images\stock\48\Data.png" />
-    <Content Include="dist\images\stock\48\Datasheet v2.png" />
-    <Content Include="dist\images\stock\48\Datasheet.png" />
-    <Content Include="dist\images\stock\48\Delete.png" />
-    <Content Include="dist\images\stock\48\Destruction of documents.png" />
-    <Content Include="dist\images\stock\48\Disaster.png" />
-    <Content Include="dist\images\stock\48\Dollar.png" />
-    <Content Include="dist\images\stock\48\Download.png" />
-    <Content Include="dist\images\stock\48\E-mail.png" />
-    <Content Include="dist\images\stock\48\Earth.png" />
-    <Content Include="dist\images\stock\48\Edit.png" />
-    <Content Include="dist\images\stock\48\Empty dustbin.png" />
-    <Content Include="dist\images\stock\48\Empty trash can.png" />
-    <Content Include="dist\images\stock\48\Eraser.png" />
-    <Content Include="dist\images\stock\48\Euro.png" />
-    <Content Include="dist\images\stock\48\Eye.png" />
-    <Content Include="dist\images\stock\48\Favorites.png" />
-    <Content Include="dist\images\stock\48\Film.png" />
-    <Content Include="dist\images\stock\48\Filter.png" />
-    <Content Include="dist\images\stock\48\Find next.png" />
-    <Content Include="dist\images\stock\48\Find previous.png" />
-    <Content Include="dist\images\stock\48\Find.png" />
-    <Content Include="dist\images\stock\48\Fire curl.png" />
-    <Content Include="dist\images\stock\48\Fire engine.png" />
-    <Content Include="dist\images\stock\48\Fire v2.png" />
-    <Content Include="dist\images\stock\48\Fire.png" />
-    <Content Include="dist\images\stock\48\Fireman.png" />
-    <Content Include="dist\images\stock\48\Firewall.png" />
-    <Content Include="dist\images\stock\48\Flame.png" />
-    <Content Include="dist\images\stock\48\Flash drive.png" />
-    <Content Include="dist\images\stock\48\Folder.png" />
-    <Content Include="dist\images\stock\48\Forward.png" />
-    <Content Include="dist\images\stock\48\Full dustbin.png" />
-    <Content Include="dist\images\stock\48\Full trash can.png" />
-    <Content Include="dist\images\stock\48\Good mark.png" />
-    <Content Include="dist\images\stock\48\Help.png" />
-    <Content Include="dist\images\stock\48\History.png" />
-    <Content Include="dist\images\stock\48\Home.png" />
-    <Content Include="dist\images\stock\48\Hot file.png" />
-    <Content Include="dist\images\stock\48\Hot folder.png" />
-    <Content Include="dist\images\stock\48\Hot table.png" />
-    <Content Include="dist\images\stock\48\Hourglass.png" />
-    <Content Include="dist\images\stock\48\Info.png" />
-    <Content Include="dist\images\stock\48\Internet access.png" />
-    <Content Include="dist\images\stock\48\Keys.png" />
-    <Content Include="dist\images\stock\48\Landscape.png" />
-    <Content Include="dist\images\stock\48\Lightning.png" />
-    <Content Include="dist\images\stock\48\List.png" />
-    <Content Include="dist\images\stock\48\Lock.png" />
-    <Content Include="dist\images\stock\48\Magnifier.png" />
-    <Content Include="dist\images\stock\48\Mail.png" />
-    <Content Include="dist\images\stock\48\Measure.png" />
-    <Content Include="dist\images\stock\48\Microsoft.png" />
-    <Content Include="dist\images\stock\48\Money.png" />
-    <Content Include="dist\images\stock\48\Mouse.png" />
-    <Content Include="dist\images\stock\48\New file.png" />
-    <Content Include="dist\images\stock\48\Newspaper.png" />
-    <Content Include="dist\images\stock\48\No entry.png" />
-    <Content Include="dist\images\stock\48\No.png" />
-    <Content Include="dist\images\stock\48\Notepad.png" />
-    <Content Include="dist\images\stock\48\Notes.png" />
-    <Content Include="dist\images\stock\48\Objects.png" />
-    <Content Include="dist\images\stock\48\OK.png" />
-    <Content Include="dist\images\stock\48\Okay.png" />
-    <Content Include="dist\images\stock\48\Open file.png" />
-    <Content Include="dist\images\stock\48\Options.png" />
-    <Content Include="dist\images\stock\48\Paste.png" />
-    <Content Include="dist\images\stock\48\Percent.png" />
-    <Content Include="dist\images\stock\48\Picture file.png" />
-    <Content Include="dist\images\stock\48\Pie chart.png" />
-    <Content Include="dist\images\stock\48\Portrait.png" />
-    <Content Include="dist\images\stock\48\Pound sterling.png" />
-    <Content Include="dist\images\stock\48\Preview.png" />
-    <Content Include="dist\images\stock\48\Print preview.png" />
-    <Content Include="dist\images\stock\48\Print.png" />
-    <Content Include="dist\images\stock\48\Properties.png" />
-    <Content Include="dist\images\stock\48\Question.png" />
-    <Content Include="dist\images\stock\48\Red OK.png" />
-    <Content Include="dist\images\stock\48\Red pin.png" />
-    <Content Include="dist\images\stock\48\Redo.png" />
-    <Content Include="dist\images\stock\48\Refresh document.png" />
-    <Content Include="dist\images\stock\48\Refresh.png" />
-    <Content Include="dist\images\stock\48\Registration.png" />
-    <Content Include="dist\images\stock\48\Remove.png" />
-    <Content Include="dist\images\stock\48\Repair computer.png" />
-    <Content Include="dist\images\stock\48\Report.png" />
-    <Content Include="dist\images\stock\48\Rulers.png" />
-    <Content Include="dist\images\stock\48\Save all.png" />
-    <Content Include="dist\images\stock\48\Save as.png" />
-    <Content Include="dist\images\stock\48\Save file.png" />
-    <Content Include="dist\images\stock\48\Screen settings.png" />
-    <Content Include="dist\images\stock\48\Set square.png" />
-    <Content Include="dist\images\stock\48\Silver flash drive.png" />
-    <Content Include="dist\images\stock\48\Sorting 1-9.png" />
-    <Content Include="dist\images\stock\48\Sorting 9-1.png" />
-    <Content Include="dist\images\stock\48\Sorting A-Z.png" />
-    <Content Include="dist\images\stock\48\Sorting Z-A.png" />
-    <Content Include="dist\images\stock\48\Sound file.png" />
-    <Content Include="dist\images\stock\48\Spell checking.png" />
-    <Content Include="dist\images\stock\48\Stop.png" />
-    <Content Include="dist\images\stock\48\Sum.png" />
-    <Content Include="dist\images\stock\48\Table.png" />
-    <Content Include="dist\images\stock\48\Tables.png" />
-    <Content Include="dist\images\stock\48\Telephone.png" />
-    <Content Include="dist\images\stock\48\Text file.png" />
-    <Content Include="dist\images\stock\48\Text.png" />
-    <Content Include="dist\images\stock\48\Turn off.png" />
-    <Content Include="dist\images\stock\48\Undo.png" />
-    <Content Include="dist\images\stock\48\Up folder.png" />
-    <Content Include="dist\images\stock\48\Update password.png" />
-    <Content Include="dist\images\stock\48\Upload.png" />
-    <Content Include="dist\images\stock\48\Video file.png" />
-    <Content Include="dist\images\stock\48\Warning.png" />
-    <Content Include="dist\images\stock\48\Wrench.png" />
-    <Content Include="dist\images\stock\48\Yen.png" />
-    <Content Include="dist\images\stock\48\Yes.png" />
-    <Content Include="dist\images\stock\48\Zoom in.png" />
-    <Content Include="dist\images\stock\48\Zoom out.png" />
-    <Content Include="dist\images\strip.png" />
-    <Content Include="dist\images\summary.png" />
-    <Content Include="dist\images\target.png" />
-    <Content Include="dist\images\tbl_blank.png" />
-    <Content Include="dist\images\tbl_spacer.png" />
-    <Content Include="dist\images\tbl_vjoin.png" />
-    <Content Include="dist\images\tbl_vjoin_end.png" />
-    <Content Include="dist\images\tbl_vline.png" />
-    <Content Include="dist\images\test.png" />
-    <Content Include="dist\images\topgreenfade.png" />
-    <Content Include="dist\images\transaction.png" />
-    <Content Include="dist\images\transactionresponse.png" />
-    <Content Include="dist\images\valueset.png" />
-    <Content Include="dist\images\warning.png" />
-    <Content Include="dist\images\watermark.png" />
-    <Content Include="dist\images\xdsentry.png" />
-    <Content Include="dist\images\xdsfolder.png" />
-    <Content Include="dist\images\xdspolicy.png" />
-    <Content Include="dist\js\bootstrap.js" />
-    <Content Include="dist\js\bootstrap.min.js" />
-    <Content Include="dist\js\fhir.js" />
-    <Content Include="dist\js\html5shiv.js" />
-    <Content Include="dist\js\jquery.js" />
-    <Content Include="dist\js\respond.min.js" />
-    <Content Include="dist\js\xml.js" />
+    <Content Include="dist\css\bootstrap-fhir.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\css\bootstrap-glyphicons.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\css\bootstrap.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\css\fhir.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\css\project.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\css\pygments-manni.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\css\xml.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\fonts\glyphiconshalflings-regular.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\gen\tbl_bck00.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\gen\tbl_bck1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\gen\tbl_bck10.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\gen\tbl_bck100.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\gen\tbl_bck11.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\gen\tbl_bck110.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\agent.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\animal.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\assessmentscale.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\base.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\cc0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\change.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\conformance.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\constraint.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\daf-actors-and-interactions.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\daf-fhir-query-stack.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\datatypes.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\definitions.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\device.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\documentconformance.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\documentheader.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\dt-map.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\dt-primitives.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\dt-structures.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\dt-types.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\header-tabs.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\help.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\help16.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\hl7-care-connected-final-transparent.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\hl7-care-connected-final.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\hl7logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\icon-fhir-16.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\icon_bundle.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\icon_choice.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\icon_datatype.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\icon_element.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\icon_extension.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\icon_extension_complex.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\icon_extension_simple.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\icon_primitive.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\icon_profile.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\icon_reference.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\icon_resource.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\icon_reuse.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\icon_slice.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\icon_text.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\labreport.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\lock.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\messageconformance.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\messageheader.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\mixin-base.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\mixin-pure.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\mixin-wrapper.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\modifier-extension-warning.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\modifier.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\mustsupport.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\organization.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\patient.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\person.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\prescription.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\problem.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\profile.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\res-map.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\rss.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\sdc-generic-workflow.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\security-icon-app.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\security-icon-fhir.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\security-icon-sec.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\security-icon-user.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\security-layout.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\shot.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\slicing.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\3d bar chart.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\About.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Add.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Altach.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Auto zoom.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Back.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Bad mark.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Bar graph.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Burn CD.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Burn data.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Burn dustbin.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Burn money.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Burn trash can.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Calendar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Cancel.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Card file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\CD-disk.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Certification.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Chart.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Clear.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Close.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Copy.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Cut.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Data.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Datasheet v2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Datasheet.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Delete.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Destruction of documents.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Disaster.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Dollar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Download.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\E-mail.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Earth.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Edit.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Empty dustbin.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Empty trash can.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Eraser.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Euro.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Eye.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Favorites.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Film.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Filter.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Find next.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Find previous.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Find.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Fire curl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Fire engine.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Fire v2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Fire.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Fireman.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Firewall.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Flame.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Flash drive.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Folder.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Forward.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Full dustbin.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Full trash can.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Good mark.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Help.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\History.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Home.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Hot file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Hot folder.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Hot table.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Hourglass.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Info.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Internet access.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Keys.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Landscape.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Lightning.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\List.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Lock.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Magnifier.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Mail.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Measure.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Microsoft.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Money.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Mouse.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\New file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Newspaper.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\No entry.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\No.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Notepad.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Notes.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Objects.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\OK.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Okay.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Open file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Options.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Paste.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Percent.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Picture file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Pie chart.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Portrait.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Pound sterling.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Preview.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Print preview.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Print.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Properties.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Question.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Red OK.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Red pin.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Redo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Refresh document.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Refresh.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Registration.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Remove.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Repair computer.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Report.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Rulers.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Save all.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Save as.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Save file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Screen settings.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Set square.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Silver flash drive.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Sorting 1-9.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Sorting 9-1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Sorting A-Z.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Sorting Z-A.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Sound file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Spell checking.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Stop.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Sum.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Table.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Tables.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Telephone.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Text file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Text.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Turn off.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Undo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Up folder.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Update password.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Upload.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Video file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Warning.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Wrench.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Yen.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Yes.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Zoom in.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\128\Zoom out.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\3d bar chart.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\About.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Add.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Altach.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Auto zoom.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Back.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Bad mark.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Bar graph.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Burn CD.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Burn data.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Burn dustbin.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Burn money.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Burn trash can.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Calendar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Cancel.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Card file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\CD-disk.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Certification.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Chart.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Clear.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Close.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Copy.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Cut.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Data.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Datasheet v2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Datasheet.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Delete.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Destruction of documents.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Disaster.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Dollar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Download.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\E-mail.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Earth.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Edit.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Empty dustbin.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Empty trash can.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Eraser.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Euro.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Eye.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Favorites.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Film.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Filter.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Find next.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Find previous.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Find.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Fire curl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Fire engine.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Fire v2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Fire.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Fireman.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Firewall.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Flame.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Flash drive.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Folder.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Forward.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Full dustbin.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Full trash can.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Good mark.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Help.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\History.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Home.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Hot folder.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Hot table.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Hourglass.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Info.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Internet access.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Keys.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Landscape.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Lightning.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\List.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Lock.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Magnifier.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Mail.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Measure.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Microsoft.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Money.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Mouse.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\New file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Newspaper.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\No entry.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\No.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Notepad.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Notes.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Objects.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\OK.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Okay.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Open file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Options.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Paste.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Percent.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Picture file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Pie chart.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Portrait.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Pound sterling.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Preview.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Print preview.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Print.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Properties.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Question.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Red OK.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Red pin.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Redo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Refresh document.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Refresh.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Registration.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Remove.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Repair computer.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Report.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Rulers.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Save all.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Save as.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Save file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Screen settings.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Set square.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Silver flash drive.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Sorting 1-9.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Sorting 9-1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Sorting A-Z.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Sorting Z-A.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Sound file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Spell checking.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Stop.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Sum.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Table.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Tables.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Telephone.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Text file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Text.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Turn off.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Undo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Up folder.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Update password.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Upload.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Video file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Warning.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Wrench.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Yen.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Yes.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Zoom in.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\16\Zoom out.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\3d bar chart.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\About.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Add.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Altach.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Auto zoom.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Back.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Bad mark.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Bar graph.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Burn CD.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Burn data.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Burn dustbin.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Burn money.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Burn trash can.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Calendar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Cancel.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Card file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\CD-disk.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Certification.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Chart.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Clear.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Close.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Copy.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Cut.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Data.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Datasheet v2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Datasheet.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Delete.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Destruction of documents.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Disaster.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Dollar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Download.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\E-mail.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Earth.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Edit.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Empty dustbin.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Empty trash can.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Eraser.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Euro.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Eye.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Favorites.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Film.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Filter.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Find next.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Find previous.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Find.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Fire curl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Fire engine.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Fire v2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Fire.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Fireman.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Firewall.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Flame.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Flash drive.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Folder.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Forward.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Full dustbin.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Full trash can.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Good mark.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Help.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\History.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Home.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Hot file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Hot folder.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Hot table.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Hourglass.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Info.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Internet access.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Keys.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Landscape.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Lightning.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\List.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Lock.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Magnifier.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Mail.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Measure.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Microsoft.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Money.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Mouse.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\New file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Newspaper.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\No entry.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\No.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Notepad.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Notes.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Objects.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\OK.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Okay.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Open file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Options.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Paste.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Percent.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Picture file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Pie chart.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Portrait.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Pound sterling.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Preview.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Print preview.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Print.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Properties.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Question.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Red OK.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Red pin.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Redo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Refresh document.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Refresh.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Registration.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Remove.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Repair computer.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Report.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Rulers.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Save all.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Save as.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Save file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Screen settings.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Set square.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Silver flash drive.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Sorting 1-9.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Sorting 9-1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Sorting A-Z.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Sorting Z-A.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Sound file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Spell checking.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Stop.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Sum.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Table.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Tables.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Telephone.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Text file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Text.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Turn off.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Undo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Up folder.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Update password.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Upload.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Video file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Warning.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Wrench.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Yen.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Yes.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Zoom in.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\24\Zoom out.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\3d bar chart.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\About.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Add.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Altach.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Auto zoom.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Back.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Bad mark.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Bar graph.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Burn CD.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Burn data.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Burn dustbin.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Burn money.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Burn trash can.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Calendar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Cancel.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Card file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\CD-disk.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Certification.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Chart.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Clear.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Close.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Copy.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Cut.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Data.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Datasheet v2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Datasheet.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Delete.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Destruction of documents.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Disaster.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Dollar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Download.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\E-mail.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Earth.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Edit.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Empty dustbin.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Empty trash can.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Eraser.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Euro.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Eye.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Favorites.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Film.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Filter.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Find next.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Find previous.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Find.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Fire curl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Fire engine.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Fire v2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Fire.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Fireman.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Firewall.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Flame.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Flash drive.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Folder.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Forward.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Full dustbin.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Full trash can.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Good mark.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Help.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\History.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Home.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Hot file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Hot folder.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Hot table.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Hourglass.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Info.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Internet access.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Keys.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Landscape.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Lightning.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\List.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Lock.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Magnifier.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Mail.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Measure.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Microsoft.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Money.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Mouse.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\New file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Newspaper.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\No entry.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\No.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Notepad.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Notes.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Objects.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\OK.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Okay.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Open file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Options.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Paste.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Percent.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Picture file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Pie chart.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Portrait.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Pound sterling.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Preview.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Print preview.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Print.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Properties.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Question.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Red OK.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Red pin.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Redo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Refresh document.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Refresh.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Registration.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Remove.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Repair computer.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Report.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Rulers.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Save all.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Save as.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Save file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Screen settings.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Set square.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Silver flash drive.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Sorting 1-9.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Sorting 9-1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Sorting A-Z.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Sorting Z-A.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Sound file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Spell checking.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Stop.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Sum.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Table.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Tables.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Telephone.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Text file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Text.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Turn off.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Undo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Up folder.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Update password.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Upload.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Video file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Warning.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Wrench.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Yen.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Yes.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Zoom in.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\256\Zoom out.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\3d bar chart.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\About.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Add.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Altach.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Auto zoom.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Back.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Bad mark.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Bar graph.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Burn CD.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Burn data.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Burn dustbin.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Burn money.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Burn trash can.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Calendar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Cancel.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Card file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\CD-disk.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Certification.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Chart.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Clear.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Close.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Copy.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Cut.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Data.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Datasheet v2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Datasheet.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Delete.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Destruction of documents.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Disaster.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Dollar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Download.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\E-mail.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Earth.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Edit.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Empty dustbin.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Empty trash can.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Eraser.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Euro.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Eye.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Favorites.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Film.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Filter.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Find next.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Find previous.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Find.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Fire curl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Fire engine.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Fire v2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Fire.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Fireman.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Firewall.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Flame.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Flash drive.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Folder.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Forward.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Full dustbin.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Full trash can.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Good mark.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Help.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\History.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Home.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Hot file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Hot folder.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Hot table.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Hourglass.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Info.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Internet access.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Keys.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Landscape.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Lightning.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\List.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Lock.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Magnifier.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Mail.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Measure.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Microsoft.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Money.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Mouse.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\New file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Newspaper.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\No entry.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\No.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Notepad.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Notes.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Objects.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\OK.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Okay.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Open file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Options.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Paste.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Percent.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Picture file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Pie chart.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Portrait.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Pound sterling.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Preview.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Print preview.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Print.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Properties.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Question.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Red OK.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Red pin.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Redo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Refresh document.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Refresh.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Registration.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Remove.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Repair computer.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Report.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Rulers.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Save all.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Save as.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Save file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Screen settings.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Set square.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Silver flash drive.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Sorting 1-9.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Sorting 9-1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Sorting A-Z.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Sorting Z-A.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Sound file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Spell checking.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Stop.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Sum.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Table.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Tables.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Telephone.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Text file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Text.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Turn off.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Undo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Up folder.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Update password.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Upload.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Video file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Warning.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Wrench.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Yen.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Yes.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Zoom in.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\32\Zoom out.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\3d bar chart.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\About.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Add.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Altach.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Auto zoom.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Back.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Bad mark.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Bar graph.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Burn CD.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Burn data.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Burn dustbin.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Burn money.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Burn trash can.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Calendar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Cancel.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Card file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\CD-disk.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Certification.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Chart.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Clear.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Close.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Copy.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Cut.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Data.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Datasheet v2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Datasheet.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Delete.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Destruction of documents.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Disaster.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Dollar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Download.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\E-mail.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Earth.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Edit.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Empty dustbin.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Empty trash can.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Eraser.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Euro.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Eye.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Favorites.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Film.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Filter.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Find next.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Find previous.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Find.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Fire curl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Fire engine.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Fire v2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Fire.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Fireman.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Firewall.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Flame.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Flash drive.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Folder.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Forward.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Full dustbin.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Full trash can.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Good mark.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Help.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\History.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Home.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Hot file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Hot folder.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Hot table.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Hourglass.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Info.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Internet access.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Keys.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Landscape.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Lightning.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\List.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Lock.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Magnifier.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Mail.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Measure.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Microsoft.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Money.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Mouse.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\New file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Newspaper.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\No entry.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\No.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Notepad.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Notes.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Objects.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\OK.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Okay.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Open file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Options.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Paste.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Percent.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Picture file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Pie chart.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Portrait.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Pound sterling.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Preview.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Print preview.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Print.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Properties.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Question.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Red OK.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Red pin.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Redo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Refresh document.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Refresh.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Registration.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Remove.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Repair computer.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Report.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Rulers.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Save all.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Save as.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Save file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Screen settings.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Set square.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Silver flash drive.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Sorting 1-9.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Sorting 9-1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Sorting A-Z.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Sorting Z-A.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Sound file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Spell checking.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Stop.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Sum.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Table.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Tables.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Telephone.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Text file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Text.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Turn off.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Undo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Up folder.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Update password.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Upload.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Video file.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Warning.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Wrench.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Yen.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Yes.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Zoom in.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\stock\48\Zoom out.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\strip.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\summary.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\target.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\tbl_blank.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\tbl_spacer.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\tbl_vjoin.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\tbl_vjoin_end.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\tbl_vline.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\test.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\topgreenfade.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\transaction.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\transactionresponse.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\valueset.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\warning.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\watermark.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\xdsentry.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\xdsfolder.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\images\xdspolicy.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\js\bootstrap.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\js\bootstrap.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\js\fhir.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\js\html5shiv.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\js\jquery.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\js\respond.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\js\xml.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
