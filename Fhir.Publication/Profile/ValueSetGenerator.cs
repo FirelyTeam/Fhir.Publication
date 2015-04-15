@@ -84,7 +84,6 @@ namespace Hl7.Fhir.Publication.Profile
 
             if (vs.Compose != null)
             {
-                throw new NotImplementedException();
                 hasExtensions = generateComposition(result, vs) || hasExtensions;
             }
 
