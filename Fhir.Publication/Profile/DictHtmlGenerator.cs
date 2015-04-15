@@ -96,6 +96,7 @@ namespace Hl7.Fhir.Publication.Profile
                 "<head><title>StructureDefinition: " + name + "</title>" +
                 "<meta content='width=device-width, initial-scale=1.0' name='viewport'/>" +
                 "<meta content='http://hl7.org/fhir' name='author'/>" +
+                "<meta charset='utf-8' />" +
                 "<link rel='stylesheet' href='../dist/css/fhir.css'/>" +
                 "<link rel='Prev' href='http://hl7.org/implement/standards/fhir/lipid-report-lipidprofile'/>" +
                 "<link rel='stylesheet' href='../dist/css/bootstrap.css'/>" +
@@ -193,12 +194,11 @@ namespace Hl7.Fhir.Publication.Profile
             tableRowHint("Alternate Names", "Other names by which this resource/element may be known", null, String.Join(", ", d.Alias));           
             tableRowNE("Comments", null, processMarkdown(d.Comments));
             tableRow("Max Length", null, d.MaxLength == null ? null : d.MaxLength.ToString());
-            tableRowNE("Default Value", null, d.DefaultValue.EncodeValue());
-
+            tableRowNE("Default Value", null, d.DefaultValue.EncodeValue(format:true));
             tableRowNE("Meaning if Missing", null, d.MeaningWhenMissing);
-            tableRowNE("Fixed Value", null, d.Fixed != null ? d.Fixed.EncodeValue() : null);
-            tableRowNE("Pattern Value", null, d.Pattern != null ? d.Fixed.EncodeValue() : null);
-            tableRow("Example", null, d.Example != null ? d.Example.EncodeValue() : null);
+            tableRowNE("Fixed Value", null, d.Fixed != null ? d.Fixed.EncodeValue(format: true).Replace("\r", "<br/>").Replace(" ","&#160;") : null);
+            tableRowNE("Pattern Value", null, d.Pattern != null ? d.Fixed.EncodeValue(format: true) : null);
+            tableRow("Example", null, d.Example != null ? d.Example.EncodeValue(format: true) : null);
             tableRowNE("Invariants", null, describeInvariants(d.Constraint));
             tableRow("LOINC Code", null, getMapping(profile, d, LOINC_MAPPING));
             tableRow("SNOMED-CT Code", null, getMapping(profile, d, SNOMED_MAPPING));

@@ -129,17 +129,17 @@ namespace Hl7.Fhir.Publication.Profile
                 return "";
         }
 
-        public static string EncodeValue(this Element element)
+        public static string EncodeValue(this Element element, bool format=false)
         {
             if (element == null)
                 return null;
             if (element is Primitive)
                 return PrimitiveTypeConverter.ConvertTo<string>(((Primitive)element).ObjectValue);
 
-            return buildJson(element);
+            return buildJson(element, format);
         }
 
-        private static String buildJson(Element value)
+        private static String buildJson(Element value, bool format)
         {
             if (value is Primitive)
                 return Hl7.Fhir.Serialization.PrimitiveTypeConverter.GetValueAsString((Primitive)value);
@@ -151,7 +151,7 @@ namespace Hl7.Fhir.Publication.Profile
             var jsonObject = JObject.Parse(json);
             jsonObject.Remove("resourceType");
 
-            return jsonObject.ToString(formatting: Newtonsoft.Json.Formatting.None);
+            return jsonObject.ToString(formatting:  format ? Newtonsoft.Json.Formatting.Indented : Newtonsoft.Json.Formatting.None);
         }
 
 
