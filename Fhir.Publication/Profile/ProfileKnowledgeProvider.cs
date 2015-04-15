@@ -88,10 +88,10 @@ namespace Hl7.Fhir.Publication.Profile
                 return null;
         }
 
-        public StructureDefinition GetConstraintDefinition(string url)
+        public StructureDefinition GetStructureDefinition(string url)
         {
             var cr = _source.ReadConformanceResource(url) as StructureDefinition;
-            if (cr != null && cr.Type == StructureDefinition.StructureDefinitionType.Constraint)
+            if (cr != null)
             {
                 if (cr.Snapshot == null)
                     throw new NotImplementedException("No snapshot representation for StructureDefinition (constraint) at url " + url);

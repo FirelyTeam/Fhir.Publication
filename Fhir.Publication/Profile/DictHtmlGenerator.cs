@@ -78,7 +78,7 @@ namespace Hl7.Fhir.Publication.Profile
                 }
                 else {
 	                String name = profile.Id+"."+ makePathLink(ec);
-	                String title = ec.Path + (ec.Name != null ? "" : "(" +ec.Name +")");
+	                String title = ec.Path + (ec.Name == null ? "" : "(" +ec.Name +")");
 	                write(" <tr><td colspan=\"2\" class=\"structure\"><a name=\""+name+"\"> </a><b>"+title+"</b></td></tr>\r\n");
 	                generateElementInner(profile, ec, 1, null);
 	                if (ec.Slicing != null)
@@ -253,7 +253,7 @@ namespace Hl7.Fhir.Publication.Profile
                 {
                     delimiterChars = new string[] { "\\." };
                     string[] paths = parts[0].Split(delimiterChars, StringSplitOptions.RemoveEmptyEntries);
-                    StructureDefinition p = _pkp.GetConstraintDefinition(paths[0]);
+                    StructureDefinition p = _pkp.GetStructureDefinition(paths[0]);
                     if (p != null)
                         url = _pkp.GetLinkForCoreTypeDocu(linkText);
                 }
@@ -330,9 +330,17 @@ namespace Hl7.Fhir.Publication.Profile
                 }
                 if (t.Profile != null)
                 {
-                    b.Append(String.Format("<a href=\"{0}\">", _pkp.GetLinkForProfileReference(t.Profile)));
-                    b.Append("(Profile = " + t.Profile + ")");
-                    b.Append("</a>");
+                    StructureDefinition p = _pkp.GetStructureDefinition(t.Profile);
+                    if (p == null)
+                    {
+                        b.Append(" (" + t.Profile + ")");
+                    }
+                    else
+                    {
+                        b.Append(String.Format("<a href=\"{0}\">", _pkp.GetLinkForProfileReference(t.Profile)));
+                        b.Append(" (" + p.Name + ")");
+                        b.Append("</a>");
+                    }                  
                 }
             }
 
