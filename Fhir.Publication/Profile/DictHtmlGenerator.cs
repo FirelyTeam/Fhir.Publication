@@ -78,7 +78,7 @@ namespace Hl7.Fhir.Publication.Profile
                 }
                 else {
 	                String name = profile.Id+"."+ makePathLink(ec);
-	                String title = ec.Path + (ec.Name != null ? "" : "(" +ec.Name +")");
+	                String title = ec.Path + (ec.Name == null ? "" : "(" +ec.Name +")");
 	                write(" <tr><td colspan=\"2\" class=\"structure\"><a name=\""+name+"\"> </a><b>"+title+"</b></td></tr>\r\n");
 	                generateElementInner(profile, ec, 1, null);
 	                if (ec.Slicing != null)
@@ -86,34 +86,31 @@ namespace Hl7.Fhir.Publication.Profile
 	            }                
             }
             write("</table>\r\n");
-            return XElement.Parse(xhtml.ToString());
-             
-            //write("<div xmlns=\"" + Hl7.Fhir.Support.XmlNs.XHTML + "\">");
+            var model = XElement.Parse(xhtml.ToString());
+            return wrap(model, profile.Name);            
+        }
 
-            //if (profile.ExtensionDefn != null && profile.ExtensionDefn.Any())
-            //{
-            //    write("<p><a name=\"i0\"><b>Extensions</b></a></p>\r\n");
-            //    write("<table class=\"dict\">\r\n");
+        private XElement wrap(XElement table, string name)
+        {
+            string head =
+                "<head><title>StructureDefinition: " + name + "</title>" +
+                "<meta content='width=device-width, initial-scale=1.0' name='viewport'/>" +
+                "<meta content='http://hl7.org/fhir' name='author'/>" +
+                "<meta charset='utf-8' />" +
+                "<link rel='stylesheet' href='../dist/css/fhir.css'/>" +
+                "<link rel='Prev' href='http://hl7.org/implement/standards/fhir/lipid-report-lipidprofile'/>" +
+                "<link rel='stylesheet' href='../dist/css/bootstrap.css'/>" +
+                "<link rel='stylesheet' href='../dist/css/bootstrap-fhir.css'/>" +
+                "<link rel='stylesheet' href='../dist/css/project.css'/>" +
+                "</head>";
 
-            //    foreach (var e in profile.ExtensionDefn)
-            //    {
-            //        generateExtension(profile, e);
-            //    }
+            string page = "<html>" + head + "<body /></html>";
 
-            //    write("</table>\r\n");
-            //}
+            XElement result = XElement.Parse(page);
+            var body = result.Element("body");
+            body.Add(table);
 
-            ////if(profile.Structure != null && profile.Structure.Any())
-            //int i = 1;
-
-            //foreach (var s in profile.Structure)
-            //{
-            //    generateStructure(profile, i, s);
-            //    i++;
-            //}
-
-            //write("</div>");
-            //return XElement.Parse(xhtml.ToString());
+            return result;
         }
 
         private ElementDefinition getExtensionValueDefinition(StructureDefinition extDefn) {
@@ -125,29 +122,30 @@ namespace Hl7.Fhir.Publication.Profile
         }
 
         
-             private void generateSlicing(StructureDefinition profile, ElementDefinition.ElementDefinitionSlicingComponent slicing)
-             {
-                StringBuilder b = new StringBuilder();
-                if (slicing.Ordered == true)
-                  b.Append("<li>ordered</li>");
-                else
-                  b.Append("<li>unordered</li>");
-                if (slicing.Rules != null)
-                  b.Append("<li>"+slicing.Rules.Value+"</li>");
-                if (slicing.Discriminator != null) {
-                  b.Append("<li>discriminators: ");
-                  bool first = true;
-                  foreach (var s in slicing.Discriminator) {
+        private void generateSlicing(StructureDefinition profile, ElementDefinition.ElementDefinitionSlicingComponent slicing)
+        {
+            StringBuilder b = new StringBuilder();
+            if (slicing.Ordered == true)
+                b.Append("<li>ordered</li>");
+            else
+                b.Append("<li>unordered</li>");
+            if (slicing.Rules != null)
+                b.Append("<li>"+slicing.Rules.Value+"</li>");
+            if (slicing.Discriminator != null) {
+                b.Append("<li>discriminators: ");
+                bool first = true;
+                foreach (var s in slicing.Discriminator) 
+                {
                     if (first)
-                      first = false;
+                        first = false;
                     else
-                      b.Append(", ");
+                        b.Append(", ");
                     b.Append(s);
-                  }
-                  b.Append("</li>");
                 }
-                tableRowNE("Slicing", "profiling.html#slicing", "This element introduces a set of slices. The slicing rules are: <ul> "+b.ToString()+"</ul>");
-             }
+                b.Append("</li>");
+            }
+            tableRowNE("Slicing", "profiling.html#slicing", "This element introduces a set of slices. The slicing rules are: <ul> "+b.ToString()+"</ul>");
+        }
 
 
         private void write(string s)
@@ -196,12 +194,11 @@ namespace Hl7.Fhir.Publication.Profile
             tableRowHint("Alternate Names", "Other names by which this resource/element may be known", null, String.Join(", ", d.Alias));           
             tableRowNE("Comments", null, processMarkdown(d.Comments));
             tableRow("Max Length", null, d.MaxLength == null ? null : d.MaxLength.ToString());
-            tableRowNE("Default Value", null, d.DefaultValue.EncodeValue());
-
+            tableRowNE("Default Value", null, d.DefaultValue.EncodeValue(format:true));
             tableRowNE("Meaning if Missing", null, d.MeaningWhenMissing);
-            tableRowNE("Fixed Value", null, d.Fixed != null ? d.Fixed.EncodeValue() : null);
-            tableRowNE("Pattern Value", null, d.Pattern != null ? d.Fixed.EncodeValue() : null);
-            tableRow("Example", null, d.Example != null ? d.Example.EncodeValue() : null);
+            tableRowNE("Fixed Value", null, d.Fixed != null ? d.Fixed.EncodeValue(format: true).Replace("\r", "<br/>").Replace(" ","&#160;") : null);
+            tableRowNE("Pattern Value", null, d.Pattern != null ? d.Fixed.EncodeValue(format: true) : null);
+            tableRow("Example", null, d.Example != null ? d.Example.EncodeValue(format: true) : null);
             tableRowNE("Invariants", null, describeInvariants(d.Constraint));
             tableRow("LOINC Code", null, getMapping(profile, d, LOINC_MAPPING));
             tableRow("SNOMED-CT Code", null, getMapping(profile, d, SNOMED_MAPPING));
@@ -256,7 +253,7 @@ namespace Hl7.Fhir.Publication.Profile
                 {
                     delimiterChars = new string[] { "\\." };
                     string[] paths = parts[0].Split(delimiterChars, StringSplitOptions.RemoveEmptyEntries);
-                    StructureDefinition p = _pkp.GetConstraintDefinition(paths[0]);
+                    StructureDefinition p = _pkp.GetStructureDefinition(paths[0]);
                     if (p != null)
                         url = _pkp.GetLinkForCoreTypeDocu(linkText);
                 }
@@ -333,9 +330,17 @@ namespace Hl7.Fhir.Publication.Profile
                 }
                 if (t.Profile != null)
                 {
-                    b.Append(String.Format("<a href=\"{0}\">", _pkp.GetLinkForProfileReference(t.Profile)));
-                    b.Append("(Profile = " + t.Profile + ")");
-                    b.Append("</a>");
+                    StructureDefinition p = _pkp.GetStructureDefinition(t.Profile);
+                    if (p == null)
+                    {
+                        b.Append(" (" + t.Profile + ")");
+                    }
+                    else
+                    {
+                        b.Append(String.Format("<a href=\"{0}\">", _pkp.GetLinkForProfileReference(t.Profile)));
+                        b.Append(" (" + p.Name + ")");
+                        b.Append("</a>");
+                    }                  
                 }
             }
 
