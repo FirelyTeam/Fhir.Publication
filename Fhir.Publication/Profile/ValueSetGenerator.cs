@@ -488,163 +488,183 @@ namespace Hl7.Fhir.Publication.Profile
             var li = ul.AddTag("li");
             ValueSet e = _pkp.GetValueSet(inc.System);
 
-            //if (inc.Concept.IsNullOrEmpty() && inc.Filter.IsNullOrEmpty())
-            //{
-            //    li.AddText(type + " all codes defined in ");
-            //    addCsRef(inc, li, e);
-            //}
-            //else
-            //{
-            //    if (inc.CodeElement != null && inc.CodeElement.Any())
-            //    {
-            //        li.Add(new XText(type + " these codes as defined in "));
-            //        addCsRef(inc, li, e);
+            if (inc.Concept.IsNullOrEmpty() && inc.Filter.IsNullOrEmpty())
+            {
+                li.AddText(type + " all codes defined in ");
+                addCsRef(inc, li, e);
+            }
+            else
+            {
+                if (!inc.Concept.IsNullOrEmpty())
+                {
+                    li.AddText(type + " these codes as defined in ");
+                    addCsRef(inc, li, e);
 
-            //        var t = new XElement(XmlNs.XHTMLNS + "table"); li.Add(t);
-            //        bool hasComments = false;
+                    var t = li.AddTag("table");
+                    bool hasComments = false;
+                    bool hasDefinition = false;
 
-            //        foreach (var c in inc.CodeElement)
-            //        {
-            //            hasComments = hasComments || c.GetExtension(ToolingExtensions.EXT_COMMENT) != null;
-            //        }
+                    foreach (var c in inc.Concept)
+                    {
+                        hasComments = hasComments || c.GetExtension(ToolingExtensions.EXT_COMMENT) != null;
+                        hasDefinition = hasDefinition || c.GetExtension(ToolingExtensions.EXT_DEFINITION) != null;
+                    }
 
-            //        if (hasComments)
-            //            hasExtensions = true;
+                    if (hasComments || hasDefinition)
+                        hasExtensions = true;
 
-            //        addTableHeaderRowStandard(t, hasComments, false);
+                    addTableHeaderRowStandard(t, false, true, hasDefinition, hasComments, false);
 
-            //        foreach (var c in inc.CodeElement)
-            //        {
-            //            var tr = new XElement(XmlNs.XHTMLNS + "tr"); t.Add(tr);
-            //            tr.Add(new XElement(XmlNs.XHTMLNS + "td", new XText(c.Value)));
+                    foreach (var c in inc.Concept)
+                    {
+                        var tr = t.AddTag("tr");
+                        tr.AddTag("td").AddText(c.Code);
+                        var cc = getConceptForCode(e, c.Code, inc.System);
 
-            //            ValueSet.ValueSetDefineConceptComponent cc = getConceptForCode(e, c.Value, inc.System);
+                        var td = tr.AddTag("td");
+                        if (!String.IsNullOrEmpty(c.Display))
+                            td.AddText(c.Display);
+                        else if (cc != null && !String.IsNullOrEmpty(cc.Display))
+                            td.AddText(cc.Display);
 
-            //            XElement td = new XElement(XmlNs.XHTMLNS + "td"); tr.Add(td);
-            //            if (cc != null && !String.IsNullOrEmpty(cc.Display))
-            //                td.Add(new XText(cc.Display));
+                        td = tr.AddTag("td");
+                        if (c.GetExtension(ToolingExtensions.EXT_DEFINITION) != null)
+                            smartAddText(td, c.GetStringExtension(ToolingExtensions.EXT_DEFINITION));
+                        else if (cc != null && !String.IsNullOrEmpty(cc.Definition))
+                            smartAddText(td, cc.Definition);
 
-            //            //if (!Utilities.noString(c.getDisplay()))  DSTU2
-            //            //    td.addText(c.getDisplay());
-            //            //else if (cc != null && !Utilities.noString(cc.getDisplay()))
-            //            //    td.addText(cc.getDisplay());
+                        if (c.GetExtension(ToolingExtensions.EXT_COMMENT) != null)
+                            smartAddText(tr.AddTag("td"), "Note: " + c.GetStringExtension(ToolingExtensions.EXT_COMMENT));
+                    }
+                }
 
-            //            td = new XElement(XmlNs.XHTMLNS + "td"); tr.Add(td);
+                foreach (var f in inc.Filter)
+                {
+                    li.AddText(type + " codes from ");
+                    addCsRef(inc, li, e);
+                    li.AddText(" where " + f.Property + " " + describe(f.Op) + " ");
 
-            //            if (c.GetExtension(ToolingExtensions.EXT_DEFINITION) != null)
-            //                smartAddText(td, ToolingExtensions.ReadStringExtension(c, ToolingExtensions.EXT_DEFINITION));
-            //            else if (cc != null && !String.IsNullOrEmpty(cc.Definition))
-            //                smartAddText(td, cc.Definition);
-            //            else
-            //                ; // No else in the java code!!
+                    if (e != null && codeExistsInValueSet(e, f.Value))
+                    {
+                        var a = li.AddTag("a");
+                        a.AddText(f.Value);
+                        a.SetAttribute("href", _pkp.GetLinkForValueSet(e.Url) + "#" + ProfileKnowledgeProvider.TokenizeName(f.Value));
+                    }
+                    else
+                        li.AddText(f.Value);
 
-            //            if (c.GetExtension(ToolingExtensions.EXT_COMMENT) != null)
-            //            {
-            //                var tdn = new XElement(XmlNs.XHTMLNS + "td"); tr.Add(td);
-            //                smartAddText(tdn, "Note: " + ToolingExtensions.ReadStringExtension(c, ToolingExtensions.EXT_COMMENT));
-            //            }
-            //        }
-            //    }
+                    String disp = f.GetStringExtension(ToolingExtensions.EXT_DISPLAY_HINT);
 
-            //    if (inc.Filter != null)
-            //    {
-            //        foreach (var f in inc.Filter)
-            //        {
-            //            li.Add(new XText(type + " codes from "));
-            //            addCsRef(inc, li, e);
-
-            //            // TODO: Java code does not allow for f.Op to be null, but it is optional
-            //            li.Add(new XText(" where " + f.Property + " " + describe(f.Op.GetValueOrDefault()) + " "));
-            //            if (e != null && codeExistsInValueSet(e, f.Value))
-            //            {
-            //                li.Add(new XElement(XmlNs.XHTMLNS + "a",
-            //                    new XText(f.Value), new XAttribute("href", prefix + getCsRef(inc.System) + "#" + ProfileKnowledgeProvider.TokenizeName(f.Value))));
-            //            }
-            //            else
-            //                li.Add(new XText(f.Value));
-
-            //            String disp = f.getDisplayHint();
-            //            if (disp != null)
-            //                li.Add(new XText(" (" + disp + ")"));
-            //        }
-            //    }
-            //}
+                    if (disp != null)
+                        li.AddText(" (" + disp + ")");
+                }
+            }
 
             return hasExtensions;
         }
 
-        //private void addCsRef(ValueSet.ConceptSetComponent inc, XElement li, ValueSet cs)
-        //{
-        //     String reference = null;
 
-        //    if (cs != null) 
-        //    {
-        //        reference = inc.System;
-        //    }       
+        private bool codeExistsInValueSet(ValueSet vs, String code) 
+        {
+            foreach (var c in vs.Define.Concept)
+            {
+              if (inConcept(code, c))
+                return true;
+            }
+            return false;
+        }
 
-        //    if (cs != null && reference != null) 
-        //    {
-        //     if (!String.IsNullOrEmpty(prefix) && reference.StartsWith("http://hl7.org/fhir/"))
-        //         reference = reference.Substring(20)+"/index.html";
+        private bool inConcept(String code, ValueSet.ConceptDefinitionComponent c)
+        {
+            if (c.CodeElement != null && c.Code == code)
+                return true;
 
-        //        XElement a =new XElement(XmlNs.XHTMLNS+"a"); li.Add(a);
-        //         a.Add(new XAttribute("href", prefix+reference.Replace("\\", "/")));
-
-        //        a.Add(new XText(inc.System));
-        //    }
-        //    else 
-        //     li.Add(new XText(inc.System));
-        //}
-
-
-        //private string getCsRef(string p)
-        //{
-        //    //TODO: do something smart here
-        //    return p;
-        //}
+            foreach (var g in c.Concept)
+            {
+                if (inConcept(code, g))
+                    return true;
+            }
+            return false;
+        }
 
 
-        //private ValueSet.ValueSetDefineConceptComponent getConceptForCode(ValueSet vs, String code, String system)
-        //{
-        //    if (vs == null)
-        //    {
-        //        //TODO: include additional terminology services
-        //        //if (context.getTerminologyServices() != null)
-        //        //    return context.getTerminologyServices().getCodeDefinition(system, code);
-        //        //else
-        //        return null;
-        //    }
 
-        //    if (vs.Define == null)
-        //        return null;
+        private void addCsRef<T>(ValueSet.ConceptSetComponent inc, XElement li, T cs) where T: IConformanceResource
+        {
+            String reference = null;
+    
+            if (cs != null)
+            {
+                reference = cs.Url;     
+            }
 
-        //    foreach (var c in vs.Define.Concept)
-        //    {
-        //        var v = getConceptForCode(c, code);
-
-        //        if (v != null)
-        //            return v;
-        //    }
-
-        //    return null;
-        //}
+            if (cs != null && reference != null)
+            {
+                var a = li.AddTag("a");
+                a.SetAttribute("href", reference.Replace("\\", "/"));
+                a.AddText(inc.System);
+            }
+            else
+                li.AddText(inc.System);
+        }
 
 
-        //private ValueSet.ValueSetDefineConceptComponent getConceptForCode(ValueSet.ValueSetDefineConceptComponent c, String code)
-        //{
-        //    if (code == c.Code)
-        //        return c;
+        private ValueSet.ConceptDefinitionComponent getConceptForCode(ValueSet vs, String code, String system)
+        {
+            if (vs == null)
+            {
+                //TODO: include additional terminology services
+                //if (context.getTerminologyServices() != null)
+                //    return context.getTerminologyServices().getCodeDefinition(system, code);
+                //else
+                return null;
+            }
 
-        //    if (c.Concept == null) return null;
+            if (vs.Define == null)
+                return null;
 
-        //    foreach (var cc in c.Concept)
-        //    {
-        //        var v = getConceptForCode(cc, code);
-        //        if (v != null)
-        //            return v;
-        //    }
-        //    return null;
-        //}
+            foreach (var c in vs.Define.Concept)
+            {
+                var v = getConceptForCode(c, code);
+
+                if (v != null)
+                    return v;
+            }
+
+            return null;
+        }
+
+
+        private ValueSet.ConceptDefinitionComponent getConceptForCode(ValueSet.ConceptDefinitionComponent c, String code)
+        {
+            if (code == c.Code)
+                return c;
+
+            foreach (var cc in c.Concept)
+            {
+                var v = getConceptForCode(cc, code);
+                if (v != null)
+                    return v;
+            }
+            return null;
+        }
+
+
+        private String describe(ValueSet.FilterOperator? opSimple)
+        {
+            if (opSimple == null) return " ?? ";
+
+            switch (opSimple)
+            {
+                case ValueSet.FilterOperator.Equal: return " = ";
+                case ValueSet.FilterOperator.IsA: return " is-a ";
+                case ValueSet.FilterOperator.IsNotA: return " is-not-a ";
+                case ValueSet.FilterOperator.Regex: return " matches (by regex) ";
+                case ValueSet.FilterOperator.In: return " in ";
+                case ValueSet.FilterOperator.NotIn: return " not in ";
+            }
+            return null;
+        }
 
 
         //private bool codeExistsInValueSet(ValueSet vs, String code)

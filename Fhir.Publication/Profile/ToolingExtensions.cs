@@ -60,32 +60,14 @@ namespace Hl7.Fhir.Publication.Profile
         private const String EXT_REFERENCE = "http://www.healthintersections.com.au/fhir/Profile/metadata#reference";
         private const String EXT_ALLOWABLE_UNITS = "http://hl7.org/fhir/StructureDefinition/elementdefinition-allowedUnits";
 
-        public static bool? ReadBooleanExtension(Element c, String uri)
-        {
-            var ext = c.GetExtensionValue(uri);
-            if (ext == null) return null;
-
-            if (!(ext is FhirBoolean)) return null;
-            return ((FhirBoolean)ext).Value;
-        }
-
-        public static String ReadStringExtension(Element c, String uri)
-        {
-            var ext = c.GetExtensionValue(uri) as FhirString;
-            if (ext == null) return null;
-
-            return ext.Value;
-        }
-
-
         public static bool? GetDeprecated(this ValueSet.ConceptDefinitionComponent c)
         {
-            return ReadBooleanExtension(c, EXT_DEPRECATED);
+            return c.GetBoolExtension(EXT_DEPRECATED);
         }
 
         public static String GetComment(this ValueSet.ConceptDefinitionComponent c)
         {
-            return ReadStringExtension(c, EXT_COMMENT);
+            return c.GetStringExtension(EXT_COMMENT);
         }
 
         //public static String getDisplayHint(this Element def)
@@ -96,10 +78,7 @@ namespace Hl7.Fhir.Publication.Profile
 
         public static IEnumerable<Code> GetSubsumes(this ValueSet.ConceptDefinitionComponent c)
         {
-            if (c.Extension != null)
-                return c.Extension.Where(ext => ext.Url == EXT_SUBSUMES).Where(ext => ext.Value is Code).Select(ext => (Code)ext.Value);
-            else
-                return Enumerable.Empty<Code>();
+            return c.GetExtensions(EXT_SUBSUMES).Where(ext => ext.Value is Code).Select(ext => (Code)ext.Value);
         }
     }
 }

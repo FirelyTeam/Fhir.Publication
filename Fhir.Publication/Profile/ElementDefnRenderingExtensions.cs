@@ -153,13 +153,5 @@ namespace Hl7.Fhir.Publication.Profile
 
             return jsonObject.ToString(formatting: Newtonsoft.Json.Formatting.None);
         }
-
-
-        public static bool IsNullOrEmpty(this IList list)
-        {
-            if (list == null) return true;
-
-            return list.Count == 0;
-        }
     }
 }

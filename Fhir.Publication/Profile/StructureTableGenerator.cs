@@ -38,6 +38,7 @@ using Hl7.Fhir.Model;
 using Hl7.Fhir.Rest;
 using Hl7.Fhir.Specification.Navigation;
 using Newtonsoft.Json.Linq;
+using Hl7.Fhir.Support;
 
 namespace Hl7.Fhir.Publication.Profile
 {
