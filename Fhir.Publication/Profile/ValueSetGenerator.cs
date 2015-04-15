@@ -85,7 +85,7 @@ namespace Hl7.Fhir.Publication.Profile
             if (vs.Compose != null)
             {
                 throw new NotImplementedException();
-                //hasExtensions = generateComposition(result, vs) || hasExtensions;
+                hasExtensions = generateComposition(result, vs) || hasExtensions;
             }
 
             //inject(vs, result, hasExtensions ? Narrative.NarrativeStatus.Extensions :  Narrative.NarrativeStatus.Generated);
@@ -411,152 +411,167 @@ namespace Hl7.Fhir.Publication.Profile
         }
 
 
-        // private bool generateComposition(XElement x, ValueSet vs)
-        // {
-        //     bool hasExtensions = false;
+        private bool generateComposition(XElement x, ValueSet vs)
+        {
+            bool hasExtensions = false;
 
-        //     if (vs.Define == null)
-        //     {
-        //         var h = new XElement(XmlNs.XHTMLNS + "h2", new XText("Value Set for codes in " + vs.Name));
-        //         var p = new XElement(XmlNs.XHTMLNS + "p");
-        //         smartAddText(p, vs.Description);
-        //         x.Add(h, p);
+            if (vs.Define == null)
+            {
+                var h = x.AddTag("h2");
+                h.AddText(vs.Name);
+                var p = x.AddTag("p");
+                smartAddText(p, vs.Description);
+                if (vs.CopyrightElement != null)
+                    generateCopyright(x, vs);
+                p = x.AddTag("p");
+                p.AddText("This value set includes codes defined in other code systems, using the following rules:");
+            }
+            else
+            {
+                var p = x.AddTag("p");
+                p.AddText("In addition, this value set includes codes defined in other code systems, using the following rules:");
 
-        //         if (vs.Copyright != null)
-        //             generateCopyright(x, vs);
+            }
+            
+            var ul = x.AddTag("ul");
+            XElement li;
 
-        //         x.Add(new XElement(XmlNs.XHTMLNS + "p", "This value set includes codes defined in other code systems, using the following rules:"));
-        //     }
-        //     else
-        //     {
-        //         x.Add(new XElement(XmlNs.XHTMLNS + "p", "In addition, this value set includes codes defined in other code systems, using the following rules:"));
-        //     }
-
-        //     var ul = new XElement(XmlNs.XHTMLNS + "ul");
-        //     x.Add(ul);
-
-        //     XElement li;
-
-        //     if (vs.Compose.Import != null)
-        //     {
-        //         foreach (var imp in vs.Compose.Import)
-        //         {
-        //             li = new XElement(XmlNs.XHTMLNS + "li");
-        //             ul.Add(li);
-
-        //             li.Add(new XText("Import all the codes that are part of "));
-        //             AddVsRef(imp, li);
-        //         }
-        //     }
-
-        //     if (vs.Compose.Include != null)
-        //     {
-        //         foreach (var inc in vs.Compose.Include)
-        //             hasExtensions = genInclude(ul, inc, "Include") || hasExtensions;
-        //     }
-
-        //     if (vs.Compose.Exclude != null)
-        //     {
-        //         foreach (var exc in vs.Compose.Exclude)
-        //             hasExtensions = genInclude(ul, exc, "Exclude") || hasExtensions;
-        //     }
-
-        //     return hasExtensions;
-        // }
+            foreach (var imp in vs.Compose.Import)
+            {
+                li = ul.AddTag("li");
+                li.AddText("Import all the codes that are part of ");
+                AddVsRef(imp, li);
+            }
+    
+            foreach (var inc in vs.Compose.Include)
+            {
+                hasExtensions = genInclude(ul, inc, "Include") || hasExtensions;      
+            }
+    
+            foreach (var exc in vs.Compose.Exclude) 
+            {
+                hasExtensions = genInclude(ul, exc, "Exclude") || hasExtensions;      
+            }
+    
+            return hasExtensions;
+        }
 
 
-        //private bool genInclude(XElement ul, ValueSet.ConceptSetComponent inc, String type) 
-        //{
-        //     bool hasExtensions = false;
-        //     var li = new XElement(XmlNs.XHTMLNS + "li");  ul.Add(li);
 
-        //     var e = _pkp.GetValueSetForSystem(inc.System);
-        // //    AtomEntry<? extends Resource> e = context.getCodeSystems().get(inc.getSystem());
+        private void AddVsRef(String value, XElement li)
+        {
+            ValueSet vs = _pkp.GetValueSet(value);
 
-        //     if ( (inc.Code == null || !inc.Code.Any()) &&  (inc.Filter == null || !inc.Filter.Any()))
-        //     { 
-        //         li.Add(new XText(type+" all codes defined in "));
-        //         addCsRef(inc, li, e);
-        //     } 
-        //     else 
-        //     { 
-        //         if (inc.CodeElement != null && inc.CodeElement.Any())
-        //         {
-        //             li.Add(new XText(type+" these codes as defined in "));
-        //             addCsRef(inc, li, e);
+            //if (vs == null) 
+            //    vs = context.getCodeSystems().get(value); 
 
-        //             var t = new XElement(XmlNs.XHTMLNS+"table");  li.Add(t);
-        //             bool hasComments = false;
+            if (vs != null)
+            {
+                var a = li.AddTag("a");
+                a.SetAttribute("href", _pkp.GetLinkForValueSet(vs.Url));
+                a.AddText(value);
+            }
+            else if (value == "http://snomed.info/sct" || value == "http://snomed.info/id")
+            {
+                var a = li.AddTag("a");
+                a.SetAttribute("href", value);
+                a.AddText("SNOMED-CT");
+            }
+            else
+                li.AddText(value);
+        }
 
-        //             foreach (var c in inc.CodeElement) 
-        //             {
-        //                 hasComments = hasComments || c.GetExtension(ToolingExtensions.EXT_COMMENT) != null;
-        //             }
 
-        //             if (hasComments)
-        //                 hasExtensions = true;
+        private bool genInclude(XElement ul, ValueSet.ConceptSetComponent inc, String type)
+        {
+            bool hasExtensions = false;
+            var li = ul.AddTag("li");
+            ValueSet e = _pkp.GetValueSet(inc.System);
 
-        //             addTableHeaderRowStandard(t, hasComments, false);
+            //if (inc.Concept.IsNullOrEmpty() && inc.Filter.IsNullOrEmpty())
+            //{
+            //    li.AddText(type + " all codes defined in ");
+            //    addCsRef(inc, li, e);
+            //}
+            //else
+            //{
+            //    if (inc.CodeElement != null && inc.CodeElement.Any())
+            //    {
+            //        li.Add(new XText(type + " these codes as defined in "));
+            //        addCsRef(inc, li, e);
 
-        //             foreach(var c in inc.CodeElement) 
-        //             {
-        //                 var tr = new XElement(XmlNs.XHTMLNS + "tr"); t.Add(tr);
-        //                 tr.Add(new XElement(XmlNs.XHTMLNS+"td", new XText(c.Value)));
+            //        var t = new XElement(XmlNs.XHTMLNS + "table"); li.Add(t);
+            //        bool hasComments = false;
 
-        //                 ValueSet.ValueSetDefineConceptComponent cc = getConceptForCode(e, c.Value, inc.System);
+            //        foreach (var c in inc.CodeElement)
+            //        {
+            //            hasComments = hasComments || c.GetExtension(ToolingExtensions.EXT_COMMENT) != null;
+            //        }
 
-        //                 XElement td = new XElement(XmlNs.XHTMLNS+"td"); tr.Add(td);
-        //                 if (cc != null && !String.IsNullOrEmpty(cc.Display))
-        //                     td.Add(new XText(cc.Display));
+            //        if (hasComments)
+            //            hasExtensions = true;
 
-        //                 //if (!Utilities.noString(c.getDisplay()))  DSTU2
-        //                 //    td.addText(c.getDisplay());
-        //                 //else if (cc != null && !Utilities.noString(cc.getDisplay()))
-        //                 //    td.addText(cc.getDisplay());
+            //        addTableHeaderRowStandard(t, hasComments, false);
 
-        //                 td = new XElement(XmlNs.XHTMLNS+"td"); tr.Add(td);
+            //        foreach (var c in inc.CodeElement)
+            //        {
+            //            var tr = new XElement(XmlNs.XHTMLNS + "tr"); t.Add(tr);
+            //            tr.Add(new XElement(XmlNs.XHTMLNS + "td", new XText(c.Value)));
 
-        //                 if (c.GetExtension(ToolingExtensions.EXT_DEFINITION) != null)
-        //                     smartAddText(td, ToolingExtensions.ReadStringExtension(c, ToolingExtensions.EXT_DEFINITION));
-        //                 else if (cc != null && !String.IsNullOrEmpty(cc.Definition))
-        //                     smartAddText(td, cc.Definition);
-        //                 else
-        //                     ; // No else in the java code!!
+            //            ValueSet.ValueSetDefineConceptComponent cc = getConceptForCode(e, c.Value, inc.System);
 
-        //                 if (c.GetExtension(ToolingExtensions.EXT_COMMENT) != null) 
-        //                 {
-        //                     var tdn = new XElement(XmlNs.XHTMLNS+"td"); tr.Add(td);
-        //                     smartAddText(tdn, "Note: "+ ToolingExtensions.ReadStringExtension(c, ToolingExtensions.EXT_COMMENT));
-        //                 }
-        //             }
-        //         }
+            //            XElement td = new XElement(XmlNs.XHTMLNS + "td"); tr.Add(td);
+            //            if (cc != null && !String.IsNullOrEmpty(cc.Display))
+            //                td.Add(new XText(cc.Display));
 
-        //         if (inc.Filter != null)
-        //         {
-        //             foreach (var f in inc.Filter)
-        //             {
-        //                 li.Add(new XText(type + " codes from "));
-        //                 addCsRef(inc, li, e);
+            //            //if (!Utilities.noString(c.getDisplay()))  DSTU2
+            //            //    td.addText(c.getDisplay());
+            //            //else if (cc != null && !Utilities.noString(cc.getDisplay()))
+            //            //    td.addText(cc.getDisplay());
 
-        //                 // TODO: Java code does not allow for f.Op to be null, but it is optional
-        //                 li.Add(new XText(" where " + f.Property + " " + describe(f.Op.GetValueOrDefault()) + " "));
-        //                 if (e != null && codeExistsInValueSet(e, f.Value))
-        //                 {
-        //                     li.Add(new XElement(XmlNs.XHTMLNS + "a",
-        //                         new XText(f.Value), new XAttribute("href", prefix + getCsRef(inc.System) + "#" + ProfileKnowledgeProvider.TokenizeName(f.Value))));
-        //                 }
-        //                 else
-        //                     li.Add(new XText(f.Value));
+            //            td = new XElement(XmlNs.XHTMLNS + "td"); tr.Add(td);
 
-        //                 String disp = f.getDisplayHint();
-        //                 if (disp != null)
-        //                     li.Add(new XText(" (" + disp + ")"));
-        //             }
-        //         }
-        //     }
+            //            if (c.GetExtension(ToolingExtensions.EXT_DEFINITION) != null)
+            //                smartAddText(td, ToolingExtensions.ReadStringExtension(c, ToolingExtensions.EXT_DEFINITION));
+            //            else if (cc != null && !String.IsNullOrEmpty(cc.Definition))
+            //                smartAddText(td, cc.Definition);
+            //            else
+            //                ; // No else in the java code!!
 
-        //    return hasExtensions;
-        //}
+            //            if (c.GetExtension(ToolingExtensions.EXT_COMMENT) != null)
+            //            {
+            //                var tdn = new XElement(XmlNs.XHTMLNS + "td"); tr.Add(td);
+            //                smartAddText(tdn, "Note: " + ToolingExtensions.ReadStringExtension(c, ToolingExtensions.EXT_COMMENT));
+            //            }
+            //        }
+            //    }
+
+            //    if (inc.Filter != null)
+            //    {
+            //        foreach (var f in inc.Filter)
+            //        {
+            //            li.Add(new XText(type + " codes from "));
+            //            addCsRef(inc, li, e);
+
+            //            // TODO: Java code does not allow for f.Op to be null, but it is optional
+            //            li.Add(new XText(" where " + f.Property + " " + describe(f.Op.GetValueOrDefault()) + " "));
+            //            if (e != null && codeExistsInValueSet(e, f.Value))
+            //            {
+            //                li.Add(new XElement(XmlNs.XHTMLNS + "a",
+            //                    new XText(f.Value), new XAttribute("href", prefix + getCsRef(inc.System) + "#" + ProfileKnowledgeProvider.TokenizeName(f.Value))));
+            //            }
+            //            else
+            //                li.Add(new XText(f.Value));
+
+            //            String disp = f.getDisplayHint();
+            //            if (disp != null)
+            //                li.Add(new XText(" (" + disp + ")"));
+            //        }
+            //    }
+            //}
+
+            return hasExtensions;
+        }
 
         //private void addCsRef(ValueSet.ConceptSetComponent inc, XElement li, ValueSet cs)
         //{

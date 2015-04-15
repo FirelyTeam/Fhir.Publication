@@ -13,7 +13,13 @@ namespace Fhir.Profiling.Tests
 {
     [TestClass]
     public class PublishProfile
-    {     
+    {
+        [TestInitialize]
+        public void Setup()
+        {
+
+        }
+ 
         [TestMethod]
         public void PublishLipidProfile()
         {
@@ -23,7 +29,8 @@ namespace Fhir.Profiling.Tests
 
             var tableGenerator = new StructureTableGenerator(pkp);
 
-            var lipid = source.ReadConformanceResource("http://hl7.org/fhir/StructureDefinition/lipid-report-lipidprofile") as StructureDefinition;
+       //     var lipid = source.ReadConformanceResource("http://hl7.org/fhir/StructureDefinition/lipid-report-lipidprofile") as StructureDefinition;
+            var lipid = source.ReadConformanceResource("http://hl7.org/fhir/StructureDefinition/lipid-report-ldl-chol-calculated") as StructureDefinition;
             Assert.IsNotNull(lipid);
             var doc = tableGenerator.generateStructureTable(lipid, false, true);
 
